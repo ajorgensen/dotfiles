@@ -67,7 +67,7 @@ alias gcm="git commit -m"
 alias gs="git status"
 alias gaa="git add --all"
 alias gap="git add --patch"
-alias gp="git push"
+alias gp="git put"
 alias get="sudo apt-get install"
 
 function mcd() { mkdir -p $1 && cd $1 }
