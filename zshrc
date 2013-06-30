@@ -64,6 +64,8 @@ alias rc="bundle exec rails console"
 alias ss="spin serve"
 alias be="bundle exec"
 alias gcm="git commit -m"
+alias gs="git status"
+alias gaa="git add --all"
 alias get="sudo apt-get install"
 
 function mcd() { mkdir -p $1 && cd $1 }
