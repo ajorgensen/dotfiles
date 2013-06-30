@@ -57,17 +57,15 @@ export ACK_COLOR_MATCH='red'
 # ACTUAL CUSTOMIZATION OH NOES!
 gd() { git diff $* | view -; }
 gdc() { gd --cached $*; }
-alias pygrep="grep --include='*.py' $*"
 alias rbgrep="grep --include='*.rb' $*"
 alias r=rails
 alias rs="bundle exec rails server"
 alias rc="bundle exec rails console"
 alias ss="spin serve"
-alias t="script/test $*"
-alias f="script/features $*"
-alias g="bundle exec guard $*"
-alias gxa="gitx --all"
-alias jCode="nohup java -jar ~/Applications/jCodeCollector/jcodecollector.jar -Dawt.useSystemAAFontSettings=o > /dev/null 2>&1 &"
+alias be="bundle exec"
+alias gcm="git commit -m"
+alias get="sudo apt-get install"
+
 function mcd() { mkdir -p $1 && cd $1 }
 function cdf() { cd *$1*/ } # stolen from @topfunky
 
@@ -110,5 +108,5 @@ fi
 
 function chpwd() {
     emulate -L zsh
-    ls -lrthG
+    ls -lrthG --color
 }
