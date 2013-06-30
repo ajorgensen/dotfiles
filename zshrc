@@ -68,7 +68,9 @@ alias gs="git status"
 alias gaa="git add --all"
 alias gap="git add --patch"
 alias gp="git put"
+alias glog="git log --color"
 alias get="sudo apt-get install"
+alias ls="ls -lrthG --color"
 
 function mcd() { mkdir -p $1 && cd $1 }
 function cdf() { cd *$1*/ } # stolen from @topfunky

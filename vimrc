@@ -368,7 +368,6 @@ let g:rubytest_cmd_testcase = "ruby %p -n '/%c/'"
 
 function! OpenTestFile()
   let test_file = system("echo " . expand("%:t") . " | sed 's/\.rb/_test.rb/' | xargs find ./test -name | grep " . expand("%:h:t") . " | head")
-  exec "!echo " . test_file
   exec ':vsp ' . test_file
 endfunction
 
