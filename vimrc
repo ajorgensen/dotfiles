@@ -362,13 +362,23 @@ nnoremap <leader>. :call OpenTestAlternate()<cr>
 map <leader>z :wa\|:call RunPresetTest()<cr>
 map <leader>Z :call SetTestFile()<cr>
 map <leader>c :call UnsetTestFile()<cr>
-map <leader>a :call OpenTestFile()<cr>
+map <leader>a :call OpenTestFile()
 
 let g:rubytest_cmd_testcase = "ruby %p -n '/%c/'"
 
 function! OpenTestFile()
-  let test_file = system("echo " . expand("%:t") . " | sed 's/\.rb/_test.rb/' | xargs find ./test -name | grep " . expand("%:h:t") . " | head")
-  exec ':vsp ' . test_file
+  let matching_files = split(globpath('./test/**', expand("%:t:r") . "_test.rb"), "\n")
+
+  if len(matching_files) == 1
+    exec ":vsp " . matching_files[0]
+  else
+    for file in matching_files
+      if !empty(matchstr(file, expand("%:h:t")))
+        exec ":vsp " . file
+        break
+      endif
+    endfor
+  end
 endfunction
 
 function! RunPresetTest() 
