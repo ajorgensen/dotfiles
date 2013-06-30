@@ -362,7 +362,7 @@ nnoremap <leader>. :call OpenTestAlternate()<cr>
 map <leader>z :wa\|:call RunPresetTest()<cr>
 map <leader>Z :call SetTestFile()<cr>
 map <leader>c :call UnsetTestFile()<cr>
-map <leader>a :call OpenTestFile()
+map <leader>a :call OpenTestFile()<cr>
 
 let g:rubytest_cmd_testcase = "ruby %p -n '/%c/'"
 
