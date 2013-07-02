@@ -39,6 +39,8 @@ Bundle 'noprompt/vim-yardoc'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 
+map <Leader>nn :sp ~/Documents/notes/programming_notes.txt<cr>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TAGLIST CONFIG
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -375,9 +377,11 @@ function! OpenTestFile()
     for file in matching_files
       if !empty(matchstr(file, expand("%:h:t")))
         exec ":vsp " . file
-        break
+        return
       endif
     endfor
+    " Just open the first one
+    exec ":vsp" . matching_files[0]
   end
 endfunction
 
