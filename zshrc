@@ -69,8 +69,13 @@ alias gaa="git add --all"
 alias gap="git add --patch"
 alias gp="git put"
 alias glog="git log --color"
+alias gpull="git pull"
+alias gco="git checkout"
 alias get="sudo apt-get install"
 alias ls="ls -lrthG --color"
+alias shnow="sudo shutdown -h now"
+alias gdiff="git diff --color"
+alias pag="ps aux | grep"
 
 function mcd() { mkdir -p $1 && cd $1 }
 function cdf() { cd *$1*/ } # stolen from @topfunky
@@ -116,3 +121,12 @@ function chpwd() {
     emulate -L zsh
     ls -lrthG --color
 }
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
+
+if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+        export TERM='xterm-256color'
+else
+        export TERM='xterm-color'
+fi

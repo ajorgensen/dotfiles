@@ -2,7 +2,13 @@
 .svn
 *~
 tags
+gems.tags
 log/
 db/*.sqlite3
 .netrwhist
 project-notes.txt
+
+# YARD artifacts
+.yardoc
+_yardoc
+doc/

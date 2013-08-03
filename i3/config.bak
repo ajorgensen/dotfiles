@@ -8,7 +8,7 @@
 # i3 config file (v4)
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
-force_xinerama yes
+#force_xinerama yes
 
 set $mod Mod1
 
@@ -95,10 +95,10 @@ bindsym $mod+a focus parent
 #bindcode $mod+d focus child
 
 # Workspace names
-workspace "1-dev" output xinerama-0
-workspace "2-web" output xinerama-0
-workspace "3-chat" output xinerama-0
-workspace "4-email" output xinerama-0
+#workspace "1-dev" output xinerama-0
+#workspace "2-web" output xinerama-0
+#workspace "3-chat" output xinerama-0
+#workspace "4-email" output xinerama-0
 
 # switch to workspace
 bindsym $mod+1 workspace 1-dev
