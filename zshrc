@@ -63,6 +63,7 @@ alias rs="bundle exec rails server"
 alias rc="bundle exec rails console"
 alias ss="spin serve"
 alias be="bundle exec"
+alias amend="git commit --amend"
 alias gcm="git commit -m"
 alias gs="git status"
 alias gaa="git add --all"
@@ -76,22 +77,12 @@ alias ls="ls -lrthG --color"
 alias shnow="sudo shutdown -h now"
 alias gdiff="git diff --color"
 alias pag="ps aux | grep"
+alias j="jump"
+alias m="mark"
+alias um="unmark"
 
 function mcd() { mkdir -p $1 && cd $1 }
 function cdf() { cd *$1*/ } # stolen from @topfunky
-
-function appleton() {
-    if [ -z "$1" ]
-    then
-        cd ~/dev/backupify/appleton
-    else
-        cd ~/dev/backupify/appleton/$1*
-    fi
-}
-
-function backupify() {
-    cd ~/dev/backupify/backupify
-}
 
 # Aliases
 alias r="bundle exec rails"
@@ -122,11 +113,29 @@ function chpwd() {
     ls -lrthG --color
 }
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
-
 if [ -e /usr/share/terminfo/x/xterm-256color ]; then
         export TERM='xterm-256color'
 else
         export TERM='xterm-color'
 fi
+
+export MARKPATH=$HOME/.marks
+function jump { 
+    cd -P $MARKPATH/$1 2>/dev/null || echo "No such mark: $1"
+}
+function mark { 
+    mkdir -p $MARKPATH; ln -s $(pwd) $MARKPATH/$1
+}
+function unmark { 
+    rm -i $MARKPATH/$1 
+}
+function marks {
+    ls -l $MARKPATH | sed 's/  / /g' | cut -d' ' -f9- | sed 's/ -/\t-/g' && echo
+}
+
+# Allows commit message without typing quotes (can't have quotes in the commit msg though).
+function gc {
+  git commit -m "$*"
+}
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"

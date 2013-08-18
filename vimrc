@@ -353,9 +353,9 @@ map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
 "map <leader>f :CtrlP<cr>
 "nnoremap gr :grep <cword> . --exclude-dir=log -R | copen<CR>
 "nnoremap gG :grep <cword> ~/.rbenv/versions/$RBENV_VERSION/lib/ruby/gems/1.9.1/**/*.rb -R | copen<CR>
-map gr :execute " grep! -srnw --binary-files=without-match --exclude-dir=.git --exclude-dir=log --exclude-dir=test --exclude-dir=spec . -e " . expand("<cword>") . " " <bar> cwindow<CR>
-map gt :execute " grep! -srnw --binary-files=without-match --exclude-dir=.git --exclude-dir=log . -e " . expand("<cword>") . " " <bar> cwindow<CR>
-map gG :execute " grep! -srnw --binary-files=without-match --exclude-dir=.git ~/.rbenv/versions/$RBENV_VERSION/lib/ruby/gems/1.9.1 -e " . expand("<cword>") . " " <bar> cwindow<CR>
+map gr :execute " grep! -srnw --binary-files=without-match --exclude-dir=.git --exclude-dir=log --exclude-dir=test --exclude-dir=spec --exclude-dir=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
+map gt :execute " grep! -srnw --binary-files=without-match --exclude-dir=.git --exclude-dir=log --exclude-dir=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
+map gG :execute " grep! -srnw --binary-files=without-match --exclude-dir=.git --exclude-dir=tags ~/.rbenv/versions/$RBENV_VERSION/lib/ruby/gems/1.9.1 -e " . expand("<cword>") . " " <bar> cwindow<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SWITCH BETWEEN TEST AND PRODUCTION CODE
