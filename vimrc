@@ -5,8 +5,11 @@ exec pathogen#infect()
 nnoremap <leader>` :sp ~/Documents/notes/programming_notes.txt<cr>
 nnoremap <F3> :NumbersToggle<CR>
 
-filetype plugin on
 au BufNewFile,BufRead *.md set ft=md
+au BufRead,BufNewFile *.go set filetype=go
+
+filetype plugin indent on
+syntax on
 
 set shell=bash
 set relativenumber
@@ -14,9 +17,6 @@ set relativenumber
 " =============
 " Ruby Stuff
 " =============
-syntax on                    " Enable synatx highlighting
-filetype plugin indent on " Enable filetype-specific indenting and plugins
-
 augroup vimrcEx
   " Clear all autocmds in the group
   autocmd!
