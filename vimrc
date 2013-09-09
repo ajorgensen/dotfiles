@@ -1,43 +1,15 @@
-" Use Pathogen:
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+autocmd!
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VUNDLE CONFIGURATION 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" Let Vundle manage Vundle (required)!
-Bundle 'gmarik/vundle'
-
-" My bundles
-Bundle 'ervandew/supertab'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'tpope/vim-cucumber'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-bundler'
-Bundle 'tpope/vim-markdown'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'wincent/Command-T'
-Bundle 'vim-scripts/ruby-matchit'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'vim-scripts/ctags.vim'
-Bundle 'matchit.zip'
-Bundle 'ruby-matchit'
-Bundle 'bling/vim-airline'
-Bundle 'myusuf3/numbers.vim'
-Bundle 'janx/vim-rubytest'
+exec pathogen#infect()
 
 nnoremap <leader>` :sp ~/Documents/notes/programming_notes.txt<cr>
 nnoremap <F3> :NumbersToggle<CR>
+
+filetype plugin on
+au BufNewFile,BufRead *.md set ft=md
+
+set shell=bash
+set relativenumber
 
 " =============
 " Ruby Stuff
@@ -85,7 +57,7 @@ augroup END
 let Tlist_Ctags_Cmd = '/usr/bin/ctags'
 let Tlist_WinWidth = 50
 map <F4> :TlistToggle<cr>
-map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+map <F8> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 nmap <F9> :TagbarToggle<CR>
 set tags+=gems.tags
 
@@ -404,7 +376,11 @@ map <leader>a :call OpenTestFile()<cr>
 let g:rubytest_cmd_testcase = "ruby %p -n '/%c/'"
 
 function! OpenTestFile()
-  let matching_files = split(globpath('./test/**', expand("%:t:r") . "_test.rb"), "\n")
+  if isdirectory("./spec")
+    let matching_files = split(globpath('./spec/**', expand("%:t:r") . "_spec.rb"), "\n")
+  else
+    let matching_files = split(globpath('./test/**', expand("%:t:r") . "_test.rb"), "\n")
+  endif
 
   if len(matching_files) == 1
     exec ":vsp " . matching_files[0]
@@ -452,7 +428,7 @@ function! SetTestFile()
 endfunction
 
 function! SpinRunning()
-  let l = system("ps aux | grep 'spin' | grep -v grep | wc -l")
+  let l = system("ps aux | grep 'spin' | grep -v grep | wc -l | tr -d ' '")
   if l == 1
     let t:spin_running=1
   else
@@ -567,3 +543,33 @@ function! <SID>StripBlankLinesAtEndOfFile()
     call cursor(l, c)
 endfunction
 
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+
+function! ToggleColemak()
+  if exists("t:colemak")
+    echo "Using QWERTY"
+    unmap n
+    unmap e
+    unmap i
+    unmap u
+    unmap l
+    unlet t:colemak
+  else
+    echo "Using colemak"
+    noremap n j
+    noremap e k
+    noremap i l
+    noremap u i
+    noremap l u
+    let t:colemak=1
+  endif
+endfunc
+
+nnoremap <C-t> :call NumberToggle()<cr>
+nnoremap <F3> :call ToggleColemak()<cr>

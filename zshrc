@@ -15,13 +15,12 @@ export PATH="$HOME/bin:$HOME/Applications:$PATH"
 export PATH="$HOME/.rbenv/shims/:$HOME/.rbenv/bin:$PATH"
 
 #eval "$(rbenv init -)"
+export PATH="$HOME/.rbenv/bin:$PATH"
 [ -e ~/.rbenv/bin/rbenv ] && eval "$(rbenv init --no-rehash -)"
 (rbenv rehash &) 2> /dev/null
 
 # Colorize terminal
 export TERM='xterm-256color'
-alias ls='ls -G'
-alias ll='ls -lG'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export GREP_OPTIONS="--color"
 
@@ -30,7 +29,7 @@ export HISTSIZE=100000
 export HISTFILE="$HOME/.history"
 export SAVEHIST=$HISTSIZE
 
-export EDITOR=vim
+export EDITOR=mvim
 
 # Use qt4 because capybara-webkit needs it to compile
 export QMAKE=/usr/bin/qmake-qt4
@@ -73,7 +72,7 @@ alias glog="git log --color"
 alias gpull="git pull"
 alias gco="git checkout"
 alias get="sudo apt-get install"
-alias ls="ls -lrthG --color"
+alias ls="ls -lrthG"
 alias shnow="sudo shutdown -h now"
 alias gdiff="git diff --color"
 alias pag="ps aux | grep"
@@ -88,18 +87,16 @@ function cdf() { cd *$1*/ } # stolen from @topfunky
 alias r="bundle exec rails"
 alias t="script/test $*"
 alias f="script/features $*"
-function mcd() { mkdir -p $1 && cd $1 }
-function cdf() { cd *$1*/ } # stolen from @topfunky
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 alias homeconfig='git --git-dir=/home/andrew/.homeconfig.git/ --work-tree=/home/andrew'
 
-function notify-command-complete(){
-  wmctrl -i -r $WINDOWID -b add,demands_attention
-}
+#function notify-command-complete(){
+#  #wmctrl -i -r $WINDOWID -b add,demands_attention
+#}
 
-add-zsh-hook precmd notify-command-complete
+#add-zsh-hook precmd notify-command-complete
 
 # If it exists, process ".sshagentrc"
 SSHAGENTRC_FILE="$HOME/.sshagentrc";
@@ -109,8 +106,8 @@ then
 fi
 
 function chpwd() {
-    emulate -L zsh
-    ls -lrthG --color
+  emulate -L zsh
+  ls -lrthG
 }
 
 if [ -e /usr/share/terminfo/x/xterm-256color ]; then
@@ -137,5 +134,5 @@ function marks {
 function gc {
   git commit -m "$*"
 }
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
