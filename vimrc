@@ -12,7 +12,6 @@ filetype plugin indent on
 syntax on
 
 set shell=bash
-set relativenumber
 
 " =============
 " Ruby Stuff
@@ -71,7 +70,6 @@ colorscheme distinguished
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nu
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
 " remember more commands and search history
@@ -543,20 +541,24 @@ function! <SID>StripBlankLinesAtEndOfFile()
     call cursor(l, c)
 endfunction
 
+set relativenumber
+
 function! NumberToggle()
   if(&relativenumber == 1)
+    set norelativenumber
     set number
   else
+    set nonumber
     set relativenumber
   endif
 endfunc
 
 function! ToggleSpellchecker()
   if(&spell == 1)
-    echo "Spellchecker off"
+    echo "Spell checker off"
     set nospell
   else
-    echo "Spellchecker on"
+    echo "Spell checker on"
     set spell spelllang=en_us
   endif
 endfunc
