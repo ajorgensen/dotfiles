@@ -6,7 +6,7 @@ nnoremap <leader>` :sp ~/Documents/notes/programming_notes.txt<cr>
 nnoremap <F3> :NumbersToggle<CR>
 
 au BufNewFile,BufRead *.md set ft=md
-au BufRead,BufNewFile *.go set filetype=go
+au BufRead,BufNewFile *.go set ft=go
 
 filetype plugin indent on
 syntax on
@@ -551,25 +551,15 @@ function! NumberToggle()
   endif
 endfunc
 
-function! ToggleColemak()
-  if exists("t:colemak")
-    echo "Using QWERTY"
-    unmap n
-    unmap e
-    unmap i
-    unmap u
-    unmap l
-    unlet t:colemak
+function! ToggleSpellchecker()
+  if(&spell == 1)
+    echo "Spellchecker off"
+    set nospell
   else
-    echo "Using colemak"
-    noremap n j
-    noremap e k
-    noremap i l
-    noremap u i
-    noremap l u
-    let t:colemak=1
+    echo "Spellchecker on"
+    set spell spelllang=en_us
   endif
 endfunc
 
 nnoremap <C-t> :call NumberToggle()<cr>
-nnoremap <F3> :call ToggleColemak()<cr>
+nnoremap <F3> :call ToggleSpellchecker()<cr>
