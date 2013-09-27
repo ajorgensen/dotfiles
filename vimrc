@@ -27,13 +27,18 @@ syntax on
 au BufNewFile,BufRead *.md set ft=md
 au BufRead,BufNewFile *.go set ft=go
 
-
 set shell=bash
 
 " Turn off auto comment insterting
 set formatoptions-=cro 
 
 nnoremap <leader>` :sp ~/Documents/notes/programming_notes.txt<cr>
+
+" =============
+" ctrlp configs 
+" =============
+let g:ctrlp_max_files = 0
+let g:ctrlp_working_path_mode = 0
 
 " =============
 " Ruby Stuff
@@ -69,10 +74,6 @@ augroup vimrcEx
   autocmd! CmdwinLeave * :call MapCR()
 augroup END
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Clojure 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TAGLIST CONFIG
@@ -87,6 +88,7 @@ set tags+=gems.tags
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLOR
+"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
 set t_Co=256
@@ -513,8 +515,6 @@ command! InsertTime :normal a<c-r>=strftime('%F %H:%M:%S.0 %z')<cr>
 if has("autocmd")
   autocmd BufWritePre {*.rb,*.js,*.coffee,*.scss,*.haml,*.py,*.js} :call <SID>CleanFile()
 endif
-
-nnoremap <silent> <F5> /\s\+$<cr>
 
 function! <SID>CleanFile()
     " Preparation: save last search, and cursor position.
