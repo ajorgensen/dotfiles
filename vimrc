@@ -2,9 +2,6 @@ autocmd!
 
 exec pathogen#infect()
 
-nnoremap <leader>` :sp ~/Documents/notes/programming_notes.txt<cr>
-nnoremap <F3> :NumbersToggle<CR>
-
 au BufNewFile,BufRead *.md set ft=md
 au BufRead,BufNewFile *.go set ft=go
 
@@ -12,6 +9,11 @@ filetype plugin indent on
 syntax on
 
 set shell=bash
+
+" Turn off auto comment insterting
+set formatoptions-=cro 
+
+nnoremap <leader>` :sp ~/Documents/notes/programming_notes.txt<cr>
 
 " =============
 " Ruby Stuff
@@ -50,10 +52,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Clojure 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:vimclojure#HighlightBuiltins = 1
-let g:vimclojure#ParenRainbow = 1
-let vimclojure#NailgunClient = "/usr/local/bin/ng"
-let vimclojure#WantNailgun = 1
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TAGLIST CONFIG
@@ -88,7 +87,6 @@ set ruler
 set splitright
 set expandtab
 set tabstop=2
-set expandtab
 set shiftwidth=2
 set softtabstop=2
 set autoindent
@@ -548,7 +546,6 @@ function! <SID>StripBlankLinesAtEndOfFile()
 endfunction
 
 set relativenumber
-
 function! NumberToggle()
   if(&relativenumber == 1)
     set norelativenumber
@@ -571,3 +568,4 @@ endfunc
 
 nnoremap <C-t> :call NumberToggle()<cr>
 nnoremap <F3> :call ToggleSpellchecker()<cr>
+nnoremap <F2> :RainbowParenthesesToggle<cr>
