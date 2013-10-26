@@ -11,7 +11,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-fireplace'
-Bundle 'tpope/vim-classpath'
+" Bundle 'tpope/vim-classpath'
 Bundle 'guns/vim-clojure-static'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'leshill/vim-json'
@@ -19,7 +19,15 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'ctrlp.vim'
-Bundle 'itchyny/lightline.vim'
+"Bundle 'itchyny/lightline.vim'
+Bundle 'Gundo'
+Bundle 'SuperTab'
+Bundle 'github-theme'
+Bundle 'hughbien/md-vim'
+Bundle 'mattn/gist-vim'
+Bundle 'mattn/webapi-vim'
+Bundle 'ZenCoding.vim'
+Bundle 'Better-Javascript-Indentation'
 
 filetype plugin indent on
 syntax on
@@ -33,6 +41,9 @@ set shell=bash
 set formatoptions-=cro 
 
 nnoremap <leader>` :sp ~/Documents/notes/programming_notes.txt<cr>
+
+nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
 
 " =============
 " ctrlp configs 
@@ -49,9 +60,9 @@ augroup vimrcEx
   autocmd FileType text setlocal textwidth=78
   " Jump to last cursor position unless it's invalid or in an event handler
   autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal g`\"" |
+        \ endif
 
   "for ruby, autoindent with two spaces, always expand tabs
   autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
@@ -92,7 +103,7 @@ set tags+=gems.tags
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
 set t_Co=256
-colorscheme distinguished
+colorscheme wombat256mod
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
@@ -102,10 +113,10 @@ set hidden
 " remember more commands and search history
 set nobackup
 set nowritebackup
-set noswapfile
+" set noswapfile
 set history=1000
 set ruler
-
+set noerrorbells
 set splitright
 set expandtab
 set tabstop=2
@@ -145,10 +156,9 @@ syntax on
 " 'cindent' is on in C files, etc.
 " Also load indent files, to automatically do language-dependent indenting.
 filetype plugin indent on
-" use emacs-style tab completion when selecting files, etc
-set wildmode=longest,list
 " make tab completion for files/buffers act like bash
 set wildmenu
+set wildmode=full
 let mapleader=","
 hi clear SignColumn
 
@@ -161,9 +171,9 @@ augroup vimrcEx
   autocmd FileType text setlocal textwidth=78
   " Jump to last cursor position unless it's invalid or in an event handler
   autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal g`\"" |
+        \ endif
 
   "for ruby, autoindent with two spaces, always expand tabs
   autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
@@ -175,7 +185,7 @@ augroup vimrcEx
   autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
 
   " Indent p tags
-  autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
+  " autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
 
   " Don't syntax highlight markdown because it's often wrong
   autocmd! FileType mkd setlocal syn=off
@@ -197,10 +207,12 @@ augroup END
 map <leader>y "*y
 " Can't be bothered to understand ESC vs <c-c> in insert mode
 imap <c-c> <esc>
-noremap <c-W> <esc>:w<cr>
+noremap <c-s> <esc>:w<cr>
 noremap <c-H> :nohl<cr>
 noremap <leader>a :RVunit<cr>
 command! Q q
+command! W w
+noremap Q q
 
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
@@ -208,17 +220,23 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
+nmap oo o<Esc>k
+nmap OO O<Esc>j
+
+cnoremap <C-p> <Up> 
+cnoremap <C-n> <Down>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
 " Indent if we're at the beginning of a line. Else, do completion.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] !~ '\k'
+    return "\<tab>"
+  else
+    return "\<c-p>"
+  endif
 endfunction
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
@@ -242,13 +260,13 @@ map <leader>v :view %%
 " RENAME CURRENT FILE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        redraw!
-    endif
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
 endfunction
 map <leader>n :call RenameFile()<cr>
 
@@ -269,20 +287,20 @@ endfunction
 " EXTRACT VARIABLE (SKETCHY)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! ExtractVariable()
-    let name = input("Variable name: ")
-    if name == ''
-        return
-    endif
-    " Enter visual mode (not sure why this is needed since we're already in
-    " visual mode anyway)
-    normal! gv
+  let name = input("Variable name: ")
+  if name == ''
+    return
+  endif
+  " Enter visual mode (not sure why this is needed since we're already in
+  " visual mode anyway)
+  normal! gv
 
-    " Replace selected text with the variable name
-    exec "normal c" . name
-    " Define the variable on the line above
-    exec "normal! O" . name . " = "
-    " Paste the original selected text to be the variable value
-    normal! $p
+  " Replace selected text with the variable name
+  exec "normal c" . name
+  " Define the variable on the line above
+  exec "normal! O" . name . " = "
+  " Paste the original selected text to be the variable value
+  normal! $p
 endfunction
 vnoremap <leader>rv :call ExtractVariable()<cr>
 
@@ -290,26 +308,26 @@ vnoremap <leader>rv :call ExtractVariable()<cr>
 " INLINE VARIABLE (SKETCHY)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! InlineVariable()
-    " Copy the variable under the cursor into the 'a' register
-    :let l:tmp_a = @a
-    :normal "ayiw
-    " Delete variable and equals sign
-    :normal 2daW
-    " Delete the expression into the 'b' register
-    :let l:tmp_b = @b
-    :normal "bd$
-    " Delete the remnants of the line
-    :normal dd
-    " Go to the end of the previous line so we can start our search for the
-    " usage of the variable to replace. Doing '0' instead of 'k$' doesn't
-    " work; I'm not sure why.
-    normal k$
-    " Find the next occurence of the variable
-    exec '/\<' . @a . '\>'
-    " Replace that occurence with the text we yanked
-    exec ':.s/\<' . @a . '\>/' . @b
-    :let @a = l:tmp_a
-    :let @b = l:tmp_b
+  " Copy the variable under the cursor into the 'a' register
+  :let l:tmp_a = @a
+  :normal "ayiw
+  " Delete variable and equals sign
+  :normal 2daW
+  " Delete the expression into the 'b' register
+  :let l:tmp_b = @b
+  :normal "bd$
+  " Delete the remnants of the line
+  :normal dd
+  " Go to the end of the previous line so we can start our search for the
+  " usage of the variable to replace. Doing '0' instead of 'k$' doesn't
+  " work; I'm not sure why.
+  normal k$
+  " Find the next occurence of the variable
+  exec '/\<' . @a . '\>'
+  " Replace that occurence with the text we yanked
+  exec ':.s/\<' . @a . '\>/' . @b
+  :let @a = l:tmp_a
+  :let @b = l:tmp_b
 endfunction
 nnoremap <leader>ri :call InlineVariable()<cr>
 
@@ -333,7 +351,7 @@ function! ShowRoutes()
   " Delete empty trailing line
   :normal dd
 endfunction
-map <leader>f :CtrlP<cr>
+noremap <leader>f :CtrlP<cr>
 
 "nnoremap gr :grep <cword> . --exclude-dir=log -R | copen<CR>
 "nnoremap gG :grep <cword> ~/.rbenv/versions/$RBENV_VERSION/lib/ruby/gems/1.9.1/**/*.rb -R | copen<CR>
@@ -513,7 +531,7 @@ command! -range Md5 :echo system('echo '.shellescape(join(getline(<line1>, <line
 command! InsertTime :normal a<c-r>=strftime('%F %H:%M:%S.0 %z')<cr>
 
 if has("autocmd")
-  autocmd BufWritePre {*.rb,*.js,*.coffee,*.scss,*.haml,*.py,*.js} :call <SID>CleanFile()
+  autocmd BufWritePre {*.rb,*.js,*.coffee,*.scss,*.haml,*.py,*.js,*.clj} :call <SID>CleanFile()
 endif
 
 function! <SID>CleanFile()
