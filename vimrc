@@ -28,6 +28,10 @@ Bundle 'mattn/gist-vim'
 Bundle 'mattn/webapi-vim'
 Bundle 'ZenCoding.vim'
 Bundle 'Better-Javascript-Indentation'
+Bundle 'junegunn/vim-easy-align'
+Bundle 'Syntastic'
+Bundle 'arecarn/crunch'
+Bundle 'altercation/vim-colors-solarized'
 
 filetype plugin indent on
 syntax on
@@ -44,6 +48,13 @@ nnoremap <leader>` :sp ~/Documents/notes/programming_notes.txt<cr>
 
 nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
+
+" =============
+" Clojure Stuff
+" =============
+let g:clojure_align_multiline_strings = 0
+let g:clojure_fuzzy_indent = 1
+let g:clojure_fuzzy_indent_patterns = "with.*,def.*,let.*,send.*,fact,facts"
 
 " =============
 " ctrlp configs 
@@ -103,7 +114,8 @@ set tags+=gems.tags
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
 set t_Co=256
-colorscheme wombat256mod
+" colorscheme wombat256mod
+colorscheme molokai
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
@@ -113,7 +125,7 @@ set hidden
 " remember more commands and search history
 set nobackup
 set nowritebackup
-" set noswapfile
+set noswapfile
 set history=1000
 set ruler
 set noerrorbells
@@ -134,7 +146,7 @@ set cursorline
 set cmdheight=2
 set switchbuf=useopen
 set numberwidth=5
-set showtabline=2
+" set showtabline=2
 set winwidth=79
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
@@ -161,6 +173,11 @@ set wildmenu
 set wildmode=full
 let mapleader=","
 hi clear SignColumn
+
+" Highlighting at 80 and 120 characters
+let &colorcolumn=join(range(81,999),",")
+let &colorcolumn="80,".join(range(120,999),",")
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
@@ -226,6 +243,10 @@ nmap OO O<Esc>j
 cnoremap <C-p> <Up> 
 cnoremap <C-n> <Down>
 
+"noremap <C-l> :nohl<CR>
+
+:set vb
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
 " Indent if we're at the beginning of a line. Else, do completion.
@@ -269,67 +290,6 @@ function! RenameFile()
   endif
 endfunction
 map <leader>n :call RenameFile()<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" PROMOTE VARIABLE TO RSPEC LET
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! PromoteToLet()
-  :normal! dd
-  " :exec '?^\s*it\>'
-  :normal! P
-  :.s/\(\w\+\) = \(.*\)$/let(:\1) { \2 }/
-  :normal ==
-endfunction
-:command! PromoteToLet :call PromoteToLet()
-:map <leader>p :PromoteToLet<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" EXTRACT VARIABLE (SKETCHY)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! ExtractVariable()
-  let name = input("Variable name: ")
-  if name == ''
-    return
-  endif
-  " Enter visual mode (not sure why this is needed since we're already in
-  " visual mode anyway)
-  normal! gv
-
-  " Replace selected text with the variable name
-  exec "normal c" . name
-  " Define the variable on the line above
-  exec "normal! O" . name . " = "
-  " Paste the original selected text to be the variable value
-  normal! $p
-endfunction
-vnoremap <leader>rv :call ExtractVariable()<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" INLINE VARIABLE (SKETCHY)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! InlineVariable()
-  " Copy the variable under the cursor into the 'a' register
-  :let l:tmp_a = @a
-  :normal "ayiw
-  " Delete variable and equals sign
-  :normal 2daW
-  " Delete the expression into the 'b' register
-  :let l:tmp_b = @b
-  :normal "bd$
-  " Delete the remnants of the line
-  :normal dd
-  " Go to the end of the previous line so we can start our search for the
-  " usage of the variable to replace. Doing '0' instead of 'k$' doesn't
-  " work; I'm not sure why.
-  normal k$
-  " Find the next occurence of the variable
-  exec '/\<' . @a . '\>'
-  " Replace that occurence with the text we yanked
-  exec ':.s/\<' . @a . '\>/' . @b
-  :let @a = l:tmp_a
-  :let @b = l:tmp_b
-endfunction
-nnoremap <leader>ri :call InlineVariable()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MAPS TO JUMP TO SPECIFIC COMMAND-T TARGETS AND FILES
@@ -496,28 +456,6 @@ function! RunNearestTest()
     call RunTestFile(":" . spec_line_number . " -b")
 endfunction
 
-function! RunTests(filename)
-    " Write the file and run tests for the given filename
-    :w
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    if match(a:filename, '\.feature$') != -1
-        exec ":!script/features " . a:filename
-    else
-        if filereadable("script/test")
-            exec ":!script/test " . a:filename
-        elseif filereadable("Gemfile")
-            exec ":!bundle exec rspec --color " . a:filename
-        else
-            exec ":!rspec --color " . a:filename
-        end
-    end
-endfunction
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Md5 COMMAND
 " Show the MD5 of the current buffer
@@ -595,3 +533,4 @@ endfunc
 nnoremap <C-t> :call NumberToggle()<cr>
 nnoremap <F3> :call ToggleSpellchecker()<cr>
 nnoremap <F2> :RainbowParenthesesToggle<cr>
+
