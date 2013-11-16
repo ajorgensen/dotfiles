@@ -10,6 +10,7 @@ declare -a dotfiles=(
 "zsh",
 "config/fish",
 "gitignore",
+"gitconfig",
 "vim",
 "vimrc"
 "tmux.conf")
@@ -18,6 +19,10 @@ if [[ $1 == 'osx' ]]; then
   echo "Configuring OSX"
 elif [[ $1 == 'linux' ]]; then
   echo "Configuring Linux"
+  declare -a linux_dotfiles=(
+  "i3")
+
+  dotfiles=("${dotfiles[@]}" "${linux_dotfiles[@]}")
 fi
   
 
