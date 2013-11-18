@@ -221,15 +221,12 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>y "*y
+map <leader>y "+y
 " Can't be bothered to understand ESC vs <c-c> in insert mode
 imap <c-c> <esc>
 noremap <c-s> <esc>:w<cr>
-noremap <c-H> :nohl<cr>
-noremap <leader>a :RVunit<cr>
 command! Q q
 command! W w
-noremap Q q
 
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
