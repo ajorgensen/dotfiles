@@ -11,15 +11,15 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-fireplace'
-" Bundle 'tpope/vim-classpath'
-Bundle 'guns/vim-clojure-static'
+Bundle "guns/vim-clojure-static"
+Bundle 'Auto-Pairs'
+Bundle 'jpalardy/vim-slime'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'leshill/vim-json'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'ctrlp.vim'
-"Bundle 'itchyny/lightline.vim'
 Bundle 'Gundo'
 Bundle 'SuperTab'
 Bundle 'github-theme'
@@ -29,9 +29,16 @@ Bundle 'mattn/webapi-vim'
 Bundle 'ZenCoding.vim'
 Bundle 'Better-Javascript-Indentation'
 Bundle 'junegunn/vim-easy-align'
-Bundle 'Syntastic'
 Bundle 'arecarn/crunch'
-Bundle 'altercation/vim-colors-solarized'
+Bundle 'Tabular'
+Bundle 'suan/vim-instant-markdown'
+
+" NEW STUFF
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'majutsushi/tagbar'
+Bundle 'troydm/easybuffer.vim'
+Bundle 'mileszs/ack.vim'
+Bundle 'Gundo'
 
 filetype plugin indent on
 syntax on
@@ -42,12 +49,32 @@ au BufRead,BufNewFile *.go set ft=go
 set shell=bash
 
 " Turn off auto comment insterting
-set formatoptions-=cro 
+set formatoptions-=ro
 
 nnoremap <leader>` :sp ~/Documents/notes/programming_notes.txt<cr>
 
 nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
+
+let g:slime_target = "tmux"
+
+augroup myvimrc
+  au!
+  au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
+
+" ===================
+" AutoPairs settings
+" ===================
+let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"'}
+
+" ===================
+" VimClojure settings
+" ===================
+let vimclojure#HighlightBuiltins = 1 " Highlight Clojure's builtins
+let vimclojure#ParenRainbow = 1 " Rainbox parens
+
+let g:instant_markdown_autostart = 0
 
 " =============
 " Clojure Stuff
@@ -61,6 +88,7 @@ let g:clojure_fuzzy_indent_patterns = "with.*,def.*,let.*,send.*,fact,facts"
 " =============
 let g:ctrlp_max_files = 0
 let g:ctrlp_working_path_mode = 0
+set wildignore+=*.class
 
 " =============
 " Ruby Stuff
@@ -475,8 +503,7 @@ function! <SID>CleanFile()
     let l = line(".")
     let c = col(".")
     " Do the business:
-    silent! %s/\s\+$//e
-    silent! %s#\($\n\s*\)\+\%$##
+    %!git stripspace
     " Clean up: restore previous search history, and cursor position
     let @/=_s
     call cursor(l, c)

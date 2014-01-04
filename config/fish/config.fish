@@ -22,11 +22,24 @@ set __fish_git_prompt_showuntrackedfiles 'true'
 
 set PATH "/usr/local/bin" $PATH
 set PATH $PATH "/usr/bin"
+set PATH $PATH "$HOME/bin"
 
 # rbenv stuff
 set PATH "$HOME/.rbenv/bin" $PATH
 set PATH "$HOME/.rbenv/shims" $PATH
 rbenv rehash >/dev/null ^&1
+
+# Hadoop
+set PATH "$HOME/bin/hadoop-1.2.1/bin" $PATH
+set -x JAVA_HOME "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home"
+
+# Storm
+set PATH "/crashlytics/storm-0.9.0-rc2/bin" $PATH
+
+set PATH "/Applications/eclipse" $PATH
+
+#GPG
+set -x KEYID "AC6E2D2F"
 
 # ALIASES
 alias r=rails
@@ -51,6 +64,8 @@ alias pag="ps aux | grep"
 alias j="jump"
 alias m="mark"
 alias um="unmark"
+alias autotest="lein midje :autotest src/ test/"
+alias clean-merged="git branch --merged | grep -v '\*' | xargs -n 1 git branch -d"
 
 set -x MARKPATH $HOME/.marks
 
