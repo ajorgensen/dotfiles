@@ -12,7 +12,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-fireplace'
 Bundle "guns/vim-clojure-static"
-Bundle 'Auto-Pairs'
+" Bundle 'Auto-Pairs'
 Bundle 'jpalardy/vim-slime'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'leshill/vim-json'
@@ -32,31 +32,44 @@ Bundle 'junegunn/vim-easy-align'
 Bundle 'arecarn/crunch'
 Bundle 'Tabular'
 Bundle 'suan/vim-instant-markdown'
-
-" NEW STUFF
+Bundle 'ktvoelker/sbt-vim'
+Bundle 'derekwyatt/vim-scala'
+Bundle 'pangloss/vim-javascript'
+Bundle 'kchmck/vim-coffee-script'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'majutsushi/tagbar'
 Bundle 'troydm/easybuffer.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'Gundo'
+Bundle 'badwolf'
+Bundle 'lucapette/vim-ruby-doc'
+Bundle "preview"
+Bundle 'chance-of-storm'
+Bundle 'zenorocha/dracula-theme'
 
-filetype plugin indent on
-syntax on
+let g:notes_directories = ["~/Google Drive/vim-notes"]
+set clipboard=unnamed
 
 au BufNewFile,BufRead *.md set ft=md
 au BufRead,BufNewFile *.go set ft=go
+au BufRead,BufNewFile *.coffee set ft=coffee
 
 set shell=bash
 
 " Turn off auto comment insterting
 set formatoptions-=ro
 
+" TODO: FIX ME
 nnoremap <leader>` :sp ~/Documents/notes/programming_notes.txt<cr>
 
 nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
 
 let g:slime_target = "tmux"
+set virtualedit=onemore "Needed so vim-scala doesn't shit the bed
+
+" Open QuickFix window after git grep in vim-fugitive
+autocmd QuickFixCmdPost *grep* cwindow
 
 augroup myvimrc
   au!
@@ -124,7 +137,6 @@ augroup vimrcEx
   autocmd! CmdwinLeave * :call MapCR()
 augroup END
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TAGLIST CONFIG
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -140,10 +152,10 @@ set tags+=gems.tags
 " COLOR
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-syntax enable
-set t_Co=256
-" colorscheme wombat256mod
+syntax enable " enable synatx processing
+set t_Co=256 " 256 colors by default
 colorscheme molokai
+set background=light
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
@@ -158,19 +170,21 @@ set history=1000
 set ruler
 set noerrorbells
 set splitright
-set expandtab
+set expandtab " turns spaces into tabs
 set tabstop=2
-set shiftwidth=2
 set softtabstop=2
+set shiftwidth=2
 set autoindent
 set laststatus=2
 set showmatch
-set incsearch
-set hlsearch
+set incsearch " search while typing
+set hlsearch " highlight search matches
+set undofile
+set undodir=~/.vimundo/
 " make searches case-sensitive only if they contain upper-case characters
-set ignorecase smartcase
-" highlight current line
-set cursorline
+"set ignorecase smartcase
+set ignorecase
+set cursorline " highlight current line
 set cmdheight=2
 set switchbuf=useopen
 set numberwidth=5
@@ -196,16 +210,20 @@ syntax on
 " 'cindent' is on in C files, etc.
 " Also load indent files, to automatically do language-dependent indenting.
 filetype plugin indent on
-" make tab completion for files/buffers act like bash
-set wildmenu
+set wildmenu " make tab completion for files/buffers act like bash
 set wildmode=full
 let mapleader=","
 hi clear SignColumn
+hi SpellBad cterm=underline
+set lazyredraw
+set wrap
+set linebreak
+
 
 " Highlighting at 80 and 120 characters
-let &colorcolumn=join(range(81,999),",")
-let &colorcolumn="80,".join(range(120,999),",")
-highlight ColorColumn ctermbg=235 guibg=#2c2d27
+"let &colorcolumn=join(range(81,999),",")
+"let &colorcolumn="80,".join(range(120,999),",")
+"highlight ColorColumn ctermbg=235 guibg=#2c2d27
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
@@ -268,9 +286,10 @@ nmap OO O<Esc>j
 cnoremap <C-p> <Up> 
 cnoremap <C-n> <Down>
 
-"noremap <C-l> :nohl<CR>
+nnoremap <leader><space> :nohlsearch<CR> " turn off search highlight
+inoremap jk <esc> " jk is escape
 
-:set vb
+nnoremap <leader>u :GundoToggle<CR>         " toggle gundo
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
@@ -317,6 +336,20 @@ endfunction
 map <leader>n :call RenameFile()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Git add all and commit
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! GitAddAllAndCommit()
+  let message = input('Commit message: ')
+  if message != ''
+    exec ':wa'
+    exec ':silent !git add --all'
+    exec ':silent !git commit -m "' . message . '"'
+    redraw!
+  endif
+endfunction
+map <leader>sc :call GitAddAllAndCommit()<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MAPS TO JUMP TO SPECIFIC COMMAND-T TARGETS AND FILES
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>gr :topleft :split config/routes.rb<cr>
@@ -337,6 +370,7 @@ function! ShowRoutes()
   :normal dd
 endfunction
 noremap <leader>f :CtrlP<cr>
+nmap <c-g> :CtrlP<cr><C-\>w
 
 "nnoremap gr :grep <cword> . --exclude-dir=log -R | copen<CR>
 "nnoremap gG :grep <cword> ~/.rbenv/versions/$RBENV_VERSION/lib/ruby/gems/1.9.1/**/*.rb -R | copen<CR>
@@ -394,7 +428,7 @@ function! OpenTestFile()
   if isdirectory("./spec")
     let matching_files = split(globpath('./spec/**', expand("%:t:r") . "_spec.rb"), "\n")
   else
-    let matching_files = split(globpath('./test/**', expand("%:t:r") . "_test.rb"), "\n")
+    let matching_files = split(globpath('./test/**', expand("%:t:r") . "_test.*"), "\n")
   endif
 
   if len(matching_files) == 1
@@ -443,7 +477,7 @@ function! SetTestFile()
 endfunction
 
 function! SpinRunning()
-  let l = system("ps aux | grep 'spin' | grep -v grep | wc -l | tr -d ' '")
+  let l = system("ps aux | grep 'spin serve' | grep -v grep | wc -l | tr -d ' '")
   if l == 1
     let t:spin_running=1
   else
@@ -500,10 +534,13 @@ endif
 function! <SID>CleanFile()
     " Preparation: save last search, and cursor position.
     let _s=@/
-    let l = line(".")
-    let c = col(".")
+    let [l,c] = [line("."),col(".")]
+
     " Do the business:
-    %!git stripspace
+    " %!git stripspace
+    silent! %s/\s\+$//e
+    silent! %s#\($\n\s*\)\+\%$##
+
     " Clean up: restore previous search history, and cursor position
     let @/=_s
     call cursor(l, c)

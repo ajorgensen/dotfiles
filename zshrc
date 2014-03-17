@@ -136,3 +136,17 @@ function gc {
 }
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+function stage() {
+  current_branch=`git branch | sed -n '/\* /s///p'`
+  current_sha=`git rev-parse HEAD | cut -c1-10`
+  staging_branch="stage/$current_branch"
+  echo "Staging $current_branch($current_sha) as $staging_branch"
+  echo "Deleting local branch $current_branch($current_sha)"
+  git branch -D "$staging_branch"
+  echo "Deleting remote branch $current_branch($current_sha)"
+  git push origin :"$staging_branch"
+  RAILS_ENV=production bundle exec rake --trace assets:push_branch_for_staging branch="$staging_branch"
+  git checkout "$current_branch"
+}
+

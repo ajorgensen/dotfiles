@@ -6,7 +6,6 @@
 [alias]
 	ci = commit
 	co = checkout
-	st = status
 	stat = status
 	br = branch
 	unci = reset --soft HEAD^
@@ -16,10 +15,22 @@
 	put = push origin HEAD
 	get = !git pull && git submodule init && git submodule update
   aa = add --all
+	latest = for-each-ref --sort=-committerdate --format='%(committerdate:short) %(refname:short) [%(committername)]'
+	ds = diff --staged
+	st = status -sb
+	amend = commit --amend -C HEAD
+	undo = reset --soft HEAD^
+	ls = log --pretty=format:\"%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]\" --decorate --date=short
+	standup = log --since '1 day ago' --oneline --author andrew@andrewjorgensen.com
+	graph = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
 [core]
 	excludesfile = ~/.gitignore
 	editor = vim
 [push]
-	default = simple
+	default = tracking
 [branch]
 	autosetuprebase = always
+[help]
+	autocorrect = 1
+[merge]
+	tool = kdiff3

@@ -29,6 +29,13 @@ set PATH "$HOME/.rbenv/bin" $PATH
 set PATH "$HOME/.rbenv/shims" $PATH
 rbenv rehash >/dev/null ^&1
 
+# Android SDK stuff
+set ANDROID_SDK ~/dev/android-sdk/sdk
+set ANDROID_NDK ~/dev/android-ndk
+set PATH "$ANDROID_SDK/tools" $PATH
+set PATH "$ANDROID_SDK/platform-tools" $PATH 
+set GRADLE_OPTS "-Xmx1024m -Xms256m -XX:MaxPermSize=512m"
+
 # Hadoop
 set PATH "$HOME/bin/hadoop-1.2.1/bin" $PATH
 set -x JAVA_HOME "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home"
@@ -49,7 +56,7 @@ alias ss="spin serve"
 alias be="bundle exec"
 alias amend="git commit --amend"
 alias gcm="git commit -m"
-alias gs="git status"
+alias gs="git status -sb"
 alias gaa="git add --all"
 alias gap="git add --patch"
 alias gp="git put"
@@ -65,7 +72,8 @@ alias j="jump"
 alias m="mark"
 alias um="unmark"
 alias autotest="lein midje :autotest src/ test/"
-alias clean-merged="git branch --merged | grep -v '\*' | xargs -n 1 git branch -d"
+alias clean-merged="git checkout master; git branch --merged | grep -v '\*' | xargs -n 1 git branch -d"
+alias cgrep="grep --color=always"
 
 set -x MARKPATH $HOME/.marks
 
@@ -75,10 +83,6 @@ end
 
 function mark
     mkdir -p $MARKPATH; ln -s (pwd) $MARKPATH/$argv
-end
-
-function grep
-  command grep --color=always $argv
 end
 
 function unmark
