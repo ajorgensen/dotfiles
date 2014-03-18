@@ -2,18 +2,24 @@ require 'rake'
 require 'erb'
 require 'pry'
 
-task :install do
+task :install do |t, args|
   home_path = ENV['HOME']
 
   overwrite_all = false
   skip_all = false
 
-  files = Dir['*'] - %w(Rakefile config i3 README.md)
-  files << "config/fish"
+  if ENV['run_list']
+    files = ENV['run_list'].split(',').map(&:chomp)
+  else
+    files = Dir['*'] - %w(Rakefile config i3 README.md)
+    files << "config/fish"
+  end
 
   files.each do |file|
      src = "#{Dir.pwd}/#{file}"
      dest = "#{home_path}/.#{file}"
+
+     next puts "File #{src} does not exist" if !File.exists? src
 
      if !skip_all
        if File.exists? dest
