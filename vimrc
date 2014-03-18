@@ -1,11 +1,13 @@
-set nocompatible
-filetype off
-
+" ========================================================================
+" Vundle stuff
+" ========================================================================
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" let Vundle manage Vundle
+" Let Vundle manage Vundle
 Bundle 'gmarik/vundle'
+
+" My bundles
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-fugitive'
@@ -46,6 +48,9 @@ Bundle 'lucapette/vim-ruby-doc'
 Bundle "preview"
 Bundle 'chance-of-storm'
 Bundle 'zenorocha/dracula-theme'
+
+set nocompatible
+filetype off
 
 let g:notes_directories = ["~/Google Drive/vim-notes"]
 set clipboard=unnamed

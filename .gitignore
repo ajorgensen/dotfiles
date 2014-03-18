@@ -1,2 +1,13 @@
+tags
+gems.tags
+.nrepl-port
+.DS_Store
+.classpath
+.project
+.metadata/
+eclimd.log
 config/fish/fish_history
-vim/bundle/
+config/fish/fishd.*
+vim/.netrwhist
+vim/bundle
+vim/doc/tags-ja
