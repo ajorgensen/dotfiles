@@ -2,18 +2,11 @@ require 'rake'
 require 'erb'
 require 'pry'
 
-task :install do |t, args|
+task :install do
   home_path = ENV['HOME']
 
   overwrite_all = false
   skip_all = false
-
-  if ENV['run_list']
-    files = ENV['run_list'].split(',').map(&:chomp)
-  else
-    files = Dir['*'] - %w(Rakefile config i3 README.md)
-    files << "config/fish"
-  end
 
   files.each do |file|
      src = "#{Dir.pwd}/#{file}"
@@ -64,6 +57,30 @@ task :install do |t, args|
   end
 end
 
+task :uninstall do
+  home_path = ENV['HOME']
+
+  files.each do |file|
+     dest = "#{home_path}/.#{file}"
+
+     unlink_file(dest)
+  end
+end
+
+def files
+  if ENV['run_list']
+    files = ENV['run_list'].split(',').map(&:chomp)
+  else
+    files = Dir['*'] - %w(Rakefile config i3 README.md)
+    files << "config/fish"
+  end
+end
+
+def unlink_file(path)
+  puts "unlinking #{path}"
+  system %Q{unlink "#{path}"}
+end
+
 def link_file(src, dest)
   puts "linked #{src} #{dest}"
   system %Q{ln -s "#{src}" "#{dest}"}
@@ -75,7 +92,7 @@ def create_folder(path)
 end
 
 def sub_tree?(file)
-  file =~ /\//
+  (file =~ /\//) != nil
 end
 
 def osx?

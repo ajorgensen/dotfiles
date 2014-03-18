@@ -17,3 +17,11 @@ If you only want to install certain dotfile you can pass in a comma separated ru
 ```terminal
 rake install run_list="vim,vimrc,config/fish"
 ```
+
+To uninstall, note this can also take a run_list like install:
+
+```terminal
+rake uninstall
+```
+
+
