@@ -72,8 +72,17 @@ end
 
 desc "Installs vundle for vim extention management"
 task :install_vundle do
-  exit puts "Please install vim first" if !File.directory? "#{ENV['HOME']}/.vim"
-  system %Q{git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle}
+  if !File.directory? "#{ENV['HOME']}/.vim"
+    puts "Please install vim first"
+    exit
+  end
+
+  if File.directory? "#{ENV['HOME']}/.vim/bundle/vundle"
+    puts "Vundle already installed"
+    exit
+  end
+
+  system %Q{git clone https://github.com/gmarik/vundle.git #{ENV['HOME']}/.vim/bundle/vundle}
 end
 
 def files
