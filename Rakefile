@@ -2,6 +2,7 @@ require 'rake'
 require 'erb'
 require 'pry'
 
+desc "Installs the dotfiles"
 task :install do
   home_path = ENV['HOME']
 
@@ -57,6 +58,8 @@ task :install do
   end
 end
 
+
+desc "Uninstalls the dotfiles"
 task :uninstall do
   home_path = ENV['HOME']
 
@@ -67,11 +70,17 @@ task :uninstall do
   end
 end
 
+desc "Installs vundle for vim extention management"
+task :install_vundle do
+  exit puts "Please install vim first" if !File.directory? "#{ENV['HOME']}/.vim"
+  system %Q{git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle}
+end
+
 def files
   if ENV['run_list']
     files = ENV['run_list'].split(',').map(&:chomp)
   else
-    files = Dir['*'] - %w(Rakefile config i3 README.md)
+    files = Dir['*'] - %w(Rakefile config README.md)
     files << "config/fish"
   end
 end
