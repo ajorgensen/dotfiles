@@ -7,7 +7,7 @@ Yay config files.
 Run the following commands in your terminal. It will prompt you before it does anything destructive. Check out the [Rakefile](https://github.com/ajorgensen/dotfiles/blob/master/Rakefile) to see exactly what it does.
 
 ```terminal
-git clone git://github.com/ajorgensen/dotfiles ~/.dotfiles
+git clone git@github.com:ajorgensen/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 rake install
 ```
