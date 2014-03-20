@@ -11,3 +11,4 @@ config/fish/fishd.*
 vim/.netrwhist
 vim/bundle
 vim/doc/tags-ja
+vim/plugin/autotag.pyc
