@@ -91,6 +91,7 @@ def files
   else
     files = Dir['*'] - %w(Rakefile config README.md)
     files << "config/fish"
+    files << "i3" if linux?
   end
 end
 
