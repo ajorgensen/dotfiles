@@ -1,55 +1,65 @@
 " ========================================================================
-" Vundle stuff
+" NeoBundle stuff
 " ========================================================================
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+if has('vim_starting')
+   set nocompatible               " Be iMproved
 
-" Let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+   " Required:
+   set runtimepath+=~/.vim/bundle/neobundle.vim/
+ endif
+
+ " Required:
+ call neobundle#rc(expand('~/.vim/bundle/'))
+
+ " Let NeoBundle manage NeoBundle
+ " Required:
+ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " My bundles
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-fireplace'
-Bundle "guns/vim-clojure-static"
-" Bundle 'Auto-Pairs'
-Bundle 'jpalardy/vim-slime'
-Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'leshill/vim-json'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'ctrlp.vim'
-Bundle 'Gundo'
-Bundle 'SuperTab'
-Bundle 'github-theme'
-Bundle 'hughbien/md-vim'
-Bundle 'mattn/gist-vim'
-Bundle 'mattn/webapi-vim'
-Bundle 'ZenCoding.vim'
-Bundle 'Better-Javascript-Indentation'
-Bundle 'junegunn/vim-easy-align'
-Bundle 'arecarn/crunch'
-Bundle 'Tabular'
-Bundle 'suan/vim-instant-markdown'
-Bundle 'ktvoelker/sbt-vim'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'pangloss/vim-javascript'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'majutsushi/tagbar'
-Bundle 'troydm/easybuffer.vim'
-Bundle 'mileszs/ack.vim'
-Bundle 'Gundo'
-Bundle 'badwolf'
-Bundle 'lucapette/vim-ruby-doc'
-Bundle "preview"
-Bundle 'chance-of-storm'
-Bundle 'zenorocha/dracula-theme'
-Bundle 'terryma/vim-expand-region'
-Bundle 'skalnik/vim-vroom'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-commentary'
+NeoBundle 'tpope/vim-fireplace'
+NeoBundle "guns/vim-clojure-static"
+" NeoBundle 'Auto-Pairs'
+NeoBundle 'jpalardy/vim-slime'
+NeoBundle 'kien/rainbow_parentheses.vim'
+NeoBundle 'leshill/vim-json'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'terryma/vim-multiple-cursors'
+NeoBundle 'ctrlp.vim'
+NeoBundle 'Gundo'
+NeoBundle 'SuperTab'
+NeoBundle 'github-theme'
+NeoBundle 'hughbien/md-vim'
+NeoBundle 'mattn/gist-vim'
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'ZenCoding.vim'
+NeoBundle 'Better-Javascript-Indentation'
+NeoBundle 'junegunn/vim-easy-align'
+NeoBundle 'arecarn/crunch'
+NeoBundle 'Tabular'
+NeoBundle 'suan/vim-instant-markdown'
+NeoBundle 'ktvoelker/sbt-vim'
+NeoBundle 'derekwyatt/vim-scala'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'troydm/easybuffer.vim'
+NeoBundle 'mileszs/ack.vim'
+NeoBundle 'Gundo'
+NeoBundle 'badwolf'
+NeoBundle 'lucapette/vim-ruby-doc'
+NeoBundle "preview"
+NeoBundle 'chance-of-storm'
+NeoBundle 'zenorocha/dracula-theme'
+NeoBundle 'terryma/vim-expand-region'
+NeoBundle 'skalnik/vim-vroom'
+
+NeoBundleCheck
 
 " ========================================================================
 " General Config

@@ -70,19 +70,15 @@ task :uninstall do
   end
 end
 
-desc "Installs vundle for vim extention management"
-task :install_vundle do
+desc "Installs NeoBundle for vim extention management"
+task :install_neobundle do
   if !File.directory? "#{ENV['HOME']}/.vim"
     puts "Please install vim first"
     exit
   end
 
-  if File.directory? "#{ENV['HOME']}/.vim/bundle/vundle"
-    puts "Vundle already installed"
-    exit
-  end
-
-  system %Q{git clone https://github.com/gmarik/vundle.git #{ENV['HOME']}/.vim/bundle/vundle}
+  system %Q{mkdir -p #{ENV['HOME']}/.vim/bundle}
+  system %Q{git clone https://github.com/Shougo/neobundle.vim #{ENV['HOME']}/.vim/bundle/neobundle.vim}
 end
 
 def files
