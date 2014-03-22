@@ -48,24 +48,77 @@ Bundle 'lucapette/vim-ruby-doc'
 Bundle "preview"
 Bundle 'chance-of-storm'
 Bundle 'zenorocha/dracula-theme'
+Bundle 'terryma/vim-expand-region'
+Bundle 'skalnik/vim-vroom'
 
+" ========================================================================
+" General Config
+" ========================================================================
 set nocompatible
-filetype off
-
-let g:notes_directories = ["~/Google Drive/vim-notes"]
 set clipboard=unnamed
+set shell=bash
+filetype off
+" let mapleader=","
+let mapleader="\<Space>"
+
+" allow unsaved background buffers and remember marks/undo for them
+set hidden
+" remember more commands and search history
+set nobackup
+set nowritebackup
+set noswapfile
+set history=1000
+set ruler
+set noerrorbells
+set splitright
+set expandtab " turns spaces into tabs
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set autoindent
+set laststatus=2
+set showmatch
+set incsearch " search while typing
+set hlsearch " highlight search matches
+set undofile
+set undodir=~/.vimundo/
+" make searches case-sensitive only if they contain upper-case characters
+"set ignorecase smartcase
+set ignorecase
+set cursorline " highlight current line
+set cmdheight=2
+set switchbuf=useopen
+set numberwidth=5
+" set showtabline=2
+set winwidth=79
+" Prevent Vim from clobbering the scrollback buffer. See
+" http://www.shallowsky.com/linux/noaltscreen.html
+set t_ti= t_te=
+" keep more context when scrolling off the end of a buffer
+set scrolloff=3
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backspace=indent,eol,start
+set showcmd
+syntax on
+filetype plugin indent on
+set wildmenu " make tab completion for files/buffers act like bash
+set wildmode=full
+hi clear SignColumn
+hi SpellBad cterm=underline
+set lazyredraw
+set wrap
+set linebreak
+
+" Highlighting at 80 and 120 characters
+"let &colorcolumn=join(range(81,999),",")
+"let &colorcolumn="80,".join(range(120,999),",")
+"highlight ColorColumn ctermbg=235 guibg=#2c2d27
 
 au BufNewFile,BufRead *.md set ft=md
 au BufRead,BufNewFile *.go set ft=go
 au BufRead,BufNewFile *.coffee set ft=coffee
-
-set shell=bash
-
-" Turn off auto comment insterting
-set formatoptions-=ro
-
-" TODO: FIX ME
-nnoremap <leader>` :sp ~/Documents/notes/programming_notes.txt<cr>
 
 nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
@@ -81,6 +134,20 @@ augroup myvimrc
   au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 augroup END
 
+" ========================================================================
+" Mappings
+" ========================================================================
+noremap <Leader>w :w<CR>
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+" nmap <Leader><Leader> V
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
 " ===================
 " AutoPairs settings
 " ===================
@@ -91,7 +158,6 @@ let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"'}
 " ===================
 let vimclojure#HighlightBuiltins = 1 " Highlight Clojure's builtins
 let vimclojure#ParenRainbow = 1 " Rainbox parens
-
 let g:instant_markdown_autostart = 0
 
 " =============
@@ -107,6 +173,8 @@ let g:clojure_fuzzy_indent_patterns = "with.*,def.*,let.*,send.*,fact,facts"
 let g:ctrlp_max_files = 0
 let g:ctrlp_working_path_mode = 0
 set wildignore+=*.class
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+let g:ctrlp_use_caching = 0
 
 " =============
 " Ruby Stuff
@@ -161,74 +229,6 @@ syntax enable " enable synatx processing
 set t_Co=256 " 256 colors by default
 colorscheme molokai
 set background=light
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" BASIC EDITING CONFIGURATION
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" allow unsaved background buffers and remember marks/undo for them
-set hidden
-" remember more commands and search history
-set nobackup
-set nowritebackup
-set noswapfile
-set history=1000
-set ruler
-set noerrorbells
-set splitright
-set expandtab " turns spaces into tabs
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set autoindent
-set laststatus=2
-set showmatch
-set incsearch " search while typing
-set hlsearch " highlight search matches
-set undofile
-set undodir=~/.vimundo/
-" make searches case-sensitive only if they contain upper-case characters
-"set ignorecase smartcase
-set ignorecase
-set cursorline " highlight current line
-set cmdheight=2
-set switchbuf=useopen
-set numberwidth=5
-" set showtabline=2
-set winwidth=79
-" Prevent Vim from clobbering the scrollback buffer. See
-" http://www.shallowsky.com/linux/noaltscreen.html
-set t_ti= t_te=
-" keep more context when scrolling off the end of a buffer
-set scrolloff=3
-" Store temporary files in a central spot
-set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-" display incomplete commands
-set showcmd
-" Enable highlighting for syntax
-syntax on
-" Enable file type detection.
-" Use the default filetype settings, so that mail gets 'tw' set to 72,
-" 'cindent' is on in C files, etc.
-" Also load indent files, to automatically do language-dependent indenting.
-filetype plugin indent on
-set wildmenu " make tab completion for files/buffers act like bash
-set wildmode=full
-let mapleader=","
-hi clear SignColumn
-hi SpellBad cterm=underline
-set lazyredraw
-set wrap
-set linebreak
-
-
-" Highlighting at 80 and 120 characters
-"let &colorcolumn=join(range(81,999),",")
-"let &colorcolumn="80,".join(range(120,999),",")
-"highlight ColorColumn ctermbg=235 guibg=#2c2d27
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
