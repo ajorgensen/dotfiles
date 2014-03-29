@@ -44,6 +44,11 @@ set -x JAVA_HOME "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Ho
 set PATH "/crashlytics/storm-0.9.0-rc2/bin" $PATH
 
 set PATH "/Applications/eclipse" $PATH
+set PATH '/usr/local/sbin' $PATH
+set PATH '$HOME/bin' $PATH
+
+# Cassandra
+set PATH '$HOME/bin/apache-cassandra-1.1.12/bin' $PATH
 
 #GPG
 set -x KEYID "AC6E2D2F"

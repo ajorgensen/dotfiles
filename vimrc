@@ -58,6 +58,7 @@ NeoBundle 'chance-of-storm'
 NeoBundle 'zenorocha/dracula-theme'
 NeoBundle 'terryma/vim-expand-region'
 NeoBundle 'skalnik/vim-vroom'
+NeoBundle 'rking/ag.vim'
 
 NeoBundleCheck
 
@@ -121,10 +122,9 @@ set lazyredraw
 set wrap
 set linebreak
 
-" Highlighting at 80 and 120 characters
-"let &colorcolumn=join(range(81,999),",")
-"let &colorcolumn="80,".join(range(120,999),",")
-"highlight ColorColumn ctermbg=235 guibg=#2c2d27
+" Highlighting at 81st column
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
+call matchadd('ColorColumn', '\%81v', 100)
 
 au BufNewFile,BufRead *.md set ft=md
 au BufRead,BufNewFile *.go set ft=go
@@ -148,6 +148,7 @@ augroup END
 " Mappings
 " ========================================================================
 noremap <Leader>w :w<CR>
+noremap <Leader>q :q<cr>
 vmap <Leader>y "+y
 vmap <Leader>d "+d
 nmap <Leader>p "+p
@@ -157,6 +158,7 @@ vmap <Leader>P "+P
 " nmap <Leader><Leader> V
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
+noremap ; :
 
 " ===================
 " AutoPairs settings
