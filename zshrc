@@ -22,10 +22,10 @@ export GREP_OPTIONS="--color"
 
 # Nicer history
 export HISTSIZE=100000
-export HISTFILE="$HOME/.history"
+export HISTFILE="$HOME/.zsh_history"
 export SAVEHIST=$HISTSIZE
 
-export EDITOR=mvim
+export EDITOR=vim
 
 # Use qt4 because capybara-webkit needs it to compile
 export QMAKE=/usr/bin/qmake-qt4
@@ -55,6 +55,11 @@ gdc() { gd --cached $*; }
 
 function mcd() { mkdir -p $1 && cd $1 }
 function cdf() { cd *$1*/ } # stolen from @topfunky
+
+# Show contents of folder after cding into it
+chpwd() {
+  ls -lrthG
+}
 
 function chpwd() {
   emulate -L zsh
