@@ -253,8 +253,7 @@ set tags+=gems.tags
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable " enable synatx processing
 set t_Co=256 " 256 colors by default
-colorscheme Tomorrow-Night-Bright
-set background=dark
+colorscheme molokai
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
