@@ -18,53 +18,37 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " My bundles
+NeoBundle 'ervandew/supertab'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'tomtom/tcomment_vim'
+NeoBundle 'tpope/vim-bundler'
+NeoBundle 'tpope/vim-endwise'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-rails'
+NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'elixir-lang/vim-elixir'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-commentary'
-NeoBundle 'tpope/vim-fireplace'
-NeoBundle "guns/vim-clojure-static"
-" NeoBundle 'Auto-Pairs'
-NeoBundle 'jpalardy/vim-slime'
-NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'leshill/vim-json'
 NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'terryma/vim-multiple-cursors'
+NeoBundle 'Gundo'
 NeoBundle 'ctrlp.vim'
-NeoBundle 'Gundo'
-NeoBundle 'SuperTab'
-NeoBundle 'github-theme'
-NeoBundle 'hughbien/md-vim'
-NeoBundle 'mattn/gist-vim'
-NeoBundle 'mattn/webapi-vim'
-NeoBundle 'ZenCoding.vim'
-NeoBundle 'Better-Javascript-Indentation'
-NeoBundle 'junegunn/vim-easy-align'
-NeoBundle 'arecarn/crunch'
-NeoBundle 'Tabular'
-NeoBundle 'suan/vim-instant-markdown'
-NeoBundle 'ktvoelker/sbt-vim'
-NeoBundle 'derekwyatt/vim-scala'
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'troydm/easybuffer.vim'
-NeoBundle 'mileszs/ack.vim'
-NeoBundle 'Gundo'
-NeoBundle 'badwolf'
-NeoBundle 'lucapette/vim-ruby-doc'
-NeoBundle "preview"
-NeoBundle 'chance-of-storm'
-NeoBundle 'zenorocha/dracula-theme'
-NeoBundle 'terryma/vim-expand-region'
-NeoBundle 'skalnik/vim-vroom'
-NeoBundle 'rking/ag.vim'
-NeoBundle "MarcWeber/vim-addon-mw-utils"
-NeoBundle "tomtom/tlib_vim"
-NeoBundle "garbas/vim-snipmate"
-NeoBundle "honza/vim-snippets"
+
+" nelstrom's plugin depends on kana's
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'nelstrom/vim-textobj-rubyblock'
+
+" Clojure
+NeoBundle 'tpope/vim-fireplace'
+NeoBundle 'tpope/vim-classpath'
+NeoBundle 'guns/vim-clojure-static'
+
+" Colors
+NeoBundle 'nanotech/jellybeans.vim'
 
 NeoBundleCheck
 
@@ -253,7 +237,9 @@ set tags+=gems.tags
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable " enable synatx processing
 set t_Co=256 " 256 colors by default
-colorscheme molokai
+" colorscheme molokai
+
+colorscheme jellybeans
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
