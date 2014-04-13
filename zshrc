@@ -92,4 +92,4 @@ function gc {
 # Sourcing of other files
 source $HOME/.zsh/aliases
 source $HOME/.zsh/functions/zgitinit
-source $HOME/.zsh/functions/prompt_grb_setup
+source $HOME/.zsh/functions/zsh_prompt
