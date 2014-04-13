@@ -2,10 +2,6 @@ setopt PROMPT_SUBST
 setopt AUTO_CD
 setopt HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS
 
-autoload -U promptinit
-promptinit
-prompt grb
-
 autoload -U compinit
 compinit
 
@@ -56,54 +52,9 @@ export ACK_COLOR_MATCH='red'
 # ACTUAL CUSTOMIZATION OH NOES!
 gd() { git diff $* | view -; }
 gdc() { gd --cached $*; }
-alias rbgrep="grep --include='*.rb' $*"
-alias r=rails
-alias rs="bundle exec rails server"
-alias rc="bundle exec rails console"
-alias ss="spin serve"
-alias be="bundle exec"
-alias amend="git commit --amend"
-alias gcm="git commit -m"
-alias gs="git status"
-alias gaa="git add --all"
-alias gap="git add --patch"
-alias gp="git put"
-alias glog="git log --color"
-alias gpull="git pull"
-alias gco="git checkout"
-alias get="sudo apt-get install"
-alias ls="ls -lrthG"
-alias shnow="sudo shutdown -h now"
-alias gdiff="git diff --color"
-alias pag="ps aux | grep"
-alias j="jump"
-alias m="mark"
-alias um="unmark"
 
 function mcd() { mkdir -p $1 && cd $1 }
 function cdf() { cd *$1*/ } # stolen from @topfunky
-
-# Aliases
-alias r="bundle exec rails"
-alias t="script/test $*"
-alias f="script/features $*"
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-alias homeconfig='git --git-dir=/home/andrew/.homeconfig.git/ --work-tree=/home/andrew'
-
-#function notify-command-complete(){
-#  #wmctrl -i -r $WINDOWID -b add,demands_attention
-#}
-
-#add-zsh-hook precmd notify-command-complete
-
-# If it exists, process ".sshagentrc"
-SSHAGENTRC_FILE="$HOME/.sshagentrc";
-if [ -f $SSHAGENTRC_FILE ];
-then
-	source $SSHAGENTRC_FILE;
-fi
 
 function chpwd() {
   emulate -L zsh
@@ -120,12 +71,15 @@ export MARKPATH=$HOME/.marks
 function jump { 
     cd -P $MARKPATH/$1 2>/dev/null || echo "No such mark: $1"
 }
+
 function mark { 
     mkdir -p $MARKPATH; ln -s $(pwd) $MARKPATH/$1
 }
+
 function unmark { 
     rm -i $MARKPATH/$1 
 }
+
 function marks {
     ls -l $MARKPATH | sed 's/  / /g' | cut -d' ' -f9- | sed 's/ -/\t-/g' && echo
 }
@@ -135,18 +89,7 @@ function gc {
   git commit -m "$*"
 }
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
-function stage() {
-  current_branch=`git branch | sed -n '/\* /s///p'`
-  current_sha=`git rev-parse HEAD | cut -c1-10`
-  staging_branch="stage/$current_branch"
-  echo "Staging $current_branch($current_sha) as $staging_branch"
-  echo "Deleting local branch $current_branch($current_sha)"
-  git branch -D "$staging_branch"
-  echo "Deleting remote branch $current_branch($current_sha)"
-  git push origin :"$staging_branch"
-  RAILS_ENV=production bundle exec rake --trace assets:push_branch_for_staging branch="$staging_branch"
-  git checkout "$current_branch"
-}
-
+# Sourcing of other files
+source $HOME/.zsh/aliases
+source $HOME/.zsh/functions/zgitinit
+source $HOME/.zsh/functions/prompt_grb_setup

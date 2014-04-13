@@ -1,19 +1,21 @@
+set shell=bash
+
 " ========================================================================
 " NeoBundle stuff
 " ========================================================================
 if has('vim_starting')
-   set nocompatible               " Be iMproved
-
-   " Required:
-   set runtimepath+=~/.vim/bundle/neobundle.vim/
- endif
+ set nocompatible               " Be iMproved
 
  " Required:
- call neobundle#rc(expand('~/.vim/bundle/'))
+ set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
 
- " Let NeoBundle manage NeoBundle
- " Required:
- NeoBundleFetch 'Shougo/neobundle.vim'
+" Required:
+call neobundle#rc(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 " My bundles
 NeoBundle 'tpope/vim-fugitive'
@@ -59,6 +61,10 @@ NeoBundle 'zenorocha/dracula-theme'
 NeoBundle 'terryma/vim-expand-region'
 NeoBundle 'skalnik/vim-vroom'
 NeoBundle 'rking/ag.vim'
+NeoBundle "MarcWeber/vim-addon-mw-utils"
+NeoBundle "tomtom/tlib_vim"
+NeoBundle "garbas/vim-snipmate"
+NeoBundle "honza/vim-snippets"
 
 NeoBundleCheck
 
@@ -67,10 +73,8 @@ NeoBundleCheck
 " ========================================================================
 set nocompatible
 set clipboard=unnamed
-set shell=bash
 filetype off
-" let mapleader=","
-let mapleader="\<Space>"
+let mapleader=","
 
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
@@ -188,6 +192,16 @@ set wildignore+=*.class
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 let g:ctrlp_use_caching = 0
 
+" ========================================================================
+" Snipmate Config
+" ========================================================================
+" let g:snipMate = {} 
+" let g:snipMate.scope_aliases = {} 
+" let g:snipMate.scope_aliases['ruby']  = 'ruby,ruby-rails'
+
+imap <C-N> <Plug>snipMateNextOrTrigger
+smap <C-N> <Plug>snipMateNextOrTrigger
+
 " =============
 " Ruby Stuff
 " =============
@@ -239,8 +253,8 @@ set tags+=gems.tags
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable " enable synatx processing
 set t_Co=256 " 256 colors by default
-colorscheme molokai
-set background=light
+colorscheme Tomorrow-Night-Bright
+set background=dark
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
@@ -290,6 +304,7 @@ imap <c-c> <esc>
 noremap <c-s> <esc>:w<cr>
 command! Q q
 command! W w
+noremap Q <Nop>
 
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j

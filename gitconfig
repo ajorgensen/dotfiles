@@ -8,6 +8,8 @@
 	co = checkout
 	stat = status
 	br = branch
+  dc = diff --cached
+  pullff = pull --ff-only
 	unci = reset --soft HEAD^
 	unstage = reset HEAD
 	rmbr = !sh -c \"git branch -d \\$0 && git push origin :heads/\\$0 && git remote prune origin\"

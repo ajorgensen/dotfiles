@@ -1,6 +1,5 @@
 require 'rake'
 require 'erb'
-require 'pry'
 
 desc "Installs the dotfiles"
 task :install do
@@ -9,7 +8,7 @@ task :install do
   overwrite_all = false
   skip_all = false
 
-  files.each do |file|
+  to_install.each do |file|
      src = "#{Dir.pwd}/#{file}"
      dest = "#{home_path}/.#{file}"
 
@@ -63,7 +62,7 @@ desc "Uninstalls the dotfiles"
 task :uninstall do
   home_path = ENV['HOME']
 
-  files.each do |file|
+  to_install.each do |file|
      dest = "#{home_path}/.#{file}"
 
      unlink_file(dest)
@@ -81,7 +80,18 @@ task :install_neobundle do
   system %Q{git clone https://github.com/Shougo/neobundle.vim #{ENV['HOME']}/.vim/bundle/neobundle.vim}
 end
 
-def files
+desc "Installs Rbenv and ruby build"
+task :install_rbenv do
+  system %Q{git clone https://github.com/sstephenson/rbenv.git #{ENV['HOME']}/.rbenv}
+  system %Q{git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build}
+end
+
+def install_tmux
+  system %Q{brew install tmux}
+  system %Q{brew install reattach-to-user-namespace}
+end
+
+def to_install
   if ENV['run_list']
     files = ENV['run_list'].split(',').map(&:chomp)
   else
@@ -89,6 +99,8 @@ def files
     files << "config/fish"
     files << "i3" if linux?
   end
+
+  files
 end
 
 def unlink_file(path)
