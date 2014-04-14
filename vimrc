@@ -37,6 +37,10 @@ NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'Gundo'
 NeoBundle 'ctrlp.vim'
+NeoBundle 'vim-scripts/matchit.zip'
+NeoBundle "MarcWeber/vim-addon-mw-utils"
+NeoBundle "tomtom/tlib_vim"
+NeoBundle "garbas/vim-snipmate"
 
 " nelstrom's plugin depends on kana's
 NeoBundle 'kana/vim-textobj-user'
@@ -55,9 +59,20 @@ NeoBundleCheck
 " ========================================================================
 " General Config
 " ========================================================================
+syntax on
+filetype plugin indent on
+
+augroup myfiletypes
+  " Clear old autocmds in group
+  autocmd!
+  " autoindent with two spaces, always expand tabs
+  autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
+  autocmd FileType ruby,eruby,yaml setlocal path+=lib
+  autocmd FileType ruby,eruby,yaml setlocal colorcolumn=80
+augroup END
+
 set nocompatible
 set clipboard=unnamed
-filetype off
 let mapleader=","
 
 " allow unsaved background buffers and remember marks/undo for them
@@ -83,6 +98,7 @@ set undofile
 set undodir=~/.vimundo/
 " make searches case-sensitive only if they contain upper-case characters
 "set ignorecase smartcase
+set smarttab
 set ignorecase
 set cursorline " highlight current line
 set cmdheight=2
@@ -100,8 +116,6 @@ set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backspace=indent,eol,start
 set showcmd
-syntax on
-filetype plugin indent on
 set wildmenu " make tab completion for files/buffers act like bash
 set wildmode=full
 hi clear SignColumn
@@ -149,11 +163,6 @@ vmap <C-v> <Plug>(expand_region_shrink)
 noremap ; :
 
 " ===================
-" AutoPairs settings
-" ===================
-let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"'}
-
-" ===================
 " VimClojure settings
 " ===================
 let vimclojure#HighlightBuiltins = 1 " Highlight Clojure's builtins
@@ -179,101 +188,29 @@ let g:ctrlp_use_caching = 0
 " ========================================================================
 " Snipmate Config
 " ========================================================================
-" let g:snipMate = {} 
-" let g:snipMate.scope_aliases = {} 
-" let g:snipMate.scope_aliases['ruby']  = 'ruby,ruby-rails'
-
-imap <C-N> <Plug>snipMateNextOrTrigger
-smap <C-N> <Plug>snipMateNextOrTrigger
-
-" =============
-" Ruby Stuff
-" =============
-augroup vimrcEx
-  " Clear all autocmds in the group
-  autocmd!
-  autocmd FileType text setlocal textwidth=78
-  " Jump to last cursor position unless it's invalid or in an event handler
-  autocmd BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-        \   exe "normal g`\"" |
-        \ endif
-
-  "for ruby, autoindent with two spaces, always expand tabs
-  autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
-  autocmd FileType python set sw=4 sts=4 et
-
-  autocmd! BufRead,BufNewFile *.sass setfiletype sass 
-
-  autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
-  autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
-
-  " Indent p tags
-  " autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
-
-  " Don't syntax highlight markdown because it's often wrong
-  autocmd! FileType mkd setlocal syn=off
-
-  " Leave the return key alone when in command line windows, since it's used
-  " to run commands there.
-  autocmd! CmdwinEnter * :unmap <cr>
-  autocmd! CmdwinLeave * :call MapCR()
-augroup END
+let g:snipMate = {} 
+let g:snipMate.scope_aliases = {} 
+let g:snipMate.scope_aliases['ruby']  = 'ruby,ruby-rails'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TAGLIST CONFIG
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let Tlist_Ctags_Cmd = '/usr/bin/ctags'
-let Tlist_WinWidth = 50
-map <F4> :TlistToggle<cr>
-map <F8> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-nmap <F9> :TagbarToggle<CR>
-set tags+=gems.tags
+"let Tlist_Ctags_Cmd = '/usr/bin/ctags'
+"let Tlist_WinWidth = 50
+"map <F4> :TlistToggle<cr>
+"map <F8> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+"nmap <F9> :TagbarToggle<CR>
+
+" Set the tag file search order
+set tags=./tags;
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLOR
-"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable " enable synatx processing
 set t_Co=256 " 256 colors by default
-" colorscheme molokai
-
 colorscheme jellybeans
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CUSTOM AUTOCMDS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup vimrcEx
-  " Clear all autocmds in the group
-  autocmd!
-  autocmd FileType text setlocal textwidth=78
-  " Jump to last cursor position unless it's invalid or in an event handler
-  autocmd BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-        \   exe "normal g`\"" |
-        \ endif
-
-  "for ruby, autoindent with two spaces, always expand tabs
-  autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
-  autocmd FileType python set sw=4 sts=4 et
-
-  autocmd! BufRead,BufNewFile *.sass setfiletype sass 
-
-  autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
-  autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
-
-  " Indent p tags
-  " autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
-
-  " Don't syntax highlight markdown because it's often wrong
-  autocmd! FileType mkd setlocal syn=off
-
-  " Leave the return key alone when in command line windows, since it's used
-  " to run commands there.
-  autocmd! CmdwinEnter * :unmap <cr>
-  autocmd! CmdwinLeave * :call MapCR()
-augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
@@ -307,21 +244,6 @@ nnoremap <leader><space> :nohlsearch<CR> " turn off search highlight
 inoremap jk <esc> " jk is escape
 
 nnoremap <leader>u :GundoToggle<CR>         " toggle gundo
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MULTIPURPOSE TAB KEY
-" Indent if we're at the beginning of a line. Else, do completion.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! InsertTabWrapper()
-  let col = col('.') - 1
-  if !col || getline('.')[col - 1] !~ '\k'
-    return "\<tab>"
-  else
-    return "\<c-p>"
-  endif
-endfunction
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <s-tab> <c-n>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ARROW KEYS ARE UNACCEPTABLE
@@ -366,31 +288,9 @@ function! GitAddAllAndCommit()
 endfunction
 map <leader>sc :call GitAddAllAndCommit()<cr>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MAPS TO JUMP TO SPECIFIC COMMAND-T TARGETS AND FILES
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>gr :topleft :split config/routes.rb<cr>
-function! ShowRoutes()
-  " Requires 'scratch' plugin
-  :topleft 100 :split __Routes__
-  " Make sure Vim doesn't write __Routes__ as a file
-  :set buftype=nofile
-  " Delete everything
-  :normal 1GdG
-  " Put routes output in buffer
-  :0r! rake -s routes
-  " Size window to number of lines (1 plus rake output length)
-  :exec ":normal " . line("$") . "_ "
-  " Move cursor to bottom
-  :normal 1GG
-  " Delete empty trailing line
-  :normal dd
-endfunction
 noremap <leader>f :CtrlP<cr>
 nmap <c-g> :CtrlP<cr><C-\>w
 
-"nnoremap gr :grep <cword> . --exclude-dir=log -R | copen<CR>
-"nnoremap gG :grep <cword> ~/.rbenv/versions/$RBENV_VERSION/lib/ruby/gems/1.9.1/**/*.rb -R | copen<CR>
 map gr :execute " grep! -srnw --binary-files=without-match --exclude-dir=.git --exclude-dir=log --exclude-dir=test --exclude-dir=spec --exclude-dir=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
 map gt :execute " grep! -srnw --binary-files=without-match --exclude-dir=.git --exclude-dir=log --exclude-dir=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
 map gG :execute " grep! -srnw --binary-files=without-match --exclude-dir=.git --exclude-dir=tags ~/.rbenv/versions/$RBENV_VERSION/lib/ruby/gems/1.9.1 -e " . expand("<cword>") . " " <bar> cwindow<CR>
@@ -428,12 +328,6 @@ nnoremap <leader>. :call OpenTestAlternate()<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUNNING TESTS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"map <leader>t :call RunTestFile()<cr>
-"map <leader>T :call RunNearestTest()<cr>
-"map <leader>a :call RunTests('')<cr>
-"map <leader>c :w\|:!script/features<cr>
-"map <leader>w :w\|:!script/features --profile wip<cr>
-
 map <leader>z :wa\|:call RunPresetTest()<cr>
 map <leader>Z :call SetTestFile()<cr>
 map <leader>c :call UnsetTestFile()<cr>
@@ -532,18 +426,6 @@ function! RunNearestTest()
     call RunTestFile(":" . spec_line_number . " -b")
 endfunction
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Md5 COMMAND
-" Show the MD5 of the current buffer
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-command! -range Md5 :echo system('echo '.shellescape(join(getline(<line1>, <line2>), '\n')) . '| md5')
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" InsertTime COMMAND
-" Insert the current time
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-command! InsertTime :normal a<c-r>=strftime('%F %H:%M:%S.0 %z')<cr>
-
 if has("autocmd")
   autocmd BufWritePre {*.rb,*.js,*.coffee,*.scss,*.haml,*.py,*.js,*.clj} :call <SID>CleanFile()
 endif
@@ -588,15 +470,7 @@ function! <SID>StripBlankLinesAtEndOfFile()
 endfunction
 
 set relativenumber
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set norelativenumber
-    set number
-  else
-    set nonumber
-    set relativenumber
-  endif
-endfunc
+set nu
 
 function! ToggleSpellchecker()
   if(&spell == 1)
@@ -610,5 +484,3 @@ endfunc
 
 nnoremap <C-t> :call NumberToggle()<cr>
 nnoremap <F3> :call ToggleSpellchecker()<cr>
-nnoremap <F2> :RainbowParenthesesToggle<cr>
-
