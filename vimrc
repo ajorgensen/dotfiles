@@ -41,6 +41,8 @@ NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle "MarcWeber/vim-addon-mw-utils"
 NeoBundle "tomtom/tlib_vim"
 NeoBundle "garbas/vim-snipmate"
+NeoBundle "vim-scripts/javacomplete"
+NeoBundle "majutsushi/tagbar"
 
 " nelstrom's plugin depends on kana's
 NeoBundle 'kana/vim-textobj-user'
@@ -193,17 +195,14 @@ let g:snipMate.scope_aliases = {}
 let g:snipMate.scope_aliases['ruby']  = 'ruby,ruby-rails'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" TAGLIST CONFIG
+" CTags CONFIG
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"let Tlist_Ctags_Cmd = '/usr/bin/ctags'
-"let Tlist_WinWidth = 50
-"map <F4> :TlistToggle<cr>
-"map <F8> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-"nmap <F9> :TagbarToggle<CR>
-
 " Set the tag file search order
-set tags=./tags;
+" map <F8> :!ctags ~/.tags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+map <F8> :!ctags -f ~/.tags -R "$(git rev-parse --show-toplevel)"<CR>
+nmap <F9> :TagbarToggle<CR>
+set tags=~/.tags
+set complete=.,w,b,u,t,i 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLOR
@@ -296,51 +295,25 @@ map gt :execute " grep! -srnw --binary-files=without-match --exclude-dir=.git --
 map gG :execute " grep! -srnw --binary-files=without-match --exclude-dir=.git --exclude-dir=tags ~/.rbenv/versions/$RBENV_VERSION/lib/ruby/gems/1.9.1 -e " . expand("<cword>") . " " <bar> cwindow<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SWITCH BETWEEN TEST AND PRODUCTION CODE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! OpenTestAlternate()
-  let new_file = AlternateForCurrentFile()
-  exec ':sp ' . new_file
-endfunction
-function! AlternateForCurrentFile()
-  let current_file = expand("%")
-  let new_file = current_file
-  let in_spec = match(current_file, '^spec/') != -1
-  let going_to_spec = !in_spec
-  let in_app = match(current_file, '\<controllers\>') != -1 || match(current_file, '\<models\>') != -1 || match(current_file, '\<views\>') != -1 || match(current_file, '\<helpers\>') != -1
-  if going_to_spec
-    if in_app
-      let new_file = substitute(new_file, '^app/', '', '')
-    end
-    let new_file = substitute(new_file, '\.rb$', '_test.rb', '')
-    let new_file = 'test/' . new_file
-  else
-    let new_file = substitute(new_file, '_spec\.rb$', '.rb', '')
-    let new_file = substitute(new_file, '^spec/', '', '')
-    if in_app
-      let new_file = 'app/' . new_file
-    end
-  endif
-  return new_file
-endfunction
-nnoremap <leader>. :call OpenTestAlternate()<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUNNING TESTS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>z :wa\|:call RunPresetTest()<cr>
 map <leader>Z :call SetTestFile()<cr>
 map <leader>c :call UnsetTestFile()<cr>
 map <leader>a :call OpenTestFile()<cr>
+map <leader>stp :exec '!mvn exec:java -Dexec.mainClass="' . expand("%:t:r") . '"'<cr>
+
+augroup filetype_java
+    autocmd!
+    autocmd FileType java map <leader>z :wa\|:call RunPresetJavaTest()<cr>
+    autocmd FileType ruby map <leader>z :wa\|:call RunPresetRubySpec()<cr>
+augroup END
 
 let g:rubytest_cmd_testcase = "ruby %p -n '/%c/'"
 
 function! OpenTestFile()
-  if isdirectory("./spec")
-    let matching_files = split(globpath('./spec/**', expand("%:t:r") . "_spec.rb"), "\n")
-  else
-    let matching_files = split(globpath('./test/**', expand("%:t:r") . "_test.*"), "\n")
-  endif
+  let matching_files = split(globpath('./spec/**', expand("%:t:r") .  "_spec.rb"), "\n")
+  let matching_files = matching_files + split(globpath('./test/**', expand("%:t:r") . "_test.*"), "\n")
+  let matching_files = matching_files + split(globpath('./src/test/**', expand("%:t:r") . "*Test.java"), "\n")
 
   if len(matching_files) == 1
     exec ":vsp " . matching_files[0]
@@ -354,9 +327,14 @@ function! OpenTestFile()
   end
 endfunction
 
-let g:rubytest_cmd_testcase = "ruby %p -n '/%c/'"
+function! RunPresetJavaTest()
+  if exists("t:grb_test_file")
+    exec "!mvn -Dtest=" . fnamemodify(t:grb_test_file, ':t:r') . " test"
+  endif
+endfunction
 
-function! RunPresetTest() 
+let g:rubytest_cmd_testcase = "ruby %p -n '/%c/'"
+function! RunPresetRubySpec() 
     call SpinRunning()
 
     if exists("t:grb_test_file")
@@ -402,28 +380,6 @@ function! UnsetTestFile()
   if exists("t:grb_test_file")
     unlet t:grb_test_file 
   end
-endfunction
-
-function! RunTestFile(...)
-    if a:0
-        let command_suffix = a:1
-    else
-        let command_suffix = ""
-    endif
-
-    " Run the tests for the previously-marked file.
-    let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\|_test.rb\)$') != -1
-    if in_test_file
-        call SetTestFile()
-    elseif !exists("t:grb_test_file")
-        return
-    end
-    call RunTests(t:grb_test_file . command_suffix)
-endfunction
-
-function! RunNearestTest()
-    let spec_line_number = line('.')
-    call RunTestFile(":" . spec_line_number . " -b")
 endfunction
 
 if has("autocmd")
@@ -484,3 +440,5 @@ endfunc
 
 nnoremap <C-t> :call NumberToggle()<cr>
 nnoremap <F3> :call ToggleSpellchecker()<cr>
+
+

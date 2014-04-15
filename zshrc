@@ -8,11 +8,12 @@ compinit
 # Add paths that should have been there by default
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/sbin:/usr/sbin:/bin:${PATH}
 export PATH="$HOME/bin:$HOME/Applications:$PATH"
-export PATH="$HOME/.rbenv/shims/:$HOME/.rbenv/bin:$PATH"
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
-#eval "$(rbenv init -)"
 export PATH="$HOME/.rbenv/bin:$PATH"
-[ -e ~/.rbenv/bin/rbenv ] && eval "$(rbenv init --no-rehash -)"
+export PATH="$HOME/.rbenv/shims/:$HOME/.rbenv/bin:$PATH"
+source ~/.rbenv/completions/rbenv.zsh
+eval "$(rbenv init -)"
 (rbenv rehash &) 2> /dev/null
 
 # Colorize terminal
@@ -65,12 +66,6 @@ function chpwd() {
   emulate -L zsh
   ls -lrthG
 }
-
-if [ -e /usr/share/terminfo/x/xterm-256color ]; then
-        export TERM='xterm-256color'
-else
-        export TERM='xterm-color'
-fi
 
 export MARKPATH=$HOME/.marks
 function jump { 
