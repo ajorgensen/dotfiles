@@ -31,16 +31,13 @@ export EDITOR=vim
 # Use qt4 because capybara-webkit needs it to compile
 export QMAKE=/usr/bin/qmake-qt4
 
-# Ruby performance stuff
-export RUBY_GC_MALLOC_LIMIT=60000000
-export RUBY_FREE_MIN=200000
-
 autoload -U history-search-end
 
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 [[ -n "${key[Up]}" ]] && bindkey "${key[Up]}" history-beginning-search-backward-end
 [[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" history-beginning-search-forward-end
+bindkey '^R' history-incremental-search-backward
 
 autoload -U edit-command-line
 zle -N edit-command-line
