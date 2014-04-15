@@ -43,6 +43,7 @@ NeoBundle "tomtom/tlib_vim"
 NeoBundle "garbas/vim-snipmate"
 NeoBundle "vim-scripts/javacomplete"
 NeoBundle "majutsushi/tagbar"
+NeoBundle 'scrooloose/syntastic'
 
 " nelstrom's plugin depends on kana's
 NeoBundle 'kana/vim-textobj-user'
