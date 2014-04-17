@@ -43,7 +43,7 @@ NeoBundle "tomtom/tlib_vim"
 NeoBundle "garbas/vim-snipmate"
 NeoBundle "vim-scripts/javacomplete"
 NeoBundle "majutsushi/tagbar"
-NeoBundle 'scrooloose/syntastic'
+NeoBundle 'mileszs/ack.vim'
 
 " nelstrom's plugin depends on kana's
 NeoBundle 'kana/vim-textobj-user'
@@ -64,15 +64,6 @@ NeoBundleCheck
 " ========================================================================
 syntax on
 filetype plugin indent on
-
-augroup myfiletypes
-  " Clear old autocmds in group
-  autocmd!
-  " autoindent with two spaces, always expand tabs
-  autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
-  autocmd FileType ruby,eruby,yaml setlocal path+=lib
-  autocmd FileType ruby,eruby,yaml setlocal colorcolumn=80
-augroup END
 
 set nocompatible
 set clipboard=unnamed
@@ -225,6 +216,7 @@ map <leader>y "+y
 imap <c-c> <esc>
 noremap <c-s> <esc>:w<cr>
 command! Q q
+command! -bar -bang Q quit<bang>
 command! W w
 noremap Q <Nop>
 
@@ -252,6 +244,21 @@ map <Left> <Nop>
 map <Right> <Nop>
 map <Up> <Nop>
 map <Down> <Nop>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MULTIPURPOSE TAB KEY
+" Indent if we're at the beginning of a line. Else, do completion.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
+endfunction
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <s-tab> <c-n>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OPEN FILES IN DIRECTORY OF CURRENT FILE
@@ -442,4 +449,12 @@ endfunc
 nnoremap <C-t> :call NumberToggle()<cr>
 nnoremap <F3> :call ToggleSpellchecker()<cr>
 
-
+augroup myfiletypes
+  " Clear old autocmds in group
+  autocmd!
+  " autoindent with two spaces, always expand tabs
+  autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
+  autocmd FileType ruby,eruby,yaml setlocal path+=lib
+  autocmd FileType ruby,eruby,yaml setlocal colorcolumn=80
+  autocmd FileType java setlocal sw=4
+augroup END

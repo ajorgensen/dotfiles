@@ -1,6 +1,7 @@
 setopt PROMPT_SUBST
 setopt AUTO_CD
-setopt HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS
+setopt HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS INC_APPEND_HISTORY
+setopt appendhistory
 
 autoload -U compinit
 compinit
@@ -27,6 +28,7 @@ export HISTFILE="$HOME/.zsh_history"
 export SAVEHIST=$HISTSIZE
 
 export EDITOR=vim
+bindkey -e
 
 # Use qt4 because capybara-webkit needs it to compile
 export QMAKE=/usr/bin/qmake-qt4
@@ -37,7 +39,8 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 [[ -n "${key[Up]}" ]] && bindkey "${key[Up]}" history-beginning-search-backward-end
 [[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" history-beginning-search-forward-end
-bindkey '^R' history-incremental-search-backward
+bindkey '^P' history-incremental-search-backward
+bindkey '^N' history-incremental-search-forward
 
 autoload -U edit-command-line
 zle -N edit-command-line
@@ -90,3 +93,4 @@ function gc {
 source $HOME/.zsh/aliases
 source $HOME/.zsh/functions/zgitinit
 source $HOME/.zsh/functions/zsh_prompt
+source $HOME/.zsh/functions/rake_autocomplete
