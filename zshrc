@@ -3,6 +3,9 @@ setopt AUTO_CD
 setopt HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS INC_APPEND_HISTORY
 setopt appendhistory
 
+fpath=(~/.zsh/completion $fpath) 
+fpath=(~/.zsh/functions $fpath) 
+
 autoload -U compinit
 compinit
 
@@ -13,7 +16,6 @@ export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.rbenv/shims/:$HOME/.rbenv/bin:$PATH"
-source ~/.rbenv/completions/rbenv.zsh
 eval "$(rbenv init -)"
 (rbenv rehash &) 2> /dev/null
 
@@ -93,4 +95,3 @@ function gc {
 source $HOME/.zsh/aliases
 source $HOME/.zsh/functions/zgitinit
 source $HOME/.zsh/functions/zsh_prompt
-source $HOME/.zsh/functions/rake_autocomplete
