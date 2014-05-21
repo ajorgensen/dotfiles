@@ -27,3 +27,17 @@ alias um="unmark"
 alias clean-merged="git checkout master; git branch --merged | grep -v '\*' | xargs -n 1 git branch -d"
 alias tmux="TERM=xterm-256color tmux -2"
 alias retag='ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=tmp *'
+alias grim='git rebase -i origin/master'
+alias g='git'
+alias gpop='git stash pop'
+alias gstash='git stash'
+alias vim='mvim -v'
+alias vi='mvim -v'
+alias sz='source ~/.zshrc'
+alias ez='source ~/.zshrc'
+
+for bname in 'rspec' 'rails'
+do
+  eval "${bname}() { bundle exec ${bname} }"
+  eval "${bname}!() { ${bname} }"
+done

@@ -44,6 +44,8 @@ NeoBundle "garbas/vim-snipmate"
 NeoBundle "vim-scripts/javacomplete"
 NeoBundle "majutsushi/tagbar"
 NeoBundle 'mileszs/ack.vim'
+NeoBundle 'tpope/vim-markdown'
+NeoBundle 'ecomba/vim-ruby-refactoring'
 
 " nelstrom's plugin depends on kana's
 NeoBundle 'kana/vim-textobj-user'
@@ -118,16 +120,9 @@ set lazyredraw
 set wrap
 set linebreak
 
-" Highlighting at 81st column
-highlight ColorColumn ctermbg=235 guibg=#2c2d27
-call matchadd('ColorColumn', '\%81v', 100)
-
 au BufNewFile,BufRead *.md set ft=md
 au BufRead,BufNewFile *.go set ft=go
 au BufRead,BufNewFile *.coffee set ft=coffee
-
-nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
 
 let g:slime_target = "tmux"
 set virtualedit=onemore "Needed so vim-scala doesn't shit the bed
@@ -155,6 +150,7 @@ vmap <Leader>P "+P
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 noremap ; :
+noremap <C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " ===================
 " VimClojure settings
@@ -458,3 +454,8 @@ augroup myfiletypes
   autocmd FileType ruby,eruby,yaml setlocal colorcolumn=80
   autocmd FileType java setlocal sw=4
 augroup END
+
+" Highlighting at 81st column
+highlight ColorColumn ctermbg=235
+set colorcolumn=80
+

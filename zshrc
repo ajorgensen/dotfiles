@@ -29,6 +29,10 @@ export HISTSIZE=100000
 export HISTFILE="$HOME/.zsh_history"
 export SAVEHIST=$HISTSIZE
 
+# Hadoop
+export PATH="$HOME/bin/hadoop-1.2.1/bin:$PATH"
+export JAVA_HOME="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home"
+
 export EDITOR=vim
 bindkey -e
 
@@ -91,7 +95,14 @@ function gc {
   git commit -m "$*"
 }
 
+## case-insensitive (all), partial-word and then substring completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' \
+    'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
 # Sourcing of other files
 source $HOME/.zsh/aliases
 source $HOME/.zsh/functions/zgitinit
 source $HOME/.zsh/functions/zsh_prompt
+if [ -e $HOME/.secret_zshrc ]; then
+  source $HOME/.secret_zshrc
+fi
