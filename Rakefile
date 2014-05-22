@@ -1,17 +1,13 @@
 require 'rake'
 require 'erb'
+require 'pry'
 
 desc "Installs the dotfiles"
 task :install do
-  home_path = ENV['HOME']
-
   overwrite_all = false
   skip_all = false
 
-  to_install.each do |file|
-     src = "#{Dir.pwd}/#{file}"
-     dest = "#{home_path}/.#{file}"
-
+  to_install.each do |src, dest|
      next puts "File #{src} does not exist" if !File.exists? src
 
      if !skip_all
@@ -37,7 +33,7 @@ task :install do
 
          if !skip && !skip_all
            if sub_tree?(file)
-             create_folder "#{home_path}/.#{File.dirname(file)}"
+             create_folder dest
            end
 
            link_file(src, dest)
@@ -46,7 +42,7 @@ task :install do
          end
        else
          if sub_tree?(file)
-           create_folder "#{home_path}/.#{File.dirname(file)}"
+           create_folder dest
          end
 
          link_file(src, dest)
@@ -56,7 +52,6 @@ task :install do
      end
   end
 end
-
 
 desc "Uninstalls the dotfiles"
 task :uninstall do
@@ -95,12 +90,38 @@ def to_install
   if ENV['run_list']
     files = ENV['run_list'].split(',').map(&:chomp)
   else
-    files = Dir['*'] - %w(Rakefile config README.md)
+    files = Dir['*']
     files << "config/fish"
     files << "i3" if linux?
   end
 
-  files
+  files -= %w(Rakefile config README.md)
+  
+  files_to_install = files.inject(Array.new) do |state, file|
+    if file == "bin"
+      bin_files.collect do |bin_file|
+        src = "#{Dir.pwd}/#{bin_file}"
+        dest = "/usr/local/bin/#{File.basename(bin_file)}"
+        state << [src, dest]
+      end
+    elsif file.include?("bin")
+      src = "#{Dir.pwd}/#{file}"
+      dest = "/usr/local/bin/#{File.basename(file)}"
+      state << [src, dest]
+    else
+      src = "#{Dir.pwd}/#{file}"
+      dest = "#{ENV['HOME']}/.#{File.basename(file)}"
+      state << [src, dest]
+    end
+
+    state
+  end
+
+  files_to_install
+end
+
+def bin_files
+  Dir['bin/*']
 end
 
 def unlink_file(path)
