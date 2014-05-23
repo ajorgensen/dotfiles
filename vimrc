@@ -46,6 +46,7 @@ NeoBundle "majutsushi/tagbar"
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'ecomba/vim-ruby-refactoring'
+NeoBundle 'skwp/greplace.vim'
 
 " nelstrom's plugin depends on kana's
 NeoBundle 'kana/vim-textobj-user'

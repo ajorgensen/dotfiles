@@ -38,6 +38,5 @@ alias ez='source ~/.zshrc'
 
 for bname in 'rspec' 'rails'
 do
-  eval "${bname}() { bundle exec ${bname} }"
-  eval "${bname}!() { ${bname} }"
+  eval "be${bname}() { bundle exec ${bname} }"
 done
