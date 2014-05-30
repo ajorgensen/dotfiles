@@ -40,7 +40,9 @@ NeoBundle 'ctrlp.vim'
 NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle "MarcWeber/vim-addon-mw-utils"
 NeoBundle "tomtom/tlib_vim"
-NeoBundle "garbas/vim-snipmate"
+" NeoBundle "garbas/vim-snipmate"
+NeoBundle "SirVer/ultisnips"
+NeoBundle 'honza/vim-snippets'
 NeoBundle "vim-scripts/javacomplete"
 NeoBundle "majutsushi/tagbar"
 NeoBundle 'mileszs/ack.vim'
@@ -179,9 +181,9 @@ let g:ctrlp_use_caching = 0
 " ========================================================================
 " Snipmate Config
 " ========================================================================
-let g:snipMate = {} 
-let g:snipMate.scope_aliases = {} 
-let g:snipMate.scope_aliases['ruby']  = 'ruby,ruby-rails'
+" let g:snipMate = {} 
+" let g:snipMate.scope_aliases = {} 
+" let g:snipMate.scope_aliases['ruby']  = 'ruby,ruby-rails'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTags CONFIG
