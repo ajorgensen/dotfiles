@@ -34,7 +34,10 @@ alias gstash='git stash'
 alias vim='mvim -v'
 alias vi='mvim -v'
 alias sz='source ~/.zshrc'
-alias ez='source ~/.zshrc'
+alias ez='vi ~/.zshrc'
+alias eza='vim ~/.zsh/aliases'
+alias gcob='git co -b'
+alias dbreset="bundle exec rake db:drop db:create db:migrate db:seed db:test:prepare"
 
 for bname in 'rspec' 'rails'
 do

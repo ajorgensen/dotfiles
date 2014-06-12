@@ -1,0 +1,6 @@
+_taoc_complete() {
+  completions="$(tmux list-sessions | awk '{print $1}' | sed 's/:$//')"
+  reply=( "${(ps:\n:)completions}" )
+}
+
+compctl -f -K _taoc_complete taoc

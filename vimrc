@@ -1,4 +1,4 @@
-set shell=bash
+set shell=zsh
 
 " ========================================================================
 " NeoBundle stuff
@@ -40,7 +40,6 @@ NeoBundle 'ctrlp.vim'
 NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle "MarcWeber/vim-addon-mw-utils"
 NeoBundle "tomtom/tlib_vim"
-" NeoBundle "garbas/vim-snipmate"
 NeoBundle "SirVer/ultisnips"
 NeoBundle 'honza/vim-snippets'
 NeoBundle "vim-scripts/javacomplete"
@@ -49,6 +48,7 @@ NeoBundle 'mileszs/ack.vim'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'ecomba/vim-ruby-refactoring'
 NeoBundle 'skwp/greplace.vim'
+NeoBundle 'roman/golden-ratio'
 
 " nelstrom's plugin depends on kana's
 NeoBundle 'kana/vim-textobj-user'
@@ -256,13 +256,13 @@ function! InsertTabWrapper()
         return "\<c-p>"
     endif
 endfunction
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+"inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OPEN FILES IN DIRECTORY OF CURRENT FILE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-cnoremap %% <C-R>=expand('%:h').'/'<cr>
+"cnoremap %% <C-R>=expand('%:h').'/'<cr>
 map <leader>e :edit %%
 map <leader>v :view %%
 
@@ -297,9 +297,9 @@ map <leader>sc :call GitAddAllAndCommit()<cr>
 noremap <leader>f :CtrlP<cr>
 nmap <c-g> :CtrlP<cr><C-\>w
 
-map gr :execute " grep! -srnw --binary-files=without-match --exclude-dir=.git --exclude-dir=log --exclude-dir=test --exclude-dir=spec --exclude-dir=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
+map gr :execute " grep! -srnw --binary-files=without-match --exclude-dir=tmp --exclude-dir=.git --exclude-dir=log --exclude-dir=test --exclude-dir=spec --exclude-dir=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
 map gt :execute " grep! -srnw --binary-files=without-match --exclude-dir=.git --exclude-dir=log --exclude-dir=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
-map gG :execute " grep! -srnw --binary-files=without-match --exclude-dir=.git --exclude-dir=tags ~/.rbenv/versions/$RBENV_VERSION/lib/ruby/gems/1.9.1 -e " . expand("<cword>") . " " <bar> cwindow<CR>
+map gG :execute " grep! -srnw --binary-files=without-match --exclude-dir=tmp --exclude-dir=.git --exclude-dir=tags ~/.rbenv/versions/$RBENV_VERSION/lib/ruby/gems/1.9.1 -e " . expand("<cword>") . " " <bar> cwindow<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUNNING TESTS
