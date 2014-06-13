@@ -1,6 +1,13 @@
-_taoc_complete() {
-  completions="$(tmux list-sessions | awk '{print $1}' | sed 's/:$//')"
-  reply=( "${(ps:\n:)completions}" )
-}
+#compdef taoc
 
-compctl -f -K _taoc_complete taoc
+#_arguments 
+
+_taoc() { 
+  local curcontext="$curcontext" state line
+  typeset -A opt_args
+
+  SESSIONS=$(tmux list-sessions | awk '{print $1}' | sed 's/:$//')
+  _arguments "1:Sessions:($SESSIONS)"
+}
+         
+_taoc "$@"

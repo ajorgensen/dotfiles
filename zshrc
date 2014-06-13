@@ -9,6 +9,10 @@ fpath=(~/.zsh/functions $fpath)
 autoload -U compinit
 compinit
 
+# show completion menu when number of options is at least 2
+zstyle ':completion:*' menu select=2
+zstyle ":completion:*:descriptions" format "%B%d%b"
+
 # Add paths that should have been there by default
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/sbin:/usr/sbin:/bin:${PATH}
 export PATH="$HOME/bin:$HOME/Applications:$PATH"
