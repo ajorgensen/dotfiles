@@ -110,3 +110,4 @@ source $HOME/.zsh/functions/zsh_prompt
 if [ -e $HOME/.secret_zshrc ]; then
   source $HOME/.secret_zshrc
 fi
+source ~/.fzf.zsh

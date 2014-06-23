@@ -1,4 +1,4 @@
-set shell=zsh
+set shell=bash
 
 " ========================================================================
 " NeoBundle stuff
@@ -28,6 +28,7 @@ NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'tpope/vim-commentary'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'elixir-lang/vim-elixir'
 NeoBundle 'tpope/vim-fugitive'
