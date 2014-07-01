@@ -19,7 +19,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " My bundles
 NeoBundle 'ervandew/supertab'
-NeoBundle 'kchmck/vim-coffee-script'
+" NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'tpope/vim-bundler'
 NeoBundle 'tpope/vim-endwise'
@@ -44,12 +44,15 @@ NeoBundle "tomtom/tlib_vim"
 NeoBundle "SirVer/ultisnips"
 NeoBundle 'honza/vim-snippets'
 NeoBundle "vim-scripts/javacomplete"
-NeoBundle "majutsushi/tagbar"
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'ecomba/vim-ruby-refactoring'
 NeoBundle 'skwp/greplace.vim'
 NeoBundle 'roman/golden-ratio'
+NeoBundle 'suan/vim-instant-markdown'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'gorkunov/smartgf.vim'
+NeoBundle 'tpope/vim-ragtag'
 
 " nelstrom's plugin depends on kana's
 NeoBundle 'kana/vim-textobj-user'
@@ -59,7 +62,6 @@ NeoBundle 'nelstrom/vim-textobj-rubyblock'
 NeoBundle 'tpope/vim-fireplace'
 NeoBundle 'tpope/vim-classpath'
 NeoBundle 'guns/vim-clojure-static'
-
 " Colors
 NeoBundle 'nanotech/jellybeans.vim'
 

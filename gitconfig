@@ -29,7 +29,7 @@
 	excludesfile = ~/.gitignore
 	editor = vim
 [push]
-	default = tracking
+	default = current
 [branch]
 	autosetuprebase = always
 [help]
