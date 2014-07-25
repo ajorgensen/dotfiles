@@ -10,60 +10,65 @@ if has('vim_starting')
  set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-" Required:
-call neobundle#rc(expand('~/.vim/bundle/'))
+" Check if git is available before trying to install plugins
+if executable('git')
+  " Required:
+  call neobundle#rc(expand('~/.vim/bundle/'))
 
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
+  " Let NeoBundle manage NeoBundle
+  " Required:
+  NeoBundleFetch 'Shougo/neobundle.vim'
 
-" My bundles
-NeoBundle 'ervandew/supertab'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'tomtom/tcomment_vim'
-NeoBundle 'tpope/vim-bundler'
-NeoBundle 'tpope/vim-endwise'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-rails'
-NeoBundle 'tpope/vim-unimpaired'
-NeoBundle 'tpope/vim-commentary'
-NeoBundle 'vim-ruby/vim-ruby'
-NeoBundle 'elixir-lang/vim-elixir'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'leshill/vim-json'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle 'Gundo'
-NeoBundle 'ctrlp.vim'
-NeoBundle 'vim-scripts/matchit.zip'
-NeoBundle "MarcWeber/vim-addon-mw-utils"
-NeoBundle "tomtom/tlib_vim"
-NeoBundle "SirVer/ultisnips"
-NeoBundle 'honza/vim-snippets'
-NeoBundle "vim-scripts/javacomplete"
-NeoBundle "majutsushi/tagbar"
-NeoBundle 'mileszs/ack.vim'
-NeoBundle 'tpope/vim-markdown'
-NeoBundle 'ecomba/vim-ruby-refactoring'
-NeoBundle 'skwp/greplace.vim'
-NeoBundle 'roman/golden-ratio'
+  " My bundles
+  NeoBundle 'ervandew/supertab'
+  NeoBundle 'kchmck/vim-coffee-script'
+  NeoBundle 'tomtom/tcomment_vim'
+  NeoBundle 'tpope/vim-bundler'
+  NeoBundle 'tpope/vim-endwise'
+  NeoBundle 'tpope/vim-fugitive'
+  NeoBundle 'tpope/vim-repeat'
+  NeoBundle 'tpope/vim-surround'
+  NeoBundle 'tpope/vim-rails'
+  NeoBundle 'tpope/vim-unimpaired'
+  NeoBundle 'tpope/vim-rake'
+  NeoBundle 'tpope/vim-rails'
+  NeoBundle 'tpope/vim-commentary'
+  NeoBundle 'vim-ruby/vim-ruby'
+  NeoBundle 'elixir-lang/vim-elixir'
+  NeoBundle 'tpope/vim-fugitive'
+  NeoBundle 'tpope/vim-surround'
+  NeoBundle 'leshill/vim-json'
+  NeoBundle 'airblade/vim-gitgutter'
+  NeoBundle 'terryma/vim-multiple-cursors'
+  NeoBundle 'Gundo'
+  NeoBundle 'ctrlp.vim'
+  NeoBundle 'vim-scripts/matchit.zip'
+  NeoBundle "MarcWeber/vim-addon-mw-utils"
+  NeoBundle "tomtom/tlib_vim"
+  NeoBundle "SirVer/ultisnips"
+  NeoBundle 'honza/vim-snippets'
+  NeoBundle "vim-scripts/javacomplete"
+  NeoBundle "majutsushi/tagbar"
+  NeoBundle 'mileszs/ack.vim'
+  NeoBundle 'tpope/vim-markdown'
+  NeoBundle 'ecomba/vim-ruby-refactoring'
+  NeoBundle 'skwp/greplace.vim'
+  NeoBundle 'roman/golden-ratio'
 
-" nelstrom's plugin depends on kana's
-NeoBundle 'kana/vim-textobj-user'
-NeoBundle 'nelstrom/vim-textobj-rubyblock'
+  " nelstrom's plugin depends on kana's
+  NeoBundle 'kana/vim-textobj-user'
+  NeoBundle 'nelstrom/vim-textobj-rubyblock'
 
-" Clojure
-NeoBundle 'tpope/vim-fireplace'
-NeoBundle 'tpope/vim-classpath'
-NeoBundle 'guns/vim-clojure-static'
+  " Clojure
+  NeoBundle 'tpope/vim-fireplace'
+  NeoBundle 'tpope/vim-classpath'
+  NeoBundle 'guns/vim-clojure-static'
 
-" Colors
-NeoBundle 'nanotech/jellybeans.vim'
+  " Colors
+  NeoBundle 'nanotech/jellybeans.vim'
 
-NeoBundleCheck
+  NeoBundleCheck
+endif
 
 " ========================================================================
 " General Config
