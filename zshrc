@@ -35,7 +35,13 @@ export SAVEHIST=$HISTSIZE
 
 # Hadoop
 export PATH="$HOME/bin/hadoop-1.2.1/bin:$PATH"
-export JAVA_HOME="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home"
+#export JAVA_HOME="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_65.jdk/Contents/Home"
+
+# Android
+export ANDROID_HOME="~/dev/android-sdk/sdk"
+export PATH=$PATH:$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools
+export GRADLE_OPTS="-Xmx1024m -Xms256m -XX:MaxPermSize=512m"
 
 export EDITOR=vim
 bindkey -e

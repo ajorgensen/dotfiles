@@ -19,7 +19,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " My bundles
 NeoBundle 'ervandew/supertab'
-" NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'tpope/vim-bundler'
 NeoBundle 'tpope/vim-endwise'
@@ -62,8 +62,10 @@ NeoBundle 'nelstrom/vim-textobj-rubyblock'
 NeoBundle 'tpope/vim-fireplace'
 NeoBundle 'tpope/vim-classpath'
 NeoBundle 'guns/vim-clojure-static'
+
 " Colors
 NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'altercation/vim-colors-solarized'
 
 NeoBundleCheck
 
@@ -203,7 +205,8 @@ set complete=.,w,b,u,t,i
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable " enable synatx processing
 set t_Co=256 " 256 colors by default
-colorscheme jellybeans
+set background=dark
+colorscheme solarized
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
