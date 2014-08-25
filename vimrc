@@ -54,6 +54,7 @@ NeoBundle 'suan/vim-instant-markdown'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'gorkunov/smartgf.vim'
 NeoBundle 'tpope/vim-ragtag'
+NeoBundle 'tpope/vim-vinegar'
 
 " nelstrom's plugin depends on kana's
 NeoBundle 'kana/vim-textobj-user'
