@@ -44,7 +44,8 @@ export PATH=$PATH:$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools
 export GRADLE_OPTS="-Xmx1024m -Xms256m -XX:MaxPermSize=512m"
 
 export EDITOR=vim
-bindkey -e
+#bindkey -e
+bindkey -v
 
 # Use qt4 because capybara-webkit needs it to compile
 export QMAKE=/usr/bin/qmake-qt4
@@ -117,3 +118,4 @@ if [ -e $HOME/.secret_zshrc ]; then
   source $HOME/.secret_zshrc
 fi
 source ~/.fzf.zsh
+
