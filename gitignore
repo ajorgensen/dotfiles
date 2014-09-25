@@ -1,5 +1,6 @@
 tags
 gems.tags
+.tags
 .nrepl-port
 .DS_Store
 .classpath
@@ -9,3 +10,6 @@ eclimd.log
 .idea
 *.iml
 idea.md
+*.docset
+.idea
+.idea/*

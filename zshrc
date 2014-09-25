@@ -1,6 +1,5 @@
 setopt PROMPT_SUBST
 setopt AUTO_CD
-setopt HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS INC_APPEND_HISTORY
 setopt appendhistory
 
 fpath=(~/.zsh/completion $fpath) 
@@ -19,7 +18,7 @@ export PATH="$HOME/bin:$HOME/Applications:$PATH"
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
-export PATH="$HOME/.rbenv/shims/:$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 (rbenv rehash &) 2> /dev/null
 
@@ -32,6 +31,7 @@ export GREP_OPTIONS="--color"
 export HISTSIZE=100000
 export HISTFILE="$HOME/.zsh_history"
 export SAVEHIST=$HISTSIZE
+setopt HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS INC_APPEND_HISTORY
 
 # Hadoop
 export PATH="$HOME/bin/hadoop-1.2.1/bin:$PATH"
@@ -39,13 +39,12 @@ export PATH="$HOME/bin/hadoop-1.2.1/bin:$PATH"
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_65.jdk/Contents/Home"
 
 # Android
-export ANDROID_HOME="~/dev/android-sdk/sdk"
+export ANDROID_HOME="/Users/ajorgensen/dev/android-sdk/sdk"
 export PATH=$PATH:$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools
 export GRADLE_OPTS="-Xmx1024m -Xms256m -XX:MaxPermSize=512m"
 
 export EDITOR=vim
-#bindkey -e
-bindkey -v
+bindkey -e
 
 # Use qt4 because capybara-webkit needs it to compile
 export QMAKE=/usr/bin/qmake-qt4

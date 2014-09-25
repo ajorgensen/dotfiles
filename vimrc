@@ -55,6 +55,11 @@ NeoBundle 'majutsushi/tagbar'
 NeoBundle 'gorkunov/smartgf.vim'
 NeoBundle 'tpope/vim-ragtag'
 NeoBundle 'tpope/vim-vinegar'
+NeoBundle 'rizzatti/dash.vim'
+" NeoBundle 'lukaszkorecki/CoffeeTags'
+" NeoBundle 'xolox/vim-easytags'
+NeoBundle 'xolox/vim-misc'
+NeoBundle 'christoomey/vim-tmux-runner'
 
 " nelstrom's plugin depends on kana's
 NeoBundle 'kana/vim-textobj-user'
@@ -78,7 +83,7 @@ syntax on
 filetype plugin indent on
 
 set nocompatible
-set clipboard=unnamed
+"set clipboard=unnamed
 let mapleader=","
 
 " allow unsaved background buffers and remember marks/undo for them
@@ -196,11 +201,17 @@ let g:ctrlp_use_caching = 0
 " CTags CONFIG
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set the tag file search order
-" map <F8> :!ctags ~/.tags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-map <F8> :!ctags -f ~/.tags -R "$(git rev-parse --show-toplevel)"<CR>
-nmap <F9> :TagbarToggle<CR>
-set tags=~/.tags
+nmap <F8> :TagbarToggle<CR>
+nmap <F7> :UpdateTags<CR>
+nmap <F6> :HighlightTags<CR>
+let g:CoffeeAutoTagFile='./.tags'
+let g:easytags_file = './.tags'
+let g:easytags_auto_update = 0
+let g:easytags_async = 1
+set tags=./.tags
 set complete=.,w,b,u,t,i 
+
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLOR
@@ -407,7 +418,7 @@ function! <SID>CleanFile()
     let [l,c] = [line("."),col(".")]
 
     " Do the business:
-    " %!git stripspace
+    " %!git strip space
     silent! %s/\s\+$//e
     silent! %s#\($\n\s*\)\+\%$##
 
@@ -455,6 +466,12 @@ endfunc
 
 nnoremap <C-t> :call NumberToggle()<cr>
 nnoremap <F3> :call ToggleSpellchecker()<cr>
+
+function! FixLastSpellingError()
+  set spell spelllang=en_us
+  normal! mm[s1z=`m
+endfunction
+nnoremap <leader>sp :call FixLastSpellingError()<cr>
 
 augroup myfiletypes
   " Clear old autocmds in group
