@@ -41,6 +41,11 @@ alias notepad="vim ~/Documents/notepad.md"
 alias v="vim"
 alias c="cd"
 
+findandcd() {
+  cd $(find . -type d -name $1 | head -n 1)
+}
+alias cdf=findandcd
+
 for bname in 'rspec' 'rails'
 do
   eval "be${bname}() { bundle exec ${bname} }"
