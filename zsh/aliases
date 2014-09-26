@@ -39,6 +39,7 @@ alias dbreset="bundle exec rake db:drop db:create db:migrate db:seed db:test:pre
 alias rubypad="vim /tmp/foo.rb"
 alias notepad="vim ~/Documents/notepad.md"
 alias v="vim"
+alias c="cd"
 
 for bname in 'rspec' 'rails'
 do

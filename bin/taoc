@@ -1,6 +1,5 @@
 #!/bin/bash
-
-SRC_DIR="~/dev"
+#TAOC_SEARCH_DIR="$HOME/dev $HOME/src"
 
 if [ "$#" -ne 1 ]; then
   tmux list-sessions
@@ -9,12 +8,11 @@ else
   tmux has-session -t $1 2>/dev/null
   if [ "$?" -eq 1 ]; then
     tmux new-session -d -s $1
-    if [ -d "$SRC_DIR/$1" ]; then
+    if [[ -n $(find $TAOC_SEARCH_DIR -maxdepth 1 -name $1 -print) ]]; then
       echo "directory exists"
-      tmux send-keys -t $1 "cd $SRC_DIR/$1; clear" C-m
+      tmux send-keys -t $1 "cd $(find $TAOC_SEARCH_DIR -maxdepth 1 -name $1 -print); clear" C-m
     fi
   fi
 
   tmux attach-session -d -t $1
 fi
-
