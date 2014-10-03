@@ -13,3 +13,4 @@ idea.md
 *.docset
 .idea
 .idea/*
+.rspec

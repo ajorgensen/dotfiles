@@ -60,6 +60,7 @@ NeoBundle 'rizzatti/dash.vim'
 " NeoBundle 'xolox/vim-easytags'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'christoomey/vim-tmux-runner'
+NeoBundle 'slim-template/vim-slim'
 
 " nelstrom's plugin depends on kana's
 NeoBundle 'kana/vim-textobj-user'

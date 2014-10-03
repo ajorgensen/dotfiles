@@ -118,3 +118,6 @@ if [ -e $HOME/.secret_zshrc ]; then
 fi
 source ~/.fzf.zsh
 
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
