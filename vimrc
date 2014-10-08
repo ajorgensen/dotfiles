@@ -87,6 +87,8 @@ set nocompatible
 "set clipboard=unnamed
 let mapleader=","
 
+set iskeyword+=-
+
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
 " remember more commands and search history
