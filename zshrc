@@ -84,21 +84,6 @@ function chpwd() {
 }
 
 export MARKPATH=$HOME/.marks
-function jump { 
-    cd -P $MARKPATH/$1 2>/dev/null || echo "No such mark: $1"
-}
-
-function mark { 
-    mkdir -p $MARKPATH; ln -s $(pwd) $MARKPATH/$1
-}
-
-function unmark { 
-    rm -i $MARKPATH/$1 
-}
-
-function marks {
-    ls -l $MARKPATH | sed 's/  / /g' | cut -d' ' -f9- | sed 's/ -/\t-/g' && echo
-}
 
 # Allows commit message without typing quotes (can't have quotes in the commit msg though).
 function gc {
@@ -117,7 +102,6 @@ if [ -e $HOME/.secret_zshrc ]; then
   source $HOME/.secret_zshrc
 fi
 source ~/.fzf.zsh
-
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"

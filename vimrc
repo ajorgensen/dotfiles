@@ -17,59 +17,7 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" My bundles
-NeoBundle 'ervandew/supertab'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'tomtom/tcomment_vim'
-NeoBundle 'tpope/vim-bundler'
-NeoBundle 'tpope/vim-endwise'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-rails'
-NeoBundle 'tpope/vim-rake'
-NeoBundle 'tpope/vim-unimpaired'
-NeoBundle 'tpope/vim-commentary'
-NeoBundle 'vim-ruby/vim-ruby'
-NeoBundle 'elixir-lang/vim-elixir'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'leshill/vim-json'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle 'Gundo'
 NeoBundle 'ctrlp.vim'
-NeoBundle 'vim-scripts/matchit.zip'
-NeoBundle "MarcWeber/vim-addon-mw-utils"
-NeoBundle "tomtom/tlib_vim"
-NeoBundle "SirVer/ultisnips"
-NeoBundle 'honza/vim-snippets'
-NeoBundle "vim-scripts/javacomplete"
-NeoBundle 'mileszs/ack.vim'
-NeoBundle 'tpope/vim-markdown'
-NeoBundle 'ecomba/vim-ruby-refactoring'
-NeoBundle 'skwp/greplace.vim'
-NeoBundle 'roman/golden-ratio'
-NeoBundle 'suan/vim-instant-markdown'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'gorkunov/smartgf.vim'
-NeoBundle 'tpope/vim-ragtag'
-NeoBundle 'tpope/vim-vinegar'
-NeoBundle 'rizzatti/dash.vim'
-" NeoBundle 'lukaszkorecki/CoffeeTags'
-" NeoBundle 'xolox/vim-easytags'
-NeoBundle 'xolox/vim-misc'
-NeoBundle 'christoomey/vim-tmux-runner'
-NeoBundle 'slim-template/vim-slim'
-
-" nelstrom's plugin depends on kana's
-NeoBundle 'kana/vim-textobj-user'
-NeoBundle 'nelstrom/vim-textobj-rubyblock'
-
-" Clojure
-NeoBundle 'tpope/vim-fireplace'
-NeoBundle 'tpope/vim-classpath'
-NeoBundle 'guns/vim-clojure-static'
 
 " Colors
 NeoBundle 'nanotech/jellybeans.vim'
@@ -84,7 +32,7 @@ syntax on
 filetype plugin indent on
 
 set nocompatible
-"set clipboard=unnamed
+set clipboard=unnamed
 let mapleader=","
 
 set iskeyword+=-
@@ -104,7 +52,7 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set autoindent
-set laststatus=2
+"set laststatus=2
 set showmatch
 set incsearch " search while typing
 set hlsearch " highlight search matches
@@ -214,8 +162,6 @@ let g:easytags_async = 1
 set tags=./.tags
 set complete=.,w,b,u,t,i 
 
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLOR
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -227,7 +173,7 @@ colorscheme solarized
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+":set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPS
@@ -486,7 +432,10 @@ augroup myfiletypes
   autocmd FileType java setlocal sw=4
 augroup END
 
+function! FormatJson()
+  call %!python -m json.tool
+endfunction
+
 " Highlighting at 81st column
 highlight ColorColumn ctermbg=235
 set colorcolumn=80
-

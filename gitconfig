@@ -6,30 +6,31 @@
 [alias]
   ec = config --global -e
   up = !git pull --rebase --prune $@ && git submodule update --init --recursive
-  ci = commit
-  co = checkout
+  sync = !git fetch && git rebase origin/master
+	ci = commit
+	co = checkout
   cob = checkout -b
-  stat = status
-  br = branch
+	stat = status
+	br = branch
   save = !git add -A && git commit -m 'SAVEPOINT'
   wip = !git add -A && git commit -m "WIP"
-  undo = reset HAED~1 --mixed
+	undo = reset HAED~1 --mixed
   amend = commit -a --amend
   dc = diff --cached
   pullff = pull --ff-only
-  unci = reset --soft HEAD^
-  unstage = reset HEAD
-  rmbr = !sh -c \"git branch -d \\$0 && git push origin :heads/\\$0 && git remote prune origin\"
-  rmremote = !sh -c \"git push origin :heads/\\$0\"
-  put = push origin HEAD
-  get = !git pull && git submodule init && git submodule update
+	unci = reset --soft HEAD^
+	unstage = reset HEAD
+	rmbr = !sh -c \"git branch -d \\$0 && git push origin :heads/\\$0 && git remote prune origin\"
+	rmremote = !sh -c \"git push origin :heads/\\$0\"
+	put = push origin HEAD
+	get = !git pull && git submodule init && git submodule update
   aa = add --all
-  latest = for-each-ref --sort=-committerdate --format='%(committerdate:short) %(refname:short) [%(committername)]'
-  ds = diff --staged
-  st = status -sb
-  amend = commit --amend -C HEAD
-  ls = log --pretty=format:\"%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]\" --decorate --date=short
-  standup = log --since '1 day ago' --oneline --author andrew@andrewjorgensen.com
+	latest = for-each-ref --sort=-committerdate --format='%(committerdate:short) %(refname:short) [%(committername)]'
+	ds = diff --staged
+	st = status -sb
+	amend = commit --amend -C HEAD
+	ls = log --pretty=format:\"%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]\" --decorate --date=short
+	standup = log --since '1 day ago' --oneline --author andrew@andrewjorgensen.com
 	graph = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
 [core]
 	excludesfile = ~/.gitignore

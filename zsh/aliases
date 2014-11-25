@@ -36,17 +36,33 @@ alias ez='vi ~/.zshrc'
 alias eza='vim ~/.zsh/aliases'
 alias gcob='git co -b'
 alias dbreset="bundle exec rake db:drop db:create db:migrate db:seed db:test:prepare"
-alias rubypad="vim /tmp/foo.rb"
+alias rubypad="vim ~/Documents/rubypad.rb"
 alias notepad="vim ~/Documents/notepad.md"
 alias v="vim"
 alias c="cd"
+alias vi="vim"
 
 findandcd() {
   cd $(find . -type d -name $1 | head -n 1)
 }
 alias cdf=findandcd
 
+# Grep processes and show headers.
+function psgrep(){ ps -ef | sed -e '1p' -e "/$1/!d" }
+
+# See what is listening on a given port: `whoport 80`
+function whoport(){ lsof -i :$1 } # may need sudo
+
 for bname in 'rspec' 'rails'
 do
   eval "be${bname}() { bundle exec ${bname} }"
 done
+
+function abs_path {
+  (cd "$(dirname '$1')" &>/dev/null && printf "%s/%s" "$(pwd)" "${1##*/}")
+}
+
+open_in_intellij() {
+  /Applications/IntelliJ\ IDEA\ 14\ CE.app/Contents/MacOS/idea $(abs_path $1) > /dev/null 2>&1 & > /dev/null 2>&1
+}
+alias iopen=open_in_intellij

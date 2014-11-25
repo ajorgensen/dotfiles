@@ -1,18 +1,20 @@
 #!/bin/bash
-#TAOC_SEARCH_DIR="$HOME/dev $HOME/src"
+tmux start-server
 
 # List sessions if none exist
 if [ "$#" -ne 1 ]; then
   tmux list-sessions
 else
   tmux has-session -t $1 2>/dev/null
+
   if [ "$?" -eq 1 ]; then
     tmux new-session -d -s $1
-    if [[ -n $(find $TAOC_SEARCH_DIR -maxdepth 1 -name $1 -print) ]]; then
+    if [[ -n $(find $(echo $TAOC_SEARCH_DIR) -maxdepth 1 -name $1 -print) ]]; then
       echo "directory exists"
-      tmux send-keys -t $1 "cd $(find $TAOC_SEARCH_DIR -maxdepth 1 -name $1 -print); clear" C-m
+      tmux send-keys -t $1 "cd $(find $(echo $TAOC_SEARCH_DIR) -maxdepth 1 -name $1 -print); clear" C-m
     fi
+    tmux attach-session -t $1
+  else
+    tmux attach-session -t $1
   fi
-
-  tmux attach-session -d -t $1
 fi
