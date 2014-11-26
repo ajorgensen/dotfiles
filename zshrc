@@ -102,7 +102,6 @@ source $HOME/.zsh/functions/zsh_prompt
 if [ -e $HOME/.secret_zshrc ]; then
   source $HOME/.secret_zshrc
 fi
-source ~/.fzf.zsh
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
