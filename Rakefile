@@ -1,6 +1,5 @@
 require 'rake'
 require 'erb'
-require 'pry'
 
 desc "Installs the dotfiles"
 task :install do
@@ -79,6 +78,11 @@ desc "Installs Rbenv and ruby build"
 task :install_rbenv do
   system %Q{git clone https://github.com/sstephenson/rbenv.git #{ENV['HOME']}/.rbenv}
   system %Q{git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build}
+end
+
+desc 'Installs tmux'
+task :install_tmux do
+  install_tmux
 end
 
 def install_tmux
