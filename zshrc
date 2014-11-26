@@ -16,6 +16,7 @@ zstyle ":completion:*:descriptions" format "%B%d%b"
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/sbin:/usr/sbin:/bin:${PATH}
 export PATH="$HOME/bin:$HOME/Applications:$PATH"
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="/usr/local/Cellar:$PATH"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
