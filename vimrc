@@ -11,7 +11,7 @@ if has('vim_starting')
 endif
 
 " Required:
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 
 " Let NeoBundle manage NeoBundle
 " Required:
@@ -75,6 +75,7 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'altercation/vim-colors-solarized'
 
 NeoBundleCheck
+call neobundle#end()
 
 " ========================================================================
 " General Config
