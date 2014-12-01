@@ -24,19 +24,19 @@ NeoBundle 'arecarn/crunch.vim'
 NeoBundle 'tpope/vim-fugitive'
 "NeoBundle 'tomtom/tcomment_vim'
 "NeoBundle 'tpope/vim-bundler'
-"NeoBundle 'tpope/vim-endwise'
+NeoBundle 'tpope/vim-endwise'
 "NeoBundle 'tpope/vim-repeat'
-"NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-surround'
 "NeoBundle 'tpope/vim-rails'
 "NeoBundle 'tpope/vim-rake'
 "NeoBundle 'tpope/vim-unimpaired'
 "NeoBundle 'tpope/vim-commentary'
 "NeoBundle 'tpope/vim-surround'
-"NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'vim-ruby/vim-ruby'
 "NeoBundle 'elixir-lang/vim-elixir'
 "NeoBundle 'leshill/vim-json'
 "NeoBundle 'airblade/vim-gitgutter'
-"NeoBundle 'terryma/vim-multiple-cursors'
+NeoBundle 'terryma/vim-multiple-cursors'
 "NeoBundle 'Gundo'
 NeoBundle 'ctrlp.vim'
 "NeoBundle 'vim-scripts/matchit.zip'
@@ -82,6 +82,7 @@ call neobundle#end()
 " ========================================================================
 syntax on
 filetype plugin indent on
+autocmd FileType ruby compiler ruby
 
 set nocompatible
 "set clipboard=unnamed
