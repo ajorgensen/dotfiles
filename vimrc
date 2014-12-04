@@ -60,6 +60,7 @@ NeoBundle 'ctrlp.vim'
 "NeoBundle 'christoomey/vim-tmux-runner'
 "NeoBundle 'slim-template/vim-slim'
 NeoBundle 'bling/vim-airline'
+NeoBundle 'derekwyatt/vim-scala'
 
 " nelstrom's plugin depends on kana's
 NeoBundle 'kana/vim-textobj-user'
