@@ -41,6 +41,7 @@ alias notepad="vim ~/Documents/notepad.md"
 alias v="vim"
 alias c="cd"
 alias vi="vim"
+alias fixup="gaa; gc f; grim"
 
 findandcd() {
   cd $(find . -type d -name $1 | head -n 1)

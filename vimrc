@@ -27,6 +27,7 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-endwise'
 "NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'flazz/vim-colorschemes'
 "NeoBundle 'tpope/vim-rails'
 "NeoBundle 'tpope/vim-rake'
 "NeoBundle 'tpope/vim-unimpaired'
@@ -42,14 +43,14 @@ NeoBundle 'ctrlp.vim'
 "NeoBundle 'vim-scripts/matchit.zip'
 "NeoBundle "MarcWeber/vim-addon-mw-utils"
 "NeoBundle "tomtom/tlib_vim"
-"NeoBundle "SirVer/ultisnips"
+NeoBundle "SirVer/ultisnips"
 "NeoBundle 'honza/vim-snippets'
 "NeoBundle "vim-scripts/javacomplete"
-"NeoBundle 'mileszs/ack.vim'
+NeoBundle 'mileszs/ack.vim'
 "NeoBundle 'tpope/vim-markdown'
 "NeoBundle 'ecomba/vim-ruby-refactoring'
 "NeoBundle 'skwp/greplace.vim'
-"NeoBundle 'roman/golden-ratio'
+NeoBundle 'roman/golden-ratio'
 "NeoBundle 'suan/vim-instant-markdown'
 "NeoBundle 'majutsushi/tagbar'
 "NeoBundle 'gorkunov/smartgf.vim'
@@ -116,7 +117,7 @@ set undodir=~/.vimundo/
 "set ignorecase smartcase
 set smarttab
 set ignorecase
-set cursorline " highlight current line
+" set cursorline " highlight current line
 set cmdheight=2
 set switchbuf=useopen
 set numberwidth=5
@@ -223,8 +224,7 @@ set complete=.,w,b,u,t,i
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable " enable synatx processing
 set t_Co=256 " 256 colors by default
-set background=dark
-colorscheme solarized
+colorscheme candyman
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
