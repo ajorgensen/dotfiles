@@ -25,6 +25,7 @@ NeoBundle 'tpope/vim-fugitive'
 "NeoBundle 'tomtom/tcomment_vim'
 "NeoBundle 'tpope/vim-bundler'
 NeoBundle 'tpope/vim-endwise'
+NeoBundle 'tpope/vim-eunuch'
 "NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'flazz/vim-colorschemes'
@@ -495,3 +496,6 @@ endfunction
 " Highlighting at 81st column
 highlight ColorColumn ctermbg=235
 set colorcolumn=80
+
+" Make Y behave like other capitals
+map Y y$
