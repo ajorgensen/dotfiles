@@ -59,7 +59,7 @@ NeoBundle 'roman/golden-ratio'
 "NeoBundle 'rizzatti/dash.vim'
 "NeoBundle 'xolox/vim-misc'
 "NeoBundle 'christoomey/vim-tmux-runner'
-"NeoBundle 'slim-template/vim-slim'
+NeoBundle 'slim-template/vim-slim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'derekwyatt/vim-scala'
 
