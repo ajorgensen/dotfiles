@@ -21,6 +21,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'ervandew/supertab'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'arecarn/crunch.vim'
+NeoBundle 'dahu/vim-lotr'
 NeoBundle 'tpope/vim-fugitive'
 "NeoBundle 'tomtom/tcomment_vim'
 "NeoBundle 'tpope/vim-bundler'
@@ -238,6 +239,7 @@ colorscheme candyman
 map <leader>y "+y
 " Can't be bothered to understand ESC vs <c-c> in insert mode
 imap <c-c> <esc>
+inoremap ii <ESC>
 noremap <c-s> <esc>:w<cr>
 command! Q q
 command! -bar -bang Q quit<bang>
@@ -499,3 +501,28 @@ set colorcolumn=80
 
 " Make Y behave like other capitals
 map Y y$
+
+" Ack Motions
+nnoremap <silent> \a :set opfunc=<SID>AckMotion<CR>g@
+xnoremap <silent> \a :<C-U>call <SID>AckMotion(visualmode())<CR>
+ 
+function! s:CopyMotionForType(type)
+    if a:type ==# 'v'
+        silent execute "normal! `<" . a:type . "`>y"
+    elseif a:type ==# 'char'
+        silent execute "normal! `[v`]y"
+    endif
+endfunction
+ 
+function! s:AckMotion(type) abort
+    let reg_save = @@
+ 
+    call s:CopyMotionForType(a:type)
+ 
+    execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
+ 
+    let @@ = reg_save
+endfunction
+
+" Use the silver searcher (ag) with ack.vim
+let g:ackprg = 'ag --nogroup --nocolor --column'
