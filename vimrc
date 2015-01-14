@@ -25,44 +25,17 @@ NeoBundle 'dahu/vim-lotr'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'stjernstrom/vim-ruby-run'
 NeoBundle 'rorymckinley/vim-symbols-strings'
-"NeoBundle 'tomtom/tcomment_vim'
-"NeoBundle 'tpope/vim-bundler'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tpope/vim-eunuch'
-"NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'flazz/vim-colorschemes'
-"NeoBundle 'tpope/vim-rails'
-"NeoBundle 'tpope/vim-rake'
-"NeoBundle 'tpope/vim-unimpaired'
-"NeoBundle 'tpope/vim-commentary'
-"NeoBundle 'tpope/vim-surround'
 NeoBundle 'vim-ruby/vim-ruby'
-"NeoBundle 'elixir-lang/vim-elixir'
-"NeoBundle 'leshill/vim-json'
-"NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'terryma/vim-multiple-cursors'
-"NeoBundle 'Gundo'
 NeoBundle 'ctrlp.vim'
-"NeoBundle 'vim-scripts/matchit.zip'
-"NeoBundle "MarcWeber/vim-addon-mw-utils"
-"NeoBundle "tomtom/tlib_vim"
 NeoBundle "SirVer/ultisnips"
-"NeoBundle 'honza/vim-snippets'
-"NeoBundle "vim-scripts/javacomplete"
 NeoBundle 'mileszs/ack.vim'
-"NeoBundle 'tpope/vim-markdown'
-"NeoBundle 'ecomba/vim-ruby-refactoring'
-"NeoBundle 'skwp/greplace.vim'
 NeoBundle 'roman/golden-ratio'
-"NeoBundle 'suan/vim-instant-markdown'
-"NeoBundle 'majutsushi/tagbar'
-"NeoBundle 'gorkunov/smartgf.vim'
-"NeoBundle 'tpope/vim-ragtag'
-"NeoBundle 'tpope/vim-vinegar'
-"NeoBundle 'rizzatti/dash.vim'
-"NeoBundle 'xolox/vim-misc'
-"NeoBundle 'christoomey/vim-tmux-runner'
 NeoBundle 'slim-template/vim-slim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'derekwyatt/vim-scala'
@@ -72,9 +45,9 @@ NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'nelstrom/vim-textobj-rubyblock'
 
 " Clojure
-"NeoBundle 'tpope/vim-fireplace'
-"NeoBundle 'tpope/vim-classpath'
-"NeoBundle 'guns/vim-clojure-static'
+NeoBundle 'tpope/vim-fireplace'
+NeoBundle 'tpope/vim-classpath'
+NeoBundle 'guns/vim-clojure-static'
 
 " Colors
 NeoBundle 'nanotech/jellybeans.vim'
@@ -86,85 +59,115 @@ call neobundle#end()
 " ========================================================================
 " General Config
 " ========================================================================
-syntax on
+" Enable filetype plugins
 filetype plugin indent on
-autocmd FileType ruby compiler ruby
 
+" How many lines of history vim has to remember
+set history=1000
+
+" Auto read a when a file is changed
+set autoread
+
+" Make vim not comptabile with vi
 set nocompatible
-"set clipboard=unnamed
-let mapleader=","
 
+" Makes searching for css tokens easier
 set iskeyword+=-
 
-" allow unsaved background buffers and remember marks/undo for them
+" Allow unsaved background buffers and remember marks/undo for them
 set hidden
-" remember more commands and search history
+
+" Don't backup the current file before writing
 set nobackup
 set nowritebackup
+
+" Turn off swap files
 set noswapfile
-set history=1000
-set ruler
+
+" Turn off the annoying bell when an error happens
 set noerrorbells
+
+" Put the new split to the right of the current one
 set splitright
-set expandtab " turns spaces into tabs
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set autoindent
-set laststatus=2
-set showmatch
+
+" Search while typing
 set incsearch " search while typing
-set hlsearch " highlight search matches
+
+" Highlight search matches
+set hlsearch
+
+" Always show the status line
+set laststatus=2
+
+" Persist undo history across session
 set undofile
 set undodir=~/.vimundo/
-" make searches case-sensitive only if they contain upper-case characters
-"set ignorecase smartcase
-set smarttab
+
+" Ignore case in searches
 set ignorecase
-" set cursorline " highlight current line
+
+" Set the height of the command box
 set cmdheight=2
+
+" Switch between open buffers
 set switchbuf=useopen
+
+" Minimum width for line numbers
 set numberwidth=5
-" set showtabline=2
-set winwidth=79
+
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
 set t_ti= t_te=
-" keep more context when scrolling off the end of a buffer
+
+" Keep more context when scrolling off the end of a buffer
 set scrolloff=3
-set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
 set backspace=indent,eol,start
 set showcmd
-set wildmenu " make tab completion for files/buffers act like bash
+
+" Make tab completion for files/buffers act like bash
+set wildmenu 
 set wildmode=full
-hi clear SignColumn
-hi SpellBad cterm=underline
+
+" Dont redraw when executing macros etc until they are done
 set lazyredraw
+
+" ========================================================================
+" Formatting
+" ========================================================================
+" Turns spaces into tabs
+set expandtab 
+
+" 1 tab == 2 spaces
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+
+" Auto indent based on the previous line
+set autoindent
+
+" Insert blanks when tab is in front of a line
+set smarttab
+
+" Wrap lines to fit on the screen
 set wrap
 set linebreak
 
-au BufNewFile,BufRead *.md set ft=md
-au BufRead,BufNewFile *.go set ft=go
-au BufRead,BufNewFile *.coffee set ft=coffee
-
-let g:slime_target = "tmux"
-set virtualedit=onemore "Needed so vim-scala doesn't shit the bed
-
-" Open QuickFix window after git grep in vim-fugitive
-autocmd QuickFixCmdPost *grep* cwindow
-
-augroup myvimrc
-  au!
-  au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-augroup END
+" Custom status line
+set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 
 " ========================================================================
 " Mappings
 " ========================================================================
+let mapleader=","
+let g:mapleader=","
+
+" Faster saving
 noremap <Leader>w :w<CR>
+
+" Fast quiting
 noremap <Leader>q :q<cr>
+
 vmap <Leader>y "+y
 vmap <Leader>d "+d
 nmap <Leader>p "+p
@@ -177,67 +180,6 @@ vmap <C-v> <Plug>(expand_region_shrink)
 noremap ; :
 noremap <C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
-" ===================
-" VimClojure settings
-" ===================
-let vimclojure#HighlightBuiltins = 1 " Highlight Clojure's builtins
-let vimclojure#ParenRainbow = 1 " Rainbox parens
-let g:instant_markdown_autostart = 0
-
-" =============
-" Clojure Stuff
-" =============
-let g:clojure_align_multiline_strings = 0
-let g:clojure_fuzzy_indent = 1
-let g:clojure_fuzzy_indent_patterns = "with.*,def.*,let.*,send.*,fact,facts"
-
-" =============
-" ctrlp configs 
-" =============
-let g:ctrlp_max_files = 0
-let g:ctrlp_working_path_mode = 0
-set wildignore+=*.class
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-let g:ctrlp_use_caching = 0
-
-" ========================================================================
-" Snipmate Config
-" ========================================================================
-" let g:snipMate = {} 
-" let g:snipMate.scope_aliases = {} 
-" let g:snipMate.scope_aliases['ruby']  = 'ruby,ruby-rails'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CTags CONFIG
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set the tag file search order
-nmap <F8> :TagbarToggle<CR>
-nmap <F7> :UpdateTags<CR>
-nmap <F6> :HighlightTags<CR>
-let g:CoffeeAutoTagFile='./.tags'
-let g:easytags_file = './.tags'
-let g:easytags_auto_update = 0
-let g:easytags_async = 1
-set tags=./.tags
-set complete=.,w,b,u,t,i 
-
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" COLOR
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-syntax enable " enable synatx processing
-set t_Co=256 " 256 colors by default
-colorscheme candyman
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" STATUS LINE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MISC KEY MAPS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>y "+y
 " Can't be bothered to understand ESC vs <c-c> in insert mode
 imap <c-c> <esc>
@@ -265,13 +207,85 @@ inoremap jk <esc> " jk is escape
 
 nnoremap <leader>u :GundoToggle<CR>         " toggle gundo
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ARROW KEYS ARE UNACCEPTABLE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Arrow keys are unacceptable
 map <Left> <Nop>
 map <Right> <Nop>
 map <Up> <Nop>
 map <Down> <Nop>
+
+" ========================================================================
+" Color and Fonts
+" ========================================================================
+syntax on
+syntax enable " enable synatx processing
+
+set t_Co=256 " 256 colors by default
+colorscheme candyman
+
+set encoding=utf8
+
+" Set highlighting format
+hi clear SignColumn
+hi SpellBad cterm=underline
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd FileType ruby compiler ruby
+
+au BufNewFile,BufRead *.md set ft=md
+au BufRead,BufNewFile *.go set ft=go
+au BufRead,BufNewFile *.coffee set ft=coffee
+
+let g:slime_target = "tmux"
+set virtualedit=onemore "Needed so vim-scala doesn't shit the bed
+
+" Open QuickFix window after git grep in vim-fugitive
+autocmd QuickFixCmdPost *grep* cwindow
+
+augroup myvimrc
+  au!
+  au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
+
+" ===================
+" VimClojure settings
+" =================== 
+" Highlight Clojure's builtins
+let vimclojure#HighlightBuiltins = 1
+
+ " Rainbox parens
+let vimclojure#ParenRainbow = 1
+let g:instant_markdown_autostart = 0
+
+" =============
+" Clojure Stuff
+" =============
+let g:clojure_align_multiline_strings = 0
+let g:clojure_fuzzy_indent = 1
+let g:clojure_fuzzy_indent_patterns = "with.*,def.*,let.*,send.*,fact,facts"
+
+" =============
+" ctrlp configs 
+" =============
+let g:ctrlp_max_files = 0
+let g:ctrlp_working_path_mode = 0
+set wildignore+=*.class
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+let g:ctrlp_use_caching = 0
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CTags config
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set the tag file search order
+nmap <F8> :TagbarToggle<CR>
+nmap <F7> :UpdateTags<CR>
+nmap <F6> :HighlightTags<CR>
+let g:CoffeeAutoTagFile='./.tags'
+let g:easytags_file = './.tags'
+let g:easytags_auto_update = 0
+let g:easytags_async = 1
+set tags=./.tags
+set complete=.,w,b,u,t,i 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
