@@ -1,6 +1,8 @@
 setopt PROMPT_SUBST
 setopt AUTO_CD
 setopt appendhistory
+setopt inc_append_history
+setopt share_history
 
 fpath=(~/.zsh/completion $fpath) 
 fpath=(~/.zsh/functions $fpath) 
@@ -105,3 +107,6 @@ fi
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+# Alias hub to git
+eval "$(hub alias -s)"
