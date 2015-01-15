@@ -1,60 +1,51 @@
 set shell=bash
 
 " ========================================================================
-" NeoBundle stuff
+" Much plugin, such features
+" mkdir -p ~/.vim/autoload
+" curl -fLo ~/.vim/autoload/plug.vim \
+"     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 " ========================================================================
-if has('vim_starting')
- set nocompatible               " Be iMproved
+call plug#begin('~/.vim/plugged')
 
- " Required:
- set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-
-" Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" My bundles
-NeoBundle 'ervandew/supertab'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'arecarn/crunch.vim'
-NeoBundle 'dahu/vim-lotr'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'stjernstrom/vim-ruby-run'
-NeoBundle 'rorymckinley/vim-symbols-strings'
-NeoBundle 'tpope/vim-endwise'
-NeoBundle 'tpope/vim-eunuch'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'flazz/vim-colorschemes'
-NeoBundle 'vim-ruby/vim-ruby'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle 'ctrlp.vim'
-NeoBundle "SirVer/ultisnips"
-NeoBundle 'mileszs/ack.vim'
-NeoBundle 'roman/golden-ratio'
-NeoBundle 'slim-template/vim-slim'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'derekwyatt/vim-scala'
+Plug 'ervandew/supertab'
+Plug 'kchmck/vim-coffee-script'
+Plug 'arecarn/crunch.vim'
+Plug 'dahu/vim-lotr'
+Plug 'tpope/vim-fugitive'
+Plug 'stjernstrom/vim-ruby-run'
+Plug 'rorymckinley/vim-symbols-strings'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-surround'
+Plug 'flazz/vim-colorschemes'
+Plug 'vim-ruby/vim-ruby'
+Plug 'airblade/vim-gitgutter'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'ctrlp.vim'
+Plug 'SirVer/ultisnips'
+Plug 'mileszs/ack.vim'
+Plug 'roman/golden-ratio'
+Plug 'slim-template/vim-slim'
+Plug 'bling/vim-airline'
+Plug 'derekwyatt/vim-scala'
+Plug 'FelikZ/ctrlp-py-matcher'
 
 " nelstrom's plugin depends on kana's
-NeoBundle 'kana/vim-textobj-user'
-NeoBundle 'nelstrom/vim-textobj-rubyblock'
+Plug 'kana/vim-textobj-user'
+Plug 'nelstrom/vim-textobj-rubyblock'
 
 " Clojure
-NeoBundle 'tpope/vim-fireplace'
-NeoBundle 'tpope/vim-classpath'
-NeoBundle 'guns/vim-clojure-static'
+Plug 'tpope/vim-fireplace'
+Plug 'tpope/vim-classpath'
+Plug 'guns/vim-clojure-static'
+Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 
 " Colors
-NeoBundle 'nanotech/jellybeans.vim'
-NeoBundle 'altercation/vim-colors-solarized'
+Plug 'nanotech/jellybeans.vim'
+Plug 'altercation/vim-colors-solarized'
 
-NeoBundleCheck
-call neobundle#end()
+call plug#end()
 
 " ========================================================================
 " General Config
