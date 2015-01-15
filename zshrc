@@ -7,8 +7,9 @@ setopt share_history
 fpath=(~/.zsh/completion $fpath) 
 fpath=(~/.zsh/functions $fpath) 
 
-autoload -U compinit
-compinit
+# zsh auto completion system
+#autoload -U compinit
+#compinit -d $HOME/zsh/dumpfile
 
 # show completion menu when number of options is at least 2
 zstyle ':completion:*' menu select=2
@@ -22,8 +23,8 @@ export PATH="/usr/local/Cellar:$PATH"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-(rbenv rehash &) 2> /dev/null
+
+eval "$(rbenv init - --no-rehash)"
 
 # Colorize terminal
 export TERM='xterm-256color'
@@ -105,8 +106,8 @@ if [ -e $HOME/.secret_zshrc ]; then
   source $HOME/.secret_zshrc
 fi
 
-### Added by the Heroku Toolbelt
+#### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-# Alias hub to git
-eval "$(hub alias -s)"
+# Alias hub to git. Adds 0.07s to startup time
+#eval "$(hub alias -s)"
