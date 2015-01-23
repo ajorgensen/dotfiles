@@ -30,6 +30,7 @@ Plug 'slim-template/vim-slim'
 Plug 'bling/vim-airline'
 Plug 'derekwyatt/vim-scala'
 Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'pantsbuild/vim-pants'
 
 " nelstrom's plugin depends on kana's
 Plug 'kana/vim-textobj-user'
@@ -150,8 +151,10 @@ set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 " ========================================================================
 " Mappings
 " ========================================================================
-let mapleader=","
-let g:mapleader=","
+"let mapleader=","
+"let g:mapleader=","
+let mapleader = " "
+let g:mapleader = " "
 
 " Faster saving
 noremap <Leader>w :w<CR>
@@ -195,6 +198,11 @@ cnoremap <C-n> <Down>
 
 nnoremap <leader><space> :nohlsearch<CR> " turn off search highlight
 inoremap jk <esc> " jk is escape
+
+nnoremap H 0
+nnoremap L $
+
+nnoremap ; :
 
 nnoremap <leader>u :GundoToggle<CR>         " toggle gundo
 
