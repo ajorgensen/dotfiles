@@ -31,6 +31,7 @@ Plug 'bling/vim-airline'
 Plug 'derekwyatt/vim-scala'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'pantsbuild/vim-pants'
+Plug 't9md/vim-ruby-xmpfilter'
 
 " nelstrom's plugin depends on kana's
 Plug 'kana/vim-textobj-user'
@@ -151,10 +152,10 @@ set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 " ========================================================================
 " Mappings
 " ========================================================================
-"let mapleader=","
-"let g:mapleader=","
-let mapleader = " "
-let g:mapleader = " "
+let mapleader=","
+let g:mapleader=","
+"let mapleader = " "
+"let g:mapleader = " "
 
 " Faster saving
 noremap <Leader>w :w<CR>
@@ -489,6 +490,14 @@ endfunc
 
 nnoremap <C-t> :call NumberToggle()<cr>
 nnoremap <F3> :call ToggleSpellchecker()<cr>
+
+nmap <buffer> <F4> <Plug>(xmpfilter-run)
+xmap <buffer> <F4> <Plug>(xmpfilter-run)
+imap <buffer> <F4> <Plug>(xmpfilter-run)
+
+nmap <buffer> <F5> <Plug>(xmpfilter-mark)
+xmap <buffer> <F5> <Plug>(xmpfilter-mark)
+imap <buffer> <F5> <Plug>(xmpfilter-mark)
 
 function! FixLastSpellingError()
   set spell spelllang=en_us
