@@ -31,6 +31,10 @@ Plug 'bling/vim-airline'
 Plug 'derekwyatt/vim-scala'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'pantsbuild/vim-pants'
+
+" Requirements:
+" gem install rcodetools
+" gem install xmpfilter
 Plug 't9md/vim-ruby-xmpfilter'
 
 " nelstrom's plugin depends on kana's
