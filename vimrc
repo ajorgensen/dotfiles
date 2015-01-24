@@ -34,7 +34,6 @@ Plug 'pantsbuild/vim-pants'
 
 " Requirements:
 " gem install rcodetools
-" gem install xmpfilter
 Plug 't9md/vim-ruby-xmpfilter'
 
 " nelstrom's plugin depends on kana's
