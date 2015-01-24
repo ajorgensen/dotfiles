@@ -1,3 +1,21 @@
 snippet spec_helper
 require 'spec_helper'
 endsnippet
+
+snippet describe
+describe $1 do
+end
+endsnippet
+
+snippet it
+it $1 do
+end
+endsnippet
+
+snippet context
+context '$1' do
+	it '$2' do
+		$0
+	end
+end
+endsnippet

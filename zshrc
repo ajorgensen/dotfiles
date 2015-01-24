@@ -10,6 +10,7 @@ fpath=(~/.zsh/functions $fpath)
 # zsh auto completion system
 autoload -U compinit
 compinit -d $HOME/zsh/dumpfile
+unsetopt nomatch
 
 # show completion menu when number of options is at least 2
 zstyle ':completion:*' menu select=2
