@@ -33,7 +33,7 @@ Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'pantsbuild/vim-pants'
 
 " Requirements:
-" gem install rcodetools
+" gem install seeing_is_believing
 Plug 't9md/vim-ruby-xmpfilter'
 
 " nelstrom's plugin depends on kana's
@@ -215,6 +215,26 @@ map <Left> <Nop>
 map <Right> <Nop>
 map <Up> <Nop>
 map <Down> <Nop>
+
+let g:xmpfilter_cmd = "seeing_is_believing"
+
+autocmd FileType ruby nmap <buffer> <leader>rm <Plug>(seeing_is_believing-mark)
+autocmd FileType ruby xmap <buffer> <leader>rm <Plug>(seeing_is_believing-mark)
+autocmd FileType ruby imap <buffer> <leader>rm <Plug>(seeing_is_believing-mark)
+
+autocmd FileType ruby nmap <buffer> <leader>rc <Plug>(seeing_is_believing-clean)
+autocmd FileType ruby xmap <buffer> <leader>rc <Plug>(seeing_is_believing-clean)
+autocmd FileType ruby imap <buffer> <leader>rc <Plug>(seeing_is_believing-clean)
+
+" xmpfilter compatible
+autocmd FileType ruby nmap <buffer> <leader>rr <Plug>(seeing_is_believing-run_-x)
+autocmd FileType ruby xmap <buffer> <leader>rr <Plug>(seeing_is_believing-run_-x)
+autocmd FileType ruby imap <buffer> <leader>rr <Plug>(seeing_is_believing-run_-x)
+
+" auto insert mark at appropriate spot.
+autocmd FileType ruby nmap <buffer> <F5> <Plug>(seeing_is_believing-run)
+autocmd FileType ruby xmap <buffer> <F5> <Plug>(seeing_is_believing-run)
+autocmd FileType ruby imap <buffer> <F5> <Plug>(seeing_is_believing-run)
 
 " ========================================================================
 " Color and Fonts
@@ -493,14 +513,6 @@ endfunc
 
 nnoremap <C-t> :call NumberToggle()<cr>
 nnoremap <F3> :call ToggleSpellchecker()<cr>
-
-nmap <buffer> <F4> <Plug>(xmpfilter-run)
-xmap <buffer> <F4> <Plug>(xmpfilter-run)
-imap <buffer> <F4> <Plug>(xmpfilter-run)
-
-nmap <buffer> <F5> <Plug>(xmpfilter-mark)
-xmap <buffer> <F5> <Plug>(xmpfilter-mark)
-imap <buffer> <F5> <Plug>(xmpfilter-mark)
 
 function! FixLastSpellingError()
   set spell spelllang=en_us
