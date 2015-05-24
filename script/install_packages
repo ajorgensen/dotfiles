@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+
+cd "$(dirname "$0")/.."
+DOTFILES_ROOT=$(pwd)
+
+# Exit immediately if command exits with non-zero status
+set -e
+
+function info () {
+  if [ -n "$1" ]
+  then
+    IN="$1"
+  else
+    read IN # This reads a string from stdin and stores it in a variable called IN
+  fi
+
+  printf "\r  [ \033[00;34m..\033[0m ] $IN\n"
+}
+
+user () {
+  printf "\r  [ \033[0;33m?\033[0m ] $1 "
+}
+
+function success () {
+  if [ -n "$1" ]
+  then
+    IN="$1"
+  else
+    read IN # This reads a string from stdin and stores it in a variable called IN
+  fi
+
+  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $IN\n"
+}
+
+function fail () {
+  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+  exit
+}
+
+function install_package() {
+  package=$1
+  package_name=$(basename "${package%.*}")
+  should_install=true
+
+  if [[ ! -z "$ASK" ]]; then
+    user "Should I install $package_name?\n\
+    [y]es, [n]o?"
+    read -n 1 action
+
+    case "$action" in
+      y )
+        should_install=true;;
+      n )
+        should_install=false;;
+      * )
+        ;;
+    esac
+  fi
+
+  if $should_install; then
+    sh -c "$package" | success
+  fi
+
+}
+
+function install_packages() {
+  info "Installing packages"
+  platform=$(uname -s)
+
+  for package in $(find -H "$DOTFILES_ROOT/packages/$platform" -name "*.install"); do
+    install_package $package
+  done
+}
+
+install_packages
+
+info "Finished installing packages"

@@ -120,24 +120,12 @@ function install_dotfiles() {
 
   for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink'); do
     dst="$HOME/.$(basename "${src%.*}")"
-    #dst="/tmp/dotfiles/.$(basename "${src%.*}")"
     link_file "$src" "$dst"
   done
 
   success "Finished installing dotfiles"
 }
 
-function install_packages() {
-  info "Installing packages"
-  platform=$(uname -s)
-
-  for package in $(find -H "$DOTFILES_ROOT/packages/$platform" -name "*.install"); do
-    sh -c "$package" | success
-  done
-}
-
 install_dotfiles
-info " "
-install_packages
 
 info "All done"
