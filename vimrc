@@ -31,6 +31,15 @@ Plug 'bling/vim-airline'
 Plug 'derekwyatt/vim-scala'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'pantsbuild/vim-pants'
+Plug 'godlygeek/tabular'
+Plug 'fatih/vim-go'
+Plug 'JalaiAmitahl/maven-compiler.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'shime/vim-livedown'
+Plug 'tyru/open-browser.vim'
+Plug 'tyru/open-browser-github.vim'
+Plug 'rking/ag.vim'
+Plug 'ledger/vim-ledger'
 
 " Requirements:
 " gem install seeing_is_believing
@@ -41,10 +50,10 @@ Plug 'kana/vim-textobj-user'
 Plug 'nelstrom/vim-textobj-rubyblock'
 
 " Clojure
-Plug 'tpope/vim-fireplace'
-Plug 'tpope/vim-classpath'
-Plug 'guns/vim-clojure-static'
-Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
+" Plug 'tpope/vim-fireplace'
+" Plug 'tpope/vim-classpath'
+" Plug 'guns/vim-clojure-static'
+" Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 
 " Colors
 Plug 'nanotech/jellybeans.vim'
@@ -174,7 +183,7 @@ vmap <Leader>p "+p
 vmap <Leader>P "+P
 " nmap <Leader><Leader> V
 vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
+vmap <ëC-v> <Plug>(expand_region_shrink)
 noremap ; :
 noremap <C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
@@ -236,6 +245,14 @@ autocmd FileType ruby nmap <buffer> <F5> <Plug>(seeing_is_believing-run)
 autocmd FileType ruby xmap <buffer> <F5> <Plug>(seeing_is_believing-run)
 autocmd FileType ruby imap <buffer> <F5> <Plug>(seeing_is_believing-run)
 
+" Toggle the nerd trees
+map <C-t> :NERDTreeToggle<CR>
+let g:NERDTreeWinSize = 40 
+
+" Open In Github
+map <leader>gh :OpenGithubFile<cr>
+map <leader>hg :<,'>OpenGithubFile<cr>
+
 " ========================================================================
 " Color and Fonts
 " ========================================================================
@@ -243,7 +260,15 @@ syntax on
 syntax enable " enable synatx processing
 
 set t_Co=256 " 256 colors by default
-colorscheme candyman
+" colorscheme candyman
+if !has("gui_running")
+    let g:solarized_termtrans=1
+    let g:solarized_termcolors=256
+endif"
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+set background=dark
+colorscheme solarized
 
 set encoding=utf8
 
@@ -287,14 +312,21 @@ let g:clojure_align_multiline_strings = 0
 let g:clojure_fuzzy_indent = 1
 let g:clojure_fuzzy_indent_patterns = "with.*,def.*,let.*,send.*,fact,facts"
 
-" =============
+" " =============
 " ctrlp configs 
 " =============
-let g:ctrlp_max_files = 0
+let g:ctrlp_max_filed = 0
 let g:ctrlp_working_path_mode = 0
 set wildignore+=*.class
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+      \ --ignore .git
+      \ --ignore .svn
+      \ --ignore .hg
+      \ --ignore .DS_Store
+      \ --ignore "**/*.pyc"
+      \ -g ""'
 let g:ctrlp_use_caching = 0
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTags config
@@ -329,7 +361,7 @@ inoremap <s-tab> <c-n>
 " OPEN FILES IN DIRECTORY OF CURRENT FILE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "cnoremap %% <C-R>=expand('%:h').'/'<cr>
-map <leader>e :edit %%
+"map <leader>e :edit %%
 map <leader>v :view %%
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -511,7 +543,6 @@ function! ToggleSpellchecker()
   endif
 endfunc
 
-nnoremap <C-t> :call NumberToggle()<cr>
 nnoremap <F3> :call ToggleSpellchecker()<cr>
 
 function! FixLastSpellingError()
