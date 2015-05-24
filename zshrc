@@ -25,10 +25,17 @@ export PATH="/usr/local/Cellar:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
 
+# golang
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
+export PATH="$HOME/.goenv/bin:$PATH"
+export PATH="$HOME/.goenv/shims:$PATH"
+eval "$(goenv init -)"
+
 eval "$(rbenv init - --no-rehash)"
 
 # Colorize terminal
-export TERM='xterm-256color'
+#export TERM='xterm-256color'
+#export TERM='screen-256color'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export GREP_OPTIONS="--color"
 
@@ -41,7 +48,7 @@ setopt HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS INC_APPEND_HISTORY
 # Hadoop
 export PATH="$HOME/bin/hadoop-1.2.1/bin:$PATH"
 #export JAVA_HOME="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home"
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_65.jdk/Contents/Home"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home"
 
 # Android
 export ANDROID_HOME="/Users/ajorgensen/dev/android-sdk/sdk"
@@ -110,5 +117,7 @@ fi
 #### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-# Alias hub to git. Adds 0.07s to startup time
-#eval "$(hub alias -s)"
+# Golang
+export GOROOT=$HOME/go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin
