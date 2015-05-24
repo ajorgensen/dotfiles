@@ -4,11 +4,12 @@ endsnippet
 
 snippet describe
 describe $1 do
+	$0
 end
 endsnippet
 
 snippet it
-it $1 do
+it '$1' do
 end
 endsnippet
 
@@ -18,4 +19,20 @@ context '$1' do
 		$0
 	end
 end
+endsnippet
+
+snippet [' "Square brackets with quotes" i
+['$1']$0
+endsnippet
+
+snippet [" "Square brakcets double quotes" i
+["$1"]$0
+endsnippet
+
+snippet [: "Square brackets symbol" i
+[:$1]$0
+endsnippet
+
+snippet rubygems
+source "https://rubygems.org"
 endsnippet
