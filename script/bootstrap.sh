@@ -8,7 +8,14 @@ DOTFILES_ROOT=$(pwd)
 set -e
 
 function info () {
-  printf "  [ \033[00;34m..\033[0m ] $1\n"
+  if [ -n "$1" ]
+  then
+    IN="$1"
+  else
+    read IN # This reads a string from stdin and stores it in a variable called IN
+  fi
+
+  printf "  [ \033[00;34m..\033[0m ] $IN\n"
 }
 
 user () {
@@ -16,7 +23,14 @@ user () {
 }
 
 function success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+  if [ -n "$1" ]
+  then
+    IN="$1"
+  else
+    read IN # This reads a string from stdin and stores it in a variable called IN
+  fi
+
+  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $IN\n"
 }
 
 function fail () {
@@ -113,6 +127,17 @@ function install_dotfiles() {
   success "Finished installing dotfiles"
 }
 
+function install_packages() {
+  info "Installing packages"
+  platform=$(uname -s)
+
+  for package in $(find -H "$DOTFILES_ROOT/packages/$platform" -name "*.install"); do
+    sh -c "$package" | success
+  done
+}
+
 install_dotfiles
+info " "
+install_packages
 
 info "All done"
