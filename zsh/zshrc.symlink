@@ -22,7 +22,6 @@ export PATH="$HOME/bin:$HOME/Applications:$PATH"
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 export PATH="/usr/local/Cellar:$PATH"
 
-
 # Colorize terminal
 #export TERM='xterm-256color'
 #export TERM='screen-256color'
