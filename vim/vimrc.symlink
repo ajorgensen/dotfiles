@@ -22,14 +22,12 @@ Plug 'flazz/vim-colorschemes'
 Plug 'vim-ruby/vim-ruby'
 Plug 'airblade/vim-gitgutter'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'ctrlp.vim'
 Plug 'SirVer/ultisnips'
 Plug 'mileszs/ack.vim'
 Plug 'roman/golden-ratio'
 Plug 'slim-template/vim-slim'
 Plug 'bling/vim-airline'
 Plug 'derekwyatt/vim-scala'
-Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'pantsbuild/vim-pants'
 Plug 'godlygeek/tabular'
 Plug 'fatih/vim-go'
@@ -40,6 +38,10 @@ Plug 'tyru/open-browser.vim'
 Plug 'tyru/open-browser-github.vim'
 Plug 'rking/ag.vim'
 Plug 'ledger/vim-ledger'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'ajorgensen/vim-markdown-toc'
+"Plug '~/dev/vim-markdown-toc'
+Plug 'neilagabriel/vim-geeknote'
 
 " Requirements:
 " gem install seeing_is_believing
@@ -245,6 +247,10 @@ autocmd FileType ruby nmap <buffer> <F5> <Plug>(seeing_is_believing-run)
 autocmd FileType ruby xmap <buffer> <F5> <Plug>(seeing_is_believing-run)
 autocmd FileType ruby imap <buffer> <F5> <Plug>(seeing_is_believing-run)
 
+
+" auto wrap git commit messages
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
 " Toggle the nerd trees
 map <C-t> :NERDTreeToggle<CR>
 let g:NERDTreeWinSize = 40 
@@ -312,29 +318,13 @@ let g:clojure_align_multiline_strings = 0
 let g:clojure_fuzzy_indent = 1
 let g:clojure_fuzzy_indent_patterns = "with.*,def.*,let.*,send.*,fact,facts"
 
-" " =============
-" ctrlp configs 
-" =============
-let g:ctrlp_max_filed = 0
-let g:ctrlp_working_path_mode = 0
-set wildignore+=*.class
-let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-      \ --ignore .git
-      \ --ignore .svn
-      \ --ignore .hg
-      \ --ignore .DS_Store
-      \ --ignore "**/*.pyc"
-      \ -g ""'
-let g:ctrlp_use_caching = 0
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTags config
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set the tag file search order
-nmap <F8> :TagbarToggle<CR>
-nmap <F7> :UpdateTags<CR>
-nmap <F6> :HighlightTags<CR>
+"nmap <F8> :TagbarToggle<CR>
+"nmap <F7> :UpdateTags<CR>
+"nmap <F6> :HighlightTags<CR>
 let g:CoffeeAutoTagFile='./.tags'
 let g:easytags_file = './.tags'
 let g:easytags_auto_update = 0
@@ -392,8 +382,7 @@ function! GitAddAllAndCommit()
 endfunction
 map <leader>sc :call GitAddAllAndCommit()<cr>
 
-noremap <leader>f :CtrlP<cr>
-nmap <c-g> :CtrlP<cr><C-\>w
+noremap <leader>f :FZF<cr>
 
 map gr :execute " grep! -srnw --binary-files=without-match --exclude-dir=tmp --exclude-dir=.git --exclude-dir=log --exclude-dir=test --exclude-dir=spec --exclude-dir=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
 map gt :execute " grep! -srnw --binary-files=without-match --exclude-dir=.git --exclude-dir=log --exclude-dir=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
@@ -596,3 +585,25 @@ endfunction
 
 " Use the silver searcher (ag) with ack.vim
 let g:ackprg = 'ag --nogroup --nocolor --column'
+
+" Inline the output of an external command and strip out newlines
+function! InlineCommand()
+    let l:cmd = input('Command: ')
+    let l:output = system(l:cmd)
+    let l:output = substitute(l:output, '[\r\n]*$', '', '')
+    execute 'normal i' . l:output
+endfunction
+
+nmap <silent> \e :call InlineCommand()<CR>
+command! FormatJSON %!python -m json.tool
+
+
+""""""""""""""
+" Geeknote
+""""""""""""""
+noremap <F8> :Geeknote<cr>
+
+""""""""""""""
+" Markdown TOC
+""""""""""""""
+let g:mdtoc_run_on_save = 1
