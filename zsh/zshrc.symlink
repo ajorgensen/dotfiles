@@ -72,17 +72,6 @@ gd() { git diff $* | view -; }
 gdc() { gd --cached $*; }
 
 function mcd() { mkdir -p $1 && cd $1 }
-function cdf() { cd *$1*/ } # stolen from @topfunky
-
-# Show contents of folder after cding into it
-chpwd() {
-  ls -lrthG
-}
-
-function chpwd() {
-  emulate -L zsh
-  ls -lrthG
-}
 
 export MARKPATH=$HOME/.marks
 
@@ -114,3 +103,4 @@ eval "$(rbenv init -)"
 source /Users/ajorgensen/.iterm2_shell_integration.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+export FZF_DEFAULT_COMMAND='ag -g ""'

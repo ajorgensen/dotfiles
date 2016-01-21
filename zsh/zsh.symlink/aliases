@@ -13,6 +13,7 @@ alias gs="git status"
 alias gaa="git add --all"
 alias gap="git add --patch"
 alias gp="git put"
+alias gpf="git put -f"
 alias glog="git log --color"
 alias gpull="git pull"
 alias gco="git checkout"
@@ -40,6 +41,9 @@ alias v="vim"
 alias c="cd"
 alias vi="vim"
 alias fixup="gaa; gc f; grim"
+alias restart="shutdown -r now"
+alias sudo='sudo '
+alias fbranch='git co $(git branch | fzf)'
 
 findandcd() {
   cd $(find . -type d -name $1 | head -n 1)
@@ -73,11 +77,40 @@ do
   eval "be${bname}() { bundle exec ${bname} }"
 done
 
-function abs_path {
-  (cd "$(dirname '$1')" &>/dev/null && printf "%s/%s" "$(pwd)" "${1##*/}")
+realpath() {
+  echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
 }
 
-open_in_intellij() {
-  /Applications/IntelliJ\ IDEA\ 14\ EAP.app/Contents/MacOS/idea $(abs_path $1) > /dev/null 2>&1
+function open_in_intellij {
+  /Applications/IntelliJ\ IDEA\ 15\ CE\ EAP.app/Contents/MacOS/idea $(realpath $1) &> /dev/null
 }
-alias iopen=open_in_intellij
+alias iopen="open_in_intellij"
+
+function change_docker_machine() {
+  CURRENT_DOCKER_MACHINE="$1"
+  eval "$(docker-machine env $CURRENT_DOCKER_MACHINE)"
+}
+
+function restart_docker_machine() {
+  machine=$(active_docker_machine)
+ if [ ! -z $machine ]; then
+   echo "Restarting $machine"
+   docker-machine stop $machine; docker-machine start $machine
+   change_docker_machine $machine
+ else
+  echo "No active docker-machine found"
+ fi
+}
+
+function link() {
+  ln -s $(realpath $1) $(realpath $2)
+}
+
+function active_docker_machine() {
+  docker-machine ls | grep '*' | head -n 1 | cut -d ' ' -f 1
+}
+
+ACTIVE_DOCKER_MACHINE=$(active_docker_machine)
+if [ ! -z $ACTIVE_DOCKER_MACHINE ]; then
+  change_docker_machine $ACTIVE_DOCKER_MACHINE
+fi

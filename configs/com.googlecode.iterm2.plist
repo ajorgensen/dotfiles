@@ -754,13 +754,17 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1331 357 909 393 0 0 2560 1417 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>898 583 606 456 0 0 2560 1417 </string>
+	<string>415 556 606 456 0 0 1680 1027 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
 	<string>1088 967 384 129 0 0 2560 1417 </string>
+	<key>NSWindow Frame SUUpdateAlert</key>
+	<string>970 769 620 392 0 0 2560 1417 </string>
+	<key>NSWindow Frame UKCrashReporter</key>
+	<string>234 821 592 584 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 17 2560 1400 0 0 2560 1417 </string>
+	<string>1 4 1678 1022 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>520 642 1496 588 0 0 2560 1417 </string>
+	<string>840 528 586 378 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 10</key>
 	<string>587 990 586 427 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 11</key>
@@ -782,7 +786,7 @@
 	<key>NSWindow Frame iTerm Window 19</key>
 	<string>776 799 586 427 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>0 284 1979 1133 0 0 2560 1417 </string>
+	<string>0 649 572 378 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 20</key>
 	<string>797 776 586 427 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 21</key>
@@ -804,7 +808,7 @@
 	<key>NSWindow Frame iTerm Window 29</key>
 	<string>986 569 586 427 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
-	<string>1142 82 1314 1301 0 0 2560 1417 </string>
+	<string>0 5 1678 1022 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 30</key>
 	<string>1007 546 586 427 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 31</key>
@@ -2240,18 +2244,43 @@
 			<string>/Users/ajorgensen</string>
 		</dict>
 	</array>
+	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
+	<true/>
 	<key>NoSyncLastTipTime</key>
-	<real>458665745.65455902</real>
+	<real>465093733.33463502</real>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
 	<integer>0</integer>
 	<key>NoSyncSilenceAnnoyingBellAutomatically</key>
 	<true/>
+	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
+	<real>465754338.80581498</real>
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>453651319.95145798</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
 	<real>458579182.79643101</real>
+	<key>NoSyncTipsDisabled</key>
+	<true/>
+	<key>NoSyncTipsToNotShow</key>
+	<array>
+		<string>000</string>
+		<string>0000</string>
+		<string>0001</string>
+		<string>0002</string>
+		<string>0003</string>
+		<string>0004</string>
+		<string>0005</string>
+		<string>0006</string>
+		<string>0007</string>
+		<string>0008</string>
+		<string>0009</string>
+		<string>0010</string>
+		<string>0011</string>
+		<string>0012</string>
+		<string>0013</string>
+		<string>0014</string>
+	</array>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -2301,6 +2330,8 @@
 	</dict>
 	<key>PrefsCustomFolder</key>
 	<string>/Users/ajorgensen/dotfiles/configs</string>
+	<key>Print In Black And White</key>
+	<true/>
 	<key>PromptOnClose</key>
 	<true/>
 	<key>PromptOnQuit</key>
@@ -2320,7 +2351,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-07-14T15:07:10Z</date>
+	<date>2016-01-15T15:55:09Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -2349,6 +2380,8 @@
 	</array>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
+	<key>UKCrashReporterLastCrashReportDate</key>
+	<real>1442325632</real>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>UseBorder</key>
@@ -2372,7 +2405,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20150626</string>
+	<string>2.9.20160102</string>
 	<key>kCommandHistoryHasEverBeenUsed</key>
 	<true/>
 </dict>
