@@ -21,9 +21,8 @@ export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/local/Cellar:/usr
 export PATH="$HOME/bin:$HOME/Applications:$PATH"
 
 # Colorize terminal
-#export TERM='xterm-256color'
-#export TERM='screen-256color'
-export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
+export TERM='xterm-256color'
+#export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export GREP_OPTIONS="--color"
 
 # Nicer history

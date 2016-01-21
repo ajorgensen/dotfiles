@@ -33,7 +33,17 @@ Return a list of installed packages or nil for every skipped package."
 			  'evil
 			  'evil-leader
 			  'helm
-			  'relative-line-numbers)
+			  'relative-line-numbers
+			  'solarized-theme
+			  'fzf)
+
+;; EMACS CONFIG
+(setq backup-directory-alist `(("." . "~/.saves")))
+(setq backup-by-copying t)
+(setq delete-old-versions t
+    kept-new-versions 6
+    kept-old-versions 2
+    version-control t)
 
 ;; EVIL MODE CONFIG
 (require 'evil)
@@ -45,6 +55,13 @@ Return a list of installed packages or nil for every skipped package."
 (evil-leader/set-key "w" 'save-buffer)
 (evil-leader/set-key "q" 'kill-buffer-and-window)
 (evil-leader/set-key "e" 'helm-find-file)
+
+(eval-after-load "evil"
+  '(progn
+     (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
+     (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
+     (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
+     (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)))
 
 ;; HELM CONFIG
 (require 'helm-config)
@@ -74,3 +91,6 @@ Return a list of installed packages or nil for every skipped package."
 
 (setq interprogram-cut-function 'paste-to-osx)
 (setq interprogram-paste-function 'copy-from-osx)
+
+;; THEME
+(load-theme 'wombat t)
