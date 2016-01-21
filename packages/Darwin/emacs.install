@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+if test ! $(which emacs); then
+  if test ! $(which brew); then
+    source "homebrew.install"
+  fi
+
+  brew install emacs
+else
+  echo "Emacs already installed"
+fi
+
+if [ ! -z "$EMACS_APP" ] && [ ! -d /Applications/Emacs.app ]; then
+  if test ! $(which brew); then
+    source "homebrew.install"
+  fi
+
+  brew tap railwaycat/emacsmacport
+  brew install emacs-mac
+fi
+
+exit 0

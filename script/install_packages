@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
 
@@ -7,14 +8,13 @@ DOTFILES_ROOT=$(pwd)
 set -e
 
 function info () {
-  if [ -n "$1" ]
-  then
-    IN="$1"
+  if [ -t 0 ]; then
+    printf "\r  [ \033[00;34m..\033[0m ] $1\n"
   else
-    read IN # This reads a string from stdin and stores it in a variable called IN
+    while read -r LINE; do
+      printf "\r  [ \033[00;34m..\033[0m ] $LINE\n"
+    done
   fi
-
-  printf "\r  [ \033[00;34m..\033[0m ] $IN\n"
 }
 
 user () {
@@ -22,14 +22,13 @@ user () {
 }
 
 function success () {
-  if [ -n "$1" ]
-  then
-    IN="$1"
+  if [ -t 0 ]; then
+    printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
   else
-    read IN # This reads a string from stdin and stores it in a variable called IN
+    while read -r LINE; do
+      printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $LINE\n"
+    done
   fi
-
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $IN\n"
 }
 
 function fail () {
@@ -58,9 +57,10 @@ function install_package() {
   fi
 
   if $should_install; then
-    sh -c "$package" | success
+    info "Installing $package"
+    sh -c "$package" 2>&1 | info
+    success "Done installing $package"
   fi
-
 }
 
 function install_packages() {
