@@ -37,11 +37,12 @@ Plug 'shime/vim-livedown'
 Plug 'tyru/open-browser.vim'
 Plug 'tyru/open-browser-github.vim'
 Plug 'rking/ag.vim'
-Plug 'ledger/vim-ledger'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'ajorgensen/vim-markdown-toc'
+Plug 'elzr/vim-json'
 "Plug '~/dev/vim-markdown-toc'
-Plug 'neilagabriel/vim-geeknote'
+Plug 'elixir-lang/vim-elixir'
+Plug 'ledger/vim-ledger'
 
 " Requirements:
 " gem install seeing_is_believing
@@ -138,6 +139,9 @@ set wildmode=full
 
 " Dont redraw when executing macros etc until they are done
 set lazyredraw
+set ttyfast
+set ttyscroll=3
+set synmaxcol=128
 
 " ========================================================================
 " Formatting
@@ -149,6 +153,10 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
+
+set cursorline
+
+set showmatch
 
 " Auto indent based on the previous line
 set autoindent
@@ -204,6 +212,8 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+
+inoremap jk <ESC>
 
 nmap oo o<Esc>k
 nmap OO O<Esc>j
@@ -384,9 +394,9 @@ map <leader>sc :call GitAddAllAndCommit()<cr>
 
 noremap <leader>f :FZF<cr>
 
-map gr :execute " grep! -srnw --binary-files=without-match --exclude-dir=tmp --exclude-dir=.git --exclude-dir=log --exclude-dir=test --exclude-dir=spec --exclude-dir=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
-map gt :execute " grep! -srnw --binary-files=without-match --exclude-dir=.git --exclude-dir=log --exclude-dir=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
-map gG :execute " grep! -srnw --binary-files=without-match --exclude-dir=tmp --exclude-dir=.git --exclude-dir=tags ~/.rbenv/versions/$RBENV_VERSION/lib/ruby/gems/1.9.1 -e " . expand("<cword>") . " " <bar> cwindow<CR>
+"map gr :execute " grep! -srnw --binary-files=without-match --exclude-dir=tmp --exclude-dir=.git --exclude-dir=log --exclude-dir=test --exclude-dir=spec --exclude-dir=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
+"map gt :execute " grep! -srnw --binary-files=without-match --exclude-dir=.git --exclude-dir=log --exclude-dir=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
+"map gG :execute " grep! -srnw --binary-files=without-match --exclude-dir=tmp --exclude-dir=.git --exclude-dir=tags ~/.rbenv/versions/$RBENV_VERSION/lib/ruby/gems/1.9.1 -e " . expand("<cword>") . " " <bar> cwindow<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUNNING TESTS
@@ -607,3 +617,7 @@ noremap <F8> :Geeknote<cr>
 " Markdown TOC
 """"""""""""""
 let g:mdtoc_run_on_save = 1
+
+if filereadable(glob(".vimrc")) 
+    source .vimrc
+endif
