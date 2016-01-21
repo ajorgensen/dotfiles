@@ -28,6 +28,8 @@ set -g status-utf8 on
 # Visual alert when command finishes
 set -g visual-activity on
 
+set -s escape-time 0
+
 ################
 #     KEYS     #
 ################
