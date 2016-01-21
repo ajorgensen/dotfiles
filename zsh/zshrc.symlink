@@ -17,10 +17,8 @@ zstyle ':completion:*' menu select=2
 zstyle ":completion:*:descriptions" format "%B%d%b"
 
 # Add paths that should have been there by default
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/sbin:/usr/sbin:/bin:${PATH}
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/local/Cellar:/usr/bin:/sbin:/usr/sbin:/bin:${PATH}
 export PATH="$HOME/bin:$HOME/Applications:$PATH"
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
-export PATH="/usr/local/Cellar:$PATH"
 
 # Colorize terminal
 #export TERM='xterm-256color'
