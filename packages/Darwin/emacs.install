@@ -17,6 +17,7 @@ if [ ! -z "$EMACS_APP" ] && [ ! -d /Applications/Emacs.app ]; then
 
   brew tap railwaycat/emacsmacport
   brew install emacs-mac
+  brew linkapps emacs-mac
 fi
 
 exit 0
