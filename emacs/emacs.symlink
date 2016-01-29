@@ -28,7 +28,6 @@ Return a list of installed packages or nil for every skipped package."
 (package-initialize)
 
 (ensure-package-installed 'iedit
-			  'magit
 			  'powerline
 			  'evil
 			  'evil-leader
@@ -108,3 +107,5 @@ Return a list of installed packages or nil for every skipped package."
 
 ;; THEME
 (load-theme 'wombat t)
+
+(setq inhibit-startup-message t)

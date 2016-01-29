@@ -952,7 +952,7 @@
 		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
 		hAErATGG
 		</data>
-		<string>307</string>
+		<string>322</string>
 	</array>
 	<key>NSTableView Hidden Columns KeyBingingTable</key>
 	<array/>
@@ -966,7 +966,7 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1331 357 909 393 0 0 2560 1417 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>3458 935 606 456 2560 0 2560 1417 </string>
+	<string>415 556 606 456 0 0 1680 1027 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
 	<string>1088 967 384 129 0 0 2560 1417 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
@@ -974,9 +974,9 @@
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>234 821 592 584 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 12 2555 1405 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1280 17 1279 1400 0 0 2560 1417 </string>
+	<key>NSWindow Frame iTerm Window 1</key>
+	<string>1280 1039 586 378 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 10</key>
 	<string>587 990 586 427 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 11</key>
@@ -2546,6 +2546,8 @@
 	<false/>
 	<key>PasteFromClipboard</key>
 	<false/>
+	<key>PasteTabToStringTabStopSize</key>
+	<integer>4</integer>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -2602,7 +2604,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-01-21T00:04:12Z</date>
+	<date>2016-01-22T03:46:41Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>

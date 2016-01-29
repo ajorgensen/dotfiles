@@ -21,8 +21,7 @@ export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/local/Cellar:/usr
 export PATH="$HOME/bin:$HOME/Applications:$PATH"
 
 # Colorize terminal
-export TERM='xterm-256color'
-#export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
+export TERM='screen-256color' # Don't change, `xterm-256color` will break curses in tmux
 export GREP_OPTIONS="--color"
 
 # Nicer history

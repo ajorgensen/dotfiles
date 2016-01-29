@@ -39,6 +39,7 @@
   ours = !sh -c \" git checkout --ours \\$0 && git add \\$0\"
 [core]
 	excludesfile = ~/.gitignore
+        editor = vim
 [push]
 	default = current
 [branch]
