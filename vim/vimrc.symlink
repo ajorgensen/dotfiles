@@ -43,6 +43,7 @@ Plug 'elzr/vim-json'
 "Plug '~/dev/vim-markdown-toc'
 Plug 'elixir-lang/vim-elixir'
 Plug 'ledger/vim-ledger'
+Plug 'jiangmiao/auto-pairs'
 
 " Requirements:
 " gem install seeing_is_believing

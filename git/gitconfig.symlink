@@ -37,6 +37,7 @@
   fresh = !sh -c \"git checkout -b \\$0 && git reset --hard origin/master\"
   theirs = !sh -c \" git checkout --theirs \\$0 && git add \\$0\"
   ours = !sh -c \" git checkout --ours \\$0 && git add \\$0\"
+  clean-merged = !sh -c \"git checkout master && git branch --merged | grep -v '*' | xargs -n 1 git branch -d\"
 [core]
 	excludesfile = ~/.gitignore
         editor = vim
