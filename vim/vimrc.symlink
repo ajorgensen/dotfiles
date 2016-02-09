@@ -6,7 +6,12 @@ set shell=bash
 " curl -fLo ~/.vim/autoload/plug.vim \
 "     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 " ========================================================================
-call plug#begin('~/.vim/plugged')
+if has('nvim')
+  :echo "HELLO WORLD"
+  call plug#begin('~/.config/nvim/plugged')
+else
+  call plug#begin('~/.vim/plugged')
+endif
 
 Plug 'ervandew/supertab'
 Plug 'kchmck/vim-coffee-script'
@@ -140,7 +145,6 @@ set wildmode=full
 " Dont redraw when executing macros etc until they are done
 set lazyredraw
 set ttyfast
-set ttyscroll=3
 set synmaxcol=128
 
 " ========================================================================
@@ -286,7 +290,9 @@ let g:solarized_contrast = "high"
 set background=dark
 colorscheme solarized
 
-set encoding=utf8
+if !has('nvim')
+  set encoding=utf8
+endif
 
 " Set highlighting format
 hi clear SignColumn

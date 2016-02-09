@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Shamelessly stolen from Zach Holman (https://github.com/holman/dotfiles/blob/master/script/bootstrap)
 
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
@@ -118,7 +117,7 @@ function install_dotfiles() {
 
   local overwrite_all=false backup_all=false skip_all=false
 
-  for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink'); do
+  for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' -not -path "./config"); do
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "$src" "$dst"
   done
@@ -126,6 +125,20 @@ function install_dotfiles() {
   success "Finished installing dotfiles"
 }
 
+function install_config_files() {
+  info "Installing config files"
+
+  local overwrite_all=false backup_all=false skip_all=false
+
+  for src in $(find -H "$DOTFILES_ROOT/config" -maxdepth 2 -name '*.symlink'); do
+    dst="$HOME/.config/$(basename "${src%.*}")"
+    link_file "$src" "$dst"
+  done
+
+  success "Finished installing config files"
+}
+
 install_dotfiles
+install_config_files
 
 info "All done"
