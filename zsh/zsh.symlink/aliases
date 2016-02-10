@@ -39,6 +39,7 @@ alias notepad="vim ~/Documents/notepad.md"
 alias v="vim"
 alias c="cd"
 alias vi="vim"
+alias vim="nvim"
 alias fixup="gaa; gc f; grim"
 alias restart="shutdown -r now"
 alias sudo='sudo '
