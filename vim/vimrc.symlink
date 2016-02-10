@@ -42,12 +42,11 @@ Plug 'tyru/open-browser.vim'
 Plug 'tyru/open-browser-github.vim'
 Plug 'rking/ag.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'ajorgensen/vim-markdown-toc'
 Plug 'elzr/vim-json'
-"Plug '~/dev/vim-markdown-toc'
 Plug 'elixir-lang/vim-elixir'
 Plug 'ledger/vim-ledger'
 Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-dispatch'
 
 " Requirements:
 " gem install seeing_is_believing
@@ -57,15 +56,13 @@ Plug 't9md/vim-ruby-xmpfilter'
 Plug 'kana/vim-textobj-user'
 Plug 'nelstrom/vim-textobj-rubyblock'
 
-" Clojure
-" Plug 'tpope/vim-fireplace'
-" Plug 'tpope/vim-classpath'
-" Plug 'guns/vim-clojure-static'
-" Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
-
 " Colors
 Plug 'nanotech/jellybeans.vim'
-Plug 'altercation/vim-colors-solarized'
+if has('nvim')
+  Plug 'frankier/neovim-colors-solarized-truecolor-only'
+else
+  Plug 'altercation/vim-colors-solarized'
+endif
 
 call plug#end()
 
@@ -195,9 +192,6 @@ nmap <Leader>p "+p
 nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
-" nmap <Leader><Leader> V
-vmap v <Plug>(expand_region_expand)
-vmap <ëC-v> <Plug>(expand_region_shrink)
 noremap ; :
 noremap <C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
@@ -212,6 +206,10 @@ command! W w
 noremap Q <Nop>
 
 " Move around splits with <c-hjkl>
+" See: https://github.com/neovim/neovim/issues/2048
+if has('nvim')
+  nmap <BS> <C-W>h
+endif
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
@@ -624,6 +622,6 @@ noremap <F8> :Geeknote<cr>
 """"""""""""""
 let g:mdtoc_run_on_save = 1
 
-if filereadable(glob(".vimrc")) 
-    source .vimrc
+if filereadable(glob(".local.vim")) 
+    source .local.vim
 endif
