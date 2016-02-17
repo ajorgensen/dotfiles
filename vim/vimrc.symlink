@@ -41,12 +41,13 @@ Plug 'shime/vim-livedown'
 Plug 'tyru/open-browser.vim'
 Plug 'tyru/open-browser-github.vim'
 Plug 'rking/ag.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'elzr/vim-json'
 Plug 'elixir-lang/vim-elixir'
 Plug 'ledger/vim-ledger'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-dispatch'
+Plug 'maxbrunsfeld/vim-yankstack'
 
 " Requirements:
 " gem install seeing_is_believing
@@ -625,3 +626,10 @@ let g:mdtoc_run_on_save = 1
 if filereadable(glob(".local.vim")) 
     source .local.vim
 endif
+
+""""""""""""""
+" Markdown TOC
+""""""""""""""
+let g:yankstack_map_keys = 0
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+nmap <leader>P <Plug>yankstack_substitute_newer_paste

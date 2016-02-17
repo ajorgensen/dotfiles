@@ -83,7 +83,7 @@ realpath() {
 }
 
 function open_in_intellij {
-  /Applications/IntelliJ\ IDEA\ 15\ CE\ EAP.app/Contents/MacOS/idea $(realpath $1) &> /dev/null
+  /Applications/IntelliJ\ IDEA\ 16\ CE\ EAP.app/Contents/MacOS/idea $(realpath $1) &> /dev/null
 }
 alias iopen="open_in_intellij"
 
