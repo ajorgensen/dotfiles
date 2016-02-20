@@ -7,13 +7,18 @@ gems.tags
 .metadata/
 eclimd.log
 
-
-
 vim/vim.symlink/.netrwhist
 vim/vim.symlink/bundle
 vim/vim.symlink/plugged
 vim/vim.symlink/doc/tags-ja
 vim/vim.symlink/plugin/autotag.pyc
 vim/vim.symlink/.netrwhist
+
+config/nvim.symlink/.netrwhist
+config/nvim.symlink/bundle
+config/nvim.symlink/plugged
+config/nvim.symlink/doc/tags-ja
+config/nvim.symlink/plugin/autotag.pyc
+config/nvim.symlink/.netrwhist
 
 emacs/emacs.d.symlink/elpa
