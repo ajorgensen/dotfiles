@@ -1,1 +1,1 @@
-/Users/ajorgensen/dotfiles/vim/vimrc.symlink
+/Users/andrew/dotfiles/vim/vimrc.symlink
