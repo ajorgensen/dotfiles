@@ -12,60 +12,35 @@ else
   call plug#begin('~/.vim/plugged')
 endif
 
-Plug 'ervandew/supertab'
-Plug 'kchmck/vim-coffee-script'
-Plug 'arecarn/crunch.vim'
-Plug 'dahu/vim-lotr'
-Plug 'tpope/vim-fugitive'
-Plug 'stjernstrom/vim-ruby-run'
-Plug 'rorymckinley/vim-symbols-strings'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-surround'
-Plug 'flazz/vim-colorschemes'
-Plug 'vim-ruby/vim-ruby'
-Plug 'airblade/vim-gitgutter'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'SirVer/ultisnips'
-Plug 'mileszs/ack.vim'
-Plug 'roman/golden-ratio'
-Plug 'slim-template/vim-slim'
-Plug 'bling/vim-airline'
-Plug 'derekwyatt/vim-scala'
-Plug 'pantsbuild/vim-pants'
-Plug 'godlygeek/tabular'
-Plug 'fatih/vim-go'
-Plug 'JalaiAmitahl/maven-compiler.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'shime/vim-livedown'
-Plug 'tyru/open-browser.vim'
-Plug 'tyru/open-browser-github.vim'
-Plug 'rking/ag.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'elzr/vim-json'
-Plug 'elixir-lang/vim-elixir'
-Plug 'ledger/vim-ledger'
-Plug 'jiangmiao/auto-pairs'
-Plug 'tpope/vim-dispatch'
-Plug 'maxbrunsfeld/vim-yankstack'
-
-" Requirements:
-" gem install seeing_is_believing
-Plug 't9md/vim-ruby-xmpfilter'
-
-" nelstrom's plugin depends on kana's
-Plug 'kana/vim-textobj-user'
-Plug 'nelstrom/vim-textobj-rubyblock'
-
-" Colors
-Plug 'nanotech/jellybeans.vim'
+" General
 if has('nvim')
-  Plug 'frankier/neovim-colors-solarized-truecolor-only'
-else
-  Plug 'altercation/vim-colors-solarized'
+  Plug 'benekastah/neomake'
+  autocmd! BufWritePost * Neomake
 endif
 
+Plug 'Shougo/deoplete.nvim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'SirVer/ultisnips'
+Plug 'mileszs/ack.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'bling/vim-airline'
+Plug 'rking/ag.vim'
+Plug 'roman/golden-ratio'
+Plug 'tpope/vim-fugitive'
+Plug 'Raimondi/delimitMate'
+Plug 'altercation/vim-colors-solarized'
+Plug 'ervandew/supertab'
+
+" Elixir
+Plug 'elixir-lang/vim-elixir', { 'for': [ 'ex', 'exs' ]}
+
+" Markdown
+Plug 'shime/vim-livedown', { 'for': [ 'md' ]}
+
 call plug#end()
+
+" Deoplete
+let g:deoplete#enable_at_startup=1
 
 " ========================================================================
 " General Config
