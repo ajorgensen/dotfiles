@@ -6,7 +6,7 @@
 [alias]
   ec = config --global -e
   up = !git pull --rebase --prune $@ && git submodule update --init --recursive
-  sync = !git fetch && git rebase origin/master
+  sync = !git fetch -p && git rebase origin/master
   changelog = !git log ${1:-master}..HEAD
 	ci = commit
 	co = checkout

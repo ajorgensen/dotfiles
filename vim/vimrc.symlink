@@ -102,7 +102,10 @@ set noerrorbells
 set splitright
 
 " Search while typing
-set incsearch " search while typing
+set incsearch
+
+" Dont ignore case if the search has an uppercase character
+set smartcase
 
 " Highlight search matches
 set hlsearch
@@ -633,3 +636,9 @@ endif
 let g:yankstack_map_keys = 0
 nmap <leader>p <Plug>yankstack_substitute_older_paste
 nmap <leader>P <Plug>yankstack_substitute_newer_paste
+
+" When open a new file remember the cursor position of the last editing
+if has("autocmd")
+        " When editing a file, always jump to the last cursor position
+        autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
+endif
