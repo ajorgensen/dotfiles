@@ -32,10 +32,13 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'ervandew/supertab'
 
 " Elixir
-Plug 'elixir-lang/vim-elixir', { 'for': [ 'ex', 'exs' ]}
+Plug 'elixir-lang/vim-elixir', { 'for': [ 'ex', 'exs' ] }
 
 " Markdown
-Plug 'shime/vim-livedown', { 'for': [ 'md' ]}
+Plug 'shime/vim-livedown', { 'for': [ 'md' ] }
+
+" Javascript
+Plug 'pangloss/vim-javascript', { 'for': [ 'js' ] }
 
 call plug#end()
 
