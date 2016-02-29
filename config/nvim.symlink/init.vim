@@ -27,9 +27,14 @@ Plug 'bling/vim-airline'
 Plug 'rking/ag.vim'
 Plug 'roman/golden-ratio'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
 Plug 'altercation/vim-colors-solarized'
 Plug 'ervandew/supertab'
+
+" Ruby
+Plug 'nelstrom/vim-textobj-rubyblock', { 'for': [ 'rb' ] }
 
 " Elixir
 Plug 'elixir-lang/vim-elixir', { 'for': [ 'ex', 'exs' ] }
@@ -617,6 +622,9 @@ nmap <leader>P <Plug>yankstack_substitute_newer_paste
 
 " When open a new file remember the cursor position of the last editing
 if has("autocmd")
-        " When editing a file, always jump to the last cursor position
-        autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
+  let blacklist = ['gitcommit']
+  if index(blacklist, &ft) < 0
+    " When editing a file, always jump to the last cursor position
+    autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
+  endif
 endif
