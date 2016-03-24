@@ -31,8 +31,8 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
 Plug 'altercation/vim-colors-solarized'
-Plug 'ervandew/supertab'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
 " Ruby
 Plug 'nelstrom/vim-textobj-rubyblock', { 'for': [ 'rb' ] }
@@ -130,7 +130,7 @@ set wildmode=full
 " Dont redraw when executing macros etc until they are done
 set lazyredraw
 set ttyfast
-set synmaxcol=700
+set synmaxcol=128
 
 " ========================================================================
 " Formatting
@@ -629,3 +629,12 @@ if has("autocmd")
     autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
   endif
 endif
+
+
+""""""""""""""
+" Ultisnips
+""""""""""""""
+let g:UltiSnipsExpandTrigger="<c-k>"
+let g:UltiSnipsJumpForwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<s-c-j>"
+let g:UltiSnipsSnippetDirectories=["UltiSnips"]
