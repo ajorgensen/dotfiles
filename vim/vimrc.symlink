@@ -617,3 +617,15 @@ if has("autocmd")
         " When editing a file, always jump to the last cursor position
         autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
 endif
+
+""""""""""""""
+" UltiSnips
+""""""""""""""
+
+let g:UltiSnipsExpandTrigger="<c-k>"
+let g:UltiSnipsJumpForwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<c-j>"
+let g:UltiSnipsSnippetDirectory=["UltiSnips"]
+
+
+
