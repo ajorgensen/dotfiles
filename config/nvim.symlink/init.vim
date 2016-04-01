@@ -34,17 +34,20 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
+Plug 'sheerun/vim-polyglot'
+
 " Ruby
-Plug 'nelstrom/vim-textobj-rubyblock', { 'for': [ 'rb' ] }
+"Plug 'nelstrom/vim-textobj-rubyblock', { 'for': [ 'rb' ] }
 
 " Elixir
-Plug 'elixir-lang/vim-elixir', { 'for': [ 'ex', 'exs' ] }
+" Plug 'elixir-lang/vim-elixir', { 'for': [ 'ex', 'exs' ] }
 
 " Markdown
 Plug 'shime/vim-livedown', { 'for': [ 'md' ] }
 
 " Javascript
-Plug 'pangloss/vim-javascript', { 'for': [ 'js' ] }
+" Plug 'pangloss/vim-javascript', { 'for': [ 'js' ] }
+" Plug 'kchmck/vim-coffee-script', { 'for': [ 'coffee' ] }
 
 call plug#end()
 
