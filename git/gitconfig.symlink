@@ -38,6 +38,7 @@
   theirs = !sh -c \" git checkout --theirs \\$0 && git add \\$0\"
   ours = !sh -c \" git checkout --ours \\$0 && git add \\$0\"
   clean-merged = !sh -c \"git checkout master && git branch --merged | grep -v '*' | xargs -n 1 git branch -d\"
+  pf = push --force-with-lease
 [core]
 	excludesfile = ~/.gitignore
         editor = vim
