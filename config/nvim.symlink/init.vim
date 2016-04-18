@@ -37,6 +37,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-easytags'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'mxw/vim-jsx'
+
 Plug 'sheerun/vim-polyglot'
 Plug 'artur-shaik/vim-javacomplete2'
 
@@ -639,3 +641,8 @@ function! ImportJavaClasses()
   let $CLASSPATH = $CLASSPATH . ":" . "./src/main/java"
   let $CLASSPATH = $CLASSPATH . ":" . "./src/test/java"
 endfunction
+
+""""""""""""""
+" React
+""""""""""""""
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
