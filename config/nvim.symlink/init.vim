@@ -25,16 +25,24 @@ Plug 'mileszs/ack.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'rking/ag.vim'
-Plug 'roman/golden-ratio'
+Plug 'zhaocai/GoldenView.Vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
-Plug 'altercation/vim-colors-solarized'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-
+Plug 'majutsushi/tagbar'
+Plug 'scrooloose/nerdtree'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'artur-shaik/vim-javacomplete2'
+
+" Colorschemes
+Plug 'altercation/vim-colors-solarized'
+Plug 'w0ng/vim-hybrid'
 
 " Ruby
 "Plug 'nelstrom/vim-textobj-rubyblock', { 'for': [ 'rb' ] }
@@ -59,6 +67,12 @@ let g:deoplete#enable_at_startup=1
 " ========================================================================
 " Enable filetype plugins
 filetype plugin indent on
+
+" Turn on project specific rc files
+set exrc
+
+" Disable unsafe commands
+"set secure
 
 " How many lines of history vim has to remember
 set history=1000
@@ -211,9 +225,6 @@ inoremap jk <ESC>
 nmap oo o<Esc>k
 nmap OO O<Esc>j
 
-cnoremap <C-p> <Up> 
-cnoremap <C-n> <Down>
-
 nnoremap <leader><space> :nohlsearch<CR> " turn off search highlight
 inoremap jk <esc> " jk is escape
 
@@ -254,10 +265,6 @@ autocmd FileType ruby imap <buffer> <F5> <Plug>(seeing_is_believing-run)
 " auto wrap git commit messages
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
-" Toggle the nerd trees
-map <C-t> :NERDTreeToggle<CR>
-let g:NERDTreeWinSize = 40 
-
 " Open In Github
 map <leader>gh :OpenGithubFile<cr>
 map <leader>hg :<,'>OpenGithubFile<cr>
@@ -277,7 +284,7 @@ endif"
 let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
 set background=dark
-colorscheme solarized
+colorscheme hybrid
 
 if !has('nvim')
   set encoding=utf8
@@ -303,7 +310,7 @@ autocmd QuickFixCmdPost *grep* cwindow
 
 augroup myvimrc
   au!
-  au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+  au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc,init.vim,.nvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 augroup END
 
 " ===================
@@ -324,42 +331,6 @@ let g:clojure_fuzzy_indent = 1
 let g:clojure_fuzzy_indent_patterns = "with.*,def.*,let.*,send.*,fact,facts"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CTags config
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set the tag file search order
-"nmap <F8> :TagbarToggle<CR>
-"nmap <F7> :UpdateTags<CR>
-"nmap <F6> :HighlightTags<CR>
-let g:CoffeeAutoTagFile='./.tags'
-let g:easytags_file = './.tags'
-let g:easytags_auto_update = 0
-let g:easytags_async = 1
-set tags=./.tags
-set complete=.,w,b,u,t,i 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MULTIPURPOSE TAB KEY
-" Indent if we're at the beginning of a line. Else, do completion.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
-endfunction
-"inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <s-tab> <c-n>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" OPEN FILES IN DIRECTORY OF CURRENT FILE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"cnoremap %% <C-R>=expand('%:h').'/'<cr>
-"map <leader>e :edit %%
-map <leader>v :view %%
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! RenameFile()
@@ -374,38 +345,11 @@ endfunction
 map <leader>n :call RenameFile()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Git add all and commit
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! GitAddAllAndCommit()
-  let message = input('Commit message: ')
-  if message != ''
-    exec ':wa'
-    exec ':silent !git add --all'
-    exec ':silent !git commit -m "' . message . '"'
-    redraw!
-  endif
-endfunction
-map <leader>sc :call GitAddAllAndCommit()<cr>
-
-noremap <leader>f :FZF<cr>
-
-"map gr :execute " grep! -srnw --binary-files=without-match --exclude-dir=tmp --exclude-dir=.git --exclude-dir=log --exclude-dir=test --exclude-dir=spec --exclude-dir=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
-"map gt :execute " grep! -srnw --binary-files=without-match --exclude-dir=.git --exclude-dir=log --exclude-dir=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
-"map gG :execute " grep! -srnw --binary-files=without-match --exclude-dir=tmp --exclude-dir=.git --exclude-dir=tags ~/.rbenv/versions/$RBENV_VERSION/lib/ruby/gems/1.9.1 -e " . expand("<cword>") . " " <bar> cwindow<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUNNING TESTS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>Z :call SetTestFile()<cr>
 map <leader>c :call UnsetTestFile()<cr>
 map <leader>a :call OpenTestFile()<cr>
-map <leader>stp :exec '!mvn exec:java -Dexec.mainClass="' . expand("%:t:r") . '"'<cr>
-
-augroup filetype_java
-    autocmd!
-    autocmd FileType java map <leader>z :wa\|:call RunPresetJavaTest()<cr>
-    autocmd FileType ruby map <leader>z :wa\|:call RunPresetRubySpec()<cr>
-augroup END
 
 let g:rubytest_cmd_testcase = "ruby %p -n '/%c/'"
 
@@ -551,17 +495,15 @@ augroup myfiletypes
   " autoindent with two spaces, always expand tabs
   autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
   autocmd FileType ruby,eruby,yaml setlocal path+=lib
-  autocmd FileType ruby,eruby,yaml setlocal colorcolumn=80
-  autocmd FileType java setlocal sw=4
 augroup END
 
 function! FormatJson()
   call %!python -m json.tool
 endfunction
 
-" Highlighting at 81st column
+" Highlighting at 121st column
 highlight ColorColumn ctermbg=235
-set colorcolumn=80
+set colorcolumn=120
 
 " Make Y behave like other capitals
 map Y y$
@@ -602,20 +544,15 @@ endfunction
 nmap <silent> \e :call InlineCommand()<CR>
 command! FormatJSON %!python -m json.tool
 
-
 """"""""""""""
-" Geeknote
+" Tagbar
 """"""""""""""
-noremap <F8> :Geeknote<cr>
+nmap <F8> :TagbarToggle<CR>
 
 """"""""""""""
 " Markdown TOC
 """"""""""""""
 let g:mdtoc_run_on_save = 1
-
-if filereadable(glob(".local.vim")) 
-    source .local.vim
-endif
 
 """"""""""""""
 " Markdown TOC
@@ -641,3 +578,64 @@ let g:UltiSnipsExpandTrigger="<c-k>"
 let g:UltiSnipsJumpForwardTrigger="<c-k>"
 let g:UltiSnipsJumpBackwardTrigger="<s-c-j>"
 let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+
+""""""""""""""
+" NerdTree
+""""""""""""""
+map <C-p> :NERDTreeToggle<CR>
+let g:NERDTreeWinSize = 40 
+
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+""""""""""""""
+" GoldenView
+""""""""""""""
+let g:goldenview__enable_default_mapping = 0
+
+nmap <silent> <C-S> <Plug>GoldenViewSplit
+nmap <silent> <C-G> :GoldenViewResize<cr>
+
+""""""""""""""
+" FZF
+""""""""""""""
+noremap <leader>f :FZF<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CTags config
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set the tag file search order
+"nmap <F8> :TagbarToggle<CR>
+"nmap <F7> :UpdateTags<CR>
+"nmap <F6> :HighlightTags<CR>
+let g:CoffeeAutoTagFile='./.tags'
+let g:easytags_file = '~/.tags'
+let g:easytags_auto_update = 0
+let g:easytags_async = 1
+set tags=~/.tags
+set complete=.,w,b,u,t,i 
+
+""""""""""""""
+" Java
+""""""""""""""
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+autocmd BufWritePre java <Plug>(JavaComplete-Imports-AddMissing) 
+autocmd BufWritePre java <Plug>(JavaComplete-Imports-RemoveUnused) 
+
+nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+nmap <F5> <Plug>(JavaComplete-Imports-Add)
+imap <F5> <Plug>(JavaComplete-Imports-Add)
+nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+imap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+
+function! ImportJavaDependencies()
+  exe ":silent! !mvn dependency:copy-dependencies >/dev/null 2>&1" | redraw!
+  let $CLASSPATH = "./target/dependency/*"
+endfunction
+
+function! ImportJavaClasses()
+  let $CLASSPATH = $CLASSPATH . ":" . "./src/main/java"
+  let $CLASSPATH = $CLASSPATH . ":" . "./src/test/java"
+endfunction
