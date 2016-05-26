@@ -111,7 +111,18 @@ function active_docker_machine() {
   docker-machine ls | grep '*' | head -n 1 | cut -d ' ' -f 1
 }
 
-ACTIVE_DOCKER_MACHINE=$(active_docker_machine)
-if [ ! -z $ACTIVE_DOCKER_MACHINE ]; then
+function refresh_docker_machine() {
+  change_docker_machine $(active_docker_machine)
+} 
+
+export ACTIVE_DOCKER_MACHINE=$(active_docker_machine)
+if [ ! -z "$ACTIVE_DOCKER_MACHINE" ]; then
   change_docker_machine $ACTIVE_DOCKER_MACHINE
 fi
+
+function regex { 
+  gawk 'match($0,/'$1'/, ary) {print ary['${2:-'0'}']}'; 
+}
+
+
+
