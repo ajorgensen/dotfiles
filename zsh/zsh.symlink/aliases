@@ -87,31 +87,6 @@ function open_in_intellij {
 }
 alias iopen="open_in_intellij"
 
-function change_docker_machine() {
-  CURRENT_DOCKER_MACHINE="$1"
-  eval "$(docker-machine env $CURRENT_DOCKER_MACHINE)"
-}
-
-function restart_docker_machine() {
-  machine=$(active_docker_machine)
- if [ ! -z $machine ]; then
-   echo "Restarting $machine"
-   docker-machine stop $machine; docker-machine start $machine
-   change_docker_machine $machine
- else
-  echo "No active docker-machine found"
- fi
-}
-
 function link() {
   ln -s $(realpath $1) $(realpath $2)
 }
-
-function active_docker_machine() {
-  docker-machine ls | grep '*' | head -n 1 | cut -d ' ' -f 1
-}
-
-ACTIVE_DOCKER_MACHINE=$(active_docker_machine)
-if [ ! -z $ACTIVE_DOCKER_MACHINE ]; then
-  change_docker_machine $ACTIVE_DOCKER_MACHINE
-fi
