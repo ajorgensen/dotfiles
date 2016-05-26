@@ -45,6 +45,7 @@ alias restart="shutdown -r now"
 alias sudo='sudo '
 alias fbranch='git co $(git branch | fzf)'
 alias e='emacs'
+alias nix='nix-env'
 
 findandcd() {
   cd $(find . -type d -name $1 | head -n 1)
