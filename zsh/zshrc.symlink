@@ -4,9 +4,6 @@ setopt appendhistory
 setopt inc_append_history
 setopt share_history
 
-fpath=(~/.zsh/completion $fpath) 
-fpath=(~/.zsh/functions $fpath) 
-
 # zsh auto completion system
 autoload -U compinit
 compinit -d $HOME/zsh/dumpfile
@@ -15,25 +12,30 @@ unsetopt nomatch
 # show completion menu when number of options is at least 2
 zstyle ':completion:*' menu select=2
 zstyle ":completion:*:descriptions" format "%B%d%b"
+fpath=(~/.zsh/completion $fpath) 
+fpath=(~/.zsh/functions $fpath) 
+
+# reset path
+export PATH=""
 
 # Add paths that should have been there by default
-export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/local/Cellar:/usr/bin:/sbin:/usr/sbin:/bin:${PATH}
-export PATH="$HOME/bin:$HOME/Applications:$PATH"
+export PATH=${PATH}:$HOME/.nix-profile/bin:$HOME/.nix-profile/sbin
+export PATH=${PATH}:$HOME/bin:$HOME/Applications
+export PATH=${PATH}:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/local/Cellar:/usr/bin:/sbin:/usr/sbin:/bin
 
 # Colorize terminal
 export TERM='screen-256color' # Don't change, `xterm-256color` will break curses in tmux
 export GREP_OPTIONS="--color"
 
 # Nicer history
-export HISTSIZE=100000
+export HISTSIZE=10000000
 export HISTFILE="$HOME/.zsh_history"
 export SAVEHIST=$HISTSIZE
 setopt HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS INC_APPEND_HISTORY
 
 # Hadoop
 export PATH="$HOME/bin/hadoop-1.2.1/bin:$PATH"
-#export JAVA_HOME="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home"
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home"
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 
 # Android
 export ANDROID_HOME="/Users/ajorgensen/dev/android-sdk/sdk"
@@ -102,5 +104,3 @@ source $HOME/.iterm2_shell_integration.zsh
 
 export FZF_DEFAULT_COMMAND='ag -g ""'
 
-# nix
-[ -f $HOME/.nix-profile/etc/profile.d/nix.sh ] && source $HOME/.nix-profile/etc/profile.d/nix.sh

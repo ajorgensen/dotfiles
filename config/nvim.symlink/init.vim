@@ -38,6 +38,7 @@ Plug 'xolox/vim-misc'
 Plug 'xolox/vim-easytags'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'mxw/vim-jsx'
+Plug 'radenling/vim-dispatch-neovim'
 
 Plug 'sheerun/vim-polyglot'
 Plug 'artur-shaik/vim-javacomplete2'
@@ -63,6 +64,10 @@ call plug#end()
 
 " Deoplete
 let g:deoplete#enable_at_startup=1
+
+let g:ycm_server_log_level = 'debug'
+let g:ycm_server_use_vim_stdout = 0
+let g:ycm_server_keep_logfiles = 1
 
 " ========================================================================
 " General Config
