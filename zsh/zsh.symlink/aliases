@@ -46,6 +46,7 @@ alias sudo='sudo '
 alias fbranch='git co $(git branch | fzf)'
 alias e='emacs'
 alias nix='nix-env'
+alias tmpdir='pushd $(mktemp -d)'
 
 findandcd() {
   cd $(find . -type d -name $1 | head -n 1)
