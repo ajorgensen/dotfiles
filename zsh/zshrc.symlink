@@ -95,6 +95,9 @@ if [[ -a $HOME/.localrc ]]; then
 fi
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+bindkey '\e[A' history-beginning-search-backward
+bindkey '\e[B' history-beginning-search-forward
+
 #### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
@@ -110,4 +113,7 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 
 # Autojump
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+
+# So tmux plays nice with HyperTerm
+export LANG=en_US.UTF-8
 
