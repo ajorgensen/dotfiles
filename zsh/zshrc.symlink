@@ -24,6 +24,7 @@ export PATH=""
 export PATH=${PATH}:$HOME/.nix-profile/bin:$HOME/.nix-profile/sbin
 export PATH=${PATH}:$HOME/bin:$HOME/Applications
 export PATH=${PATH}:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/local/Cellar:/usr/bin:/sbin:/usr/sbin:/bin
+export PATH=$PATH:/usr/local/m-cli
 
 # Colorize terminal
 export TERM='screen-256color' # Don't change, `xterm-256color` will break curses in tmux
@@ -92,6 +93,7 @@ source $HOME/.zsh/functions/zsh_prompt
 if [[ -a $HOME/.localrc ]]; then
   source $HOME/.localrc
 fi
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 #### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
@@ -105,4 +107,7 @@ source $HOME/.iterm2_shell_integration.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export FZF_DEFAULT_COMMAND='ag -g ""'
+
+# Autojump
+[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
