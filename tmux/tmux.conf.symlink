@@ -12,9 +12,6 @@ set -g base-index 1
 # Allow us to use our mouse for some basic operations
 set -g mouse on
 
-# Fix artifacts showing up in the terminal
-set -g mouse-utf8 off
-
 # MOAR COLORS!
 set -g default-terminal "screen-256color"
 
@@ -91,7 +88,6 @@ set -g pane-active-border-fg brightred
 
 ## Status bar design
 # status line
-set -g status-utf8 on
 set -g status-justify left
 set -g status-bg default
 set -g status-fg colour12
