@@ -48,6 +48,8 @@ let g:deoplete#enable_at_startup=1
 " Enable filetype plugins
 filetype plugin indent on
 
+set timeoutlen=1000 ttimeoutlen=0
+
 " How many lines of history vim has to remember
 set history=1000
 

@@ -12,6 +12,9 @@ set -g base-index 1
 # Allow us to use our mouse for some basic operations
 set -g mouse on
 
+# Fix artifacts showing up in the terminal
+set -g mouse-utf8 off
+
 # MOAR COLORS!
 set -g default-terminal "screen-256color"
 
@@ -20,9 +23,6 @@ set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 
 # Dont automatically rename panes based on command run
 set-option -g allow-rename off
-
-# Unicode
-setw -g utf8 on
 
 # Visual alert when command finishes
 set -g visual-activity on

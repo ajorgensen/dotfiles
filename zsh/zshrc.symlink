@@ -117,3 +117,4 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 # So tmux plays nice with HyperTerm
 export LANG=en_US.UTF-8
 
+export KEYTIMEOUT=1
