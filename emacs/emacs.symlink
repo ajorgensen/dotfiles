@@ -4,9 +4,6 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
-(setq package-enable-at-startup nil)
-(package-initialize)
-
 (defun ensure-package-installed (&rest packages)
   "Assure every package is installed, ask for installation if it’s not.
 
@@ -27,10 +24,28 @@ Return a list of installed packages or nil for every skipped package."
 ;; Activate installed packages
 (package-initialize)
 
-(ensure-package-installed 'iedit 'magit 'evil)
+(ensure-package-installed 'iedit
+			  'magit
+			  'evil
+			  'evil-leader
+			  'helm)
 
+(setq backup-directory-alist `(("." . "~/.saves")))
+(setq backup-by-copying t)
+(setq delete-old-versions t
+  kept-new-versions 6
+  kept-old-versions 2
+  version-control t)
+
+;;;;;;;;;;;;;
+; Evil Mode ;
+;;;;;;;;;;;;;
 (require 'evil)
 (evil-mode t)
+
+(global-evil-leader-mode)
+(evil-leader/set-leader ",")
+(setq evil-leader/in-all-states 1)
 
 ;;; esc quits
 (defun minibuffer-keyboard-quit ()
@@ -53,3 +68,30 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
 (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
 (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
+
+(setq evil-emacs-state-cursor '("red" box))
+(setq evil-normal-state-cursor '("green" box))
+(setq evil-visual-state-cursor '("orange" box))
+(setq evil-insert-state-cursor '("red" bar))
+(setq evil-replace-state-cursor '("red" bar))
+(setq evil-operator-state-cursor '("red" hollow))
+
+;;;;;;;;;;;;;;;;;
+; Pretty colors ;
+;;;;;;;;;;;;;;;;;
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'solarized-dark t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
