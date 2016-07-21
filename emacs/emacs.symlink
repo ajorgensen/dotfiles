@@ -8,17 +8,17 @@
 (package-initialize)
 
 (defun ensure-package-installed (&rest packages)
-    "Assure every package is installed, ask for installation if it’s not.
+  "Assure every package is installed, ask for installation if it’s not.
 
 Return a list of installed packages or nil for every skipped package."
-    (mapcar
-     (lambda (package)
-       (if (package-installed-p package)
-	   nil
-	 (if (y-or-n-p (format "Package %s is missing. Install it? " package))
-	     (package-install package)
-	   package)))
-     packages))
+  (mapcar
+   (lambda (package)
+     (if (package-installed-p package)
+         nil
+       (if (y-or-n-p (format "Package %s is missing. Install it? " package))
+           (package-install package)
+         package)))
+   packages))
 
 ;; Make sure to have downloaded archive description.
 (or (file-exists-p package-user-dir)
@@ -27,85 +27,29 @@ Return a list of installed packages or nil for every skipped package."
 ;; Activate installed packages
 (package-initialize)
 
-(ensure-package-installed 'iedit
-			  'powerline
-			  'evil
-			  'evil-leader
-			  'helm
-			  'relative-line-numbers
-			  'solarized-theme
-			  'fzf
-			  'auto-complete
-                          'yasnippet)
+(ensure-package-installed 'iedit 'magit 'evil)
 
-;; EMACS CONFIG
-(setq backup-directory-alist `(("." . "~/.saves")))
-(setq backup-by-copying t)
-(setq delete-old-versions t
-    kept-new-versions 6
-    kept-old-versions 2
-    version-control t)
-(global-visual-line-mode t)
-(setq vc-follow-symlinks nil)
-(which-function-mode 1)
-
-; Highlight pairs of parens
-(show-paren-mode 1)
-
-; autmatically introduce closing parens, brackets, braces, etc
-(electric-pair-mode 1)
-
-; Always use spaces for indentation
-(setq-default indent-tabs-mode nil)
-
-;; EVIL MODE CONFIG
 (require 'evil)
-(require 'evil-leader)
-(global-evil-leader-mode)
 (evil-mode t)
 
-(evil-leader/set-leader ",")
-(evil-leader/set-key "w" 'save-buffer)
-(evil-leader/set-key "q" 'kill-buffer-and-window)
-(evil-leader/set-key "e" 'helm-find-file)
-
-(eval-after-load "evil"
-  '(progn
-     (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
-     (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
-     (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
-     (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)))
-
-;; HELM CONFIG
-(require 'helm-config)
-(helm-mode 1)
-
-;; POWERLINE CONFIG
-(require 'powerline)
-(powerline-vim-theme)
-
-;; RELATIVE LINE NUMBERS 
-(require 'relative-line-numbers)
-(global-relative-line-numbers-mode)
-(setq relative-line-numbers-format
-      '(lambda (offset)
-	 (format "%4d \u2502 " (abs offset))))
-
-
-;; CLIPBOARD CONFIGURATION 
-(defun copy-from-osx ()
-      (shell-command-to-string "pbpaste"))
-
-(defun paste-to-osx (text &optional push)
-      (let ((process-connection-type nil))
-            (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
-	            (process-send-string proc text)
-		            (process-send-eof proc))))
-
-(setq interprogram-cut-function 'paste-to-osx)
-(setq interprogram-paste-function 'copy-from-osx)
-
-;; THEME
-(load-theme 'wombat t)
-
-(setq inhibit-startup-message t)
+;;; esc quits
+(defun minibuffer-keyboard-quit ()
+  "Abort recursive edit.
+In Delete Selection mode, if the mark is active, just deactivate it;
+then it takes a second \\[keyboard-quit] to abort the minibuffer."
+  (interactive)
+  (if (and delete-selection-mode transient-mark-mode mark-active)
+      (setq deactivate-mark  t)
+    (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
+    (abort-recursive-edit)))
+(define-key evil-normal-state-map [escape] 'keyboard-quit)
+(define-key evil-visual-state-map [escape] 'keyboard-quit)
+(define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+(define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
+(define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
+(define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
+(define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
