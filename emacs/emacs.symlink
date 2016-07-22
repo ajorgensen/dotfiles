@@ -28,7 +28,16 @@ Return a list of installed packages or nil for every skipped package."
 			  'magit
 			  'evil
 			  'evil-leader
-			  'helm)
+			  'evil-search-highlight-persist
+			  'helm
+              'dtrt-indent
+			  'relative-line-numbers
+              'autopair
+              'neotree
+              'projectile
+              'helm-projectile
+              'helm-ag
+			  'powerline-evil)
 
 (setq backup-directory-alist `(("." . "~/.saves")))
 (setq backup-by-copying t)
@@ -37,15 +46,39 @@ Return a list of installed packages or nil for every skipped package."
   kept-old-versions 2
   version-control t)
 
+;;;;;;;;;;;;;;;;;;
+; General Config ;
+;;;;;;;;;;;;;;;;;;
+(setq-default tab-width 4 indent-tabs-mode nil)
+(setq-default c-basic-offset 4 c-default-style "bsd")
+(define-key global-map (kbd "RET") 'newline-and-indent)
+
+(require 'dtrt-indent)
+(dtrt-indent-mode 1)
+
+(require 'autopair)
+(autopair-global-mode)
+
+;;;;;;;;;;;;;
+;  Neo Tree ;
+;;;;;;;;;;;;;
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+
 ;;;;;;;;;;;;;
 ; Evil Mode ;
 ;;;;;;;;;;;;;
 (require 'evil)
 (evil-mode t)
 
+(setq evil-leader/in-all-states 1)
+(setq evil-leader/no-prefix-mode-rx '("magit-.*-mode" "gnus-.*-mode"))
 (global-evil-leader-mode)
 (evil-leader/set-leader ",")
-(setq evil-leader/in-all-states 1)
+
+(evil-leader/set-key
+    "f" 'find-file
+    "w" 'save-buffer)
 
 ;;; esc quits
 (defun minibuffer-keyboard-quit ()
@@ -75,6 +108,37 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (setq evil-insert-state-cursor '("red" bar))
 (setq evil-replace-state-cursor '("red" bar))
 (setq evil-operator-state-cursor '("red" hollow))
+
+;;;;;;;;
+; Helm ;
+;;;;;;;;
+(require 'helm-config)
+(require 'helm-projectile)
+(require 'helm-ag)
+(helm-mode 1)
+(helm-projectile-on)
+(define-key evil-normal-state-map " " 'helm-mini)
+
+;;;;;;;;;;;;;;;;;;;;;;;
+; Search Highlighting ;
+;;;;;;;;;;;;;;;;;;;;;;;
+(require 'evil-search-highlight-persist)
+(global-evil-search-highlight-persist t)
+(evil-leader/set-key "SPC" 'evil-search-highlight-persist-remove-all)
+
+;;;;;;;;;;;;;
+; Powerline ;
+;;;;;;;;;;;;;
+(require 'powerline)
+(powerline-evil-vim-color-theme)
+(display-time-mode t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;
+; Relative line numbers ;
+;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-hook 'prog-mode-hook 'relative-line-numbers-mode t)
+(add-hook 'prog-mode-hook 'line-number-mode t)
+(add-hook 'prog-mode-hook 'column-number-mode t)
 
 ;;;;;;;;;;;;;;;;;
 ; Pretty colors ;
