@@ -35,12 +35,16 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
 Plug 'xolox/vim-misc'
-Plug 'xolox/vim-easytags'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'mxw/vim-jsx'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'edsono/vim-matchit'
 Plug 'mattn/emmet-vim'
+Plug 'elixir-lang/vim-elixir'
+Plug 'isRuslan/vim-es6'
+Plug 'kchmck/vim-coffee-script'
+Plug 'roman/golden-ratio'
+Plug 'craigemery/vim-autotag'
 
 Plug 'sheerun/vim-polyglot'
 Plug 'artur-shaik/vim-javacomplete2'
@@ -613,15 +617,17 @@ noremap <leader>f :FZF<cr>
 " CTags config
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set the tag file search order
-"nmap <F8> :TagbarToggle<CR>
-"nmap <F7> :UpdateTags<CR>
-"nmap <F6> :HighlightTags<CR>
-let g:CoffeeAutoTagFile='./.tags'
-let g:easytags_file = '~/.tags'
-let g:easytags_auto_update = 0
-let g:easytags_async = 1
-set tags=~/.tags
 set complete=.,w,b,u,t,i 
+
+function! GenerateTags()
+  exec ":Dispatch ctags -R -V -f .git/tags ."
+endfunction
+command! GenerateTags call GenerateTags()
+
+function! GenerateTagsWithBundle()
+  exec ":Dispatch ctags -R -V -f .git/tags . $(bundle show --paths)"
+endfunction
+command! GenerateTagsWithBundle call GenerateTagsWithBundle()
 
 """"""""""""""
 " Java

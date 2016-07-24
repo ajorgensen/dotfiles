@@ -30,6 +30,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'Raimondi/delimitMate'
 Plug 'altercation/vim-colors-solarized'
 Plug 'ervandew/supertab'
+Plug 'szw/vim-tags'
 
 " Javascript/ES6
 Plug 'isRuslan/vim-es6'
@@ -325,12 +326,12 @@ let g:clojure_fuzzy_indent_patterns = "with.*,def.*,let.*,send.*,fact,facts"
 "nmap <F8> :TagbarToggle<CR>
 "nmap <F7> :UpdateTags<CR>
 "nmap <F6> :HighlightTags<CR>
-let g:CoffeeAutoTagFile='./.tags'
-let g:easytags_file = './.tags'
-let g:easytags_auto_update = 0
-let g:easytags_async = 1
-set tags=./.tags
-set complete=.,w,b,u,t,i 
+"let g:CoffeeAutoTagFile='./.tags'
+"let g:easytags_auto_update = 0
+"let g:easytags_async = 1
+"let g:easytags_dynamic_files = 1
+"set tags=./tags;
+"set complete=.,w,b,u,t,i 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY

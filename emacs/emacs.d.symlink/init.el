@@ -1,4 +1,5 @@
 (require 'package)
+(setq package-enable-at-startup nil)
 
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
@@ -25,33 +26,65 @@ Return a list of installed packages or nil for every skipped package."
 (package-initialize)
 
 (ensure-package-installed 'iedit
-			  'magit
-			  'evil
-			  'evil-leader
-			  'evil-search-highlight-persist
-			  'helm
-              'dtrt-indent
-			  'relative-line-numbers
-              'autopair
-              'neotree
-              'projectile
-              'helm-projectile
-              'helm-ag
-			  'powerline-evil)
+                          'magit
+                          'evil
+                          'evil-leader
+                          'evil-search-highlight-persist
+                          'helm
+                          'dtrt-indent
+                          'relative-line-numbers
+                          'autopair
+                          'neotree
+                          'projectile
+                          'helm-projectile
+                          'jsx-mode
+                          'coffee-mode
+                          'enh-ruby-mode
+                          'markdown-mode
+                          'auto-complete
+                          'yasnippet
+                          'helm-ag
+                          'saveplace
+                          'ag
+                          'ctags
+                          'evil-surround
+                          'monokai-theme
+                          'powerline-evil)
 
 (setq backup-directory-alist `(("." . "~/.saves")))
 (setq backup-by-copying t)
 (setq delete-old-versions t
-  kept-new-versions 6
-  kept-old-versions 2
-  version-control t)
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)
 
 ;;;;;;;;;;;;;;;;;;
-; General Config ;
+                                        ; General Config ;
 ;;;;;;;;;;;;;;;;;;
-(setq-default tab-width 4 indent-tabs-mode nil)
-(setq-default c-basic-offset 4 c-default-style "bsd")
+(setq inhibit-splace-screen t
+      inhibit-startup-screen t
+      inhibit-startup-echo-area-message t)
+
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(when (boundp 'sroll-bar-modes)
+  (scroll-bar-mode -1))
+(show-paren-mode 1)
+(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+(setq-default left-fringe-width nil)
+(setq-default indent-tabs-mode nil)
+(eval-after-load "vc" '(setq vc-handled-backends nil))
+(setq vc-follow-symlinks t)
+(setq large-file-warning-threshold nil)
+(setq split-width-threshold nil)
+(setq custom-safe-themes t)
+(put 'narrow-to-region 'disabled nil)
+
 (define-key global-map (kbd "RET") 'newline-and-indent)
+
+                                        ; Remember cursor position
+(require 'saveplace)
+(setq-default save-place t)
 
 (require 'dtrt-indent)
 (dtrt-indent-mode 1)
@@ -59,26 +92,46 @@ Return a list of installed packages or nil for every skipped package."
 (require 'autopair)
 (autopair-global-mode)
 
+(require 'jsx-mode)
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
+
+(require 'coffee-mode)
+(add-to-list 'auto-mode-alist '("\\.coffee\\'" . coffee-mode))
+
+(require 'enh-ruby-mode)
+
+;;;;;;;;;;;;;;;;;
+                                        ;  Autocomplete ;
+;;;;;;;;;;;;;;;;;
+(ac-config-default)
+
 ;;;;;;;;;;;;;
-;  Neo Tree ;
+                                        ;  Neo Tree ;
 ;;;;;;;;;;;;;
 (require 'neotree)
 (global-set-key [f8] 'neotree-toggle)
 
 ;;;;;;;;;;;;;
-; Evil Mode ;
+                                        ; Evil Mode ;
 ;;;;;;;;;;;;;
-(require 'evil)
-(evil-mode t)
+(require 'evil-leader)
+(global-evil-leader-mode)
 
 (setq evil-leader/in-all-states 1)
 (setq evil-leader/no-prefix-mode-rx '("magit-.*-mode" "gnus-.*-mode"))
-(global-evil-leader-mode)
 (evil-leader/set-leader ",")
 
 (evil-leader/set-key
-    "f" 'find-file
-    "w" 'save-buffer)
+  "hf" 'describe-function
+  " "  'evil-search-highlight-persist-remove-all
+  "f"  'helm-projectile-find-file
+  "df" 'helm-projectile-find-dir
+  "a"  'helm-projectile-ag
+  "bt" 'build-ctags
+  "w"  'save-buffer)
+
+(require 'evil)
+(evil-mode t)
 
 ;;; esc quits
 (defun minibuffer-keyboard-quit ()
@@ -109,8 +162,46 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (setq evil-replace-state-cursor '("red" bar))
 (setq evil-operator-state-cursor '("red" hollow))
 
+                                        ; Link up :noh to evil search highlighting persist
+(defun remove-highlighting () (evil-search-highlight-persist-remove-all))
+(advice-add 'evil-ex-nohighlight :after #'remove-highlighting)
+
+(setq-default
+ interprogram-cut-function   nil
+ interprogram-paste-function nil
+ x-select-enable-clipboard   nil)
+
+(defun copy-from-osx ()
+  (interactive)
+  (shell-command-to-string "pbpaste"))
+
+(defun paste-to-osx (text &optional push)
+  (interactive)
+  (let ((process-connection-type nil))
+    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+      (process-send-string proc text)
+      (process-send-eof proc))))
+
+(setq interprogram-cut-function 'paste-to-osx)
+(setq interprogram-paste-function 'copy-from-osx)
+
+;;;;;;;;;
+                                        ; CTags ;
+;;;;;;;;;
+(defun build-ctags ()
+  (interactive)
+  (message "building project tags")
+  (async-shell-command (concat "ctags -e -R --extra=+fq --exclude=db --exclude=test --exclude=.git TAGS ."))
+  (visit-project-tags)
+  (message "tags built successfully"))
+
+(defun visit-project-tags ()
+  (interactive)
+  (visit-tags-table "TAGS")
+  (message (concat "Loaded " "TAGS")))
+
 ;;;;;;;;
-; Helm ;
+                                        ; Helm ;
 ;;;;;;;;
 (require 'helm-config)
 (require 'helm-projectile)
@@ -120,31 +211,31 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (define-key evil-normal-state-map " " 'helm-mini)
 
 ;;;;;;;;;;;;;;;;;;;;;;;
-; Search Highlighting ;
+                                        ; Search Highlighting ;
 ;;;;;;;;;;;;;;;;;;;;;;;
 (require 'evil-search-highlight-persist)
 (global-evil-search-highlight-persist t)
 (evil-leader/set-key "SPC" 'evil-search-highlight-persist-remove-all)
 
 ;;;;;;;;;;;;;
-; Powerline ;
+                                        ; Powerline ;
 ;;;;;;;;;;;;;
 (require 'powerline)
 (powerline-evil-vim-color-theme)
 (display-time-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
-; Relative line numbers ;
+                                        ; Relative line numbers ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-hook 'prog-mode-hook 'relative-line-numbers-mode t)
 (add-hook 'prog-mode-hook 'line-number-mode t)
 (add-hook 'prog-mode-hook 'column-number-mode t)
 
 ;;;;;;;;;;;;;;;;;
-; Pretty colors ;
+                                        ; Pretty colors ;
 ;;;;;;;;;;;;;;;;;
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'solarized-dark t)
+(load-theme 'monokai t)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -152,7 +243,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default))))
+    ("c567c85efdb584afa78a1e45a6ca475f5b55f642dfcd6277050043a568d1ac6f" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
