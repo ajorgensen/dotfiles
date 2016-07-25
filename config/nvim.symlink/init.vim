@@ -624,6 +624,11 @@ function! GenerateTags()
 endfunction
 command! GenerateTags call GenerateTags()
 
+function! GenerateTagsCurrentFile()
+  exec ":Dispatch ctags -R -V %"
+endfunction
+command! GenerateTagsCurrentFile call GenerateTagsCurrentFile()
+
 function! GenerateTagsWithBundle()
   exec ":Dispatch ctags -R -V . $(bundle show --paths)"
 endfunction
