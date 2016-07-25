@@ -620,12 +620,12 @@ noremap <leader>f :FZF<cr>
 set complete=.,w,b,u,t,i 
 
 function! GenerateTags()
-  exec ":Dispatch ctags -R -V -f .git/tags ."
+  exec ":Dispatch ctags -R -V ."
 endfunction
 command! GenerateTags call GenerateTags()
 
 function! GenerateTagsWithBundle()
-  exec ":Dispatch ctags -R -V -f .git/tags . $(bundle show --paths)"
+  exec ":Dispatch ctags -R -V . $(bundle show --paths)"
 endfunction
 command! GenerateTagsWithBundle call GenerateTagsWithBundle()
 
