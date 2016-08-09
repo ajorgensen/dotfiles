@@ -40,7 +40,6 @@ Plug 'mxw/vim-jsx'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'edsono/vim-matchit'
 Plug 'mattn/emmet-vim'
-Plug 'elixir-lang/vim-elixir'
 Plug 'isRuslan/vim-es6'
 Plug 'kchmck/vim-coffee-script'
 Plug 'roman/golden-ratio'
@@ -57,7 +56,7 @@ Plug 'w0ng/vim-hybrid'
 "Plug 'nelstrom/vim-textobj-rubyblock', { 'for': [ 'rb' ] }
 
 " Elixir
-" Plug 'elixir-lang/vim-elixir', { 'for': [ 'ex', 'exs' ] }
+Plug 'elixir-lang/vim-elixir', { 'for': [ 'ex', 'exs' ] }
 
 " Markdown
 Plug 'shime/vim-livedown', { 'for': [ 'md' ] }
@@ -162,6 +161,10 @@ set lazyredraw
 set ttyfast
 set synmaxcol=128
 
+" Neovim shell
+set shell=/bin/zsh
+tnoremap <Esc> <C-\><C-n>
+
 " ========================================================================
 " Formatting
 " ========================================================================
@@ -189,6 +192,8 @@ set linebreak
 
 " Custom status line
 set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+
+let g:netrw_liststyle=3
 
 " ========================================================================
 " Mappings
@@ -593,12 +598,9 @@ let g:UltiSnipsJumpBackwardTrigger="<s-c-j>"
 let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 
 """"""""""""""
-" NerdTree
+" File Browsing
 """"""""""""""
-map <C-p> :NERDTreeToggle<CR>
-let g:NERDTreeWinSize = 40 
-
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+map <C-p> :Explore<CR>
 
 """"""""""""""
 " GoldenView
