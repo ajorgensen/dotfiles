@@ -23,3 +23,4 @@ config/nvim.symlink/.netrwhist
 config/nvim.symlink/.init.vim-rplugin~
 
 emacs/emacs.d.symlink/elpa
+emacs/emacs.d.symlink/places
