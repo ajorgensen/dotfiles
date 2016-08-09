@@ -20,5 +20,6 @@ config/nvim.symlink/plugged
 config/nvim.symlink/doc/tags-ja
 config/nvim.symlink/plugin/autotag.pyc
 config/nvim.symlink/.netrwhist
+config/nvim.symlink/.init.vim-rplugin~
 
 emacs/emacs.d.symlink/elpa
