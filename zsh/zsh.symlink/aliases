@@ -85,8 +85,12 @@ realpath() {
   echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
 }
 
+abspath() {
+  echo $(cd $(dirname $1); pwd)
+}
+
 function open_in_intellij {
-  /Applications/IntelliJ\ IDEA\ 16\ CE\ EAP.app/Contents/MacOS/idea $(realpath $1) &> /dev/null
+  $INTELLIJ_APP/Contents/MacOS/idea $(abspath $1) &> /tmp/intellij.log &
 }
 alias iopen="open_in_intellij"
 

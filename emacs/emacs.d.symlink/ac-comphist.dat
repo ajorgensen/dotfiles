@@ -1,8 +1,10 @@
-((("build-ctags" .
-   [1 0 0 0 0 0 0 0 0 0 0])
-  ("ggtags-mode" .
-   [0 0 0 0 0 0 1 0 0 0 0])
+((("fzf" .
+   [1 0 0])
+  ("helm-projectile-find-dir" .
+   [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
   ("helm-projectile-find-file" .
    [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
-  ("helm-projectile-find-dir" .
-   [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])))
+  ("ggtags-mode" .
+   [0 0 0 0 0 0 1 0 0 0 0])
+  ("build-ctags" .
+   [1 0 0 0 0 0 0 0 0 0 0])))

@@ -1,10 +1,22 @@
 ;;; -*- coding: utf-8 -*-
-(("/Users/ajorgensen/workspace/crashlytics/www/webapp/app/assets/javascripts/modules/answers/charts/funnel_chart.jsx" . 355)
- ("/Users/ajorgensen/workspace/crashlytics/www/TAGS" . 1884166)
+(("/Users/ajorgensen/dotfiles/emacs/emacs.d.symlink/init.el" . 3393)
+ ("/Users/ajorgensen/.emacs.d/elpa/multiple-cursors-20160719.216/multiple-cursors-autoloads.el" . 10351)
+ ("/Users/ajorgensen/workspace/crashlytics/www/app/assets/images/v1/icons/question_mark_off.png" . 11)
+ ("/Users/ajorgensen/dotfiles/packages/Darwin/rbenv.install" . 22)
+ ("/Users/ajorgensen/dotfiles/bin/docker-clean" . 183)
+ ("/Users/ajorgensen/workspace/crashlytics/www/"
+  (dired-filename . "/Users/ajorgensen/workspace/crashlytics/www/.."))
+ ("/Users/ajorgensen/workspace/crashlytics/"
+  (dired-filename . "/Users/ajorgensen/workspace/crashlytics/.."))
+ ("/Users/ajorgensen/workspace/"
+  (dired-filename . "/Users/ajorgensen/workspace/."))
+ ("/Users/ajorgensen/.emacs.d/recentf" . 577)
+ ("/Users/ajorgensen/.emacs.d/"
+  (dired-filename . "/Users/ajorgensen/.emacs.d/init.el"))
+ ("/Users/ajorgensen/.emacs.d/elpa/fzf-20160714.557/fzf-autoloads.el" . 417)
  ("/Users/ajorgensen/workspace/crashlytics/www/webapp/app/assets/javascripts/modules/growth_analytics/react/chart_container.coffee" . 915)
  ("/Users/ajorgensen/workspace/crashlytics/www/webapp/app/assets/javascripts/modules/growth_analytics/charts/timeseries_chart_helpers.coffee" . 1004)
  ("/Users/ajorgensen/.ctags" . 1866)
- ("/Users/ajorgensen/.emacs.d/init.el" . 3795)
  ("/Users/ajorgensen/.emacs.d/elpa/helm-gtags-20160719.1520/helm-gtags-autoloads.el" . 3283)
  ("/Users/ajorgensen/.emacs.d/elpa/xpm-1.0.3/xpm-autoloads.el" . 2480)
  ("/Users/ajorgensen/.emacs.d/elpa/enh-ruby-mode-20151123.141/enh-ruby-mode-autoloads.el" . 513)

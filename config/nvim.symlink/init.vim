@@ -62,8 +62,9 @@ Plug 'elixir-lang/vim-elixir', { 'for': [ 'ex', 'exs' ] }
 Plug 'shime/vim-livedown', { 'for': [ 'md' ] }
 
 " Javascript
-" Plug 'pangloss/vim-javascript', { 'for': [ 'js' ] }
-" Plug 'kchmck/vim-coffee-script', { 'for': [ 'coffee' ] }
+Plug 'pangloss/vim-javascript', { 'for': [ 'js' ] }
+Plug 'kchmck/vim-coffee-script', { 'for': [ 'coffee' ] }
+Plug 'ElmCast/elm-vim'
 
 call plug#end()
 
@@ -666,4 +667,3 @@ endfunction
 " React
 """"""""""""""
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
-

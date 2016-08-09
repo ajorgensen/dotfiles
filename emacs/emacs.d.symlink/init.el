@@ -39,6 +39,7 @@ Return a list of installed packages or nil for every skipped package."
                           'helm-projectile
                           'jsx-mode
                           'coffee-mode
+                          'multiple-cursors
                           'enh-ruby-mode
                           'markdown-mode
                           'auto-complete
@@ -46,6 +47,7 @@ Return a list of installed packages or nil for every skipped package."
                           'helm-ag
                           'saveplace
                           'ag
+                          'fzf
                           'ctags
                           'evil-surround
                           'monokai-theme
@@ -59,7 +61,7 @@ Return a list of installed packages or nil for every skipped package."
       version-control t)
 
 ;;;;;;;;;;;;;;;;;;
-                                        ; General Config ;
+; General Config ;
 ;;;;;;;;;;;;;;;;;;
 (setq inhibit-splace-screen t
       inhibit-startup-screen t
@@ -82,7 +84,7 @@ Return a list of installed packages or nil for every skipped package."
 
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
-                                        ; Remember cursor position
+; Remember cursor position
 (require 'saveplace)
 (setq-default save-place t)
 
@@ -100,19 +102,21 @@ Return a list of installed packages or nil for every skipped package."
 
 (require 'enh-ruby-mode)
 
+(require 'multiple-cursors)
+
 ;;;;;;;;;;;;;;;;;
-                                        ;  Autocomplete ;
+;  Autocomplete ;
 ;;;;;;;;;;;;;;;;;
 (ac-config-default)
 
 ;;;;;;;;;;;;;
-                                        ;  Neo Tree ;
+;  Neo Tree ;
 ;;;;;;;;;;;;;
 (require 'neotree)
 (global-set-key [f8] 'neotree-toggle)
 
 ;;;;;;;;;;;;;
-                                        ; Evil Mode ;
+; Evil Mode ;
 ;;;;;;;;;;;;;
 (require 'evil-leader)
 (global-evil-leader-mode)
@@ -121,10 +125,11 @@ Return a list of installed packages or nil for every skipped package."
 (setq evil-leader/no-prefix-mode-rx '("magit-.*-mode" "gnus-.*-mode"))
 (evil-leader/set-leader ",")
 
+;  "f"  'helm-projectile-find-file
 (evil-leader/set-key
   "hf" 'describe-function
   " "  'evil-search-highlight-persist-remove-all
-  "f"  'helm-projectile-find-file
+  "f"  'fzf
   "df" 'helm-projectile-find-dir
   "a"  'helm-projectile-ag
   "bt" 'build-ctags
