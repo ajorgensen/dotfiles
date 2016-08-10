@@ -3,7 +3,6 @@
 
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
 (defun ensure-package-installed (&rest packages)
   "Assure every package is installed, ask for installation if it’s not.
@@ -31,6 +30,7 @@ Return a list of installed packages or nil for every skipped package."
                           'evil-leader
                           'evil-search-highlight-persist
                           'helm
+                          'elixir-mode
                           'dtrt-indent
                           'relative-line-numbers
                           'autopair
@@ -59,61 +59,6 @@ Return a list of installed packages or nil for every skipped package."
       kept-new-versions 6
       kept-old-versions 2
       version-control t)
-
-;;;;;;;;;;;;;;;;;;
-; General Config ;
-;;;;;;;;;;;;;;;;;;
-(setq inhibit-splace-screen t
-      inhibit-startup-screen t
-      inhibit-startup-echo-area-message t)
-
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(when (boundp 'sroll-bar-modes)
-  (scroll-bar-mode -1))
-(show-paren-mode 1)
-(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
-(setq-default left-fringe-width nil)
-(setq-default indent-tabs-mode nil)
-(eval-after-load "vc" '(setq vc-handled-backends nil))
-(setq vc-follow-symlinks t)
-(setq large-file-warning-threshold nil)
-(setq split-width-threshold nil)
-(setq custom-safe-themes t)
-(put 'narrow-to-region 'disabled nil)
-
-(define-key global-map (kbd "RET") 'newline-and-indent)
-
-; Remember cursor position
-(require 'saveplace)
-(setq-default save-place t)
-
-(require 'dtrt-indent)
-(dtrt-indent-mode 1)
-
-(require 'autopair)
-(autopair-global-mode)
-
-(require 'jsx-mode)
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
-
-(require 'coffee-mode)
-(add-to-list 'auto-mode-alist '("\\.coffee\\'" . coffee-mode))
-
-(require 'enh-ruby-mode)
-
-(require 'multiple-cursors)
-
-;;;;;;;;;;;;;;;;;
-;  Autocomplete ;
-;;;;;;;;;;;;;;;;;
-(ac-config-default)
-
-;;;;;;;;;;;;;
-;  Neo Tree ;
-;;;;;;;;;;;;;
-(require 'neotree)
-(global-set-key [f8] 'neotree-toggle)
 
 ;;;;;;;;;;;;;
 ; Evil Mode ;
@@ -190,8 +135,77 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (setq interprogram-cut-function 'paste-to-osx)
 (setq interprogram-paste-function 'copy-from-osx)
 
+;;;;;;;;;;;;;;;;;;
+; General Config ;
+;;;;;;;;;;;;;;;;;;
+(setq inhibit-splace-screen t
+      inhibit-startup-screen t
+      inhibit-startup-echo-area-message t)
+
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(when (boundp 'sroll-bar-modes)
+  (scroll-bar-mode -1))
+(show-paren-mode 1)
+(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+(setq-default left-fringe-width nil)
+(setq-default indent-tabs-mode nil)
+(eval-after-load "vc" '(setq vc-handled-backends nil))
+(setq vc-follow-symlinks t)
+(setq large-file-warning-threshold nil)
+(setq split-width-threshold nil)
+(setq custom-safe-themes t)
+(put 'narrow-to-region 'disabled nil)
+
+(define-key global-map (kbd "RET") 'newline-and-indent)
+
+; Remember cursor position
+(require 'saveplace)
+(setq-default save-place t)
+
+(require 'dtrt-indent)
+(dtrt-indent-mode 1)
+
+(require 'autopair)
+(autopair-global-mode)
+
+(require 'jsx-mode)
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
+
+(require 'coffee-mode)
+
+(add-to-list 'auto-mode-alist '("\\.coffee\\'" . coffee-mode))
+
+(require 'enh-ruby-mode)
+
+(require 'multiple-cursors)
+
+(require 'dirtree)
+
+(require 'yasnippet)
+(yas-global-mode 1)
+
+(require 'neotree)
+(setq neo-smart-open t)
+(global-set-key [f8] 'neotree-toggle)
+(setq projectile-switch-project-action 'neotree-projectile-action)
+(add-hook 'neotree-mode-hook
+          (lambda ()
+            (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+            (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
+            (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+            (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
+
+(setq company-idle-delay 1)
+
+;;;;;;;;;;;;;;;;;
+;  Autocomplete ;
+;;;;;;;;;;;;;;;;;
+(ac-config-default)
+
+
 ;;;;;;;;;
-                                        ; CTags ;
+; CTags ;
 ;;;;;;;;;
 (defun build-ctags ()
   (interactive)
@@ -206,7 +220,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (message (concat "Loaded " "TAGS")))
 
 ;;;;;;;;
-                                        ; Helm ;
+; Helm ;
 ;;;;;;;;
 (require 'helm-config)
 (require 'helm-projectile)
@@ -216,28 +230,28 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (define-key evil-normal-state-map " " 'helm-mini)
 
 ;;;;;;;;;;;;;;;;;;;;;;;
-                                        ; Search Highlighting ;
+; Search Highlighting ;
 ;;;;;;;;;;;;;;;;;;;;;;;
 (require 'evil-search-highlight-persist)
 (global-evil-search-highlight-persist t)
 (evil-leader/set-key "SPC" 'evil-search-highlight-persist-remove-all)
 
 ;;;;;;;;;;;;;
-                                        ; Powerline ;
+; Powerline ;
 ;;;;;;;;;;;;;
 (require 'powerline)
 (powerline-evil-vim-color-theme)
 (display-time-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
-                                        ; Relative line numbers ;
+; Relative line numbers ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-hook 'prog-mode-hook 'relative-line-numbers-mode t)
 (add-hook 'prog-mode-hook 'line-number-mode t)
 (add-hook 'prog-mode-hook 'column-number-mode t)
 
 ;;;;;;;;;;;;;;;;;
-                                        ; Pretty colors ;
+; Pretty colors ;
 ;;;;;;;;;;;;;;;;;
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'monokai t)

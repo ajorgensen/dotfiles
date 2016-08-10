@@ -6,5 +6,8 @@
   "repository": "zeit/hyperterm",
   "license": "MIT",
   "homepage": "https://hyperterm.org",
-  "dependencies": {}
+  "dependencies": {
+    "hyperlinks": "latest",
+    "hyperterm-monokai": "latest"
+  }
 }
