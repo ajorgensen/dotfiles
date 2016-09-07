@@ -48,6 +48,8 @@ Plug 'craigemery/vim-autotag'
 Plug 'sheerun/vim-polyglot'
 Plug 'artur-shaik/vim-javacomplete2'
 
+Plug 'mhinz/vim-startify'
+
 " Colorschemes
 Plug 'altercation/vim-colors-solarized'
 Plug 'w0ng/vim-hybrid'
@@ -165,6 +167,8 @@ set synmaxcol=128
 " Neovim shell
 set shell=/bin/zsh
 tnoremap <Esc> <C-\><C-n>
+
+noremap <leader>ecf :e ~/.config/nvim/init.vim<cr>
 
 " ========================================================================
 " Formatting

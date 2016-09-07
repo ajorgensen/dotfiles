@@ -47,9 +47,10 @@ export ANDROID_HOME="/Users/ajorgensen/dev/android-sdk/sdk"
 export PATH=$PATH:$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools
 export GRADLE_OPTS="-Xmx1024m -Xms256m -XX:MaxPermSize=512m"
 
-export VISUAL=emacs
+export VISUAL=vim
 export EDITOR="$VISUAL"
 bindkey -e
+set -o vi
 
 # Use qt4 because capybara-webkit needs it to compile
 export QMAKE=/usr/bin/qmake-qt4

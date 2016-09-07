@@ -90,7 +90,14 @@ abspath() {
 }
 
 function open_in_intellij {
-  $INTELLIJ_APP/Contents/MacOS/idea $(abspath $1) &> /tmp/intellij.log &
+  IDEA=`ls -1d /Applications/IntelliJ\ * 2> /dev/null| tail -n1`
+  project_path=$(realpath $1)
+  if [ -n "$IDEA" ]; then
+    open -a "$IDEA" $project_path
+  else
+    echo
+    echo "Could not locate IntelliJ IDEA. Manually open `$project_path` as a project in IDEA."
+  fi
 }
 alias iopen="open_in_intellij"
 
