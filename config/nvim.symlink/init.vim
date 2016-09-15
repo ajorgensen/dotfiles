@@ -37,7 +37,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'xolox/vim-misc'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'mxw/vim-jsx'
-Plug 'radenling/vim-dispatch-neovim'
 Plug 'edsono/vim-matchit'
 Plug 'mattn/emmet-vim'
 Plug 'isRuslan/vim-es6'
@@ -55,7 +54,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'w0ng/vim-hybrid'
 
 " Ruby
-"Plug 'nelstrom/vim-textobj-rubyblock', { 'for': [ 'rb' ] }
+Plug 'nelstrom/vim-textobj-rubyblock', { 'for': [ 'rb' ] }
 
 " Elixir
 Plug 'elixir-lang/vim-elixir', { 'for': [ 'ex', 'exs' ] }
@@ -215,7 +214,6 @@ noremap <Leader>w :w<CR>
 noremap <Leader>q :q<cr>
 
 vmap <Leader>y "+y
-vmap <Leader>d "+d
 nmap <Leader>p "+p
 nmap <Leader>P "+P
 vmap <Leader>p "+p
@@ -329,7 +327,7 @@ let g:slime_target = "tmux"
 set virtualedit=onemore "Needed so vim-scala doesn't shit the bed
 
 " Open QuickFix window after git grep in vim-fugitive
-autocmd QuickFixCmdPost *grep* cwindow
+" autocmd QuickFixCmdPost *grep* cwindow
 
 augroup myvimrc
   au!
@@ -366,6 +364,19 @@ function! RenameFile()
   endif
 endfunction
 map <leader>n :call RenameFile()<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" DUPLICATE CURRENT FILE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! DuplicateFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    redraw!
+  endif
+endfunction
+map <leader>d :call DuplicateFile()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUNNING TESTS

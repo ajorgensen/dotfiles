@@ -7,7 +7,6 @@
   "license": "MIT",
   "homepage": "https://hyperterm.org",
   "dependencies": {
-    "hyperlinks": "latest",
-    "hyperterm-monokai": "latest"
+    "hyperlinks": "latest"
   }
 }

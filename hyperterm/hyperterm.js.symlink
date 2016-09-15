@@ -4,7 +4,7 @@ module.exports = {
     fontSize: 12,
 
     // font family with optional fallbacks
-    fontFamily: 'mononoki, Menlo, "DejaVu Sans Mono", "Lucida Console", monospace',
+    //fontFamily: 'mononoki, Menlo, "DejaVu Sans Mono", "Lucida Console", monospace',
 
     // terminal cursor background color (hex)
     cursorColor: '#FFF',
@@ -55,7 +55,8 @@ module.exports = {
   //   `hypersolar`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: ['hyperlinks', 'hyperterm-monokai'],
+  //plugins: ['hyperlinks', 'hyperterm-monokai'],
+  plugins: ['hyperlinks'],
 
   // in development, you can create a directory under
   // `~/.hyperterm_plugins/local/` and include it here
