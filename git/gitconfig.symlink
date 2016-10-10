@@ -40,6 +40,7 @@
   ours = !sh -c \" git checkout --ours \\$0 && git add \\$0\"
   clean-merged = !sh -c \"git checkout master && git branch --merged | grep -v '*' | xargs -n 1 git branch -d\"
   pf = push --force-with-lease
+  track = !git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD)
 [core]
 	excludesfile = ~/.gitignore
         editor = vim

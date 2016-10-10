@@ -22,7 +22,6 @@ Plug 'Shougo/deoplete.nvim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'SirVer/ultisnips'
 Plug 'mileszs/ack.vim'
-Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'rking/ag.vim'
 Plug 'zhaocai/GoldenView.Vim'
@@ -204,14 +203,14 @@ let g:netrw_liststyle=3
 " ========================================================================
 let mapleader=","
 let g:mapleader=","
-"let mapleader = " "
-"let g:mapleader = " "
 
 " Faster saving
 noremap <Leader>w :w<CR>
 
 " Fast quiting
 noremap <Leader>q :q<cr>
+
+noremap <Leader>edf :e ~/.config/nvim/init.vim<cr>
 
 vmap <Leader>y "+y
 nmap <Leader>p "+p
@@ -261,8 +260,6 @@ map <Left> <Nop>
 map <Right> <Nop>
 map <Up> <Nop>
 map <Down> <Nop>
-
-let g:xmpfilter_cmd = "seeing_is_believing"
 
 autocmd FileType ruby nmap <buffer> <leader>rm <Plug>(seeing_is_believing-mark)
 autocmd FileType ruby xmap <buffer> <leader>rm <Plug>(seeing_is_believing-mark)

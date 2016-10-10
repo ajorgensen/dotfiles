@@ -42,6 +42,10 @@ setopt HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS INC_APPEND_HISTORY
 export PATH="$HOME/bin/hadoop-1.2.1/bin:$PATH"
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 
+# GO
+export GOPATH="$HOME/go"
+export PATH="$PATH:$GOPATH/bin"
+
 # Android
 export ANDROID_HOME="/Users/ajorgensen/dev/android-sdk/sdk"
 export PATH=$PATH:$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools
