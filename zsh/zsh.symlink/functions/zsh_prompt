@@ -37,8 +37,9 @@ rbenv_version_status() {
   [ "$(rbenv global)" != "$ver" ] && echo "[$ver]"
 }
 
+NEWLINE=$'\n'
 if which rbenv &> /dev/null; then
-  PROMPT='%{$fg[cyan]%}%~% %(?.%{$fg[green]%}.%{$fg[red]%}) $(git_custom_status)%{$fg[red]%}$(rbenv_version_status)%{$reset_color%}%b$%b '
+  PROMPT="%{$fg[cyan]%}%~% %(?.%{$fg[green]%}.%{$fg[red]%}) $(git_custom_status)%{$fg[red]%}$(rbenv_version_status)%{$reset_color%}%b%b ${NEWLINE}⚡  "
 else
-  PROMPT='%{$fg[cyan]%}%~% %(?.%{$fg[green]%}.%{$fg[red]%}) $(git_custom_status)%b$%b '
+  PROMPT="%{$fg[cyan]%}%~% %(?.%{$fg[green]%}.%{$fg[red]%}) $(git_custom_status)%b%b ${NEWLINE}⚡  "
 fi
