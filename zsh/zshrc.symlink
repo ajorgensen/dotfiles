@@ -102,6 +102,7 @@ source $HOME/.zsh/functions/zgitinit
 source $HOME/.zsh/zsh-git-prompt/zshrc.sh
 NEWLINE=$'\n'
 PROMPT='~%d %b$(git_super_status) ${NEWLINE}🚀  '
+GIT_PROMPT_EXECUTABLE="haskell"
 
 if [[ -a $HOME/.localrc ]]; then
   source $HOME/.localrc
