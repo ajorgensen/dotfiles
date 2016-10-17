@@ -972,15 +972,15 @@
 	<key>NSWindow Frame SUStatusFrame</key>
 	<string>1080 967 400 129 0 0 2560 1417 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>930 597 700 622 0 0 2560 1417 </string>
+	<string>490 304 700 622 0 0 1680 1027 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>740 191 937 512 0 0 2560 1417 </string>
+	<string>853 465 918 495 0 0 2560 1417 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>234 821 592 584 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1280 4 1277 1413 0 0 2560 1417 </string>
+	<string>1 4 1678 1023 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>219 5 1062 1022 0 0 1680 1027 </string>
+	<string>0 650 570 377 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 10</key>
 	<string>587 990 586 427 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 11</key>
@@ -1002,7 +1002,7 @@
 	<key>NSWindow Frame iTerm Window 19</key>
 	<string>776 799 586 427 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>2560 740 1251 700 2560 0 2560 1440 </string>
+	<string>0 4 1680 1023 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 20</key>
 	<string>797 776 586 427 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 21</key>
@@ -1623,11 +1623,11 @@
 			<key>Name</key>
 			<string>Default</string>
 			<key>Non Ascii Font</key>
-			<string>mononoki-Regular 12</string>
+			<string>mononoki-Regular 10</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>mononoki-Regular 12</string>
+			<string>mononoki-Regular 10</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
@@ -2506,7 +2506,7 @@
 	<key>NoSyncConfirmBeta</key>
 	<true/>
 	<key>NoSyncDoNotWarnBeforeMultilinePaste</key>
-	<true/>
+	<false/>
 	<key>NoSyncDoNotWarnBeforeMultilinePaste_selection</key>
 	<integer>1</integer>
 	<key>NoSyncInstallationId</key>
@@ -2611,6 +2611,8 @@
 	<integer>3</integer>
 	<key>RunJobsInServers</key>
 	<false/>
+	<key>SUAutomaticallyUpdate</key>
+	<false/>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
@@ -2620,7 +2622,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-08-03T14:37:37Z</date>
+	<date>2016-09-15T19:57:25Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -2676,7 +2678,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.0.git.2b2f92ba49</string>
+	<string>3.0.9</string>
 	<key>kCommandHistoryHasEverBeenUsed</key>
 	<true/>
 </dict>

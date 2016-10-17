@@ -28,6 +28,7 @@ Plug 'rking/ag.vim'
 Plug 'zhaocai/GoldenView.Vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
+Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
 Plug 'terryma/vim-multiple-cursors'
@@ -43,6 +44,7 @@ Plug 'isRuslan/vim-es6'
 Plug 'kchmck/vim-coffee-script'
 Plug 'roman/golden-ratio'
 Plug 'craigemery/vim-autotag'
+Plug 'rhysd/vim-grammarous'
 
 Plug 'sheerun/vim-polyglot'
 Plug 'artur-shaik/vim-javacomplete2'
@@ -161,7 +163,7 @@ set wildmode=full
 " Dont redraw when executing macros etc until they are done
 set lazyredraw
 set ttyfast
-set synmaxcol=128
+set synmaxcol=250
 
 " Neovim shell
 set shell=/bin/zsh
@@ -202,10 +204,8 @@ let g:netrw_liststyle=3
 " ========================================================================
 " Mappings
 " ========================================================================
-let mapleader=","
-let g:mapleader=","
-"let mapleader = " "
-"let g:mapleader = " "
+let mapleader = " "
+let g:mapleader = " "
 
 " Faster saving
 noremap <Leader>w :w<CR>
@@ -682,3 +682,8 @@ endfunction
 " React
 """"""""""""""
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+
+function! IexShell()
+  exec ":Dispatch iex -S mix"
+endfunction
+command! IexShell :call IexShell()<CR>

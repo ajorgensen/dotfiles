@@ -22,8 +22,6 @@ alias ls="ls -lrthG"
 alias shnow="sudo shutdown -h now"
 alias gdiff="git diff --color"
 alias pag="ps aux | grep"
-alias clean-merged="git checkout master; git branch --merged | grep -v '\*' | xargs -n 1 git branch -d"
-alias clean-merged-and-remove-remote="git branch --merged | grep -v "\*" | xargs -I branchName sh -c 'git branch -d branchName; git push origin --delete branchName; git remote prune origin'"
 alias retag='ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=tmp *'
 alias grim='git rebase -i origin/master'
 alias g='git'
@@ -48,6 +46,7 @@ alias e='emacs'
 alias nix='nix-env'
 alias tmpdir='pushd $(mktemp -d)'
 alias emacs="emacs --no-window-system"
+alias sysup='brew update && brew upgrade; brew cleanup'
 
 findandcd() {
   cd $(find . -type d -name $1 | head -n 1)

@@ -1,7 +1,7 @@
 [user]
 	name = Andrew Jorgensen
 	email = andrew@andrewjorgensen.com
-	signingkey = B10424F37FA56977
+	signingkey = andrew@andrewjorgensen.com
 [github]
 	user = ajorgensen
 [alias]
@@ -23,6 +23,7 @@
 	unci = reset --soft HEAD^
 	unstage = reset HEAD
 	rmbr = !sh -c \"git branch -d \\$0 && git push origin :heads/\\$0 && git remote prune origin\"
+	rmbrf = !sh -c \"git branch -D \\$0 && git push origin :heads/\\$0 && git remote prune origin\"
 	rmremote = !sh -c \"git push origin :heads/\\$0\"
 	put = push origin HEAD
 	get = !git pull && git submodule init && git submodule update
@@ -38,11 +39,10 @@
   fresh = !sh -c \"git checkout -b \\$0 && git reset --hard origin/master\"
   theirs = !sh -c \" git checkout --theirs \\$0 && git add \\$0\"
   ours = !sh -c \" git checkout --ours \\$0 && git add \\$0\"
-  clean-merged = !sh -c \"git checkout master && git branch --merged | grep -v '*' | xargs -n 1 git branch -d\"
   pf = push --force-with-lease
 [core]
-	excludesfile = ~/.gitignore
-        editor = vim
+  excludesfile = ~/.gitignore
+  editor = vim
 [push]
 	default = current
 [branch]
@@ -53,3 +53,5 @@
 	tool = kdiff3
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+[commit]
+	gpgsign = true
