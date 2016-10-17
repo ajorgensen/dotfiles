@@ -98,7 +98,11 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' \
 # Sourcing of other files
 source $HOME/.zsh/aliases
 source $HOME/.zsh/functions/zgitinit
-source $HOME/.zsh/functions/zsh_prompt
+
+source $HOME/.zsh/zsh-git-prompt/zshrc.sh
+NEWLINE=$'\n'
+PROMPT='~%d %b$(git_super_status) ${NEWLINE}🚀  '
+
 if [[ -a $HOME/.localrc ]]; then
   source $HOME/.localrc
 fi
