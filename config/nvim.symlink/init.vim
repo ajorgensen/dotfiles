@@ -209,6 +209,12 @@ let g:mapleader = " "
 " Faster saving
 noremap <Leader>w :w<CR>
 
+" Only save if the file has been modified
+noremap <Leader>s :up<CR>
+
+" Save and exit
+noremap <Leader>x :exit<CR>
+
 " Fast quiting
 noremap <Leader>q :q<cr>
 

@@ -43,7 +43,7 @@
   track = !git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD)
 [core]
   excludesfile = ~/.gitignore
-  editor = vim
+  editor = nvim
 [push]
 	default = current
 [branch]
