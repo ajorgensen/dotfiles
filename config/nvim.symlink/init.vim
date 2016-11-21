@@ -53,6 +53,7 @@ Plug 'mhinz/vim-startify'
 " Colorschemes
 Plug 'altercation/vim-colors-solarized'
 Plug 'w0ng/vim-hybrid'
+Plug 'chriskempson/base16-vim'
 
 " Ruby
 Plug 'nelstrom/vim-textobj-rubyblock', { 'for': [ 'rb' ] }
@@ -238,6 +239,8 @@ command! -bar -bang Q quit<bang>
 command! W w
 noremap Q <Nop>
 
+map <leader>pry orequire 'pry'; binding.pry<CR><ESC>
+
 " Move around splits with <c-hjkl>
 " See: https://github.com/neovim/neovim/issues/2048
 if has('nvim')
@@ -260,14 +263,6 @@ nnoremap H 0
 nnoremap L $
 
 nnoremap ; :
-
-nnoremap <leader>u :GundoToggle<CR>         " toggle gundo
-
-" Arrow keys are unacceptable
-map <Left> <Nop>
-map <Right> <Nop>
-map <Up> <Nop>
-map <Down> <Nop>
 
 autocmd FileType ruby nmap <buffer> <leader>rm <Plug>(seeing_is_believing-mark)
 autocmd FileType ruby xmap <buffer> <leader>rm <Plug>(seeing_is_believing-mark)
@@ -311,6 +306,7 @@ let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
 set background=dark
 colorscheme hybrid
+"colorscheme base16-default-dark
 
 if !has('nvim')
   set encoding=utf8

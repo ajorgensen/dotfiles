@@ -8,7 +8,7 @@
   ec = config --global -e
   up = !git pull --rebase --prune $@ && git submodule update --init --recursive
   sync = !git fetch -p && git rebase origin/master
-  changelog = !git log ${1:-master}..HEAD
+  changelog = !git log ${1:-origin/master}..HEAD
 	ci = commit
 	co = checkout
   cob = checkout -b
