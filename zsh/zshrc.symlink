@@ -1,8 +1,5 @@
 setopt PROMPT_SUBST
 setopt AUTO_CD
-setopt appendhistory
-setopt inc_append_history
-setopt share_history
 
 # zsh auto completion system
 fpath=(~/.zsh/completion $fpath) 
@@ -36,7 +33,25 @@ export GREP_OPTIONS="--color"
 export HISTSIZE=10000000
 export HISTFILE="$HOME/.zsh_history"
 export SAVEHIST=$HISTSIZE
-setopt HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS INC_APPEND_HISTORY
+export HISTCONTROL=ignorespace
+setopt HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS INC_APPEND_HISTORY EXTENDED_HISTORY
+setopt append_history
+setopt inc_append_history
+setopt share_history
+
+### Functions for setting and getting environment variables from the OSX keychain ###
+# Use: keychain-environment-variable CHEF_PUSH_KEY
+function keychain-environment-variable () {
+    security find-generic-password -w -a ${USER} -D "environment variable" -s "${1}"
+}
+
+# Use: set-keychain-environment-variable CHEF_PUSH_KEY "secret"
+function set-keychain-environment-variable () {
+    [ -n "$1" ] || print "Missing environment variable name"
+    [ -n "$2" ] || print "Missing environment variable value"
+    ( [ -n "$1" ] && [ -n "$2" ] ) || return 1
+    security add-generic-password -U -a ${USER} -D "environment variable" -s "${1}" -w "${2}"
+}
 
 # Hadoop
 export PATH="$HOME/bin/hadoop-1.2.1/bin:$PATH"
@@ -116,7 +131,7 @@ bindkey '\e[B' history-beginning-search-forward
 export PATH="/usr/local/heroku/bin:$PATH"
 
 # ruby
-export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
 eval "$(rbenv init -)"
 
 # FZF
