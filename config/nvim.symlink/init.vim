@@ -44,6 +44,7 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'roman/golden-ratio'
 Plug 'craigemery/vim-autotag'
 Plug 'rhysd/vim-grammarous'
+Plug 'janko-m/vim-test'
 
 Plug 'sheerun/vim-polyglot'
 Plug 'artur-shaik/vim-javacomplete2'
