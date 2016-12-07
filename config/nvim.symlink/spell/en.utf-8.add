@@ -6,3 +6,6 @@ versioned
 cli
 config
 configs
+internet
+OSX
+keychain
