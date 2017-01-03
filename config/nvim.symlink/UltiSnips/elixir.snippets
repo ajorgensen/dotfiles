@@ -4,6 +4,22 @@ defmodule $1 do
 end
 endsnippet
 
+snippet defmodel
+defmodule $1.$2 do
+  use $1.Web, :model
+
+  schema "$3" do
+		$0
+  end
+
+  def changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [])
+    |> validate_required([])
+  end
+end
+endsnippet
+
 snippet def
 def $1($2) do
 	$0

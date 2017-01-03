@@ -147,3 +147,4 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 export LANG=en_US.UTF-8
 
 export KEYTIMEOUT=1
+

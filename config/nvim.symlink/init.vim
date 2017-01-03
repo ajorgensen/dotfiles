@@ -24,9 +24,9 @@ Plug 'SirVer/ultisnips'
 Plug 'mileszs/ack.vim'
 Plug 'bling/vim-airline'
 Plug 'rking/ag.vim'
-Plug 'zhaocai/GoldenView.Vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
+Plug 'skywind3000/asyncrun.vim'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
@@ -41,7 +41,6 @@ Plug 'edsono/vim-matchit'
 Plug 'mattn/emmet-vim'
 Plug 'isRuslan/vim-es6'
 Plug 'kchmck/vim-coffee-script'
-Plug 'roman/golden-ratio'
 Plug 'craigemery/vim-autotag'
 Plug 'rhysd/vim-grammarous'
 Plug 'janko-m/vim-test'
@@ -61,6 +60,7 @@ Plug 'nelstrom/vim-textobj-rubyblock', { 'for': [ 'rb' ] }
 
 " Elixir
 Plug 'elixir-lang/vim-elixir', { 'for': [ 'ex', 'exs' ] }
+Plug 'mattreduce/vim-mix'
 
 " Markdown
 Plug 'shime/vim-livedown', { 'for': [ 'md' ] }
@@ -171,6 +171,7 @@ set shell=/bin/zsh
 tnoremap <Esc> <C-\><C-n>
 
 noremap <leader>ecf :e ~/.config/nvim/init.vim<cr>
+nnoremap <F2> :buffers<CR>:buffer<Space>
 
 " ========================================================================
 " Formatting
@@ -621,14 +622,6 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 map <C-p> :Explore<CR>
 
 """"""""""""""
-" GoldenView
-""""""""""""""
-let g:goldenview__enable_default_mapping = 0
-
-nmap <silent> <C-S> <Plug>GoldenViewSplit
-nmap <silent> <C-G> :GoldenViewResize<cr>
-
-""""""""""""""
 " FZF
 """"""""""""""
 noremap <leader>f :FZF<cr>
@@ -639,53 +632,36 @@ noremap <leader>f :FZF<cr>
 " Set the tag file search order
 set complete=.,w,b,u,t,i 
 
-function! GenerateTags()
-  exec ":Dispatch ctags -R -V ."
-endfunction
-command! GenerateTags call GenerateTags()
-
-function! GenerateTagsCurrentFile()
-  exec ":Dispatch ctags -R -V %"
-endfunction
-command! GenerateTagsCurrentFile call GenerateTagsCurrentFile()
-
-function! GenerateTagsWithBundle()
-  exec ":Dispatch ctags -R -V . $(bundle show --paths)"
-endfunction
-command! GenerateTagsWithBundle call GenerateTagsWithBundle()
-
-""""""""""""""
-" Java
-""""""""""""""
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
-autocmd BufWritePre java <Plug>(JavaComplete-Imports-AddMissing) 
-autocmd BufWritePre java <Plug>(JavaComplete-Imports-RemoveUnused) 
-
-nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
-imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
-nmap <F5> <Plug>(JavaComplete-Imports-Add)
-imap <F5> <Plug>(JavaComplete-Imports-Add)
-nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
-imap <F6> <Plug>(JavaComplete-Imports-AddMissing)
-nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
-imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
-
-function! ImportJavaDependencies()
-  exe ":silent! !mvn dependency:copy-dependencies >/dev/null 2>&1" | redraw!
-  let $CLASSPATH = "./target/dependency/*"
-endfunction
-
-function! ImportJavaClasses()
-  let $CLASSPATH = $CLASSPATH . ":" . "./src/main/java"
-  let $CLASSPATH = $CLASSPATH . ":" . "./src/test/java"
-endfunction
+"function! GenerateTags()
+"  exec ":Dispatch ctags -R -V ."
+"endfunction
+"command! GenerateTags call GenerateTags()
+"
+"function! GenerateTagsCurrentFile()
+"  exec ":Dispatch ctags -R -V %"
+"endfunction
+"command! GenerateTagsCurrentFile call GenerateTagsCurrentFile()
+"
+"function! GenerateTagsWithBundle()
+"  exec ":Dispatch ctags -R -V . $(bundle show --paths)"
+"endfunction
+"command! GenerateTagsWithBundle call GenerateTagsWithBundle()
 
 """"""""""""""
 " React
 """"""""""""""
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
+""""""""""""""
+" Elixir
+""""""""""""""
 function! IexShell()
   exec ":Dispatch iex -S mix"
 endfunction
 command! IexShell :call IexShell()<CR>
+
+""""""""""""""
+" NERDTree
+""""""""""""""
+map <C-n> :NERDTreeToggle<CR>
+
