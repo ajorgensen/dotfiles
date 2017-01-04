@@ -78,5 +78,3 @@ unbind [
 bind [ previous-window
 unbind ]
 bind ] next-window
-
-bind -n C-k send-keys -R \; send-keys C-l \; clear-history
