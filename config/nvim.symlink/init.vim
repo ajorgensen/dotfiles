@@ -36,7 +36,6 @@ Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
 Plug 'xolox/vim-misc'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'mxw/vim-jsx'
 Plug 'edsono/vim-matchit'
 Plug 'mattn/emmet-vim'
 Plug 'isRuslan/vim-es6'
@@ -44,6 +43,7 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'craigemery/vim-autotag'
 Plug 'rhysd/vim-grammarous'
 Plug 'janko-m/vim-test'
+Plug 'fatih/vim-go'
 
 Plug 'sheerun/vim-polyglot'
 Plug 'artur-shaik/vim-javacomplete2'
@@ -66,7 +66,8 @@ Plug 'mattreduce/vim-mix'
 Plug 'shime/vim-livedown', { 'for': [ 'md' ] }
 
 " Javascript
-Plug 'pangloss/vim-javascript', { 'for': [ 'js' ] }
+Plug 'mxw/vim-jsx', { 'for': [ 'js', 'jsx' ] }
+Plug 'pangloss/vim-javascript', { 'for': [ 'js', 'jsx' ] }
 Plug 'kchmck/vim-coffee-script', { 'for': [ 'coffee' ] }
 Plug 'ElmCast/elm-vim'
 
@@ -659,9 +660,3 @@ function! IexShell()
   exec ":Dispatch iex -S mix"
 endfunction
 command! IexShell :call IexShell()<CR>
-
-""""""""""""""
-" NERDTree
-""""""""""""""
-map <C-n> :NERDTreeToggle<CR>
-
