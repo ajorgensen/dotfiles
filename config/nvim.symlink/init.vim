@@ -18,67 +18,23 @@ if has('nvim')
   autocmd! BufWritePost * Neomake
 endif
 
-Plug 'Shougo/deoplete.nvim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'SirVer/ultisnips'
-Plug 'mileszs/ack.vim'
 Plug 'bling/vim-airline'
-Plug 'rking/ag.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-dispatch'
-Plug 'skywind3000/asyncrun.vim'
-Plug 'radenling/vim-dispatch-neovim'
-Plug 'tpope/vim-surround'
-Plug 'Raimondi/delimitMate'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-Plug 'majutsushi/tagbar'
-Plug 'scrooloose/nerdtree'
-Plug 'xolox/vim-misc'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'edsono/vim-matchit'
-Plug 'mattn/emmet-vim'
-Plug 'isRuslan/vim-es6'
-Plug 'kchmck/vim-coffee-script'
-Plug 'craigemery/vim-autotag'
-Plug 'rhysd/vim-grammarous'
-Plug 'janko-m/vim-test'
-Plug 'fatih/vim-go'
-
-Plug 'sheerun/vim-polyglot'
-Plug 'artur-shaik/vim-javacomplete2'
-
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'mhinz/vim-startify'
+Plug 'rking/ag.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'sheerun/vim-polyglot'
 
 " Colorschemes
 Plug 'altercation/vim-colors-solarized'
-Plug 'w0ng/vim-hybrid'
-Plug 'chriskempson/base16-vim'
-
-" Ruby
-Plug 'nelstrom/vim-textobj-rubyblock', { 'for': [ 'rb' ] }
-
-" Elixir
-Plug 'elixir-lang/vim-elixir', { 'for': [ 'ex', 'exs' ] }
-Plug 'mattreduce/vim-mix'
 
 " Markdown
 Plug 'shime/vim-livedown', { 'for': [ 'md' ] }
 
-" Javascript
-Plug 'mxw/vim-jsx', { 'for': [ 'js', 'jsx' ] }
-Plug 'pangloss/vim-javascript', { 'for': [ 'js', 'jsx' ] }
-Plug 'kchmck/vim-coffee-script', { 'for': [ 'coffee' ] }
-Plug 'ElmCast/elm-vim'
-
 call plug#end()
-
-" Deoplete
-let g:deoplete#enable_at_startup=1
-
-let g:ycm_server_log_level = 'debug'
-let g:ycm_server_use_vim_stdout = 0
-let g:ycm_server_keep_logfiles = 1
 
 " ========================================================================
 " General Config
@@ -88,9 +44,6 @@ filetype plugin indent on
 
 " Turn on project specific rc files
 set exrc
-
-" Disable unsafe commands
-"set secure
 
 " How many lines of history vim has to remember
 set history=1000
@@ -145,8 +98,10 @@ set cmdheight=2
 " Switch between open buffers
 set switchbuf=useopen
 
-" Minimum width for line numbers
+" Numbering
+set number
 set numberwidth=5
+set relativenumber
 
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
@@ -159,7 +114,7 @@ set backspace=indent,eol,start
 set showcmd
 
 " Make tab completion for files/buffers act like bash
-set wildmenu 
+set wildmenu
 set wildmode=full
 
 " Dont redraw when executing macros etc until they are done
@@ -167,18 +122,22 @@ set lazyredraw
 set ttyfast
 set synmaxcol=250
 
+" show the cursor position at all times
+set ruler
+
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
+
 " Neovim shell
 set shell=/bin/zsh
 tnoremap <Esc> <C-\><C-n>
-
-noremap <leader>ecf :e ~/.config/nvim/init.vim<cr>
-nnoremap <F2> :buffers<CR>:buffer<Space>
 
 " ========================================================================
 " Formatting
 " ========================================================================
 " Turns spaces into tabs
-set expandtab 
+set expandtab
 
 " 1 tab == 2 spaces
 set tabstop=2
@@ -204,11 +163,50 @@ set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 
 let g:netrw_liststyle=3
 
+" Display extra whitespace
+set list listchars=tab:»·,trail:·
+
+" Highlighting at 121st column
+highlight ColorColumn ctermbg=235
+set colorcolumn=120
+
+
+" ========================================================================
+" Autogroup
+" ========================================================================
+augroup vimrcEx
+  autocmd!
+
+  " For all text files set 'textwidth' to 80 characters.
+  autocmd FileType text setlocal textwidth=80
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it for commit messages, when the position is invalid, or when
+  " inside an event handler (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+
+  " Set syntax highlighting for specific file types
+  autocmd BufRead,BufNewFile *.md set filetype=markdown
+
+  " Enable spellchecking for Markdown
+  autocmd FileType markdown setlocal spell
+augroup END
+
+
 " ========================================================================
 " Mappings
 " ========================================================================
 let mapleader = " "
 let g:mapleader = " "
+
+noremap <leader>ecf :e ~/.config/nvim/init.vim<cr>
+nnoremap <F2> :buffers<CR>:buffer<Space>
+
+" Index ctags from any project, including those outside Rails
+map <Leader>ct :!ctags -R .<CR>
 
 " Faster saving
 noremap <Leader>w :w<CR>
@@ -299,17 +297,14 @@ map <leader>hg :<,'>OpenGithubFile<cr>
 syntax on
 syntax enable " enable synatx processing
 
-set t_Co=256 " 256 colors by default
-" colorscheme candyman
-if !has("gui_running")
-    let g:solarized_termtrans=1
-    let g:solarized_termcolors=256
-endif"
+" 256 colors by default
+set t_Co=256
+let g:solarized_termtrans=1
+let g:solarized_termcolors=256
 let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
 set background=dark
-colorscheme hybrid
-"colorscheme base16-default-dark
+colorscheme solarized
 
 if !has('nvim')
   set encoding=utf8
@@ -319,41 +314,9 @@ endif
 hi clear SignColumn
 hi SpellBad cterm=underline
 
-""""""""""""""""""""""""""""""""""""""""""""""""""
-
-autocmd FileType ruby compiler ruby
-
-au BufNewFile,BufRead *.md set ft=md
-au BufRead,BufNewFile *.go set ft=go
-au BufRead,BufNewFile *.coffee set ft=coffee
-
-let g:slime_target = "tmux"
-set virtualedit=onemore "Needed so vim-scala doesn't shit the bed
-
-" Open QuickFix window after git grep in vim-fugitive
-" autocmd QuickFixCmdPost *grep* cwindow
-
-augroup myvimrc
-  au!
-  au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc,init.vim,.nvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-augroup END
-
-" ===================
-" VimClojure settings
-" =================== 
-" Highlight Clojure's builtins
-let vimclojure#HighlightBuiltins = 1
-
- " Rainbox parens
-let vimclojure#ParenRainbow = 1
-let g:instant_markdown_autostart = 0
-
-" =============
-" Clojure Stuff
-" =============
-let g:clojure_align_multiline_strings = 0
-let g:clojure_fuzzy_indent = 1
-let g:clojure_fuzzy_indent_patterns = "with.*,def.*,let.*,send.*,fact,facts"
+" ========================================================================
+" Custom functions
+" ========================================================================
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
@@ -383,90 +346,9 @@ endfunction
 map <leader>d :call DuplicateFile()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RUNNING TESTS
+" Clean file on write
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>Z :call SetTestFile()<cr>
-map <leader>c :call UnsetTestFile()<cr>
-map <leader>a :call OpenTestFile()<cr>
-
-let g:rubytest_cmd_testcase = "ruby %p -n '/%c/'"
-
-function! OpenTestFile()
-  let matching_files = split(globpath('./spec/**', expand("%:t:r") .  "_spec.rb"), "\n")
-  let matching_files = matching_files + split(globpath('./test/**', expand("%:t:r") . "_test.*"), "\n")
-  let matching_files = matching_files + split(globpath('./src/test/**', expand("%:t:r") . "*Test.java"), "\n")
-
-  if len(matching_files) == 1
-    exec ":vsp " . matching_files[0]
-  else
-    for file in matching_files
-      if !empty(matchstr(file, expand("%:h:t")))
-        exec ":vsp " . file
-        break
-      endif
-    endfor
-  end
-endfunction
-
-function! RunPresetJavaTest()
-  if exists("t:grb_test_file")
-    exec "!mvn -Dtest=" . fnamemodify(t:grb_test_file, ':t:r') . " test"
-  endif
-endfunction
-
-let g:rubytest_cmd_testcase = "ruby %p -n '/%c/'"
-function! RunPresetRubySpec() 
-    call SpinRunning()
-
-    if exists("t:grb_test_file")
-      if exists("t:spin_running")
-        exec "!spin push " . t:grb_test_file 
-      else
-        if match(expand(t:grb_test_file), '\(_test.rb\)$') > 0
-          exec "!bundle exec ruby " . t:grb_test_file 
-        elseif match(expand(t:grb_test_file), '\(_spec.rb\)$') > 0
-          exec "!bundle exec rspec " . t:grb_test_file 
-        end
-      endif
-    else
-      if isdirectory("./spec")
-        if exists("t:spin_running")
-          exec "!spin push spec"
-        else
-          exec "!bundle exec rspec"
-        endif
-      else
-        exec "!bundle exec rake"
-      endif
-    end
-  endfunction
-
-function! SetTestFile()
-  " Set the spec file that tests will be run for.
-  let t:grb_test_file=@%
-endfunction
-
-function! SpinRunning()
-  let l = system("ps aux | grep 'spin serve' | grep -v grep | wc -l | tr -d ' '")
-  if l == 1
-    let t:spin_running=1
-  else
-    if exists("t:spin_running")
-      unlet t:spin_running
-    endif
-  endif
-endfunction
-
-function! UnsetTestFile() 
-  if exists("t:grb_test_file")
-    unlet t:grb_test_file 
-  end
-endfunction
-
-if has("autocmd")
-  autocmd BufWritePre {*.rb,*.js,*.coffee,*.scss,*.haml,*.py,*.js,*.clj} :call <SID>CleanFile()
-endif
-
+autocmd BufWritePre * :call <SID>CleanFile()
 function! <SID>CleanFile()
     " Preparation: save last search, and cursor position.
     let _s=@/
@@ -506,9 +388,9 @@ function! <SID>StripBlankLinesAtEndOfFile()
     call cursor(l, c)
 endfunction
 
-set relativenumber
-set nu
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Spell checker
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! ToggleSpellchecker()
   if(&spell == 1)
     echo "Spell checker off"
@@ -518,59 +400,20 @@ function! ToggleSpellchecker()
     set spell spelllang=en_us
   endif
 endfunc
-
 nnoremap <F3> :call ToggleSpellchecker()<cr>
-
-function! FixLastSpellingError()
-  set spell spelllang=en_us
-  normal! mm[s1z=`m
-endfunction
-nnoremap <leader>sp :call FixLastSpellingError()<cr>
-
-augroup myfiletypes
-  " Clear old autocmds in group
-  autocmd!
-  " autoindent with two spaces, always expand tabs
-  autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
-  autocmd FileType ruby,eruby,yaml setlocal path+=lib
-augroup END
-
-function! FormatJson()
-  call %!python -m json.tool
-endfunction
-
-" Highlighting at 121st column
-highlight ColorColumn ctermbg=235
-set colorcolumn=120
 
 " Make Y behave like other capitals
 map Y y$
 
-" Ack Motions
-nnoremap <silent> \a :set opfunc=<SID>AckMotion<CR>g@
-xnoremap <silent> \a :<C-U>call <SID>AckMotion(visualmode())<CR>
- 
-function! s:CopyMotionForType(type)
-    if a:type ==# 'v'
-        silent execute "normal! `<" . a:type . "`>y"
-    elseif a:type ==# 'char'
-        silent execute "normal! `[v`]y"
-    endif
-endfunction
- 
-function! s:AckMotion(type) abort
-    let reg_save = @@
- 
-    call s:CopyMotionForType(a:type)
- 
-    execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
- 
-    let @@ = reg_save
-endfunction
 
-" Use the silver searcher (ag) with ack.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Silver searcher
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Run external command
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Inline the output of an external command and strip out newlines
 function! InlineCommand()
     let l:cmd = input('Command: ')
@@ -578,36 +421,12 @@ function! InlineCommand()
     let l:output = substitute(l:output, '[\r\n]*$', '', '')
     execute 'normal i' . l:output
 endfunction
-
 nmap <silent> \e :call InlineCommand()<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Format json
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 command! FormatJSON %!python -m json.tool
-
-""""""""""""""
-" Tagbar
-""""""""""""""
-nmap <F8> :TagbarToggle<CR>
-
-""""""""""""""
-" Markdown TOC
-""""""""""""""
-let g:mdtoc_run_on_save = 1
-
-""""""""""""""
-" Markdown TOC
-""""""""""""""
-let g:yankstack_map_keys = 0
-nmap <leader>p <Plug>yankstack_substitute_older_paste
-nmap <leader>P <Plug>yankstack_substitute_newer_paste
-
-" When open a new file remember the cursor position of the last editing
-if has("autocmd")
-  let blacklist = ['gitcommit']
-  if index(blacklist, &ft) < 0
-    " When editing a file, always jump to the last cursor position
-    autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
-  endif
-endif
-
 
 """"""""""""""
 " Ultisnips
@@ -626,37 +445,3 @@ map <C-p> :Explore<CR>
 " FZF
 """"""""""""""
 noremap <leader>f :FZF<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CTags config
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set the tag file search order
-set complete=.,w,b,u,t,i 
-
-"function! GenerateTags()
-"  exec ":Dispatch ctags -R -V ."
-"endfunction
-"command! GenerateTags call GenerateTags()
-"
-"function! GenerateTagsCurrentFile()
-"  exec ":Dispatch ctags -R -V %"
-"endfunction
-"command! GenerateTagsCurrentFile call GenerateTagsCurrentFile()
-"
-"function! GenerateTagsWithBundle()
-"  exec ":Dispatch ctags -R -V . $(bundle show --paths)"
-"endfunction
-"command! GenerateTagsWithBundle call GenerateTagsWithBundle()
-
-""""""""""""""
-" React
-""""""""""""""
-let g:jsx_ext_required = 0 " Allow JSX in normal JS files
-
-""""""""""""""
-" Elixir
-""""""""""""""
-function! IexShell()
-  exec ":Dispatch iex -S mix"
-endfunction
-command! IexShell :call IexShell()<CR>

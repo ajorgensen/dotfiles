@@ -16,6 +16,8 @@
   cob = checkout -b
 	stat = status
 	br = branch
+  branch-name = "!git rev-parse --abbrev-ref HEAD"
+  cleanup = "!sh -c \"git checkout master && git branch -D $1; git push origin --delete $1\" "
   save = !git add -A && git commit -m 'SAVEPOINT'
   wip = !git add -A && git commit -m "WIP"
 	undo = reset HAED~1 --mixed
