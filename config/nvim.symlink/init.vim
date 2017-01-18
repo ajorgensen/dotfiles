@@ -27,6 +27,8 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-dispatch'
+Plug 'valloric/youcompleteme'
 
 " Colorschemes
 Plug 'altercation/vim-colors-solarized'
@@ -195,6 +197,12 @@ augroup vimrcEx
   autocmd FileType markdown setlocal spell
 augroup END
 
+" Reload rc file after writing
+augroup myvimrc
+    au!
+    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc,init.vim so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
+
 
 " ========================================================================
 " Mappings
@@ -202,7 +210,7 @@ augroup END
 let mapleader = " "
 let g:mapleader = " "
 
-noremap <leader>ecf :e ~/.config/nvim/init.vim<cr>
+noremap <leader>ec :e ~/.config/nvim/init.vim<cr>
 nnoremap <F2> :buffers<CR>:buffer<Space>
 
 " Index ctags from any project, including those outside Rails
@@ -219,8 +227,6 @@ noremap <Leader>x :exit<CR>
 
 " Fast quiting
 noremap <Leader>q :q<cr>
-
-noremap <Leader>edf :e ~/.config/nvim/init.vim<cr>
 
 vmap <Leader>y "+y
 nmap <Leader>p "+p
