@@ -40,6 +40,8 @@
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
+[diff]
+  tool = vimdiff
 [push]
   default = current
 [branch]
