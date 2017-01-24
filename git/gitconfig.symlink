@@ -1,59 +1,52 @@
 [user]
-	name = Andrew Jorgensen
-	email = andrew@andrewjorgensen.com
-	signingkey = andrew@andrewjorgensen.com
+  name = Andrew Jorgensen
+  email = andrew@andrewjorgensen.com
+  signingkey = andrew@andrewjorgensen.com
 [credential]
   helper = osxkeychain
 [github]
-	user = ajorgensen
+  user = ajorgensen
 [alias]
-  ec = config --global -e
-  up = !git pull --rebase --prune $@ && git submodule update --init --recursive
-  sync = !git fetch -p && git rebase origin/master
-  changelog = !git log ${1:-origin/master}..HEAD
-	ci = commit
-	co = checkout
-  cob = checkout -b
-	stat = status
-	br = branch
   branch-name = "!git rev-parse --abbrev-ref HEAD"
-  cleanup = "!sh -c \"git checkout master && git branch -D $1; git push origin --delete $1\" "
-  save = !git add -A && git commit -m 'SAVEPOINT'
-  wip = !git add -A && git commit -m "WIP"
-	undo = reset HAED~1 --mixed
-  amend = commit -a --amend
-  dc = diff --cached
-  pullff = pull --ff-only
-	unci = reset --soft HEAD^
-	unstage = reset HEAD
-	rmbr = !sh -c \"git branch -D \\$0 && git push origin --delete \\$0\"
-	rmremote = !sh -c \"git push origin --delete \\$0\"
-	put = push origin HEAD
-	get = !git pull && git submodule init && git submodule update
+  put = "!git push -u origin $(git branch-name)"
+  delete = "!git push origin :$(git branch-name)"
+  # Delete a branch and recreate it from master — useful if you have, say,
+  # a development branch and a master branch and they could conceivably go
+  # out of sync
+  recreate = "!f() { [[ -n $@ ]] && git checkout \"$@\" && git unpublish && git checkout master && git branch -D \"$@\" && git checkout -b \"$@\" && git publish; }; f"
+
+  code-review = difftool origin/master...
+  sync = "!git fetch -p && git rebase origin/master"
+
+  unstage = reset HEAD
+  diffc = diff --cached
+  assume = update-index --assume-unchanged
+  unassume = update-index --no-assume-unchanged
+
+  # Checkout our version of a file and add it
+  ours = "!f() { git checkout --ours $@ && git add $@; }; f"
+  # Checkout their version of a file and add it
+  theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
+
+  co = checkout
+  cob = checkout -b
   aa = add --all
-	latest = for-each-ref --sort=-committerdate --format='%(committerdate:short) %(refname:short) [%(committername)]'
-	ds = diff --staged
-	st = status -sb
-	amend = commit --amend -C HEAD
-	ls = log --pretty=format:\"%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]\" --decorate --date=short
-	standup = log --since '1 day ago' --oneline --author andrew@andrewjorgensen.com
-	graph = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
   rmtag = !sh -c \"git tag -d \\$0 && git push origin :refs/tags/\\$0\"
   fresh = !sh -c \"git checkout -b \\$0 && git reset --hard origin/master\"
-  theirs = !sh -c \" git checkout --theirs \\$0 && git add \\$0\"
-  ours = !sh -c \" git checkout --ours \\$0 && git add \\$0\"
-  pf = push --force-with-lease
   track = !git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD)
+
+  rmbr = !sh -c \"git branch -D \\$0 && git push origin --delete \\$0\"
+  rmremote = !sh -c \"git push origin --delete \\$0\"
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
 [push]
-	default = current
+  default = current
 [branch]
-	autosetuprebase = always
+  autosetuprebase = always
 [help]
-	autocorrect = 1
+  autocorrect = 1
 [merge]
-	tool = kdiff3
+  tool = kdiff3
 [commit]
-	gpgsign = true
+  gpgsign = true
