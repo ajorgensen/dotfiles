@@ -29,6 +29,7 @@ Plug 'tpope/vim-surround'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-dispatch'
 Plug 'valloric/youcompleteme'
+Plug 'JamshedVesuna/vim-markdown-preview'
 
 " Colorschemes
 Plug 'altercation/vim-colors-solarized'
@@ -451,3 +452,8 @@ map <C-p> :Explore<CR>
 " FZF
 """"""""""""""
 noremap <leader>f :FZF<cr>
+
+""""""""""""""
+" Markdown
+""""""""""""""
+let vim_markdown_preview_github=1
