@@ -240,7 +240,8 @@ noremap <C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 map <leader>y "+y
 " Can't be bothered to understand ESC vs <c-c> in insert mode
 imap <c-c> <esc>
-inoremap ii <ESC>
+inoremap jj <ESC>
+inoremap jk <ESC>
 noremap <c-s> <esc>:w<cr>
 command! Q q
 command! -bar -bang Q quit<bang>
