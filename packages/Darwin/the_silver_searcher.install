@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+if test ! $(which fzf); then
+  if test ! $(which brew); then
+    source "homebrew.install"
+  fi
+
+  brew install the_silver_searcher
+else
+  echo "ag already installed"
+fi
+
+exit 0

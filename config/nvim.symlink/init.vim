@@ -133,7 +133,7 @@ set splitbelow
 set splitright
 
 " Neovim shell
-set shell=/bin/zsh
+" set shell=/bin/zsh
 tnoremap <Esc> <C-\><C-n>
 
 " ========================================================================
