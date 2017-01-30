@@ -2,8 +2,8 @@ setopt PROMPT_SUBST
 setopt AUTO_CD
 
 # zsh auto completion system
-fpath=(~/.zsh/completion $fpath) 
-fpath=(~/.zsh/functions $fpath) 
+fpath=(~/.zsh/completion $fpath)
+fpath=(~/.zsh/functions $fpath)
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 autoload -U compinit
@@ -24,6 +24,7 @@ export PATH=${PATH}:$HOME/bin:$HOME/Applications
 export PATH=${PATH}:/usr/local/Cellar
 export PATH=${PATH}:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/sbin:/usr/sbin:/bin
 export PATH=$PATH:/usr/local/m-cli
+export PATH=${PATH}:$HOME/dotfiles/zsh/zsh.symlink/zsh-git-prompt/src/.bin
 
 # Colorize terminal
 export TERM='screen-256color' # Don't change, `xterm-256color` will break curses in tmux
@@ -147,4 +148,3 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 export LANG=en_US.UTF-8
 
 export KEYTIMEOUT=1
-

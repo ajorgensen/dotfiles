@@ -1,7 +1,6 @@
 [user]
   name = Andrew Jorgensen
   email = andrew@andrewjorgensen.com
-  signingkey = andrew@andrewjorgensen.com
 [credential]
   helper = osxkeychain
 [github]
@@ -50,5 +49,3 @@
   autocorrect = 1
 [merge]
   tool = kdiff3
-[commit]
-  gpgsign = true
