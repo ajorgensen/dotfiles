@@ -34,7 +34,8 @@
   fresh = !sh -c \"git checkout -b \\$0 && git reset --hard origin/master\"
   track = !git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD)
 
-  rmbr = !sh -c \"git branch -D \\$0 && git push origin --delete \\$0\"
+  rmbr = "!f() { git branch -D $@ && git push origin --delete $@; }; f"
+  cleanup = "!BRANCH=$(git branch-name); f() { git checkout master && git rmbr $BRANCH; }; f"
   rmremote = !sh -c \"git push origin --delete \\$0\"
 [core]
   excludesfile = ~/.gitignore
