@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+if test ! $(which tree); then
+  if test ! $(which brew); then
+    source "homebrew.install"
+  fi
+
+  brew install tree
+else
+  echo "tree already installed"
+fi
+
+exit 0
