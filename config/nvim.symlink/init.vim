@@ -28,8 +28,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-dispatch'
-"Plug 'valloric/youcompleteme'
+Plug 'valloric/youcompleteme'
 Plug 'JamshedVesuna/vim-markdown-preview'
+Plug 'jiangmiao/auto-pairs'
 
 " Colorschemes
 Plug 'altercation/vim-colors-solarized'
