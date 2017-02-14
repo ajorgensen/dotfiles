@@ -31,9 +31,11 @@ Plug 'tpope/vim-dispatch'
 Plug 'valloric/youcompleteme'
 Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'jiangmiao/auto-pairs'
+Plug 'majutsushi/tagbar'
 
 " Colorschemes
 Plug 'altercation/vim-colors-solarized'
+Plug 'tomasr/molokai'
 
 " Markdown
 Plug 'shime/vim-livedown', { 'for': [ 'md' ] }
@@ -312,8 +314,9 @@ let g:solarized_termtrans=1
 let g:solarized_termcolors=256
 let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
+let g:rehash256 = 1
 set background=dark
-colorscheme solarized
+colorscheme molokai
 
 if !has('nvim')
   set encoding=utf8
@@ -454,6 +457,11 @@ map <C-p> :Explore<CR>
 " FZF
 """"""""""""""
 noremap <leader>f :FZF<cr>
+
+""""""""""""""
+" TagBar
+""""""""""""""
+nmap <F8> :TagbarToggle<CR>
 
 """"""""""""""
 " Markdown
