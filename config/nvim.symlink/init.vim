@@ -29,7 +29,6 @@ Plug 'tpope/vim-surround'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-dispatch'
 Plug 'valloric/youcompleteme'
-Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
 
@@ -38,7 +37,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'tomasr/molokai'
 
 " Markdown
-Plug 'shime/vim-livedown', { 'for': [ 'md' ] }
+Plug 'davinche/godown-vim'
 
 call plug#end()
 
@@ -466,4 +465,4 @@ nmap <F8> :TagbarToggle<CR>
 """"""""""""""
 " Markdown
 """"""""""""""
-let vim_markdown_preview_github=1
+let g:instant_markdown_autostart = 0
