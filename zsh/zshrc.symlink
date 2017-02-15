@@ -40,6 +40,9 @@ setopt append_history
 setopt inc_append_history
 setopt share_history
 
+# GPG
+export GPG_TTY=`tty`
+
 ### Functions for setting and getting environment variables from the OSX keychain ###
 # Use: keychain-environment-variable CHEF_PUSH_KEY
 function keychain-environment-variable () {
