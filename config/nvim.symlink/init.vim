@@ -38,6 +38,8 @@ Plug 'tomasr/molokai'
 
 " Markdown
 Plug 'davinche/godown-vim'
+Plug 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular'
 
 call plug#end()
 
@@ -466,3 +468,4 @@ nmap <F8> :TagbarToggle<CR>
 " Markdown
 """"""""""""""
 let g:instant_markdown_autostart = 0
+let g:vim_markdown_folding_disabled = 1

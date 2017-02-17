@@ -16,3 +16,5 @@ idea.md
 .rspec
 .vimrc
 .nvimrc
+firebase.json
+.firebaserc
