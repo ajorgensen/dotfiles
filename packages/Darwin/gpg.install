@@ -5,7 +5,7 @@ if test ! $(which gpg); then
     source "homebrew.install"
   fi
 
-  brew install gpg pinentry
+  brew install gpg pinentry-mac
 else
   echo "GPG/Pinentry already installed"
 fi
