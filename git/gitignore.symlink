@@ -18,3 +18,4 @@ idea.md
 .nvimrc
 firebase.json
 .firebaserc
+tmux.sh
