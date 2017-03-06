@@ -37,7 +37,6 @@ alias notepad="vim ~/Documents/notepad.md"
 alias v="vim"
 alias c="clear"
 alias vi="vim"
-alias vim="nvim"
 alias fixup="gaa; gc f; grim"
 alias restart="shutdown -r now"
 alias sudo='sudo '
@@ -104,8 +103,8 @@ function link() {
   ln -s $(realpath $1) $(realpath $2)
 }
 
-function regex { 
-  gawk 'match($0,/'$1'/, ary) {print ary['${2:-'0'}']}'; 
+function regex {
+  gawk 'match($0,/'$1'/, ary) {print ary['${2:-'0'}']}';
 }
 
 # This is necessary for tab complete to work with git aliases defined in ~/.gitconfig

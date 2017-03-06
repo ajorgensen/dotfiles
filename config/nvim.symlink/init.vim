@@ -18,7 +18,6 @@ if has('nvim')
   autocmd! BufWritePost * Neomake
 endif
 
-Plug 'SirVer/ultisnips'
 Plug 'bling/vim-airline'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'mhinz/vim-startify'
@@ -28,6 +27,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-dispatch'
+Plug 'SirVer/ultisnips'
+Plug 'ervandew/supertab'
 Plug 'valloric/youcompleteme'
 Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
@@ -442,12 +443,24 @@ nmap <silent> \e :call InlineCommand()<CR>
 command! FormatJSON %!python -m json.tool
 
 """"""""""""""
+" YCM
+""""""""""""""
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+
+""""""""""""""
+" SuperTab
+""""""""""""""
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+""""""""""""""
 " Ultisnips
 """"""""""""""
-let g:UltiSnipsExpandTrigger="<c-k>"
-let g:UltiSnipsJumpForwardTrigger="<c-k>"
-let g:UltiSnipsJumpBackwardTrigger="<s-c-j>"
-let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsSnippetsDir="~/.config/nvim/UltiSnips/"
+let g:UltiSnipsSnippetDirectories=["~/.config/nvim/UltiSnips/"]
 
 """"""""""""""
 " File Browsing
