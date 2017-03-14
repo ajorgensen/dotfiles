@@ -7,3 +7,9 @@ endsnippet
 snippet pln "println"
 fmt.Println($0)
 endsnippet
+
+snippet ehandler "Endpoint handler"
+func $1(w http.ResponseWriter, r *http.Request) {
+	$0
+}
+endsnippet
