@@ -1,0 +1,7 @@
+if test !$(which zsh); then
+  sudo apt-get install zsh
+else
+  echo "zsh already installed"
+fi
+
+exit 0
