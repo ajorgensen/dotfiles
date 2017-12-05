@@ -1,0 +1,7 @@
+if test !$(which cmake); then
+  sudo apt-get install build-essential cmake
+else
+  echo "build-essentials already installed"
+fi
+
+exit 0

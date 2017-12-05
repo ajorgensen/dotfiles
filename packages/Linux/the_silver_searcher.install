@@ -1,0 +1,7 @@
+if test ! $(which ag); then
+  sudo apt-get install silversearcher-ag
+else
+  echo "tmux already installed"
+fi
+
+exit 0

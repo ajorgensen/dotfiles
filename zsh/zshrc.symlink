@@ -24,7 +24,7 @@ export PATH=${PATH}:$HOME/bin:$HOME/Applications
 export PATH=${PATH}:/usr/local/Cellar
 export PATH=${PATH}:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/sbin:/usr/sbin:/bin
 export PATH=$PATH:/usr/local/m-cli
-export PATH=${PATH}:$HOME/dotfiles/zsh/zsh.symlink/zsh-git-prompt/src/.bin
+export PATH=${PATH}:$HOME/.zsh/zsh-git-prompt/src/.bin
 
 # Colorize terminal
 export TERM='screen-256color' # Don't change, `xterm-256color` will break curses in tmux
@@ -118,15 +118,13 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' \
 source $HOME/.zsh/aliases
 source $HOME/.zsh/functions/zgitinit
 
-source $HOME/.zsh/zsh-git-prompt/zshrc.sh
 NEWLINE=$'\n'
-PROMPT='%d %b$(git_super_status) ${NEWLINE}🚀  '
+PROMPT='%d %b ${NEWLINE}🚀  '
 GIT_PROMPT_EXECUTABLE="haskell"
 
 if [[ -a $HOME/.localrc ]]; then
   source $HOME/.localrc
 fi
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 bindkey '\e[A' history-beginning-search-backward
 bindkey '\e[B' history-beginning-search-forward
@@ -143,9 +141,6 @@ source $HOME/.iterm2_shell_integration.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export FZF_DEFAULT_COMMAND='ag -g ""'
-
-# Autojump
-[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
 # So tmux plays nice with HyperTerm
 export LANG=en_US.UTF-8
