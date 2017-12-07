@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ ! -f /usr/local/bin/git ]; then
+  echo "Installing git"
+  brew install git
+else
+  echo "git is already installed"
+fi
+
+exit 0

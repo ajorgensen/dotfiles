@@ -28,9 +28,12 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-dispatch'
 Plug 'SirVer/ultisnips'
 Plug 'ervandew/supertab'
-Plug 'valloric/youcompleteme', { 'commit': '09a08d32401d5889af517d5daa7259b077078f00' }
+Plug 'valloric/youcompleteme'
 Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
+
+" Languages
+Plug 'fatih/vim-go'
 
 " Colorschemes
 Plug 'altercation/vim-colors-solarized'
