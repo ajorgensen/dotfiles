@@ -138,7 +138,16 @@ function install_config_files() {
   success "Finished installing config files"
 }
 
+function install_bin_dir() {
+  info "Installing bin directory"
+
+  link_file "$DOTFILES_ROOT/bin" "$HOME/bin"
+
+  success "Finished linking bin directory"
+}
+
 install_dotfiles
 install_config_files
+install_bin_dir
 
 info "All done"
