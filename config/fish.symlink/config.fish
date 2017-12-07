@@ -51,3 +51,4 @@ end
 
 set -g GOPATH $HOME/src/golang
 set -g CDPATH $HOME $HOME/src $GOPATH
+set -gx PATH $HOME/bin $PATH
