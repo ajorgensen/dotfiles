@@ -5,7 +5,8 @@ if test ! $(which gpg); then
     source "homebrew.install"
   fi
 
-  brew install gpg pinentry-mac
+  brew install gpg gnupg2 pinentry-mac
+  echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
 else
   echo "GPG/Pinentry already installed"
 fi

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ ! -d /Applications/iTerm.app ]; then
+  echo "Installing iterm2"
+  brew cask install iterm2
+else
+  echo "iterm2 is already installed"
+fi
+
+exit 0
