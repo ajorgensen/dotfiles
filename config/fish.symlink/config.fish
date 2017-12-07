@@ -49,6 +49,6 @@ function gc
   git commit -m "$argv"
 end
 
-set -g GOPATH $HOME/src/golang
+set -g GOPATH $HOME/src/golang $HOME/go
 set -g CDPATH $HOME $HOME/src $GOPATH
-set -gx PATH $HOME/bin $PATH
+set -gx PATH $HOME/bin $HOME/go/bin $PATH
