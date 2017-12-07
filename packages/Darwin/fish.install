@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if test ! $(which fish); then
+  echo "Installing fish"
+  brew install fish
+else
+  echo "fish is already installed"
+fi
+
+exit 0
