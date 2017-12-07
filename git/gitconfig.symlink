@@ -1,8 +1,6 @@
 [user]
   name = Andrew Jorgensen
   email = andrew@andrewjorgensen.com
-[credential]
-  helper = osxkeychain
 [github]
   user = ajorgensen
 [alias]
@@ -53,4 +51,4 @@
 [commit]
   gpgsign = true
 [gpg]
-	program = gpg2
+	program = gpg
