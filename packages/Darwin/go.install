@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+if test ! $(which go); then
+  echo "Installing golang"
+  brew install go
+else
+  echo "golang already installed"
+fi
+
+if test ! $(which dep); then
+  echo "Installing go-dep"
+  brew install dep
+else
+  echo "go-dep already installed"
+fi
+
+
+exit 0
