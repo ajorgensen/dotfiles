@@ -20,7 +20,6 @@ endif
 
 Plug 'bling/vim-airline'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'mhinz/vim-startify'
 Plug 'rking/ag.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'

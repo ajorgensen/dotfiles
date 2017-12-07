@@ -1,0 +1,11 @@
+
+#!/usr/bin/env bash
+
+if test ! $(which vim); then
+  echo "nstalling vim"
+  brew install vim
+else
+  echo "vim already installed"
+fi
+
+exit 0
