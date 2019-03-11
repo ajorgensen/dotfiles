@@ -1,7 +1,7 @@
 set-option -g default-shell $SHELL
 
 # Attach tmux to user namespace instead of root namespace
-set-option -g default-command "reattach-to-user-namespace -l fish"
+set-option -g default-command "reattach-to-user-namespace -l $SHELL"
 
 # Keeps the numbering as 1..n when adding/removing windows
 set-option -g renumber-windows on
