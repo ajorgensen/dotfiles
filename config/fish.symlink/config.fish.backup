@@ -50,11 +50,5 @@ function gc
 end
 
 set -g GOPATH $HOME/src/golang $HOME/go
-set -g CDPATH $HOME $HOME/src $GOPATH .
-set -gx PATH $HOME/bin $HOME/go/bin $HOME/.cargo/bin $PATH
-
-set fish_greeting
-
-if test -e ~/.local.fish
-  source ~/.local.fish
-end
+set -g CDPATH $HOME $HOME/src $GOPATH
+set -gx PATH $HOME/bin $HOME/go/bin $PATH
