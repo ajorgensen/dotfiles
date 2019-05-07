@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-if test ! $(which cmake); then
-  brew install cmake
-else
-  echo "cmake already installed"
-fi
-
-exit 0
