@@ -1,7 +1,0 @@
-if test ! $(which tmux); then
-  sudo apt-get install tmux
-else
-  echo "tmux already installed"
-fi
-
-exit 0
