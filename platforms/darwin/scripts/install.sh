@@ -37,10 +37,14 @@ brew cask install \
   visual-studio-code \
   spotify \
   slack \
-  google-chrome
+  google-chrome \
+  bettertouchtool \
+  bitwarden
 
 brew update && brew cleanup && brew cleanup
 
 # install fish
-echo "/usr/local/bin/fish" | sudo tee -a /etc/shells
-chsh -s /usr/local/bin/fish
+if ! grep -q "fish" /etc/shells; then
+  echo "/usr/local/bin/fish" | sudo tee -a /etc/shells
+  chsh -s /usr/local/bin/fish
+fi
