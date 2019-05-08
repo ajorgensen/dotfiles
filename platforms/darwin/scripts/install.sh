@@ -18,6 +18,10 @@ brew tap homebrew/cask-versions
 brew tap homebrew/cask-drivers
 brew tap homebrew/cask-fonts
 
+# install npm
+brew install node
+npm config set prefix "${HOME_DIR}/.npm-global"
+
 # install cli tools
 brew install \
   curl \
@@ -26,10 +30,11 @@ brew install \
   git \
   gnupg \
   openssl \
-  the_silver_searcher
+  the_silver_searcher \
+  firebase-cli
 
 # install languages
-brew install go ruby python node
+brew install go ruby python
 
 # install applications
 brew cask install \
