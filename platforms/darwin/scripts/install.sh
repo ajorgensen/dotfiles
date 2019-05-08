@@ -29,7 +29,7 @@ brew install \
   the_silver_searcher
 
 # install languages
-brew install go ruby python
+brew install go ruby python node
 
 # install applications
 brew cask install \
