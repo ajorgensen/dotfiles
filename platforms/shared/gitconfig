@@ -37,7 +37,7 @@
   rmremote = !sh -c \"git push origin --delete \\$0\"
 [core]
   excludesfile = ~/.gitignore
-  editor = nvim
+  editor = vim
 [diff]
   tool = vimdiff
 [push]
