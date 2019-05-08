@@ -26,7 +26,6 @@ link_file ${SHARED_DIR}/gitignore ${HOME_DIR}/.gitignore
 
 # fish config
 info "Symlink fish Configuration"
-mkdir -p ${HOME_DIR}/.config/fish
 link_file ${SHARED_DIR}/fish ${HOME_DIR}/.config/fish
 
 # tmux config
@@ -35,17 +34,14 @@ link_file ${SHARED_DIR}/tmux.conf ${HOME_DIR}/.tmux.conf
 
 # vim config
 info "Symlink vim Configuration"
-mkdir -p ${HOME_DIR}/.vim
 link_file ${SHARED_DIR}/vimrc ${HOME_DIR}/.vimrc
 link_file ${SHARED_DIR}/vim ${HOME_DIR}/.vim
 
 # zsh config
 info "Symlink zsh Configuration"
-mkdir -p ${HOME_DIR}/.zsh
 link_file ${SHARED_DIR}/zshrc ${HOME_DIR}/.zshrc
 link_file ${SHARED_DIR}/zsh ${HOME_DIR}/.zsh
 
 # bin
 info "Symlink bin"
-mkdir -p ${HOME_DIR}/bin
 link_file ${SHARED_DIR}/bin ${HOME_DIR}/bin
