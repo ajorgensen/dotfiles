@@ -31,7 +31,8 @@ brew install \
   gnupg \
   openssl \
   the_silver_searcher \
-  firebase-cli
+  firebase-cli \
+  hugo
 
 # install languages
 brew install go ruby python
