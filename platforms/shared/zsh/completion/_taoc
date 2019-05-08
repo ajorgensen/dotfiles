@@ -1,0 +1,8 @@
+#compdef taoc
+
+_taoc() { 
+  SESSIONS=$(tmux list-sessions | awk '{print $1}' | sed 's/:$//')
+  _arguments "1:Sessions:($SESSIONS)"
+}
+
+_taoc "$@"
