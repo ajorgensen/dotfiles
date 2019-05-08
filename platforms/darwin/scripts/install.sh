@@ -39,7 +39,9 @@ brew cask install \
   slack \
   google-chrome \
   bettertouchtool \
-  bitwarden
+  bitwarden \
+  docker \
+  keybase
 
 brew update && brew cleanup && brew cleanup
 

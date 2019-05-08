@@ -1,6 +1,7 @@
 [user]
   name = Andrew Jorgensen
   email = andrew@andrewjorgensen.com
+  signingkey = B10424F37FA56977
 [github]
   user = ajorgensen
 [alias]
