@@ -31,6 +31,7 @@ Plug 'ervandew/supertab'
 Plug 'valloric/youcompleteme'
 Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
+Plug 'scrooloose/nerdtree'
 
 " Languages
 Plug 'fatih/vim-go'
@@ -486,3 +487,8 @@ nmap <F8> :TagbarToggle<CR>
 """"""""""""""
 let g:instant_markdown_autostart = 0
 let g:vim_markdown_folding_disabled = 1
+
+""""""""""""""
+" NERDTree
+""""""""""""""
+map <leader>n :NERDTreeToggle<CR>
