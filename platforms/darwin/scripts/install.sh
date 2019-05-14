@@ -32,7 +32,8 @@ brew install \
   openssl \
   the_silver_searcher \
   firebase-cli \
-  hugo
+  hugo \
+  ansible
 
 # install languages
 brew install go ruby python
