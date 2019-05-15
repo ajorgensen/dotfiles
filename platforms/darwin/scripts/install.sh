@@ -48,7 +48,8 @@ brew cask install \
   bettertouchtool \
   bitwarden \
   docker \
-  keybase
+  keybase \
+  alfred
 
 brew update && brew cleanup && brew cleanup
 
