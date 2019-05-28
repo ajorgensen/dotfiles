@@ -44,6 +44,7 @@ alias vi "vim"
 alias fixup "gaa; gc f; grim"
 alias restart "shutdown -r now"
 alias fbranch "git co (git branch | fzf)"
+alias sysup "brew update && brew upgrade; brew cleanup"
 
 function gc
   git commit -m "$argv"
@@ -58,3 +59,4 @@ set fish_greeting
 if test -e ~/.local.fish
   source ~/.local.fish
 end
+set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
