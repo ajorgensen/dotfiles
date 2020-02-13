@@ -19,15 +19,10 @@ zstyle ":completion:*:descriptions" format "%B%d%b"
 export PATH=""
 
 # Add paths that should have been there by default
-export PATH=${PATH}:$HOME/.nix-profile/bin:$HOME/.nix-profile/sbin
 export PATH=${PATH}:$HOME/bin:$HOME/Applications
 export PATH=${PATH}:/usr/local/Cellar
 export PATH=${PATH}:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/sbin:/usr/sbin:/bin
-export PATH=$PATH:/usr/local/m-cli
 export PATH=${PATH}:$HOME/.zsh/zsh-git-prompt/src/.bin
-
-# Flutter
-export PATH=$HOME/flutter/bin:$PATH
 
 # Colorize terminal
 export TERM='screen-256color' # Don't change, `xterm-256color` will break curses in tmux
@@ -46,20 +41,6 @@ setopt share_history
 # GPG
 export GPG_TTY=`tty`
 
-### Functions for setting and getting environment variables from the OSX keychain ###
-# Use: keychain-environment-variable CHEF_PUSH_KEY
-function keychain-environment-variable () {
-    security find-generic-password -w -a ${USER} -D "environment variable" -s "${1}"
-}
-
-# Use: set-keychain-environment-variable CHEF_PUSH_KEY "secret"
-function set-keychain-environment-variable () {
-    [ -n "$1" ] || print "Missing environment variable name"
-    [ -n "$2" ] || print "Missing environment variable value"
-    ( [ -n "$1" ] && [ -n "$2" ] ) || return 1
-    security add-generic-password -U -a ${USER} -D "environment variable" -s "${1}" -w "${2}"
-}
-
 # GO
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
@@ -67,17 +48,9 @@ export PATH="$PATH:$GOPATH/bin"
 # Rust
 export PATH="$PATH:$HOME/.cargo/bin"
 
-# Android
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$PATH:$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools
-export GRADLE_OPTS="-Xmx1024m -Xms256m -XX:MaxPermSize=512m"
-
 export VISUAL=vim
 export EDITOR="$VISUAL"
 bindkey -e
-
-# Use qt4 because capybara-webkit needs it to compile
-export QMAKE=/usr/bin/qmake-qt4
 
 autoload -U history-search-end
 
@@ -96,30 +69,15 @@ export WORDCHARS='*?[]~&;!$%^<>'
 
 export ACK_COLOR_MATCH='red'
 
-# ACTUAL CUSTOMIZATION OH NOES!
-gd() { git diff $* | view -; }
-gdc() { gd --cached $*; }
-
-function mcd() { mkdir -p $1 && cd $1 }
-
-export MARKPATH=$HOME/.marks
-
-# Allows commit message without typing quotes (can't have quotes in the commit msg though).
-function gc {
-  git commit -m "$*"
-}
-
 ## case-insensitive (all), partial-word and then substring completion
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' \
     'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 # Sourcing of other files
 source $HOME/.zsh/aliases
-source $HOME/.zsh/functions/zgitinit
+source $HOME/.zsh/zsh-git-prompt/zshrc.sh
 
-NEWLINE=$'\n'
-PROMPT='%d %b ${NEWLINE}🚀  '
-GIT_PROMPT_EXECUTABLE="haskell"
+PROMPT='%(?.%F{green}√.%F{red}?%?)%f %B%F{240}%3~%f%b $(git_super_status) %# '
 
 if [[ -a $HOME/.localrc ]]; then
   source $HOME/.localrc
@@ -136,18 +94,8 @@ export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
 eval "$(rbenv init -)"
 
 # FZF
-source $HOME/.iterm2_shell_integration.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 export FZF_DEFAULT_COMMAND='ag -g ""'
 
 # So tmux plays nice with HyperTerm
 export LANG=en_US.UTF-8
-
-export KEYTIMEOUT=1
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/ajorgensen/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ajorgensen/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/ajorgensen/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ajorgensen/Downloads/google-cloud-sdk/completion.zsh.inc'; fi

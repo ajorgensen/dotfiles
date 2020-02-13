@@ -57,7 +57,6 @@ function psgrep(){ ps -ef | sed -e '1p' -e "/$1/!d" }
 
 # See what is listening on a given port: `whoport 80`
 function whoport(){ lsof -i :$1 } # may need sudo
-
 # Set git remote
 function set-git-remote(){
   git branch --set-upstream-to=origin/$1 $1
@@ -87,18 +86,6 @@ abspath() {
   echo $(cd $(dirname $1); pwd)
 }
 
-function open_in_intellij {
-  IDEA=`ls -1d /Applications/IntelliJ\ * 2> /dev/null| tail -n1`
-  project_path=$(realpath $1)
-  if [ -n "$IDEA" ]; then
-    open -a "$IDEA" $project_path
-  else
-    echo
-    echo "Could not locate IntelliJ IDEA. Manually open `$project_path` as a project in IDEA."
-  fi
-}
-alias iopen="open_in_intellij"
-
 function link() {
   ln -s $(realpath $1) $(realpath $2)
 }
@@ -112,12 +99,21 @@ function _git_rmbr() {
   _git_branch
 }
 
-function code () {
-    if [[ $# = 0 ]]
-    then
-        open -a "Visual Studio Code"
-    else
-        [[ $1 = /* ]] && F="$1" || F="$PWD/${1#./}"
-        open -a "Visual Studio Code" --args "$F"
-    fi
+# Allows commit message without typing quotes (can't have quotes in the commit msg though).
+function gc {
+  git commit -m "$*"
+}
+
+### Functions for setting and getting environment variables from the OSX keychain ###
+# Use: keychain-environment-variable CHEF_PUSH_KEY
+function keychain-environment-variable () {
+    security find-generic-password -w -a ${USER} -D "environment variable" -s "${1}"
+}
+
+# Use: set-keychain-environment-variable CHEF_PUSH_KEY "secret"
+function set-keychain-environment-variable () {
+    [ -n "$1" ] || print "Missing environment variable name"
+    [ -n "$2" ] || print "Missing environment variable value"
+    ( [ -n "$1" ] && [ -n "$2" ] ) || return 1
+    security add-generic-password -U -a ${USER} -D "environment variable" -s "${1}" -w "${2}"
 }
