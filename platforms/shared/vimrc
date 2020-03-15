@@ -1,22 +1,9 @@
 set shell=bash
 
-" ========================================================================
-" Much plugin, such features
-" mkdir -p ~/.vim/autoload
-" curl -fLo ~/.vim/autoload/plug.vim \
-"     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-" ========================================================================
-if has('nvim')
-  call plug#begin('~/.config/nvim/plugged')
-else
-  call plug#begin('~/.vim/plugged')
-endif
-
-" General
-if has('nvim')
-  Plug 'benekastah/neomake'
-  autocmd! BufWritePost * Neomake
-endif
+" ========
+" Plugins
+" ========
+call plug#begin('~/.vim/plugged')
 
 Plug 'bling/vim-airline'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -52,9 +39,6 @@ call plug#end()
 " ========================================================================
 " General Config
 " ========================================================================
-" Enable filetype plugins
-filetype plugin indent on
-
 " Turn on project specific rc files
 set exrc
 
@@ -63,9 +47,6 @@ set history=1000
 
 " Auto read a when a file is changed
 set autoread
-
-" Make vim not comptabile with vi
-set nocompatible
 
 " Makes searching for css tokens easier
 set iskeyword+=-
@@ -165,6 +146,7 @@ set showmatch
 
 " Auto indent based on the previous line
 set autoindent
+filetype plugin indent on
 
 " Insert blanks when tab is in front of a line
 set smarttab
@@ -284,25 +266,6 @@ nnoremap H 0
 nnoremap L $
 
 nnoremap ; :
-
-autocmd FileType ruby nmap <buffer> <leader>rm <Plug>(seeing_is_believing-mark)
-autocmd FileType ruby xmap <buffer> <leader>rm <Plug>(seeing_is_believing-mark)
-autocmd FileType ruby imap <buffer> <leader>rm <Plug>(seeing_is_believing-mark)
-
-autocmd FileType ruby nmap <buffer> <leader>rc <Plug>(seeing_is_believing-clean)
-autocmd FileType ruby xmap <buffer> <leader>rc <Plug>(seeing_is_believing-clean)
-autocmd FileType ruby imap <buffer> <leader>rc <Plug>(seeing_is_believing-clean)
-
-" xmpfilter compatible
-autocmd FileType ruby nmap <buffer> <leader>rr <Plug>(seeing_is_believing-run_-x)
-autocmd FileType ruby xmap <buffer> <leader>rr <Plug>(seeing_is_believing-run_-x)
-autocmd FileType ruby imap <buffer> <leader>rr <Plug>(seeing_is_believing-run_-x)
-
-" auto insert mark at appropriate spot.
-autocmd FileType ruby nmap <buffer> <F5> <Plug>(seeing_is_believing-run)
-autocmd FileType ruby xmap <buffer> <F5> <Plug>(seeing_is_believing-run)
-autocmd FileType ruby imap <buffer> <F5> <Plug>(seeing_is_believing-run)
-
 
 " auto wrap git commit messages
 autocmd Filetype gitcommit setlocal spell textwidth=72
