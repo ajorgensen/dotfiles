@@ -1,5 +1,3 @@
-set shell=bash
-
 " ========
 " Plugins
 " ========
@@ -30,6 +28,7 @@ Plug 'maxmellon/vim-jsx-pretty'"
 Plug 'fatih/vim-go'
 Plug 'rust-lang/rust.vim'
 Plug 'dart-lang/dart-vim-plugin'
+Plug 'elixir-editors/vim-elixir'
 
 " Colorschemes
 Plug 'altercation/vim-colors-solarized'
@@ -168,7 +167,6 @@ set list listchars=tab:»·,trail:·
 " Highlighting at 121st column
 highlight ColorColumn ctermbg=235
 set colorcolumn=120
-
 
 " ========================================================================
 " Autogroup
