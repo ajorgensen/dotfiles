@@ -8,13 +8,18 @@
   branch-name = "!git rev-parse --abbrev-ref HEAD"
   put = "!git push -u origin $(git branch-name)"
   delete = "!git push origin :$(git branch-name)"
-  # Delete a branch and recreate it from master — useful if you have, say,
-  # a development branch and a master branch and they could conceivably go
-  # out of sync
-  recreate = "!f() { [[ -n $@ ]] && git checkout \"$@\" && git unpublish && git checkout master && git branch -D \"$@\" && git checkout -b \"$@\" && git publish; }; f"
+  fix-to-base = "!git rebase -i $(git merge-base $(git branch-name) master)"
 
   code-review = difftool origin/master...
   sync = "!git fetch -p && git rebase origin/master"
+
+  aa = add --all
+  ap = add --patch
+  co = checkout
+  cob = checkout -b
+  p = put
+  s = status
+  pf = put -f
 
   unstage = reset HEAD
   diffc = diff --cached
@@ -26,21 +31,17 @@
   # Checkout their version of a file and add it
   theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
 
-  co = checkout
-  cob = checkout -b
-  aa = add --all
   rmtag = !sh -c \"git tag -d \\$0 && git push origin :refs/tags/\\$0\"
   fresh = !sh -c \"git checkout -b \\$0 && git reset --hard origin/master\"
   track = !git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD)
 
+  done = "!BRANCH=$(git branch-name); f() { git checkout master && git branch -D $BRANCH; }; f"
   rmbr = "!f() { git branch -D $@ && git push origin --delete $@; }; f"
   cleanup = "!BRANCH=$(git branch-name); f() { git checkout master && git rmbr $BRANCH; }; f"
   rmremote = !sh -c \"git push origin --delete \\$0\"
 [core]
   excludesfile = ~/.gitignore
-  editor = vim
-[diff]
-  tool = vimdiff
+  editor = vscode
 [push]
   default = current
 [branch]
@@ -48,7 +49,13 @@
 [help]
   autocorrect = 1
 [merge]
-  tool = kdiff3
+  tool = vscode
+[mergetool "vscode"]
+  cmd = code -n --wait $MERGED
+[diff]
+  tool = vscode
+[difftool "vscode"]
+  cmd = code -n --wait --diff $LOCAL $REMOTE
 [commit]
   gpgsign = true
 [filter "lfs"]
@@ -56,3 +63,5 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[include]
+	path = /Users/ajorgensen/code/dev-box/dotfiles/gitconfig
