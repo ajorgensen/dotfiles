@@ -41,23 +41,33 @@
   rmremote = !sh -c \"git push origin --delete \\$0\"
 [core]
   excludesfile = ~/.gitignore
-  editor = vscode
+  editor = nvim
 [push]
   default = current
 [branch]
   autosetuprebase = always
 [help]
   autocorrect = 1
+
 [merge]
-  tool = vscode
-[mergetool "vscode"]
+  tool = nvim
+[mergetool "codej"]
   cmd = code -n --wait $MERGED
+[mergetool "nvim"]
+  cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+[mergetool]
+  prompt = false
+
 [diff]
-  tool = vscode
-[difftool "vscode"]
+  tool = nvim
+[difftool "code"]
   cmd = code -n --wait --diff $LOCAL $REMOTE
+[difftool "nvim"]
+  cmd = "nvim -d -u ~/.vimrc \"$LOCAL\" \"$REMOTE\""
+
 [commit]
   gpgsign = true
+	verbose = true
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
