@@ -4,67 +4,29 @@
   signingkey = B10424F37FA56977
 [github]
   user = ajorgensen
-[alias]
-  branch-name = "!git rev-parse --abbrev-ref HEAD"
-  put = "!git push -u origin $(git branch-name)"
-  delete = "!git push origin :$(git branch-name)"
-  fix-to-base = "!git rebase -i $(git merge-base $(git branch-name) master)"
-
-  code-review = difftool origin/master...
-  sync = "!git fetch -p && git rebase origin/master"
-
-  aa = add --all
-  ap = add --patch
-  co = checkout
-  cob = checkout -b
-  p = put
-  s = status
-  pf = put -f
-
-  unstage = reset HEAD
-  diffc = diff --cached
-  assume = update-index --assume-unchanged
-  unassume = update-index --no-assume-unchanged
-
-  # Checkout our version of a file and add it
-  ours = "!f() { git checkout --ours $@ && git add $@; }; f"
-  # Checkout their version of a file and add it
-  theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
-
-  rmtag = !sh -c \"git tag -d \\$0 && git push origin :refs/tags/\\$0\"
-  fresh = !sh -c \"git checkout -b \\$0 && git reset --hard origin/master\"
-  track = !git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD)
-
-  done = "!BRANCH=$(git branch-name); f() { git checkout master && git branch -D $BRANCH; }; f"
-  rmbr = "!f() { git branch -D $@ && git push origin --delete $@; }; f"
-  cleanup = "!BRANCH=$(git branch-name); f() { git checkout master && git rmbr $BRANCH; }; f"
-  rmremote = !sh -c \"git push origin --delete \\$0\"
 [core]
+  pager = diff-so-fancy | less --tabs=4 -RFX
   excludesfile = ~/.gitignore
-  editor = nvim
-[push]
-  default = current
-[branch]
-  autosetuprebase = always
-[help]
-  autocorrect = 1
-
-[merge]
-  tool = nvim
-[mergetool "codej"]
-  cmd = code -n --wait $MERGED
-[mergetool "nvim"]
-  cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
-[mergetool]
-  prompt = false
-
 [diff]
-  tool = nvim
-[difftool "code"]
-  cmd = code -n --wait --diff $LOCAL $REMOTE
-[difftool "nvim"]
-  cmd = "nvim -d -u ~/.vimrc \"$LOCAL\" \"$REMOTE\""
-
+[color]
+    ui = auto
+[color "diff-highlight"]
+	  oldNormal = red
+	  oldHighlight = red "#500000"
+	  newNormal = green
+	  newHighlight = green "#003000"
+[color "diff"]
+	  meta = 11
+	  frag = magenta bold
+	  commit = yellow bold
+	  old = red
+	  new = green
+	  whitespace = "#ffff00" reverse
+[merge]
+    tool = vimdiff
+[diff-so-fancy]
+    stripLeadingSymbols = false
+    markEmptyLines = false
 [commit]
   gpgsign = true
 	verbose = true
@@ -75,3 +37,44 @@
 	required = true
 [include]
 	path = /Users/ajorgensen/code/dev-box/dotfiles/gitconfig
+[alias]
+  aa = add --all
+  amend = commit --amend
+  ci = commit --verbose
+  co = checkout
+  dc = diff --find-copies-harder --cached
+  dh1 = diff HEAD~1
+  di = diff --find-copies-harder
+  ds = diff --stat=160,120
+  fa = fetch --all
+  ff = merge --ff-only
+  noff = merge --no-ff
+  p = put
+  pom = push origin master
+  st = status
+
+  b = "!. ~/.githelpers && pretty_git_branch"
+  bs = "!. ~/.githelpers && pretty_git_branch_sorted"
+  cp = cherry-pick
+  h = !git head
+  head = !git r -1
+  hp = "!. ~/.githelpers && show_git_head"
+  l = "!. ~/.githelpers && pretty_git_log"
+  la = !git l --all
+  pf = push --force-with-lease
+  r = !GIT_NO_PAGER=1 git l -30
+  ra = !git r --all
+  ski = !git stash --keep-index
+
+  branch-name = "!git rev-parse --abbrev-ref HEAD"
+  put = "!git push -u origin $(git branch-name)"
+  delete = "!git push origin :$(git branch-name)"
+  fix-to-base = "!git rebase -i $(git merge-base $(git branch-name) master)"
+  sync = "!git fetch -p && git rebase origin/master"
+
+  fresh = !sh -c \"git checkout -b \\$0 && git reset --hard origin/master\"
+
+  done = "!BRANCH=$(git branch-name); f() { git checkout master && git branch -D $BRANCH; }; f"
+  rmbr = "!f() { git branch -D $@ && git push origin --delete $@; }; f"
+  cleanup = "!BRANCH=$(git branch-name); f() { git checkout master && git rmbr $BRANCH; }; f"
+  rmremote = !sh -c \"git push origin --delete \\$0\"
