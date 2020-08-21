@@ -1,307 +1,248 @@
-" ========
-" Plugins
-" ========
+let mapleader=","
+
+" remove all existing autocmds
+autocmd!
+
+" initialize plugins
 call plug#begin('~/.vim/plugged')
 
-" Git integration (status bar and commands like Gblame)
-Plug 'tpope/vim-fugitive'
-" Projectionist provides granular project configuration using projections.
-Plug 'tpope/vim-projectionist'
-" Add info to sidebar about git
-Plug 'airblade/vim-gitgutter'
-" Add file-management commands like :Delete, :Move, and :Rename
-Plug 'tpope/vim-eunuch'
-" Automatically adds 'ends' after ifs etc. in Ruby/Vimscript/Lua/Bourne Shell
-Plug 'tpope/vim-endwise'
-" Add parenthesis after autocompleted function
-Plug 'shougo/neopairs.vim'
-" Autocomplete from HTML snippets of a certain language
-Plug 'shougo/context_filetype.vim'
-" Provides a status line that provides handy info
-" From other plugins at the bottom of the screen
-Plug 'bling/vim-airline'
-" Snippets engine - requires actual snippets in a separate plugin
-Plug 'SirVer/ultisnips'
-" Visually displays indent levels as lines
-Plug 'nathanaelkane/vim-indent-guides'
-" Visually displays which XML/HTML/JSX tag is paired with current one
-Plug 'Valloric/MatchTagAlways'
-" Search with ripgrep (it is search tool agnostic)
-Plug 'mileszs/ack.vim'
-" View project tree
-Plug 'scrooloose/nerdtree'
-" Comment out code with ease in any language
-Plug 'scrooloose/nerdcommenter'
-" Lint / Check for syntax errors
-Plug 'w0rp/ale'
-" Highlights while editing and removes whitespace on save
-Plug 'ntpeters/vim-better-whitespace'
-" Split single line args to many
-Plug 'AndrewRadev/splitjoin.vim'
-" Change/delete surrounding quotes/brackets/tags
-Plug 'tpope/vim-surround'
-" Add extra text objects, e.g. for function arguments
-Plug 'wellle/targets.vim'
-" Run test under cursor
-Plug 'janko-m/vim-test'
-" Repeat command works with external plugins
-Plug 'tpope/vim-repeat'
-" Assisted closing of HTML etc. tags
-Plug 'alvan/vim-closetag'
-" Automatically close strings and brackets and braces etc.
-Plug 'jiangmiao/auto-pairs'
-" CSS3 Syntax
-Plug 'hail2u/vim-css3-syntax'
-" See CSS colours within Vim
-Plug 'ap/vim-css-color'
-" Needed solely to get textobj-function-syntax working
-Plug 'kana/vim-textobj-function'
-Plug 'haya14busa/vim-textobj-function-syntax'
-" Needed only for vim-textobj-rubyblock dependency
-Plug 'kana/vim-textobj-user'
-" Call external programs to format code
-Plug 'Chiel92/vim-autoformat'
-" Fuzzy search
+" =======
+" General
+" =======
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-" Handy bracket mappings ]q, ]<space>, etc.
-Plug 'tpope/vim-unimpaired'
-" Syntax highlighting for postgres
-Plug 'lifepillar/pgsql.vim'
-" Convert to snake, camel, dash, or dot case
-Plug 'tpope/vim-abolish'
+Plug 'preservim/nerdtree'
+Plug 'airblade/vim-gitgutter'
+Plug 'sirver/ultisnips'
+Plug 'scrooloose/nerdcommenter'
+Plug 'suan/vim-instant-markdown' 
+Plug 'janko-m/vim-test'
+Plug 'mileszs/ack.vim'
 
-Plug 'ap/vim-buftabline'
-
-" Async-vim is only here because it is required by vim-lsp
-Plug 'prabirshrestha/async.vim'
-" Languages server protocol connection
-Plug 'prabirshrestha/vim-lsp'
-
-" Language specific
-Plug 'pangloss/vim-javascript'
-" Provides JSX indentation
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'elzr/vim-json'
-
-Plug 'leafgarland/typescript-vim'
-
-Plug 'vim-ruby/vim-ruby'
-" Adds Ruby block objects
-Plug 'nelstrom/vim-textobj-rubyblock'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-bundler'
-
-" Text objects for python
-Plug 'jeetsukumaran/vim-pythonsense'
-
-" Autocomplete functionality
-Plug 'prabirshrestha/asyncomplete.vim'
-" Autocomplete source - the buffer
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
-" Autocomplete source - files
-Plug 'prabirshrestha/asyncomplete-file.vim'
-" Autocomplete source - language server protocol
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-" Autocomplete source - Ultisnips
-Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
-" Autocomplete source - ctags
-Plug 'prabirshrestha/asyncomplete-tags.vim'
-
-" React
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-Plug 'maxmellon/vim-jsx-pretty'"
-
-" Languages
-Plug 'fatih/vim-go'
-Plug 'rust-lang/rust.vim'
-Plug 'dart-lang/dart-vim-plugin'
-Plug 'elixir-editors/vim-elixir'
-
-" Color schemes
-Plug 'altercation/vim-colors-solarized'
-Plug 'tomasr/molokai'
-Plug 'arcticicestudio/nord-vim'
-Plug 'morhetz/gruvbox'
+" =====
+" colors
+" =====
 Plug 'drewtempelmeyer/palenight.vim'
 
-" Markdown
-Plug 'davinche/godown-vim'
-Plug 'plasticboy/vim-markdown'
-Plug 'godlygeek/tabular'
+" =====
+" tpope
+" =====
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-dispatch'
+
+" =========
+" Languages
+" =========
+Plug 'w0rp/ale'
+Plug 'vim-ruby/vim-ruby'
+Plug 'MaxMEllon/vim-jsx-pretty'
+
+" TypeScript highlighting/indent
+Plug 'leafgarland/typescript-vim'
+
+" TypeScript semantic support
+Plug 'Quramy/tsuquyomi'
 
 call plug#end()
 
-" ========================================================================
-" General Config
-" ========================================================================
-" Turn on project specific rc files
-set exrc
-
-" How many lines of history vim has to remember
-set history=5000
-
-" Use many muchos levels of undo
-set undolevels=1000
-
-" Auto read a when a file is changed
-set autoread
-
-" Makes searching for css tokens easier
-set iskeyword+=-
-
-" Allow unsaved background buffers and remember marks/undo for them
+" ====================
+" Basic Editing Config
+" ====================
+set nocompatible
+" allow unsaved background buffers and remember marks/undo for them
 set hidden
-nnoremap <C-N> :bnext<CR>
-nnoremap <C-P> :bprev<CR>et hidden
-
-" Enable backup
-set backup
-set backupdir=~/.local/share/nvim/backup
-
-set undofile
-set nowrap
-
-" Turn off the annoying bell when an error happens
-set noerrorbells
-
-" Put the new split to the right of the current one
-set splitright
-
-" Search while typing
-set incsearch
-
-" Dont ignore case if the search has an uppercase character
-set smartcase
-
-" Highlight search matches
-set hlsearch
-" Removes highlighting from last search
-nmap <silent> <leader>/ :nohlsearch<CR>
-
-" Always show the status line
-set laststatus=2
-
-" Persist undo history across session
-set undofile
-set undodir=~/.vimundo/
-
-" Ignore case in searches
-set ignorecase
-
-" Set the height of the command box
-set cmdheight=2
-
-" Switch between open buffers
-set switchbuf=useopen
-
-" Numbering
-set number
-set relativenumber
-
-" Prevent Vim from clobbering the scrollback buffer. See
-" http://www.shallowsky.com/linux/noaltscreen.html
-set t_ti= t_te=
-
-" Keep more context when scrolling off the end of a buffer
-set scrolloff=3
-
-set backspace=indent,eol,start
-set showcmd
-
-" Make tab completion for files/buffers act like bash
-set wildmenu
-set wildmode=full
-
-" Dont redraw when executing macros etc until they are done
-set lazyredraw
-set ttyfast
-set synmaxcol=250
-
-" show the cursor position at all times
-set ruler
-
-" Open new split panes to right and bottom, which feels more natural
-set splitbelow
-set splitright
-
-nnoremap <leader>q :ccl<cr>
-
-" Ignore hated files generally at vim level (Some autocomplete engines picks up
-" on and add their own ignored files to the mix)
-set wildignore+=*.swp,*.bak,*.pyc,*.class,*/tmp/*
-
-set clipboard=unnamedplus
-
-" This unsets the 'last search pattern'. Register by hitting return
-nnoremap <CR> :noh<CR><CR>
-
-" Live view of substitutions when you type %s/foo/bar
-:set inccommand=nosplit
-
-" Mostly for solving git merge conflicts
-:set diffopt=vertical
-
-imap jj <ESC>
-
-" Save my fingers when saving
-nmap <space>w :w<cr>
-
-" Copy current path into the paste buffer
-nmap <space>fp :let @+=expand("%:p")<cr>
-
-" Use <Leader>Esc to leave terminal mode
-tnoremap <Leader><Esc> <C-\><C-n>
-tnoremap <Leader>jj <C-\><C-n>
-
-set dictionary+=/usr/share/dict/words
-
-" ========================================================================
-" Formatting
-" ========================================================================
-" Turns spaces into tabs
+" remember more commands and search history
+set history=10000
 set expandtab
-
-" 1 tab == 2 spaces
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
-
-set list
-set smartindent
 set autoindent
-set textwidth=80
-
-set cursorline
-
+set laststatus=2
 set showmatch
-
-" Auto indent based on the previous line
-set autoindent
+set incsearch
+set hlsearch
+" make searches case-sensitive only if they contain upper-case characters
+set ignorecase smartcase
+" highlight current line
+set cursorline
+set cmdheight=1
+set switchbuf=useopen
+" Always show tab bar at the top
+set showtabline=2
+set winwidth=79
+" keep more context when scrolling off the end of a buffer
+set scrolloff=3
+" Don't make backups at all
+set nobackup
+set nowritebackup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+" display incomplete commands
+set showcmd
+" Enable highlighting for syntax
+syntax on
+syntax enable
+" Enable file type detection.
+" Use the default filetype settings, so that mail gets 'tw' set to 72,
+" 'cindent' is on in C files, etc.
+" Also load indent files, to automatically do language-dependent indenting.
 filetype plugin indent on
+" use emacs-style tab completion when selecting files, etc
+set wildmode=longest,list
+" make tab completion for files/buffers act like bash
+set wildmenu
+" Fix slow O inserts
+:set timeout timeoutlen=1000 ttimeoutlen=100
+" Normally, Vim messes with iskeyword when you open a shell file. This can
+" leak out, polluting other file types even after a 'set ft=' change. This
+" variable prevents the iskeyword change so it can't hurt anyone.
+let g:sh_noisk=1
+" Modelines (comments that set vim options on a per-file basis)
+set modeline
+set modelines=3
+" Turn folding off for real, hopefully
+set foldmethod=manual
+set nofoldenable
+" Insert only one space when joining lines that contain sentence-terminating
+" punctuation like `.`.
+set nojoinspaces
+" If a file is changed outside of vim, automatically reload it without asking
+set autoread
+" Use the old vim regex engine (version 1, as opposed to version 2, which was
+" introduced in Vim 7.3.969). The Ruby syntax highlighting is significantly
+" slower with the new regex engine.
+set re=1
+" Stop SQL language files from doing unholy things to the C-c key
+let g:omni_sql_no_default_maps = 1
+" Diffs are shown side-by-side not above/below
+set diffopt=vertical
+" Always show the sign column
+set signcolumn=no
+" Write swap files to disk and trigger CursorHold event faster (default is
+" after 4000 ms of inactivity)
+set updatetime=200
+" Completion options.
+"   menu: use a popup menu
+"   preview: show more info in menu
+set completeopt=menu,preview
 
-" Insert blanks when tab is in front of a line
-set smarttab
+" Switch between open buffers
+set switchbuf=useopen
+set dictionary+=/usr/share/dict/words
 
-" Wrap lines to fit on the screen
-set wrap
-set linebreak
-
-" Custom status line
-set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
-
-let g:netrw_liststyle=3
-
-" Display extra whitespace
-set list listchars=tab:»·,trail:·
+set nowrap
+set number
 
 " Highlighting at 121st column
 highlight ColorColumn ctermbg=235
 set colorcolumn=120
 
-" ========================================================================
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MAPPINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+imap jj <ESC>
+nmap <leader>w :w<cr>
+nmap <leader>x :x<cr>
+
+" Use <leader>Esc to leave terminal mode
+tnoremap <leader><Esc> <C-\><C-n>
+tnoremap <leader>jj <C-\><C-n>
+
+" Easy buffer navigation
+nnoremap <leader>n :bnext<CR>
+nnoremap <leader>p :bprev<CR>
+nnoremap <C-X> :bdelete<CR>
+noremap <leader>b :Buffers<CR>
+nnoremap <F2> :buffers<CR>:buffer<Space>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CUSTOM AUTOCMDS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup vimrcEx
+  " Clear all autocmds in the group
+  autocmd!
+  autocmd FileType text setlocal textwidth=78
+  " Jump to last cursor position unless it's invalid or in an event handler
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+
+  "for ruby, autoindent with two spaces, always expand tabs
+  autocmd FileType ruby,haml,eruby,yaml,html,sass,cucumber set ai sw=2 sts=2 et
+  autocmd FileType python set sw=4 sts=4 et
+
+  autocmd! BufRead,BufNewFile *.sass setfiletype sass 
+
+  autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
+  autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
+
+  " Indent p tags
+  " autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
+
+  " Don't syntax highlight markdown because it's often wrong
+  autocmd! FileType mkd setlocal syn=off
+
+  " Leave the return key alone when in command line windows, since it's used
+  " to run commands there.
+  autocmd! CmdwinEnter * :unmap <cr>
+  autocmd! CmdwinLeave * :call MapCR()
+
+  " *.md is markdown
+  autocmd! BufNewFile,BufRead *.md setlocal ft=
+
+  " indent slim two spaces, not four
+  autocmd! FileType slim set sw=2 sts=2 et
+
+  " javascript
+  autocmd! FileType javascript set sw=2 sts=2 expandtab
+
+  " Expand tabs in Go. Was gofmt raised in a barn?!
+  autocmd! FileType go set sw=4 sts=4 expandtab | retab
+
+  " Two-space indents in json
+  autocmd! FileType json set sw=2 sts=2 expandtab
+
+  " Hitting K in a Ruby file opens rdoc, which completely breaks the terminal
+  " to the point of having to kill vim and do `reset`. Unmap it entirely.
+  nnoremap K <Nop>
+
+  " Compute syntax highlighting from beginning of file. (By default, vim only
+  " looks 200 lines back, which can make it highlight code incorrectly in some
+  " long files.)
+  autocmd BufEnter * :syntax sync fromstart
+
+  " Vim 8.2 adds built-in JSX support which seems broken. Setting these
+  " filetypes lets the installed plugins deal with JSX/TSX instead.
+  autocmd bufnewfile,bufread *.tsx set filetype=typescript.tsx
+  autocmd bufnewfile,bufread *.jsx set filetype=javascript.jsx
+
+  " Execute Program courses are plaintext. Sometimes vim thinks they're 'conf'
+  " files without this.
+  autocmd bufnewfile,bufread *.course setlocal filetype=text tw=10000
+augroup END
+
+" =====
+" COLOR
+" =====
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
+color palenight
+
+" =====
 " Tags
-" ========================================================================
+" =====
 
 " Connect tags file
 " Look in current dir first, then up to containing_dir
@@ -309,591 +250,48 @@ set tags+=./tags;,tags;
 " On writing a file of the following types
 au BufWritePost &.c,*.rb,*.js,*.go,*.py silent! ctags &
 
-" ========================================================================
-" Autogroup
-" ========================================================================
-augroup vimrcEx
-  autocmd!
-
-  " For all text files set 'textwidth' to 80 characters.
-  autocmd FileType text setlocal textwidth=80
-
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it for commit messages, when the position is invalid, or when
-  " inside an event handler (happens when dropping a file on gvim).
-  autocmd BufReadPost *
-    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
-
-  " Set syntax highlighting for specific file types
-  autocmd BufRead,BufNewFile *.md set filetype=markdown
-
-  " Enable spellchecking for Markdown
-  autocmd FileType markdown setlocal spell
-augroup END
-
-" Reload rc file after writing
-augroup myvimrc
-    au!
-    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc,init.vim so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-augroup END
-
-
-" ========================================================================
-" Mappings
-" ========================================================================j
-let mapleader = ","
-let g:mapleader = ","
-
-nnoremap <F2> :buffers<CR>:buffer<Space>
-
-" Index ctags from any project, including those outside Rails
-map <Leader>ct :!ctags -R .<CR>
-
-" Faster saving
-noremap <Leader>w :w<CR>
-
-" Only save if the file has been modified
-noremap <Leader>s :up<CR>
-
-" Save and exit
-noremap <Leader>x :exit<CR>
-
-" Fast quiting
-noremap <Leader>q :q<cr>
-
-vmap <Leader>y "+y
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
-noremap ; :
-noremap <C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-
-map <leader>y "+y
-" Can't be bothered to understand ESC vs <c-c> in insert mode
-imap <c-c> <esc>
-inoremap jj <ESC>
-inoremap jk <ESC>
-noremap <c-s> <esc>:w<cr>
-command! Q q
-command! -bar -bang Q quit<bang>
-command! W w
-noremap Q <Nop>
-
-map <leader>pry orequire 'pry'; binding.pry<CR><ESC>
-
-" Move around splits with <c-hjkl>
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-
-inoremap jk <ESC>
-
-nmap oo o<Esc>k
-nmap OO O<Esc>j
-
-nnoremap <leader><space> :nohlsearch<CR> " turn off search highlight
-inoremap jk <esc> " jk is escape
-
-nnoremap H 0
-nnoremap L $
-
-nnoremap ; :
-
-" auto wrap git commit messages
-autocmd Filetype gitcommit setlocal spell textwidth=72
-
-" Open In Github
-map <leader>gh :OpenGithubFile<cr>
-map <leader>hg :<,'>OpenGithubFile<cr>
-
-" ========================================================================
-" Color and Fonts
-" ========================================================================
-syntax on
-syntax enable " enable synatx processing
-
-set termguicolors
-set background=dark
-
-colorscheme palenight
-
-let g:airline_theme = "palenight"
-let g:palenight_terminal_italics=1
-
-" highlight Normal guibg=Black
-syntax match nonascii "[^\x00-\x7F]"
-highlight nonascii guibg=Green ctermbg=2
-
-" Set highlighting format
-hi clear SignColumn
-hi SpellBad cterm=underline
-
-" ========================================================================
-" Custom functions
-" ========================================================================
-
-" vim-lsp setup
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  setlocal signcolumn=yes
-  echom "loaded"
-  " Find definition of word under cursor
-  nnoremap <buffer> <leader>ld :LspDefinition<CR>
-  " Find callers of word under cursor
-  nnoremap <buffer> <leader>lr :LspReferences<CR>
-  " Rename symbol throughout project
-  nnoremap <buffer> <leader>lR :LspRename<CR>
-  " Show docs (e.g. from libraries)
-  nnoremap <buffer> <leader>lK :LspHover<CR>
-  " Format document layout
-  nnoremap <buffer> <leader>lf :LspDocumentFormat<CR>
-endfunction
-augroup lsp_install
-    au!
-    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
-
-" Ultisnips must come before autocomplete declaration, possibly
-" Because of clash with trigger keys.
-"
-" Snippets keyboard shortcuts that don't clash
-let g:UltiSnipsExpandTrigger="<c-q>"
-let g:UltiSnipsJumpForwardTrigger="<c-f>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-" Weirdly needed to work with Neovim
-let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips']
-" How UltiSnips splits window when editting snippets
-let g:UltiSnipsEditSplit="vertical"
-
-" Address (likely temporary bug) whereby LSP completions with asyncomplete
-" Ate two characters following insertion
-let g:lsp_text_edit_enabled = 0
-" Ruby lsp
-" Prerequisites:
-" > gem install solargraph
-" TODO: Get eruby filetype working. Not enough to add to whitelist, seemingly.
-au User lsp_setup call lsp#register_server({
-      \ 'name': 'solargraph',
-      \ 'cmd': {server_info->[&shell, &shellcmdflag, 'bundle exec solargraph stdio']},
-      \ 'initialization_options': {"diagnostics": "true"},
-      \ 'whitelist': ['ruby'],
-      \ })
-
-" Prerequisites
-" > go get github.com/mattn/efm-langserver
-" ERB, YAML and Markdown
-augroup LspEFM
-  au!
-  autocmd User lsp_setup call lsp#register_server({
-      \ 'name': 'efm-langserver',
-      \ 'cmd': {server_info->[&shell, &shellcmdflag, '~/go/bin/efm-langserver -c ~/.config/efm-langserver/config.yaml']},
-      \ 'whitelist': ['vim', 'eruby', 'markdown', 'yaml', 'html', 'sql'],
-      \ })
-augroup END
-
-" JavaScript and Typescript LSP
-" Prerequisites:
-" $ npm install -g typescript typescript-language-server
-if executable('typescript-language-server')
-    au User lsp_setup call lsp#register_server({
-      \ 'name': 'javascript support using typescript-language-server',
-      \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-      \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
-      \ 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact']
-      \ })
-else
-  echom "ERROR: JavaScript language server not found"
-endif
-
-" Python LSP
-" Prerequisites:
-" $ pip3 install python-language-server
-if executable('pyls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-else
-  echom "ERROR: Python language server not found"
-endif
-
-" C LSP
-" Prerequisites: $ brew install llvm
-augroup lsp_clangd
-  autocmd!
-  autocmd User lsp_setup call lsp#register_server({
-        \ 'name': 'clangd',
-        \ 'cmd': {server_info->[&shell, './clangd']},
-        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
-        \ })
-augroup end
-
-" Using asyncomplete-buffer.vim
-call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-    \ 'name': 'buffer',
-    \ 'whitelist': ['*'],
-    \ 'completor': function('asyncomplete#sources#buffer#completor'),
-    \ 'config': {
-    \    'max_buffer_size': 5000000,
-    \  },
-    \ }))
-
-
-" Using asyncomplete-file.
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-    \ 'name': 'file',
-    \ 'whitelist': ['*'],
-    \ 'priority': 10,
-    \ 'completor': function('asyncomplete#sources#file#completor')
-    \ }))
-
-
-" Using Ultisnips
-call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
-      \ 'name': 'ultisnips',
-      \ 'whitelist': ['*'],
-      \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
-      \ }))
-
-" Using Ctags
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#tags#get_source_options({
-    \ 'name': 'tags',
-    \ 'whitelist': ['c', 'ruby'],
-    \ 'completor': function('asyncomplete#sources#tags#completor'),
-    \ 'config': {
-    \    'max_file_size': 50000000,
-    \  },
-    \ }))
-" Uncomment the following to debug `lsp` and autocomplete
-"
-" Log vim lsp actions
-let g:lsp_log_verbose = 1
-let g:lsp_log_file = expand('/tmp/vim-lsp.log')
-" Log autocomplete actions
-"let g:asyncomplete_log_file = expand('/tmp/asyncomplete.log')
-
-" This works similarly to ALE. I am not sure whether
-" I want to fully delegate this task to ALE.
-let g:lsp_diagnostics_enabled = 0
-
-" Tab to autocomplete with Asyncomplete
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <C-e> pumvisible() ? asyncomplete#cancel_popup() : "\<C-e>"
-" Ack-vim
-" Use rg (ripgrep)
-let g:ackprg = 'rg --vimgrep'
-" Setup keyboard shortcut.
-noremap <Leader>a :Ack! <left>
-" Ack but literal match instead of regex
-
-" Indent Guides - enable plugin
-let g:indent_guides_enable_on_vim_startup = 1
-
-" Vim-jsx: Enable JSX indentation in normal JS files
-let g:jsx_ext_required = 0
-
-" MatchTagAlways - enable for JSX
-let g:mta_filetypes = {
-      \ 'html' : 1,
-      \ 'xhtml' : 1,
-      \ 'xml' : 1,
-      \ 'jinja' : 1,
-      \ 'jsx' : 1,
-      \ 'javascript' : 1
-      \}
-
-" MatchTagAlways - Jump to matched tag
-nnoremap <leader>% :MtaJumpToOtherTag<cr>
-
-" Execute file (assumes a guiding shebang is present )
-nnoremap <leader>2 :w<CR>:! ./%<cr>
-autocmd FileType c nnoremap <leader>2 :w \| :! make %:r && ./%:r <CR>
-
-" Python
-autocmd FileType python call SetPythonOptions()
-function! SetPythonOptions()
-  " Execute
-  " Wrap in logging
-  nmap <leader>p yssfprint<cr>
-endfunction
-
-" Closetag - expand to extra files
-let g:closetag_filenames = '*.html,*.erb, *.xhtml,*.xml,*.js,*.jsx,*.html.erb,*.md,*.blade.php'
-let b:closetag_emptyTags= '^\(area\|base\|br\|col\|command\|embed\|hr\|img\|input\|keygen\|link\|meta\|param\|source\|track\|wbr\)$'
-" Skip closing a tag
-let g:closetag_close_shortcut = '<leader>>'
-
-" Integrate fzf via Homebrew
-set rtp+=/usr/local/opt/fzf
-" Integrate fzf via install on servers
-set rtp+=~/.fzf
-
-" Shortcuts for using fzf in vim
-nnoremap <leader>f :Files<cr>
-nnoremap <leader>g :GFiles<cr>
-nnoremap <leader>t :Tags<cr>
-" Focus on a particular window
-noremap <leader>w :Windows<cr>
-nnoremap <leader>b :Buffers<cr>
-nnoremap <leader>h :History<cr>
-nnoremap <leader>r :Rg<cr>
-" RG for word under cursor
-nnoremap <silent> <Leader>ur :Rg <C-R><C-W><CR>
-nnoremap <leader>v :Commands<cr>
-" Shortcuts for opening up results in splits
-let g:fzf_action = {
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit' }
-
-" Needed for vim-textobj-rubyblock
-runtime macros/matchit.vim
-
-" Surround-vim addition to delete a function
-nmap <silent> dsf ds)db
-
-" Vim-better-whitespace always automatically remove
-let g:strip_whitespace_on_save=1
-" Do not confirm
-let g:strip_whitespace_confirm=0
-
-" Consider entities containing hyphens to be words. Originally css/scss only
-"set iskeyword+=-
-set iskeyword+=$
-
-" Auto-pairs plugin
-let g:AutoPairsShortcutToggle = '<leader>p'
-" Handle nested pairs better
-let g:AutoPairsMultilineClose = 0
-
-" Harmonize splitjoin with Rubocop's minimization of braces in method signatures
-let g:splitjoin_ruby_curly_braces = 0
-let g:splitjoin_ruby_hanging_args = 0
-
-let g:ale_completion_enabled = 0
-
-let g:ale_fix_on_save = 1
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" STATUS LINE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ALE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_linters = {
-      \ 'python': ['flake8', 'pyls'],
-      \ 'ruby': ['solargraph', 'ruby'],
-      \ 'yaml': ['yamllint'],
-      \ 'json': ['jsonlint'],
-      \ 'go': ['gofmt']
+      \ 'javascript': ['eslint'],
+      \ 'typescript': ['tsserver', 'eslint'],
+      \ 'typescript.tsx': ['tsserver', 'eslint'],
+      \ 'ruby': ['rubocop']
       \ }
 let g:ale_fixers = {
-      \ 'scss': ['stylelint'],
       \ 'javascript': ['eslint'],
-      \ 'python': ['autopep8', 'isort'],
+      \ 'typescript': ['prettier'],
+      \ 'typescript.tsx': ['prettier'],
       \ 'ruby': ['rubocop'],
-      \ 'go': ['gofmt']
+      \ '*': ['remove_trailing_lines', 'trim_whitespace']
       \ }
-
-" Le for Lint Error
-nmap <silent> <leader>le :ALENext<cr>
-
-" The commands built-into ALE for turning it off still let switchers be active.
-function! MytoggleALE()
-  if (g:ale_fix_on_save == 1)
-    let g:ale_fix_on_save=0
-    :ALEDisable
-    :echo "Linting disabled"
-  else
-    let g:ale_fix_on_save=1
-    :ALEEnable
-    :echo "Linting enabled"
-  endif
-endfunction
-
-command! LintOff call MytoggleALE()
-command! LintOn call MytoggleALE()
-
-" Set filetype correctly for JSON-based lint config files
-au BufNewFile,BufRead .eslintrc set filetype=json
-au BufNewFile,BufRead .stylelintrc set filetype=json
-
-" Airline - connect to ALE
-let g:airline#extensions#ale#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-
-" Tell Vim JavaScript that you use Flow (gives syntax highlighting)
-let g:javascript_plugin_flow = 1
-
-" Allow neovim Ruby provider to be RVM system ruby instead
-" Of per project
-"let g:ruby_host_prog = 'rvm system do neovim-ruby-host'
-"
-" Enable folding by default
-let ruby_fold = 1
-" Set what you want to be folded
-let ruby_foldable_groups = 'def'
-
-" Shortcuts for vim-test
-" Run test under cursor
-nmap <silent> <space>tu :w \| :TestNearest<CR>
-" Run current file (otherwise last file)
-nmap <silent> <space>tf :TestFile<CR>
-" Visit last test you ran
-nmap <silent> <space>tl :TestLast<CR>
-let g:test#preserve_screen = 1
-
-let test#ruby#rspec#executable = 'bin/rspec'
-
-"
-"Switch to alternate JS files
-let g:rails_projections = {
-      \ "app/webpacker/javascript/__tests__/*.spec.js": { "alternate": "app/webpacker/javascript/{}.js" },
-      \ "app/webpacker/javascript/*.js": { "alternate": "app/webpacker/javascript/__tests__/{}.spec.js" }
-      \ }
-
-" Tell pgsql.vim to treat all sql files as postgres
-let g:sql_type_default = 'pgsql'
-
-" Assumes sqlformat is installed
-autocmd BufWritePost *.sql :% !sqlformat --reindent --keywords upper --identifiers lower --wrap_after 80 -
-
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_delay = 0
+let g:ale_set_quickfix = 0
+let g:ale_set_loclist = 0
+let g:ale_javascript_eslint_executable = 'eslint --cache'
+nnoremap gf :ALEFix<cr>
+nnoremap gj :ALENextWrap<cr>
+nnoremap gk :ALEPreviousWrap<cr>
+nnoremap g1 :ALEFirst<cr>
+" This mapping will kill all ALE-related processes (including tsserver). It's
+" necessary when those processes get confused. E.g., tsserver will sometimes
+" show type errors that don't actually exist. I don't know exactly why that
+" happens yet, but I think that it's related to renaming files.
+nnoremap g0 :ALEStopAllLSPs<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RENAME CURRENT FILE
+" Tsuquyomi
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! RenameFile()
-  let old_name = expand('%')
-  let new_name = input('New file name: ', expand('%'), 'file')
-  if new_name != '' && new_name != old_name
-    exec ':saveas ' . new_name
-    exec ':silent !rm ' . old_name
-    redraw!
-  endif
-endfunction
-map <leader>rn :call RenameFile()<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" DUPLICATE CURRENT FILE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! DuplicateFile()
-  let old_name = expand('%')
-  let new_name = input('New file name: ', expand('%'), 'file')
-  if new_name != '' && new_name != old_name
-    exec ':saveas ' . new_name
-    redraw!
-  endif
-endfunction
-map <leader>d :call DuplicateFile()<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Clean file on write
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd BufWritePre * :call <SID>CleanFile()
-function! <SID>CleanFile()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let [l,c] = [line("."),col(".")]
-
-    " Do the business:
-    " %!git strip space
-    silent! %s/\s\+$//e
-    silent! %s#\($\n\s*\)\+\%$##
-
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
-endfunction
-
-function! <SID>StripTrailingWhitespaces()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
-endfunction
-
-function! <SID>StripBlankLinesAtEndOfFile()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-
-    %s#\($\n\s*\)\+\%$##
-
-    let @/=_s
-    call cursor(l, c)
-endfunction
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Spell checker
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! ToggleSpellchecker()
-  if(&spell == 1)
-    echo "Spell checker off"
-    set nospell
-  else
-    echo "Spell checker on"
-    set spell spelllang=en_us
-  endif
-endfunc
-nnoremap <F3> :call ToggleSpellchecker()<cr>
-autocmd filetype markdown,txt set spell spelllang=en_us
-
-" Make Y behave like other capitals
-map Y y$
-
-" Show code blocks with syntax highlighting. This is a VIM built-in.
-let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'c', 'ruby', 'javascript', 'go']
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Silver searcher
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ackprg = 'ag --nogroup --nocolor --column'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Run external command
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Inline the output of an external command and strip out newlines
-function! InlineCommand()
-    let l:cmd = input('Command: ')
-    let l:output = system(l:cmd)
-    let l:output = substitute(l:output, '[\r\n]*$', '', '')
-    execute 'normal i' . l:output
-endfunction
-nmap <silent> \e :call InlineCommand()<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Format json
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-command! FormatJSON %!python -m json.tool
-
-""""""""""""""
-" YCM
-""""""""""""""
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-
-""""""""""""""
-" SuperTab
-""""""""""""""
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
-""""""""""""""
-" Ultisnips
-""""""""""""""
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-""""""""""""""
-" File Browsing
-""""""""""""""
-map <C-p> :Explore<CR>
+" Vim-ale handles TypeScript quickfix, so tell Tsuquyomi not to do it.
+let g:tsuquyomi_disable_quickfix = 1
 
 """"""""""""""
 " FZF
@@ -901,33 +299,70 @@ map <C-p> :Explore<CR>
 noremap <leader>f :FZF<cr>
 
 """"""""""""""
-" TagBar
-""""""""""""""
-nmap <F8> :TagbarToggle<CR>
-
-""""""""""""""
-" Markdown
-""""""""""""""
-let g:instant_markdown_autostart = 0
-let g:vim_markdown_folding_disabled = 1
-
-""""""""""""""
 " NERDTree
 """"""""""""""
 map <leader>n :NERDTreeToggle<CR>
-map <leader>sf :NERDTreeFind<CR>
+map <leader>nf :NERDTreeFind<CR>
 let g:NERDTreeWinSize = 50
 
-""""""""""""""
-" RSpec
-""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MISC KEY MAPS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>y "*y
+" Move around splits with <c-hjkl>
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+" Insert a hash rocket with <c-l>
+imap <c-l> <space>=><space>
+" Can't be bothered to understand ESC vs <c-c> in insert mode
+inoremap <c-c> <esc>
+" <leader><leader> is more convenient than <c-^>
+nnoremap <leader><leader> <c-^>
+" Align selected lines
+vnoremap <leader>ib :!align<cr>
+" Close all other splits
+nnoremap <leader>o :only<cr>
 
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>sp :call RunNearestSpec()<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SHORTCUT TO REFERENCE CURRENT FILE'S PATH IN COMMAND LINE MODE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+cnoremap <expr> %% expand('%:h').'/'
 
-""""""""""""""
-" Misc
-""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM-TEST
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:test#preserve_screen = 1
+let test#ruby#rspec#executable = 'bundle exec rspec'
+let test#strategy = "vimterminal"
+
+nnoremap tf :TestFile<cr>
+nnoremap tn :TestNearest<cr>
+nnoremap tl :TestLast<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ack.vim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RENAME CURRENT FILE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map <leader>rn :call RenameFile()<cr>
 
 " Automatically reload .vimrc file on save
 augroup myvimrc
@@ -939,3 +374,45 @@ augroup END
 command! Vimrc e ~/.vimrc
 command! Zshrc e ~/.zshrc
 command! Gitconfig e ~/.gitconfig
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" INSTANT MARKDOWN
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:instant_markdown_autostart = 0
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" UltiSnips
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-p>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MULTIPURPOSE TAB KEY
+" Indent if we're at the beginning of a line. Else, do completion.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col
+        return "\<tab>"
+    endif
+
+    let char = getline('.')[col - 1]
+    echom "CHAR"
+    echom char
+    echom "ENDCHAR"
+    if char =~ '\k'
+      echom "c-p"
+        " There's an identifier before the cursor, so complete the identifier.
+        return "\<c-p>"
+    else
+      echom "else"
+        return "\<tab>"
+    endif
+endfunction
+inoremap <expr> <tab> InsertTabWrapper()
+inoremap <s-tab> <c-n>
