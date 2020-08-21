@@ -78,3 +78,11 @@
   rmbr = "!f() { git branch -D $@ && git push origin --delete $@; }; f"
   cleanup = "!BRANCH=$(git branch-name); f() { git checkout master && git rmbr $BRANCH; }; f"
   rmremote = !sh -c \"git push origin --delete \\$0\"
+
+  diff-branch = "!f() { git diff $(git merge-base master $1)..$1 ${@:2}; }; f"
+  diff-master = "!git diff `git merge-base master $(git rev-parse --abbrev-ref HEAD)`..$(git rev-parse --abbrev-ref HEAD)"
+  branches-by-date = "!git for-each-ref --sort='-committerdate' --format='%(refname)%09%(committerdate)' refs/heads | sed -e 's-refs/heads/--'"
+  branches-sorted = "!git for-each-ref --sort=-committerdate refs/heads/"
+  merged-branches = "!git branch --merged master | grep -v 'master\\|release-*'"
+  delete-merged-branches = "!git merged | xargs git branch -d && git remote prune origin"
+
