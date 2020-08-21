@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/Users/ajorgensen/code/root-partner-sdk/web/partner-sdk/src/api'
+let g:netrw_dirhist_4='/Users/ajorgensen/code/root-monorepo/web/modules/core/src/api'
+let g:netrw_dirhist_3='/Users/ajorgensen/code/root-monorepo/server/systems/growth/partner_admin_api/app/controllers'
+let g:netrw_dirhist_2='/Users/ajorgensen/code/root-monorepo/server'
+let g:netrw_dirhist_1='/Users/ajorgensen'
