@@ -15,7 +15,7 @@ Plug 'preservim/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'sirver/ultisnips'
 Plug 'scrooloose/nerdcommenter'
-Plug 'suan/vim-instant-markdown' 
+Plug 'suan/vim-instant-markdown'
 Plug 'janko-m/vim-test'
 Plug 'mileszs/ack.vim'
 
@@ -40,6 +40,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'w0rp/ale'
 Plug 'vim-ruby/vim-ruby'
 Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'fatih/vim-go'
 
 " TypeScript highlighting/indent
 Plug 'leafgarland/typescript-vim'
@@ -179,7 +180,7 @@ augroup vimrcEx
   autocmd FileType ruby,haml,eruby,yaml,html,sass,cucumber set ai sw=2 sts=2 et
   autocmd FileType python set sw=4 sts=4 et
 
-  autocmd! BufRead,BufNewFile *.sass setfiletype sass 
+  autocmd! BufRead,BufNewFile *.sass setfiletype sass
 
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
   autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
@@ -262,6 +263,7 @@ let g:ale_linters = {
       \ 'javascript': ['eslint'],
       \ 'typescript': ['tsserver', 'eslint'],
       \ 'typescript.tsx': ['tsserver', 'eslint'],
+      \ 'go': ['golint'],
       \ 'ruby': ['rubocop']
       \ }
 let g:ale_fixers = {
@@ -269,6 +271,7 @@ let g:ale_fixers = {
       \ 'typescript': ['prettier'],
       \ 'typescript.tsx': ['prettier'],
       \ 'ruby': ['rubocop'],
+      \ 'go': ['gofmt', 'goimports'],
       \ '*': ['remove_trailing_lines', 'trim_whitespace']
       \ }
 let g:ale_lint_on_text_changed = 'normal'
@@ -343,7 +346,7 @@ nnoremap tl :TestLast<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ack.vim
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
