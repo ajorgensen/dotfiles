@@ -40,7 +40,7 @@ link_file .gitmodules $HOME/.gitmodules
 link_file .tmux.conf $HOME/.tmux
 link_file .vim $HOME/.vim
 link_file .vimrc $HOME/.vimrc
-link_file .zhsrc $HOME/.zhsrc
+link_file .zshrc $HOME/.zshrc
 link_file .zprofile $HOME/.zprofile
 link_file .zsh $HOME/.zsh
 link_file .zshenv $HOME/.zshenv
