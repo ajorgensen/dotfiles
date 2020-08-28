@@ -348,7 +348,7 @@ nnoremap tl :TestLast<cr>
 " Ack.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
+  let g:ackprg = 'ag --vimgrep --nocolor --ignore node_modules'
 endif
 cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>

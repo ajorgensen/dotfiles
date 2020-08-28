@@ -22,7 +22,7 @@ function link_file() {
     return 
   fi
 
-  if [ -e "$dst" ]; then
+  if [ -e "$dst" ] || [ -h "$dst" ]; then
     error "Destination $dst already exists."
     return
   fi
@@ -31,17 +31,26 @@ function link_file() {
   success "Linked $src to $dst"
 }
 
-link_file .ackrc $HOME/.ackrc
-link_file .fish $HOME/.fish
-link_file .gemrc $HOME/.gemrc
-link_file .gitconfig $HOME/.gitconfig
-link_file .gitignore $HOME/.gitignore
-link_file .gitmodules $HOME/.gitmodules
-link_file .tmux.conf $HOME/.tmux
-link_file .vim $HOME/.vim
-link_file .vimrc $HOME/.vimrc
-link_file .zshrc $HOME/.zshrc
-link_file .zprofile $HOME/.zprofile
-link_file .zsh $HOME/.zsh
-link_file .zshenv $HOME/.zshenv
-link_file bin $HOME/bin
+function link_dotfile() {
+  local src=$(realpath $1)
+  local dst_folder=${2:-$HOME} 
+  local dotfile_name=$(basename $src)
+  local dst="$dst_folder/$dotfile_name"
+
+  link_file $src $dst
+}
+
+link_dotfile .ackrc
+link_dotfile .fish
+link_dotfile .gemrc
+link_dotfile .gitconfig
+link_dotfile .gitignore
+link_dotfile .gitmodules
+link_dotfile .tmux.conf
+link_dotfile .vim
+link_dotfile .vimrc
+link_dotfile .zshrc
+link_dotfile .zprofile
+link_dotfile .zsh
+link_dotfile .zshenv
+link_dotfile bin
