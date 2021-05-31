@@ -31,7 +31,7 @@ export HISTSIZE=100000
 export HISTFILE="$HOME/.history"
 export SAVEHIST=$HISTSIZE
 
-# Editor 
+# Editor
 export EDITOR="vim"
 set -o emacs
 
@@ -177,6 +177,10 @@ function up()
     test $DIR != "/" && echo $DIR/$TARGET
 }
 
+function em () {
+  open -a /Applications/Emacs $*
+}
+
 # Platform Specific
 if [[ $OSTYPE == darwin* ]]; then
   alias flush='dscacheutil -flushcache'
@@ -189,9 +193,7 @@ if [[ $OSTYPE == darwin* ]]; then
   alias sdk="browse https://github.com/Root-App/root-partner-sdk"
 fi
 
-if [ -e "$HOME/.local_zshrc" ]; then
-  source "$HOME/.local_zshrc"
-
-fi
+source "$HOME/.local.zshrc"
+#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 #zprof
