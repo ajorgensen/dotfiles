@@ -1,5 +1,3 @@
-let mapleader=","
-
 " remove all existing autocmds
 autocmd!
 
@@ -11,18 +9,26 @@ call plug#begin('~/.vim/plugged')
 " =======
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'preservim/nerdtree'
-Plug 'airblade/vim-gitgutter'
-Plug 'sirver/ultisnips'
-Plug 'scrooloose/nerdcommenter'
-Plug 'suan/vim-instant-markdown'
-Plug 'janko-m/vim-test'
+Plug 'romainl/vim-cool'
+Plug 'w0rp/ale'
+Plug 'vim-test/vim-test'
+Plug 'jiangmiao/auto-pairs'
 Plug 'mileszs/ack.vim'
+
+" =========
+" Languages
+" =========
+Plug 'vim-ruby/vim-ruby'
+Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
 
 " =====
 " colors
 " =====
 Plug 'drewtempelmeyer/palenight.vim'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'tomasiser/vim-code-dark'
 
 " =====
 " tpope
@@ -34,24 +40,10 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-dispatch'
 
-" =========
-" Languages
-" =========
-Plug 'w0rp/ale'
-Plug 'vim-ruby/vim-ruby'
-Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'fatih/vim-go'
-
-" TypeScript highlighting/indent
-Plug 'leafgarland/typescript-vim'
-
-" TypeScript semantic support
-Plug 'Quramy/tsuquyomi'
-
 call plug#end()
 
 " ====================
-" Basic Editing Config
+" BASIC EDITING CONFIG
 " ====================
 set nocompatible
 " allow unsaved background buffers and remember marks/undo for them
@@ -76,6 +68,8 @@ set switchbuf=useopen
 " Always show tab bar at the top
 set showtabline=2
 set winwidth=79
+" This makes RVM work inside Vim.
+set shell=zsh
 " keep more context when scrolling off the end of a buffer
 set scrolloff=3
 " Don't make backups at all
@@ -89,7 +83,6 @@ set backspace=indent,eol,start
 set showcmd
 " Enable highlighting for syntax
 syntax on
-syntax enable
 " Enable file type detection.
 " Use the default filetype settings, so that mail gets 'tw' set to 72,
 " 'cindent' is on in C files, etc.
@@ -99,6 +92,7 @@ filetype plugin indent on
 set wildmode=longest,list
 " make tab completion for files/buffers act like bash
 set wildmenu
+let mapleader=","
 " Fix slow O inserts
 :set timeout timeoutlen=1000 ttimeoutlen=100
 " Normally, Vim messes with iskeyword when you open a shell file. This can
@@ -133,11 +127,10 @@ set updatetime=200
 "   menu: use a popup menu
 "   preview: show more info in menu
 set completeopt=menu,preview
+set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 
 " Switch between open buffers
-set switchbuf=useopen
 set dictionary+=/usr/share/dict/words
-
 set nowrap
 set number
 
@@ -145,9 +138,27 @@ set number
 highlight ColorColumn ctermbg=235
 set colorcolumn=120
 
+"This unsets the "last search pattern" register by hitting return
+nnoremap <CR> :noh<CR><CR>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MAPPINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>y "*y
+
+"Move around splits with <c-hjkl>
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+
+imap <c-l> <space>=><space>
+
+inoremap <c-c> <esc>
+nnoremap <leader><leader> <c-^>
+vnoremap <leader>ib :!align<cr>
+nnoremap <leader>o :only<cr>
+
 imap jj <ESC>
 nmap <leader>w :w<cr>
 nmap <leader>x :x<cr>
@@ -157,11 +168,44 @@ tnoremap <leader><Esc> <C-\><C-n>
 tnoremap <leader>jj <C-\><C-n>
 
 " Easy buffer navigation
-nnoremap <leader>n :bnext<CR>
-nnoremap <leader>p :bprev<CR>
+nnoremap <leader>bn :bnext<CR>
+nnoremap <leader>bp :bprev<CR>
 nnoremap <C-X> :bdelete<CR>
-noremap <leader>b :Buffers<CR>
+noremap <leader>bb :Buffers<CR>
 nnoremap <F2> :buffers<CR>:buffer<Space>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" COLOR
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" :set t_Co=256 " 256 colors
+set t_Co=256
+set t_ut=
+colorscheme codedark
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM-RUBY CONFIGURATION
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Do this:
+"   first
+"     .second do |x|
+"       something
+"     end
+" Not this:
+"   first
+"     .second do |x|
+"     something
+"   end
+:let g:ruby_indent_block_style = 'do'
+" Do this:
+"     x = if condition
+"       something
+"     end
+" Not this:
+"     x = if condition
+"           something
+"         end
+:let g:ruby_indent_assignment_style = 'variable'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
@@ -184,6 +228,7 @@ augroup vimrcEx
 
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
   autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
+  au BufRead,BufNewFile *.md setlocal textwidth=80
 
   " Indent p tags
   " autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
@@ -231,17 +276,6 @@ augroup vimrcEx
 augroup END
 
 " =====
-" COLOR
-" =====
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
-
-color palenight
-
-" =====
 " Tags
 " =====
 
@@ -272,6 +306,7 @@ let g:ale_fixers = {
       \ 'typescript.tsx': ['prettier'],
       \ 'ruby': ['rubocop'],
       \ 'go': ['gofmt', 'goimports'],
+      \ 'dart': ['dartfmt'],
       \ '*': ['remove_trailing_lines', 'trim_whitespace']
       \ }
 let g:ale_lint_on_text_changed = 'normal'
@@ -280,6 +315,9 @@ let g:ale_lint_delay = 0
 let g:ale_set_quickfix = 0
 let g:ale_set_loclist = 0
 let g:ale_javascript_eslint_executable = 'eslint --cache'
+let g:ale_ruby_rubocop_executable = 'bundle'
+let g:ale_fix_on_save = 1
+
 nnoremap gf :ALEFix<cr>
 nnoremap gj :ALENextWrap<cr>
 nnoremap gk :ALEPreviousWrap<cr>
@@ -300,6 +338,8 @@ let g:tsuquyomi_disable_quickfix = 1
 " FZF
 """"""""""""""
 noremap <leader>f :FZF<cr>
+noremap <leader>p :GFiles<cr>
+let g:fzf_layout = { 'down': '40%' }
 
 """"""""""""""
 " NERDTree
@@ -338,11 +378,12 @@ cnoremap <expr> %% expand('%:h').'/'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:test#preserve_screen = 1
 let test#ruby#rspec#executable = 'bundle exec rspec'
-let test#strategy = "vimterminal"
+let test#strategy = "basic"
 
 nnoremap tf :TestFile<cr>
 nnoremap tn :TestNearest<cr>
 nnoremap tl :TestLast<cr>
+map <Leader>z :VimuxZoomRunner<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ack.vim
@@ -419,3 +460,149 @@ function! InsertTabWrapper()
 endfunction
 inoremap <expr> <tab> InsertTabWrapper()
 inoremap <s-tab> <c-n>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NETRW
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:netrw_banner = 0
+let g:netrw_browse_split = 4
+let g:netrew_altv=1
+let g:netrw_liststyle=3
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" InsertTime COMMAND
+" Insert the current time
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+command! InsertTime :normal a<c-r>=strftime('%F %H:%M:%S.0 %z')<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" FindConditionals COMMAND
+" Start a search for conditional branches, both implicit and explicit
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+command! FindConditionals :normal /\<if\>\|\<unless\>\|\<and\>\|\<or\>\|||\|&&<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Md5 COMMAND
+" Show the MD5 of the current buffer
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+command! -range Md5 :echo system('echo '.shellescape(join(getline(<line1>, <line2>), '\n')) . '| md5')
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" OpenChangedFiles COMMAND
+" Open a split for each dirty file in git
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! OpenChangedFiles()
+  only " Close all windows, unless they're modified
+  let status = system('git status -s | grep "^ \?\(M\|A\|UU\)" | sed "s/^.\{3\}//"')
+  let filenames = split(status, "\n")
+  exec "edit " . filenames[0]
+  for filename in filenames[1:]
+    exec "sp " . filename
+  endfor
+endfunction
+command! OpenChangedFiles :call OpenChangedFiles()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RUNNING TESTS
+"
+" Test running here is contextual in two different ways:
+"
+" 1. It will guess at how to run the tests. E.g., if there's a Gemfile
+"    present, it will `bundle exec rspec` so the gems are respected.
+"
+" 2. It remembers which tests have been run. E.g., if I'm editing user_spec.rb
+"    and hit enter, it will run rspec on user_spec.rb. If I then navigate to a
+"    non-test file, like routes.rb, and hit return again, it will re-run
+"    user_spec.rb. It will continue using user_spec.rb as my 'default' test
+"    until I hit enter in some other test file, at which point that test file
+"    is run immediately and becomes the default. This is complex to describe
+"    fully, but simple to use in practice: always hit enter to run tests. It
+"    will run either the test file you're in or the last test file you hit
+"    enter in.
+"
+" 3. Sometimes you want to run just one test. For that, there's <leader>T,
+"    which passes the current line number to the test runner. RSpec knows what
+"    to do with this (it will run the first test it finds at or below the
+"    given line number). It probably won't work with other test runners.
+"    'Focusing' on a single test in this way will be remembered if you hit
+"    enter from non-test files, as described above.
+"
+" 4. Sometimes you don't want contextual test running. In that case, there's
+"    <leader>a, which runs everything.
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! MapCR()
+  nnoremap <cr> :call RunTestFile()<cr>
+endfunction
+call MapCR()
+nnoremap <leader>T :call RunNearestTest()<cr>
+nnoremap <leader>a :call RunTests('')<cr>
+
+function! RunTestFile(...)
+    if a:0
+        let command_suffix = a:1
+    else
+        let command_suffix = ""
+    endif
+
+    " Are we in a test file?
+    let in_test_file = match(expand("%"), '\(_spec.rb\|_test.rb\|test_.*\.py\|_test.py\|.test.ts\|.test.ts\)$') != -1
+
+    " Run the tests for the previously-marked file (or the current file if
+    " it's a test).
+    if in_test_file
+        call SetTestFile(command_suffix)
+    elseif !exists("t:grb_test_file")
+        return
+    end
+    call RunTests(t:grb_test_file)
+endfunction
+
+function! RunNearestTest()
+    let spec_line_number = line('.')
+    call RunTestFile(":" . spec_line_number)
+endfunction
+
+function! SetTestFile(command_suffix)
+    " Set the spec file that tests will be run for.
+    let t:grb_test_file=@% . a:command_suffix
+endfunction
+
+function! RunTests(filename)
+    " Write the file and run tests for the given filename
+    if expand("%") != ""
+      :w
+    end
+    " The file is executable; assume we should run
+    if executable(a:filename)
+      exec ":!./" . a:filename
+    " Project-specific test script
+    elseif filereadable("bin/test")
+      exec ":!bin/test " . a:filename
+    " Rspec binstub
+    elseif filereadable("bin/rspec")
+      exec ":!bin/rspec " . a:filename
+    " Fall back to the .test-commands pipe if available, assuming someone
+    " is reading the other side and running the commands
+    elseif filewritable(".test-commands")
+      let cmd = 'rspec --color --format progress --require "~/lib/vim_rspec_formatter" --format VimFormatter --out tmp/quickfix'
+      exec ":!echo " . cmd . " " . a:filename . " > .test-commands"
+
+      " Write an empty string to block until the command completes
+      sleep 100m " milliseconds
+      :!echo > .test-commands
+      redraw!
+    " Fall back to a blocking test run with Bundler
+    elseif filereadable("bin/rspec")
+      exec ":!bin/rspec --color " . a:filename
+    elseif filereadable("Gemfile") && strlen(glob("spec/**/*.rb"))
+      exec ":!bundle exec rspec --color " . a:filename
+    elseif filereadable("Gemfile") && strlen(glob("test/**/*.rb"))
+      exec ":!bin/rails test " . a:filename
+    " If we see python-looking tests, assume they should be run with Nose
+    elseif strlen(glob("test/**/*.py") . glob("tests/**/*.py"))
+      exec "!nosetests " . a:filename
+    end
+endfunction

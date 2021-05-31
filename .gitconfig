@@ -9,6 +9,7 @@
   excludesfile = ~/.gitignore
 	precomposeUnicode = true
 [diff]
+	colorMoved = zebra
 [color]
     ui = auto
 [color "diff-highlight"]
@@ -39,9 +40,17 @@
 [include]
 	path = /Users/ajorgensen/code/dev-box/dotfiles/gitconfig
 [alias]
-  st = status
+  st = status --short
   ci = commit --verbose
+  ca = commit --amend
+  caa = commit -a --amend
+  br = branch
   co = checkout
+  df = diff
+  lg = log -p --pretty=fuller --abbrev-commit
+  lgg = log --pretty=fuller --abbrev-commit --stat
+  up = pull --rebase
+
   di = diff --find-copies-harder
   dc = diff --find-copies-harder --cached
   amend = commit --amend
@@ -77,7 +86,7 @@
   put = "!git push -u origin $(git branch-name)"
   delete = "!git push origin :$(git branch-name)"
   fix-to-base = "!git rebase -i $(git merge-base $(git branch-name) $(git default-branch))"
-  sync = "!git fetch -p && git rebase origin/$(git main-branch)"
+  sync = "!git fetch -p && git rebase origin/$(git default-branch)"
 
   default-branch = "!git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d/"
   sync-origin = "!git remote set-head origin --auto"
@@ -92,7 +101,11 @@
   diff-branch = "!f() { git diff $(git merge-base $(git default-branch) $1)..$1 ${@:2}; }; f"
   branches-by-date = "!git for-each-ref --sort='-committerdate' --format='%(refname)%09%(committerdate)' refs/heads | sed -e 's-refs/heads/--'"
   branches-sorted = "!git for-each-ref --sort=-committerdate refs/heads/"
-  merged-branches = "!git branch --merged $(git default-branch) | grep -v '$(git default-branch)\\|release-*'"
+  merged-branches = "!git branch --merged $(git default-branch) | grep -v $(git default-branch) | grep -v 'release-*'"
   delete-merged-branches = "!git merged-branches | xargs git branch -d && git remote prune origin"
 
   head = "!git rev-parse --short HEAD"
+[puill]
+	rebase = true
+[fetch]
+	prune = true
