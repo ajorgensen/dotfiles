@@ -1,5 +1,9 @@
 #!/bin/bash
 
+function realpath() {
+  echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
+}
+
 function success () {
   printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
 }
