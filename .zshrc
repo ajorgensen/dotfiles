@@ -193,7 +193,9 @@ if [[ $OSTYPE == darwin* ]]; then
   alias sdk="browse https://github.com/Root-App/root-partner-sdk"
 fi
 
-source "$HOME/.local.zshrc"
-#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+LOCAL_ZSH="$HOME/.local.zshrc"
+if test -f "$LOCAL_ZSH"; then
+  source "$LOCAL_ZSH"
+fi
 
 #zprof
