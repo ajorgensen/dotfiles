@@ -23,7 +23,7 @@ function link_file() {
 
   if [ ! -e "$src" ]; then
     error "Source $src does not exist."
-    return 
+    return
   fi
 
   if [ -e "$dst" ] || [ -h "$dst" ]; then
@@ -36,16 +36,16 @@ function link_file() {
 }
 
 function link_dotfile() {
+  local dotfile_name=$1
   local src=$(realpath $1)
-  local dst_folder=${2:-$HOME} 
-  local dotfile_name=$(basename $src)
+  local dst_folder=${2:-$HOME}
   local dst="$dst_folder/$dotfile_name"
 
   link_file $src $dst
 }
 
 link_dotfile .ackrc
-link_dotfile .fish
+link_dotfile .config/fish
 link_dotfile .gemrc
 link_dotfile .gitconfig
 link_dotfile .gitignore

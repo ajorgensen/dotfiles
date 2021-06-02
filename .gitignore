@@ -22,4 +22,5 @@ TODO.md
 MyMake
 my.code-workspace
 
-/.vim/plugged/
+.vim/plugged/
+.vim/.netrwhist
