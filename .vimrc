@@ -15,6 +15,12 @@ Plug 'vim-test/vim-test'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mileszs/ack.vim'
 
+Plug 'slim-template/vim-slim'
+Plug 'romainl/vim-cool'
+
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
 " =========
 " Languages
 " =========
@@ -181,7 +187,7 @@ nnoremap <F2> :buffers<CR>:buffer<Space>
 " :set t_Co=256 " 256 colors
 set t_Co=256
 set t_ut=
-colorscheme codedark
+colorscheme lucius
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM-RUBY CONFIGURATION

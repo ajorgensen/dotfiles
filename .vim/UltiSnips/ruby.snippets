@@ -16,7 +16,7 @@ describe "$1" do
 end
 endsnippet
 
-snippet newtest
+snippet newspec
 RSpec.describe $1 do
 	$0
 end
@@ -56,4 +56,12 @@ endsnippet
 
 snippet rubygems
 source "https://rubygems.org"
+endsnippet
+
+snippet create_t
+create_table $1, :id => :uuid do |t|
+	$0
+
+	t.timestamps
+end
 endsnippet

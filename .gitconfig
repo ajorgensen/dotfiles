@@ -98,6 +98,7 @@
   cleanup = "!BRANCH=$(git branch-name); f() { git checkout $(git default-branch) && git rmbr $BRANCH; }; f"
   rmremote = !sh -c \"git push origin --delete \\$0\"
 
+  review = "!git diff $(git merge-base $(git default-branch) HEAD)..HEAD"
   diff-branch = "!f() { git diff $(git merge-base $(git default-branch) $1)..$1 ${@:2}; }; f"
   branches-by-date = "!git for-each-ref --sort='-committerdate' --format='%(refname)%09%(committerdate)' refs/heads | sed -e 's-refs/heads/--'"
   branches-sorted = "!git for-each-ref --sort=-committerdate refs/heads/"
