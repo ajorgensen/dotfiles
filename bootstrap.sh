@@ -43,7 +43,7 @@ link_dotfile() {
 
   src=$(pwd -P)/$1
   #dst="$HOME/$1"
-  dst="/tmp/dotfiles/$1"
+  dst="$HOME/$1"
 
   link_file $src $dst
 }
