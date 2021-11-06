@@ -53,7 +53,8 @@ fi
 
 # General
 alias rbgrep="grep --include='*.rb' $*"
-alias ls="ls -lrthGa"
+alias ls="ls -lrthG"
+alias lsa="ls -lrthGa"
 alias sz='source ~/.zshrc'
 alias ez='vi ~/.zshrc'
 alias restart="shutdown -r now"
