@@ -1,0 +1,117 @@
+# FZF
+# fd - cd to selected directory
+fd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+
+# fda - including hidden directories
+fda() {
+  local dir
+  dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
+}
+
+# Grep processes and show headers.
+function psgrep(){ ps -ef | sed -e '1p' -e "/$1/!d" }
+
+# See what is listening on a given port: `whoport 80`
+function whoport(){ lsof -i :$1 } # may need sudo
+
+function git-current-branch-name(){
+  echo $(git status | head -n 1 | awk '{ print $3 }')
+}
+
+function realpath() {
+  echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
+}
+
+function abspath() {
+  echo $(cd $(dirname $1); pwd)
+}
+
+### Functions for setting and getting environment variables from the OSX keychain ###
+# Use: keychain-environment-variable CHEF_PUSH_KEY
+function keychain-environment-variable () {
+    security find-generic-password -w -a ${USER} -D "environment variable" -s "${1}"
+}
+
+# Use: set-keychain-environment-variable CHEF_PUSH_KEY "secret"
+function set-keychain-environment-variable () {
+    [ -n "$1" ] || print "Missing environment variable name"
+    [ -n "$2" ] || print "Missing environment variable value"
+    ( [ -n "$1" ] && [ -n "$2" ] ) || return 1
+    security add-generic-password -U -a ${USER} -D "environment variable" -s "${1}" -w "${2}"
+}
+
+findandcd() {
+  cd $(find . -type d -name $1 | head -n 1)
+}
+alias cdf=findandcd
+
+# Grep processes and show headers.
+function psgrep(){ ps -ef | sed -e '1p' -e "/$1/!d" }
+
+# See what is listening on a given port: `whoport 80`
+function whoport(){ lsof -i :$1 } # may need sudo
+# Set git remote
+function set-git-remote(){
+  git branch --set-upstream-to=origin/$1 $1
+}
+alias gsr=set-git-remote
+
+function git-current-branch-name(){
+  echo $(git status | head -n 1 | awk '{ print $3 }')
+}
+
+# Set git remote
+function set-git-remote-current-branch(){
+  set-git-remote $(git-current-branch-name)
+}
+alias gtr=set-git-remote-current-branch
+
+for bname in 'rspec' 'rails'
+do
+  eval "be${bname}() { bundle exec ${bname} }"
+done
+
+realpath() {
+  echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
+}
+
+abspath() {
+  echo $(cd $(dirname $1); pwd)
+}
+
+function link() {
+  ln -s $(realpath $1) $(realpath $2)
+}
+
+function regex {
+  gawk 'match($0,/'$1'/, ary) {print ary['${2:-'0'}']}';
+}
+
+# This is necessary for tab complete to work with git aliases defined in ~/.gitconfig
+function _git_rmbr() {
+  _git_branch
+}
+
+# Allows commit message without typing quotes (can't have quotes in the commit msg though).
+function gc {
+  git commit -m "$*"
+}
+
+### Functions for setting and getting environment variables from the OSX keychain ###
+# Use: keychain-environment-variable CHEF_PUSH_KEY
+function keychain-environment-variable () {
+    security find-generic-password -w -a ${USER} -D "environment variable" -s "${1}"
+}
+
+# Use: set-keychain-environment-variable CHEF_PUSH_KEY "secret"
+function set-keychain-environment-variable () {
+    [ -n "$1" ] || print "Missing environment variable name"
+    [ -n "$2" ] || print "Missing environment variable value"
+    ( [ -n "$1" ] && [ -n "$2" ] ) || return 1
+    security add-generic-password -U -a ${USER} -D "environment variable" -s "${1}" -w "${2}"
+}

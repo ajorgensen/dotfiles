@@ -1,20 +1,3 @@
-function fish_prompt --description 'Write out the prompt'
-
-  set -l last_status $status
-
-  set_color $fish_color_cwd
-  echo -n (prompt_pwd)
-  set_color normal
-
-  __informative_git_prompt
-
-  if not test $last_status -eq 0
-    set_color $fish_color_error
-  end
-
-  echo -n ' $ '
-end
-
 alias sz "source $HOME/.config/fish/config.fish"
 alias gs "git staus"
 alias be "bundle exec"
@@ -44,6 +27,7 @@ alias vi "vim"
 alias fixup "gaa; gc f; grim"
 alias restart "shutdown -r now"
 alias sysup "brew update && brew upgrade; brew cleanup"
+alias rs "bundle exec rails server"
 
 function fbranch -d "Fuzzy-find and checkout a branch"
   git branch --all | grep -v HEAD | string trim | fzf | read -l result; and git checkout "$result"
@@ -59,14 +43,17 @@ end
 
 set -g GOPATH $HOME/src/golang $HOME/go
 set -g CDPATH . $HOME $HOME/code $GOPATH
-set -gx PATH $HOME/bin $HOME/go/bin $HOME/.cargo/bin $PATH
+set -gx PATH $HOME/bin $HOME/sbin $HOME/go/bin $HOME/.cargo/bin $PATH
 
 set fish_greeting
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/ajorgensen/google-cloud-sdk/path.fish.inc' ]; . '/Users/ajorgensen/google-cloud-sdk/path.fish.inc'; end
+
+# FZF
+set -gx FZF_DEFAULT_COMMAND 'ag --nocolor --ignore node_modules -g ""'
 
 if test -e ~/.local.fish
   source ~/.local.fish
 end
 set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/ajorgensen/google-cloud-sdk/path.fish.inc' ]; . '/Users/ajorgensen/google-cloud-sdk/path.fish.inc'; end
