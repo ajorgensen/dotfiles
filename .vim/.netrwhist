@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =8
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/Users/ajorgensen/src/dotfiles'
 let g:netrw_dirhist_8='/Users/ajorgensen/code/root-monorepo/server/config/initializers'
 let g:netrw_dirhist_7='/Users/ajorgensen/code/dotfiles'
 let g:netrw_dirhist_6='/Users/ajorgensen/code/root-embedded-fauxclient/pages/api/bind_profiles'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_3='/Users/ajorgensen/code/root-embedded-fauxclient/pages'
 let g:netrw_dirhist_2='/Users/ajorgensen/code/root-embedded-fauxclient'
 let g:netrw_dirhist_1='/Users/ajorgensen/code/root-embedded-fauxclient/.git'
 let g:netrw_dirhist_0='/Users/ajorgensen/code/root-monorepo/.git'
-let g:netrw_dirhist_9='/Users/ajorgensen/code/root-monorepo/server/systems/quoting/bind_api/config/swagger/paths'

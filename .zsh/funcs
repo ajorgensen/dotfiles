@@ -23,9 +23,9 @@ function git-current-branch-name(){
   echo $(git status | head -n 1 | awk '{ print $3 }')
 }
 
-function realpath() {
-  echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
-}
+#function realpath() {
+#  echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
+#}
 
 function abspath() {
   echo $(cd $(dirname $1); pwd)
