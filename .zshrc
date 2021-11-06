@@ -1,8 +1,6 @@
 #zmodload zsh/zprof
 
-fpath+=$HOME/.zsh/pure
-
-# Set custom prompt
+fpath+=$HOME/.zsh/plugins/pure
 autoload -U promptinit; promptinit
 prompt pure
 
