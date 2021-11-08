@@ -21,6 +21,8 @@ Plug 'romainl/vim-cool'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
+Plug 'kshenoy/vim-signature'
+
 " =========
 " Languages
 " =========
@@ -125,8 +127,6 @@ set re=1
 let g:omni_sql_no_default_maps = 1
 " Diffs are shown side-by-side not above/below
 set diffopt=vertical
-" Always show the sign column
-set signcolumn=no
 " Write swap files to disk and trigger CursorHold event faster (default is
 " after 4000 ms of inactivity)
 set updatetime=200
