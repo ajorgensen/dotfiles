@@ -4,6 +4,16 @@ fpath+=$HOME/.zsh/plugins/pure
 autoload -U promptinit; promptinit
 prompt pure
 
+# miniplug
+source "$HOME/.zsh/plugins/miniplug.zsh"
+
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#8a8a8a"
+
+miniplug plugin 'davidparsson/zsh-nvm-lazy'
+miniplug plugin 'zsh-users/zsh-autosuggestions'
+
+miniplug load
+
 # Add paths
 export PATH=$PATH:"$HOME/sbin":$HOME/bin
 export GOPATH="$HOME/go"
@@ -43,16 +53,6 @@ source $HOME/.zsh/aliases
 
 # Funcs
 source $HOME/.zsh/funcs
-
-# miniplug
-source "$HOME/.zsh/plugins/miniplug.zsh"
-
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#8a8a8a"
-
-miniplug plugin 'davidparsson/zsh-nvm-lazy'
-miniplug plugin 'zsh-users/zsh-autosuggestions'
-
-miniplug load
 
 include () {
     [[ -f "$1" ]] && source "$1"
