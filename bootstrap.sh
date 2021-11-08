@@ -42,21 +42,20 @@ link_dotfile() {
   local overwrite_all=false backup_all=false skip_all=false
 
   src=$(pwd -P)/$1
-  #dst="$HOME/$1"
-  dst="$HOME/$1"
+  dst="$HOME/$2"
 
   link_file $src $dst
 }
 
-link_dotfile .ackrc
-link_dotfile .config/fish
-link_dotfile .gemrc
-link_dotfile .gitconfig
-link_dotfile .gitignore
-link_dotfile .tmux.conf
-link_dotfile .vim
-link_dotfile .vimrc
-link_dotfile .zsh
-link_dotfile .zshenv
-link_dotfile .zshrc
-link_dotfile bin
+link_dotfile ackrc .ackrc
+link_dotfile config/fish .config/fish
+link_dotfile gemrc .gemrc
+link_dotfile gitconfig .gitconfig
+link_dotfile gitignore .gitignore
+link_dotfile tmux.conf .tmux.conf
+link_dotfile vim .vim
+link_dotfile vimrc .vimrc
+link_dotfile zsh .zsh
+link_dotfile zshenv .zshenc
+link_dotfile zshrc .zshrc
+link_dotfile bin bin

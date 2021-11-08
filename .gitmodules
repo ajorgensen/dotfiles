@@ -1,6 +1,3 @@
-[submodule "platforms/shared/zsh/zsh-git-prompt"]
-	path = platforms/shared/zsh/zsh-git-prompt
-	url = https://github.com/starcraftman/zsh-git-prompt.git
 [submodule ".zsh/plugins/pure"]
-	path = .zsh/plugins/pure
+	path = zsh/plugins/pure
 	url = https://github.com/sindresorhus/pure.git

@@ -35,6 +35,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'tomasiser/vim-code-dark'
+Plug 'arcticicestudio/nord-vim'
 
 " =====
 " tpope
@@ -187,7 +188,16 @@ nnoremap <F2> :buffers<CR>:buffer<Space>
 " :set t_Co=256 " 256 colors
 set t_Co=256
 set t_ut=
-colorscheme lucius
+set bg=dark
+
+" Prevent colorschemes from changing background color of screen, line
+" numbers or current line
+autocmd ColorScheme * hi Normal ctermbg=NONE guibg=NONE
+autocmd ColorScheme * hi CursorLine cterm=None ctermbg=Black ctermfg=None
+autocmd ColorScheme * hi CursorLineNr ctermbg=Black ctermfg=None
+autocmd ColorScheme * hi LineNr cterm=None ctermbg=None ctermfg=DarkGray
+
+colorscheme nord
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM-RUBY CONFIGURATION
