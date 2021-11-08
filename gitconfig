@@ -88,6 +88,7 @@
   l = log --pretty=oneline -n 20 --graph --abbrev-commit
   s = status -s
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+  co = !git checkout
 
   ca = !git add -A && git commit -av
   go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
