@@ -5,7 +5,7 @@ autoload -U promptinit; promptinit
 prompt pure
 
 # Add paths
-export PATH=$PATH:"$HOME/sbin"
+export PATH=$PATH:"$HOME/sbin":$HOME/bin
 export GOPATH="$HOME/go"
 export PATH=$PATH:"$GOPATH/bin"
 
