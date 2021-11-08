@@ -59,10 +59,3 @@ brew tap heroku/brew && brew install heroku
 
 # Source code Pro
 brew Tap homebrew/cask-fonts && brew install --cask font-source-code-pro
-
-# Don't animate windows opening. This is different from applications opening.
-# This applies when, for example, you have a running instance of Chrome or
-# TextEdit and hit Cmd-N.
-#
-# Last verified working: 2020-04-27
-defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool NO
