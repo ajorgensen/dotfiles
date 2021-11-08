@@ -47,6 +47,10 @@ link_dotfile() {
   link_file $src $dst
 }
 
+info "Updating submodules"
+git submodule update --init --recursive
+success "Submodules updated"
+
 link_dotfile ackrc .ackrc
 link_dotfile config/fish .config/fish
 link_dotfile gemrc .gemrc
