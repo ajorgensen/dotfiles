@@ -12,16 +12,15 @@ Plug 'junegunn/fzf.vim'
 Plug 'romainl/vim-cool'
 Plug 'w0rp/ale'
 Plug 'vim-test/vim-test'
-Plug 'jiangmiao/auto-pairs'
 Plug 'mileszs/ack.vim'
 
 Plug 'slim-template/vim-slim'
 Plug 'romainl/vim-cool'
 
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 Plug 'kshenoy/vim-signature'
+Plug 'preservim/nerdtree'
 
 " =========
 " Languages

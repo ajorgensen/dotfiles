@@ -22,6 +22,9 @@ export PATH=$PATH:"$GOPATH/bin"
 # FZF
 export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
 
+# Ruby
+eval "$(rbenv init - zsh)"
+
 # Colorize terminalA
 alias ls='ls -G'
 alias ll='ls -lG'
