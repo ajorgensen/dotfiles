@@ -6,15 +6,9 @@
 
   autocorrect = 1
 
-[user]
+[include]
 
-  name = Andrew Jorgensen
-  email = andrew@andrewjorgensen.com
-  signingkey = B10424F37FA56977
-
-[github]
-
-  user = ajorgensen
+  path = .gituser
 
 [core]
 

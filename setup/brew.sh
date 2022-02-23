@@ -35,6 +35,7 @@ brew install jpeg
 brew install lame
 brew install lua
 brew install md5sha1sum
+brew install meetingbar
 brew install multimarkdown
 brew install nvm
 brew install offlineimap
