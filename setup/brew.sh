@@ -72,8 +72,6 @@ brew install --cask caffeine
 brew install --cask discord
 brew install --cask docker
 brew install --cask iterm2
-brew install --cask keybase
-brew install --cask macdown
 brew install --cask obsidian
 brew install --cask rstudio
 brew install --cask slack
@@ -81,4 +79,3 @@ brew install --cask spotify
 brew install --cask todoist
 brew install --cask visual-studio-code
 brew install --cask vlc
-brew install --cask gpg-suite-no-mail
