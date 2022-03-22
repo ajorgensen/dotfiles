@@ -19,8 +19,6 @@ export PATH=$PATH:"$HOME/sbin":$HOME/bin
 export GOPATH="$HOME/go"
 export PATH=$PATH:"$GOPATH/bin"
 
-export GPG_TTY=$(tty)
-
 # FZF
 export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
 

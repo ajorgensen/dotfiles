@@ -10,6 +10,7 @@ fi
 
 brew update
 
+
 brew install ag
 brew install chruby
 brew install colordiff
@@ -40,6 +41,7 @@ brew install multimarkdown
 brew install nvm
 brew install offlineimap
 brew install par2
+brew install pinentry-mac
 brew install pngquant
 brew install postgresql
 brew install pstree
@@ -59,7 +61,6 @@ brew install tree
 brew install vim
 brew install wget
 brew install zsh
-
 # Source code Pro
 brew Tap homebrew/cask-fonts && brew install --cask font-source-code-pro
 
