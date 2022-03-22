@@ -68,7 +68,7 @@
 [commit]
 
   gpgsign = true
-	verbose = true
+  verbose = true
 
 [filter "lfs"]
 
