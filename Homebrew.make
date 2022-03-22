@@ -1,0 +1,83 @@
+BREW := /opt/homebrew/bin/brew
+PACKAGE = brew list --versions $(1) > /dev/null || brew install $(1)$(2)
+CASK = brew list --cask $(1) > /dev/null 2>&1 || brew install --cask $(1)
+
+$(BREW):
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+all-brew: brew taps packages casks
+
+brew: | $(BREW)
+	brew update
+
+taps: | brew
+	brew tap homebrew/cask
+	brew tap homebrew/cask-fonts
+
+casks: | brew
+	$(call CASK, alfred)
+	$(call CASK, bettertouchtool)
+	$(call CASK, bitwarden)
+	$(call CASK, caffeine)
+	$(call CASK, discord)
+	$(call CASK, docker)
+	$(call CASK, font-source-code-pro)
+	$(call CASK, iterm2)
+	$(call CASK, obsidian)
+	$(call CASK, rstudio)
+	$(call CASK, slack)
+	$(call CASK, spotify)
+	$(call CASK, todoist)
+	$(call CASK, visual-studio-code)
+	$(call CASK, vlc)
+
+packages: | brew
+	$(call PACKAGE, ag)
+	$(call PACKAGE, colordiff)
+	$(call PACKAGE, coreutils)
+	$(call PACKAGE, coreutils)
+	$(call PACKAGE, diff-so-fancy)
+	$(call PACKAGE, dust)
+	$(call PACKAGE, fd)
+	$(call PACKAGE, ffmpeg)
+	$(call PACKAGE, findutils)
+	$(call PACKAGE, fswatch)
+	$(call PACKAGE, ghc)
+	$(call PACKAGE, git)
+	$(call PACKAGE, git-lfs)
+	$(call PACKAGE, gnupg)
+	$(call PACKAGE, golang)
+	$(call PACKAGE, graphviz)
+	$(call PACKAGE, grep)
+	$(call PACKAGE, htop)
+	$(call PACKAGE, hub)
+	$(call PACKAGE, imagemagick)
+	$(call PACKAGE, jpeg)
+	$(call PACKAGE, lame)
+	$(call PACKAGE, lua)
+	$(call PACKAGE, md5sha1sum)
+	$(call PACKAGE, multimarkdown)
+	$(call PACKAGE, nvm)
+	$(call PACKAGE, offlineimap)
+	$(call PACKAGE, par2)
+	$(call PACKAGE, pinentry-mac)
+	$(call PACKAGE, pngquant)
+	$(call PACKAGE, postgresql)
+	$(call PACKAGE, pstree)
+	$(call PACKAGE, python3)
+	$(call PACKAGE, r)
+	$(call PACKAGE, rbenv)
+	$(call PACKAGE, reattach-to-user-namespace)
+	$(call PACKAGE, rename)
+	$(call PACKAGE, rsync)
+	$(call PACKAGE, ruby)
+	$(call PACKAGE, ruby-install)
+	$(call PACKAGE, selecta)
+	$(call PACKAGE, svn)
+	$(call PACKAGE, tig)
+	$(call PACKAGE, tmux)
+	$(call PACKAGE, tokei)
+	$(call PACKAGE, tree)
+	$(call PACKAGE, vim)
+	$(call PACKAGE, wget)
+	$(call PACKAGE, zsh)
