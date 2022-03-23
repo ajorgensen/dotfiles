@@ -73,6 +73,8 @@ packages: | brew
 	$(call PACKAGE, ruby)
 	$(call PACKAGE, ruby-install)
 	$(call PACKAGE, selecta)
+	$(call PACKAGE, shellcheck)
+	$(call PACKAGE, shfmt)
 	$(call PACKAGE, svn)
 	$(call PACKAGE, tig)
 	$(call PACKAGE, tmux)
