@@ -91,6 +91,7 @@
 
   branch-name = "!git rev-parse --abbrev-ref HEAD"
   done = "!BRANCH=$(git branch-name); f() { git checkout $(git default-branch) && git branch -D $BRANCH; }; f"
+  default-branch = "!git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d/"
 
   tags = tag -l
   branches = branch --all
