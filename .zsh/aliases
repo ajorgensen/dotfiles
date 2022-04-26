@@ -21,7 +21,7 @@ alias rs="bundle exec rails server"
 alias dbreset="bundle exec rake db:drop db:create db:migrate db:seed db:test:prepare"
 
 # Git
-alias fbranch='git co $(git branch | fzf)'
+alias fbranch='git co $(git branch --sort=-committerdate | fzf)'
 alias g='git'
 alias gaa="git add --all"
 alias gap="git add --patch"
@@ -31,6 +31,9 @@ alias gp="git put"
 alias gpf="git put -f"
 alias gpull="git pull"
 alias gs="git status"
+
+# tmux
+#alias tm='tmux new -A -s'
 
 # Vim
 alias v="vim"
