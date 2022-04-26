@@ -4,6 +4,10 @@ fpath+=$HOME/.zsh/plugins/pure
 autoload -U promptinit; promptinit
 prompt pure
 
+# Initialize completion
+autoload -U compinit
+compinit -D
+
 # miniplug
 source "$HOME/.zsh/plugins/miniplug.zsh"
 
@@ -11,6 +15,9 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#8a8a8a"
 
 miniplug plugin 'davidparsson/zsh-nvm-lazy'
 miniplug plugin 'zsh-users/zsh-autosuggestions'
+miniplug plugin 'zsh-users/zsh-completions'
+miniplug plugin 'zsh-users/zsh-syntax-highlighting'
+miniplug plugin 'unixorn/fzf-zsh-plugin'
 
 miniplug load
 
@@ -63,3 +70,7 @@ include () {
 include "$HOME/.local.zshrc"
 
 #zprof
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

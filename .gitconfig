@@ -99,7 +99,12 @@
 
   aliases = config --get-regexp alias
 
-	amend = commit --amend --reuse-message=HEAD
+  gone = "!git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D $branch"
+  down = "!BRANCH=$(git branch-name); f() { git checkout $(git default-branch) && git gone; }; f"
+
+  sync = "!git fetch && git rebase origin/$(git default-branch)"
+
+  amend = commit --amend --reuse-message=HEAD
 
   reb = "!r() { git rebase -i HEAD~$1; }; r"
 
