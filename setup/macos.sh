@@ -16,6 +16,10 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # General UI/UX                                                               #
 ###############################################################################
 
+# Hide desktop icons
+defaults write com.apple.finder CreateDesktop false
+killall Finder
+
 # Don't animate windows opening. This is different from applications opening.
 # This applies when, for example, you have a running instance of Chrome or
 # TextEdit and hit Cmd-N.

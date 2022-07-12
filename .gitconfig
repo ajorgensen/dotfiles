@@ -87,7 +87,7 @@
   ca = !git add -A && git commit -av
   go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
-  put = push origin HEAD
+  put = push -u origin HEAD
 
   branch-name = "!git rev-parse --abbrev-ref HEAD"
   done = "!BRANCH=$(git branch-name); f() { git checkout $(git default-branch) && git branch -D $BRANCH; }; f"
