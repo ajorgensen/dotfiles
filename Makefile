@@ -2,7 +2,7 @@ include Homebrew.make
 
 TOPLEVEL := $(shell git rev-parse --show-toplevel)
 
-SYMLINK_FILES = .vimrc .zshrc .zshenv .tmux.conf .gitconfig .ackrc .vim .zsh .config/fish bin 
+SYMLINK_FILES = .vimrc .zshrc .zshenv .tmux.conf .gitconfig .ackrc .vim .zsh .config/fish .config/nvim bin
 SYMLINKS = $(foreach file,$(SYMLINK_FILES),$(HOME)/$(file))
 
 $(HOME)/%: %
