@@ -64,6 +64,10 @@ source $HOME/.zsh/aliases
 # Funcs
 source $HOME/.zsh/funcs
 
+# Java
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
 include () {
     [[ -f "$1" ]] && source "$1"
 }
