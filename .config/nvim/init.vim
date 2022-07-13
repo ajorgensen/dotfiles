@@ -29,6 +29,7 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'leafgarland/typescript-vim'
 Plug 'Quramy/tsuquyomi'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " =====
 " colors
