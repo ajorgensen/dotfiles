@@ -425,13 +425,13 @@ endfunction
 map <leader>rn :call RenameFile()<cr>
 
 " Automatically reload .vimrc file on save
-augroup myvimrc
+augroup mynvimrc
   au!
-  au BufWritePost .vimrc so ~/.vimrc
+  au BufWritePost .vimrc so ~/.config/nvim/init.vim
 augroup END
 
 " Shortcuts for frequently accessed files
-command! Vimrc e ~/.vimrc
+command! NVimrc e ~/.config/nvim/init.vim
 command! Zshrc e ~/.zshrc
 command! Gitconfig e ~/.gitconfig
 
