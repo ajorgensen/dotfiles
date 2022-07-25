@@ -5,11 +5,12 @@ return require('packer').startup(function()
   use { "junegunn/fzf", run = ":call fzf#install()" }
   use "junegunn/fzf.vim"
 
-  use "kyoh86/vim-ripgrep"
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = { {'nvim-lua/plenary.nvim'} }
+  }
 
-  -- language support
-  use 'ray-x/go.nvim'
-  use 'ray-x/guihua.lua' -- recommanded if need floating window support
+  use 'BurntSushi/ripgrep'
 
   use {
     'nvim-treesitter/nvim-treesitter',
@@ -17,6 +18,12 @@ return require('packer').startup(function()
   }
 
   use 'neovim/nvim-lspconfig'
+  use { 'ms-jpq/coq_nvim', branch = 'coq' }
+
+  -- languages
+  use 'ray-x/go.nvim'
+  use 'ray-x/guihua.lua'
+  use { 'neoclide/coc.nvim', branch =  'release' }
 
   -- tpope
   use 'tpope/vim-fugitive'

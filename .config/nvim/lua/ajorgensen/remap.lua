@@ -13,3 +13,9 @@ nnoremap("<c-l>", "<c-w>l")
 vim.g.fzf_layout = { down = '40%' }
 nnoremap("<leader>f", ":FZF<cr>")
 nnoremap("<leader>p", ":GFiles<cr>")
+
+-- Telescope
+nnoremap("<leader>ff", "<cmd>Telescope find_files<cr>")
+nnoremap("<leader>fg", "<cmd>Telescope live_grep<cr>")
+nnoremap("<leader>fb", "<cmd>Telescope buffers<cr>")
+nnoremap("<leader>fh", "<cmd>Telescope help_tags<cr>")

@@ -7,7 +7,7 @@ local function bind(op, outer_opts)
       outer_opts, 
       opts or {}
     )
-    vim .keymap.set(op, lhs, rhs, opts)
+    vim.keymap.set(op, lhs, rhs, opts)
   end
 end
 
