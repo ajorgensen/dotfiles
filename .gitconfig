@@ -104,7 +104,7 @@
 
   sync = "!git fetch && git rebase origin/$(git default-branch)"
 
-  change-stats = "!git diff HEAD --numstat | awk '{ added += $1; removed += $2 } END { print \"+\" added \" -\" removed }'"
+  change-stats = "!git diff origin...HEAD --numstat | awk '{ added += $1; removed += $2 } END { print \"+\" added \" -\" removed }'"
 
   amend = commit --amend --reuse-message=HEAD
 
