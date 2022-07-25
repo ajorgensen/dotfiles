@@ -1,0 +1,15 @@
+local nnoremap = require("ajorgensen.keymap").nnoremap
+
+nnoremap("<leader>pv", "<cmd>Ex<CR>")
+nnoremap("<leader>sz", "<cmd>source $MYVIMRC<CR>")
+
+-- Move around splits with <c-hjkl>
+nnoremap("<c-j>", "<c-w>j")
+nnoremap("<c-k>", "<c-w>k")
+nnoremap("<c-h>", "<c-w>h")
+nnoremap("<c-l>", "<c-w>l")
+
+-- FZF
+vim.g.fzf_layout = { down = '40%' }
+nnoremap("<leader>f", ":FZF<cr>")
+nnoremap("<leader>p", ":GFiles<cr>")
