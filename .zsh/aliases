@@ -62,3 +62,4 @@ alias sz='source ~/.zshrc'
 alias ez='vi ~/.zshrc'
 alias restart="shutdown -r now"
 alias tmpdir='pushd $(mktemp -d)'
+alias unzip 'atool --extract --explain $1'

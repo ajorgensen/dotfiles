@@ -33,10 +33,12 @@ casks: | brew
 
 packages: | brew
 	$(call PACKAGE, ag)
+	$(call PACKAGE, atool)
 	$(call PACKAGE, colordiff)
 	$(call PACKAGE, coreutils)
 	$(call PACKAGE, coreutils)
 	$(call PACKAGE, diff-so-fancy)
+	$(call PACKAGE, docker-compose)
 	$(call PACKAGE, dust)
 	$(call PACKAGE, fd)
 	$(call PACKAGE, ffmpeg)
