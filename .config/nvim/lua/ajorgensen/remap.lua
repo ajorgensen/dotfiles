@@ -10,9 +10,9 @@ nnoremap("<c-h>", "<c-w>h")
 nnoremap("<c-l>", "<c-w>l")
 
 -- FZF
-vim.g.fzf_layout = { down = '40%' }
-nnoremap("<leader>f", ":FZF<cr>")
-nnoremap("<leader>p", ":GFiles<cr>")
+--vim.g.fzf_layout = { down = '40%' }
+--nnoremap("<leader>f", ":FZF<cr>")
+--nnoremap("<leader>p", ":GFiles<cr>")
 
 -- Telescope
 nnoremap("<leader>ff", "<cmd>Telescope find_files<cr>")
