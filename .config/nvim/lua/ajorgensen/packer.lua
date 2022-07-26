@@ -24,6 +24,9 @@ return require('packer').startup(function()
   use 'ray-x/go.nvim'
   use 'ray-x/guihua.lua'
   use { 'neoclide/coc.nvim', branch =  'release' }
+  use 'udalov/kotlin-vim'
+  use 'zchee/vim-flatbuffers'
+  use 'uarun/vim-protobuf'
 
   -- tpope
   use 'tpope/vim-fugitive'

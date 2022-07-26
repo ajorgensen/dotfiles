@@ -8,6 +8,7 @@
   ],
   "tsserver.formatOnType": true,
   "coc.preferences.formatOnType": true,
+  "kotlin.trace.server": "verbose",
   "languageserver": {
     "go": {
       "command": "gopls",
