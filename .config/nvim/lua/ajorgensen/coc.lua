@@ -21,4 +21,6 @@ vim.g.coc_global_extensions = {
   'coc-eslint',
   'coc-prettier',
   'coc-go',
+  'coc-java',
+  'coc-kotlin'
 }
