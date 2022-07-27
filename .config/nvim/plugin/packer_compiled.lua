@@ -164,6 +164,11 @@ _G.packer_plugins = {
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/vim-projectionist",
     url = "https://github.com/tpope/vim-projectionist"
   },
+  ["vim-protobuf"] = {
+    loaded = true,
+    path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/vim-protobuf",
+    url = "https://github.com/uarun/vim-protobuf"
+  },
   ["vim-rhubarb"] = {
     loaded = true,
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/vim-rhubarb",
