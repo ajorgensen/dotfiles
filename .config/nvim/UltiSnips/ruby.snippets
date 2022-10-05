@@ -1,0 +1,67 @@
+snippet pry
+require 'pry'; binding.pry
+endsnippet
+
+snippet sh
+require 'spec_helper'
+endsnippet
+
+snippet rh
+require 'rails_helper'
+endsnippet
+
+snippet desc
+describe "$1" do
+	$0
+end
+endsnippet
+
+snippet newspec
+RSpec.describe $1 do
+	$0
+end
+endsnippet
+
+snippet rhelper
+require "rails_helper"
+$0
+endsnippet
+
+snippet it
+it "$1" do
+end
+endsnippet
+
+snippet pit
+it "$1"$0
+endsnippet
+
+snippet context
+context "$1" do
+	$0
+end
+endsnippet
+
+snippet [' "Square brackets with quotes" i
+['$1']$0
+endsnippet
+
+snippet [" "Square brakcets double quotes" i
+["$1"]$0
+endsnippet
+
+snippet [: "Square brackets symbol" i
+[:$1]$0
+endsnippet
+
+snippet rubygems
+source "https://rubygems.org"
+endsnippet
+
+snippet create_t
+create_table $1, :id => :uuid do |t|
+	$0
+
+	t.timestamps
+end
+endsnippet

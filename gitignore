@@ -21,6 +21,8 @@ tmux.sh
 TODO.md
 MyMake
 my.code-workspace
+git-ignore
 
 .vim/plugged
 .vscode
+__debug_bin
