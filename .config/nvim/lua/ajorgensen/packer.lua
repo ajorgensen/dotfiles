@@ -18,15 +18,17 @@ return require('packer').startup(function()
   }
 
   use 'neovim/nvim-lspconfig'
-  use { 'ms-jpq/coq_nvim', branch = 'coq' }
+
+  use 'scrooloose/nerdtree'
 
   -- languages
   use 'ray-x/go.nvim'
   use 'ray-x/guihua.lua'
-  use { 'neoclide/coc.nvim', branch =  'release' }
   use 'udalov/kotlin-vim'
   use 'zchee/vim-flatbuffers'
   use 'uarun/vim-protobuf'
+  use { 'neoclide/coc.nvim', branch = 'release' }
+  use 'SirVer/ultisnips'
 
   -- tpope
   use 'tpope/vim-fugitive'
