@@ -37,4 +37,7 @@ return require('packer').startup(function()
   use 'tpope/vim-projectionist'
   use 'tpope/vim-rhubarb'
   use 'tpope/vim-dispatch'
+
+  -- aesthetics
+  use 'vim-airline/vim-airline'
 end)
