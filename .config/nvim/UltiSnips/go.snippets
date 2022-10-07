@@ -13,3 +13,17 @@ func $1(w http.ResponseWriter, r *http.Request) {
 	$0
 }
 endsnippet
+
+snippet mainf "main boilerplat"
+package main
+
+import "fmt"
+
+func main() {
+	$0fmt.Println("Hello World")
+}
+endsnippet
+
+snippet pf "debug print statment"
+fmt.Printf("$1: %+v", $0)
+endsnippet	
