@@ -6,3 +6,4 @@ require("ajorgensen.autocmd")
 
 require("ajorgensen.go")
 require("ajorgensen.coc")
+require("ajorgensen.telescope")
