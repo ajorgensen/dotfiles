@@ -38,10 +38,7 @@ return require('packer').startup(function()
   use 'tpope/vim-dispatch'
 
   -- aesthetics
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-  }
+  use 'nvim-lualine/lualine.nvim'
   use 'arcticicestudio/nord-vim'
   use "EdenEast/nightfox.nvim"
 end)
