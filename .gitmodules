@@ -4,3 +4,6 @@
 [submodule ".config/nvim/start/packer.nvim"]
 	path = .config/nvim/start/packer.nvim
 	url = git@github.com:wbthomason/packer.nvim.git
+[submodule "configs/nightfox.nvim"]
+	path = configs/nightfox.nvim
+	url = git@github.com:EdenEast/nightfox.nvim.git
