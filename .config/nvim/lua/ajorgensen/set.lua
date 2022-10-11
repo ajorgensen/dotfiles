@@ -17,6 +17,10 @@ vim.opt.number = true
 vim.opt.smartindent = true
 vim.opt.wrap = false
 
+-- Write swap files to disk and trigger CursorHold event faster (default is
+-- after 4000 ms of inactivity)
+vim.opt.updatetime = 200
+
 vim.cmd[[filetype plugin indent on"]]
 
 -- Highlight the 120th column
@@ -25,5 +29,4 @@ vim.opt.colorcolumn = "120"
 
 -- colors
 vim.opt.background = "dark"
-
-vim.cmd("colorscheme nordfox")
+vim.cmd("colorscheme carbonfox")
