@@ -9,6 +9,8 @@ nnoremap("<c-k>", "<c-w>k")
 nnoremap("<c-h>", "<c-w>h")
 nnoremap("<c-l>", "<c-w>l")
 
+nnoremap("<leader>w", "<cmd>w<cr>")
+
 -- FZF
 --vim.g.fzf_layout = { down = '40%' }
 --nnoremap("<leader>f", ":FZF<cr>")

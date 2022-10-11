@@ -1,6 +1,5 @@
 return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
-  use 'arcticicestudio/nord-vim'
 
   use { "junegunn/fzf", run = ":call fzf#install()" }
   use "junegunn/fzf.vim"
@@ -22,13 +21,13 @@ return require('packer').startup(function()
   use 'scrooloose/nerdtree'
 
   -- languages
-  use 'ray-x/go.nvim'
-  use 'ray-x/guihua.lua'
+  use 'ray-x/go.nvim' use 'ray-x/guihua.lua'
   use 'udalov/kotlin-vim'
   use 'zchee/vim-flatbuffers'
   use 'uarun/vim-protobuf'
   use { 'neoclide/coc.nvim', branch = 'release' }
   use 'SirVer/ultisnips'
+  use 'tree-sitter/tree-sitter-go'
 
   -- tpope
   use 'tpope/vim-fugitive'
@@ -39,5 +38,10 @@ return require('packer').startup(function()
   use 'tpope/vim-dispatch'
 
   -- aesthetics
-  use 'vim-airline/vim-airline'
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
+  use 'arcticicestudio/nord-vim'
+  use "EdenEast/nightfox.nvim"
 end)

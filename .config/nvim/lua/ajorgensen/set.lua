@@ -22,3 +22,8 @@ vim.cmd[[filetype plugin indent on"]]
 -- Highlight the 120th column
 vim.cmd[[highlight ColorColumn ctermbg=0 guibg=lightgrey]]
 vim.opt.colorcolumn = "120"
+
+-- colors
+vim.opt.background = "dark"
+
+vim.cmd("colorscheme nordfox")
