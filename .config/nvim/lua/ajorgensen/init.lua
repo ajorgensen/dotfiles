@@ -1,12 +1,12 @@
-require("ajorgensen.packer")
 require("ajorgensen.set")
-
 require("ajorgensen.remap")
 require("ajorgensen.autocmd")
 
-require("ajorgensen.coq")
-
-require("ajorgensen.go")
+require("ajorgensen.packer")
 require("ajorgensen.telescope")
 require("ajorgensen.lualine")
-require("ajorgensen.lsp")
+
+-- langauge support
+require("ajorgensen.mason")
+require("ajorgensen.coq")
+require("ajorgensen.go")
