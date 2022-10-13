@@ -13,11 +13,14 @@ return require('packer').startup(function()
 
   -- language support
   use {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+  }
+  use {
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
   }
-  use 'neovim/nvim-lspconfig'
-  -- use { 'neoclide/coc.nvim', branch = 'release' }
   use { 
     'ms-jpq/coq_nvim', 
     branch = 'coq',
