@@ -29,4 +29,4 @@ vim.opt.colorcolumn = "120"
 
 -- colors
 vim.opt.background = "dark"
-vim.cmd("colorscheme carbonfox")
+vim.cmd("colorscheme duskfox")
