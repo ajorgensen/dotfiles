@@ -6,23 +6,22 @@ return require('packer').startup(function()
 
   use {
     'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
+    requires = { { 'nvim-lua/plenary.nvim' } }
   }
 
   use 'BurntSushi/ripgrep'
 
   -- language support
-  use {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig",
-  }
+  use "neovim/nvim-lspconfig"
+  use "williamboman/mason.nvim"
+  use "williamboman/mason-lspconfig.nvim"
+
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
   }
-  use { 
-    'ms-jpq/coq_nvim', 
+  use {
+    'ms-jpq/coq_nvim',
     branch = 'coq',
     requires = {
       { 'ms-jpq/coq.artifacts', branch = 'artifacts' },
@@ -37,7 +36,8 @@ return require('packer').startup(function()
   }
 
   -- languages
-  use 'ray-x/go.nvim' use 'ray-x/guihua.lua'
+  use 'ray-x/go.nvim'
+  use 'ray-x/guihua.lua'
   use 'udalov/kotlin-vim'
   use 'zchee/vim-flatbuffers'
   use 'uarun/vim-protobuf'
