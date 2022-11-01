@@ -1,5 +1,4 @@
 local nnoremap = require("ajorgensen.keymap").nnoremap
-local nmap = require("ajorgensen.keymap").nmap
 
 nnoremap("<leader>pv", "<cmd>Ex<CR>")
 nnoremap("<leader>sz", "<cmd>source $MYVIMRC<CR>")

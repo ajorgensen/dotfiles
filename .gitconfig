@@ -133,10 +133,6 @@
   # Detect whitespace errors when applying a patch.
 	whitespace = fix
 
-[puill]
-
-	rebase = true
-
 [fetch]
 
 	prune = true
