@@ -7,14 +7,6 @@ require 'go'.setup({
   tag_transform = false,
   test_dir = '',
   comment_placeholder = '',
-  lsp_cfg = true, -- false: use your own lspconfig
-  lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
-  lsp_on_attach = true, -- use on_attach from go.nvim
+  lsp_cfg = false, -- false: use your own lspconfig
   dap_debug = false,
-  lsp_codelens = false,
-  lsp_inlay_hints = {
-    enable = true
-  },
 })
-
-local protocol = require'vim.lsp.protocol'
