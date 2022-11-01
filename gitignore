@@ -26,3 +26,4 @@ git-ignore
 .vim/plugged
 .vscode
 __debug_bin
+*.ignore
