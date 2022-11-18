@@ -84,29 +84,27 @@
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
   co = !git checkout
 
-  ca = !git add -A && git commit -av
-  go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+  branch-name = "!git rev-parse --abbrev-ref HEAD"
 
+  default-branch = "!git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d/"
+  sync = "!git pull origin $(git default-branch) --rebase"
+	update = "!git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase"
+	squash = "!git rebase -v -i $(git default-branch)"
+	publish = push origin HEAD --force-with-lease
+	pub = publish
+  amend = commit --amend --reuse-message=HEAD
   put = push -u origin HEAD
 
-  branch-name = "!git rev-parse --abbrev-ref HEAD"
+  gone = "!git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D $branch"
+  down = "!BRANCH=$(git branch-name); f() { git checkout $(git default-branch) && git gone; }; f"
   done = "!BRANCH=$(git branch-name); f() { git checkout $(git default-branch) && git branch -D $BRANCH; }; f"
-  default-branch = "!git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d/"
 
   tags = tag -l
   branches = branch --all
   remotes = remote --verbose
-
   aliases = config --get-regexp alias
 
-  gone = "!git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D $branch"
-  down = "!BRANCH=$(git branch-name); f() { git checkout $(git default-branch) && git gone; }; f"
-
-  sync = "!git fetch && git rebase origin/$(git default-branch)"
-
   change-stats = "!git diff origin...HEAD --numstat | awk '{ added += $1; removed += $2 } END { print \"+\" added \" -\" removed }'"
-
-  amend = commit --amend --reuse-message=HEAD
 
   reb = "!r() { git rebase -i HEAD~$1; }; r"
 

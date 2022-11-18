@@ -50,6 +50,7 @@ packages: | brew
 	$(call PACKAGE, git-lfs)
 	$(call PACKAGE, gnupg)
 	$(call PACKAGE, golang)
+	$(call PACKAGE, hyperfine)
 	$(call PACKAGE, graphviz)
 	$(call PACKAGE, grep)
 	$(call PACKAGE, htop)
