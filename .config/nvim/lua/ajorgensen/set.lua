@@ -1,32 +1,35 @@
-vim.g.mapleader = ","
-
 vim.opt.guicursor = ""
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
+
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
-vim.opt.expandtab = true
-vim.opt.hlsearch = true
-vim.opt.incsearch = true
-vim.opt.showmatch = true
-vim.opt.syntax = "on"
-vim.opt.number = true
+
 vim.opt.smartindent = true
+
 vim.opt.wrap = false
 
--- Write swap files to disk and trigger CursorHold event faster (default is
--- after 4000 ms of inactivity)
-vim.opt.updatetime = 200
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undodir = os.getenv("HOME") .. "/.config/undodir"
+vim.opt.undofile = true
 
-vim.cmd[[filetype plugin indent on"]]
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
 
--- Highlight the 120th column
-vim.cmd[[highlight ColorColumn ctermbg=0 guibg=lightgrey]]
-vim.opt.colorcolumn = "120"
+vim.opt.termguicolors = true
 
--- colors
-vim.opt.background = "dark"
-vim.cmd("colorscheme duskfox")
+vim.opt.scrolloff = 8
+vim.opt.signcolumn = "yes"
+vim.opt.isfname:append("@-@")
+
+vim.opt.updatetime = 50
+vim.opt.colorcolumn = "80"
+vim.g.mapleader = " "
+
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25

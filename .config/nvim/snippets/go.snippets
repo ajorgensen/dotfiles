@@ -1,0 +1,29 @@
+snippet errp
+	if err != nil {
+		panic(err)
+	}
+
+snippet ferr "if err"
+	if err != nil {
+		$0
+	}
+
+snippet pln "println"
+	fmt.Println($0)
+
+snippet ehandler "Endpoint handler"
+	func $1(w http.ResponseWriter, r *http.Request) {
+		$0
+	}
+
+snippet mainf "main boilerplat"
+	package main
+
+	import "fmt"
+
+	func main() {
+		$0fmt.Println("Hello World")
+	}
+
+snippet pf "debug print statment"
+	fmt.Printf("$1: %+v", $0)

@@ -1,60 +1,56 @@
-return require('packer').startup(function()
-  use 'wbthomason/packer.nvim'
+-- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
-  use { "junegunn/fzf", run = ":call fzf#install()" }
-  use "junegunn/fzf.vim"
+-- Only required if you have packer configured as `opt`
+vim.cmd [[packadd packer.nvim]]
 
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = { { 'nvim-lua/plenary.nvim' } }
-  }
+return require('packer').startup(function(use)
+	-- Packer can manage itself
+	use 'wbthomason/packer.nvim'
 
-  use 'BurntSushi/ripgrep'
+	use {
+		'nvim-telescope/telescope.nvim', tag = '0.1.0',
+		requires = { {'nvim-lua/plenary.nvim'} }
+	}
 
-  -- language support
-  use "neovim/nvim-lspconfig"
-  use "williamboman/mason.nvim"
-  use "williamboman/mason-lspconfig.nvim"
+	use {
+		'shaunsingh/nord.nvim',
+		config = function()
+			vim.cmd('colorscheme nord')
+		end
+	}
 
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
-  }
-  use {
-    'ms-jpq/coq_nvim',
-    branch = 'coq',
-    requires = {
-      { 'ms-jpq/coq.artifacts', branch = 'artifacts' },
-      {
-        'ms-jpq/coq.thirdparty',
-        branch = '3p',
-        config = function()
-          require 'coq_3p' { { src = 'copilot', short_name = 'COP', accept_key = '<c-f>' } }
-        end,
-      },
-    },
-  }
+	use {
+		'nvim-treesitter/nvim-treesitter',
+		run = ':TSUpdate'
+	}
+	use 'nvim-treesitter/playground'
 
-  -- languages
-  use 'ray-x/go.nvim'
-  use 'ray-x/guihua.lua'
-  use 'udalov/kotlin-vim'
-  use 'zchee/vim-flatbuffers'
-  use 'uarun/vim-protobuf'
-  use 'SirVer/ultisnips'
-  use 'tree-sitter/tree-sitter-go'
+	use 'ThePrimeagen/harpoon'
+	use 'mbbill/undotree'
+	use 'tpope/vim-fugitive'
 
-  -- tpope
-  use 'tpope/vim-fugitive'
-  use 'tpope/vim-surround'
-  use 'tpope/vim-commentary'
-  use 'tpope/vim-projectionist'
-  use 'tpope/vim-rhubarb'
-  use 'tpope/vim-dispatch'
+	use {
+		'VonHeikemen/lsp-zero.nvim',
+		requires = {
+			-- LSP Support
+			{'neovim/nvim-lspconfig'},
+			{'williamboman/mason.nvim'},
+			{'williamboman/mason-lspconfig.nvim'},
+            {'thomasfaingnaert/vim-lsp-ultisnips'},
 
-  -- aesthetics
-  use 'nvim-lualine/lualine.nvim'
-  use 'arcticicestudio/nord-vim'
-  use "EdenEast/nightfox.nvim"
-  use 'scrooloose/nerdtree'
+			-- Autocompletion
+			{'hrsh7th/nvim-cmp'},
+			{'hrsh7th/cmp-buffer'},
+			{'hrsh7th/cmp-path'},
+			{'saadparwaiz1/cmp_luasnip'},
+			{'hrsh7th/cmp-nvim-lsp'},
+			{'hrsh7th/cmp-nvim-lua'},
+            {'jose-elias-alvarez/null-ls.nvim'},
+            {'jay-babu/mason-null-ls.nvim'},
+
+			-- Snippets
+			{'L3MON4D3/LuaSnip'},
+			{'rafamadriz/friendly-snippets'},
+		}
+	}
 end)
