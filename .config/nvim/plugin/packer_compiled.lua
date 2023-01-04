@@ -114,6 +114,11 @@ _G.packer_plugins = {
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/harpoon",
     url = "https://github.com/ThePrimeagen/harpoon"
   },
+  ["lsp-format.nvim"] = {
+    loaded = true,
+    path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/lsp-format.nvim",
+    url = "https://github.com/lukas-reineke/lsp-format.nvim"
+  },
   ["lsp-zero.nvim"] = {
     loaded = true,
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
@@ -194,6 +199,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/vim-lsp-ultisnips",
     url = "https://github.com/thomasfaingnaert/vim-lsp-ultisnips"
+  },
+  ["vim-surround"] = {
+    loaded = true,
+    path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/vim-surround",
+    url = "https://github.com/tpope/vim-surround"
   }
 }
 

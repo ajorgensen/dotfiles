@@ -58,5 +58,6 @@ local mason_nullls = require("mason-null-ls")
 mason_nullls.setup({
   automatic_installation = true,
   automatic_setup = true,
+  ensure_installed = { 'goimports' },
 })
 mason_nullls.setup_handlers({})
