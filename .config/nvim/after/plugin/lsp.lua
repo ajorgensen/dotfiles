@@ -9,6 +9,16 @@ lsp.ensure_installed({
 	'gopls',
 })
 
+lsp.set_preferences({
+    suggest_lsp_servers = false,
+    sign_icons = {
+        error = 'E',
+        warn = 'W',
+        hint = 'H',
+        info = 'I'
+    }
+})
+
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
@@ -18,15 +28,11 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 	['<C-space>'] = cmp.mapping.complete(),
 })
 
-lsp.set_preferences({
-	sign_icons = {}
-})
-
 lsp.setup_nvim_cmp({
 	mapping = cmp_mappings
 })
 
-lsp.on_attach(function(client, bufnr)
+lsp.on_attach(function(_, bufnr)
 	local opts = { buffer = bufnr, remap = false }
 
 	vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
@@ -48,9 +54,17 @@ local null_ls = require("null-ls")
 
 null_ls.setup({
     sources = {
+        -- formatting
+        null_ls.builtins.formatting.prettierd,
         null_ls.builtins.formatting.stylua,
-        null_ls.builtins.diagnostics.eslint,
-        null_ls.builtins.completion.spell,
+
+        -- diagnostics
+        null_ls.builtins.diagnostics.eslint_d,
+        null_ls.builtins.diagnostics.write_good,
+
+        -- code actions
+        null_ls.builtins.code_actions.eslint_d,
+        require("typescript.extensions.null-ls.code-actions"),
     },
 })
 
@@ -58,6 +72,6 @@ local mason_nullls = require("mason-null-ls")
 mason_nullls.setup({
   automatic_installation = true,
   automatic_setup = true,
-  ensure_installed = { 'goimports' },
+  ensure_installed = { 'goimports', 'eslint_d', 'prettierd' },
 })
 mason_nullls.setup_handlers({})

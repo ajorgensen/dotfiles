@@ -185,10 +185,20 @@ _G.packer_plugins = {
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
+  ["typescript.nvim"] = {
+    loaded = true,
+    path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/typescript.nvim",
+    url = "https://github.com/jose-elias-alvarez/typescript.nvim"
+  },
   undotree = {
     loaded = true,
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/undotree",
     url = "https://github.com/mbbill/undotree"
+  },
+  ["vim-eunuch"] = {
+    loaded = true,
+    path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/vim-eunuch",
+    url = "https://github.com/tpope/vim-eunuch"
   },
   ["vim-fugitive"] = {
     loaded = true,
@@ -199,6 +209,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/vim-lsp-ultisnips",
     url = "https://github.com/thomasfaingnaert/vim-lsp-ultisnips"
+  },
+  ["vim-rhubarb"] = {
+    loaded = true,
+    path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/vim-rhubarb",
+    url = "https://github.com/tpope/vim-rhubarb"
   },
   ["vim-surround"] = {
     loaded = true,

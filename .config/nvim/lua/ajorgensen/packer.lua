@@ -29,7 +29,10 @@ return require("packer").startup(function(use)
 	use("ThePrimeagen/harpoon")
 	use("mbbill/undotree")
 	use("tpope/vim-fugitive")
+    use("tpope/vim-rhubarb")
 	use("tpope/vim-surround")
+    use("tpope/vim-eunuch")
+    use("jose-elias-alvarez/typescript.nvim")
 
 	use({
 		"VonHeikemen/lsp-zero.nvim",
