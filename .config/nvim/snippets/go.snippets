@@ -8,6 +8,11 @@ snippet ferr "if err"
 		$0
 	}
 
+snippet reterr
+	if err != nil {
+		return err
+	}
+
 snippet pln "println"
 	fmt.Println($0)
 
@@ -27,3 +32,8 @@ snippet mainf "main boilerplat"
 
 snippet pf "debug print statment"
 	fmt.Printf("$1: %+v", $0)
+
+snippet test "func TestXYZ(t *testing.T) { ... }"
+	func Test${1:Function}(t *testing.T) {
+		${0:${VISUAL}}
+	}
