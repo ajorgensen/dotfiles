@@ -32,6 +32,7 @@ return require("packer").startup(function(use)
 
     use('hoob3rt/lualine.nvim')
     use('ThePrimeagen/git-worktree.nvim')
+    use('vim-test/vim-test')
 
 	use({
 		"VonHeikemen/lsp-zero.nvim",
