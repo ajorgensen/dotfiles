@@ -13,12 +13,8 @@ return require("packer").startup(function(use)
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 
-	use({
-		"shaunsingh/nord.nvim",
-		config = function()
-			vim.cmd("colorscheme nord")
-		end,
-	})
+	use({ "shaunsingh/nord.nvim", })
+	use({ "folke/tokyonight.nvim", })
 
 	use({
 		"nvim-treesitter/nvim-treesitter",
@@ -33,6 +29,9 @@ return require("packer").startup(function(use)
 	use("tpope/vim-surround")
     use("tpope/vim-eunuch")
     use("jose-elias-alvarez/typescript.nvim")
+
+    use('hoob3rt/lualine.nvim')
+    use('ThePrimeagen/git-worktree.nvim')
 
 	use({
 		"VonHeikemen/lsp-zero.nvim",
