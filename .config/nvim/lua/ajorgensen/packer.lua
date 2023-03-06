@@ -13,33 +13,40 @@ return require("packer").startup(function(use)
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 
-	use({ "shaunsingh/nord.nvim" })
-	use({ "folke/tokyonight.nvim" })
-
-	use({
-		"nvim-treesitter/nvim-treesitter",
-		run = ":TSUpdate",
-	})
-	use("nvim-treesitter/playground")
 	use("NoahTheDuke/vim-just")
 
 	use("ThePrimeagen/harpoon")
 	use("mbbill/undotree")
+
+
+	use("tpope/vim-eunuch")
 	use("tpope/vim-fugitive")
 	use("tpope/vim-rhubarb")
 	use("tpope/vim-surround")
-	use("tpope/vim-eunuch")
+    use("tpope/vim-dispatch")
+    use("tpope/vim-projectionist")
+
 	use("jose-elias-alvarez/typescript.nvim")
 
-	use("hoob3rt/lualine.nvim")
-	use("ThePrimeagen/git-worktree.nvim")
-	use("vim-test/vim-test")
+    use('hoob3rt/lualine.nvim')
+    use('ThePrimeagen/git-worktree.nvim')
+    use('vim-test/vim-test')
+    use('preservim/vimux')
 
 	use({
 		"nvim-tree/nvim-tree.lua",
 		tag = "nightly", -- optional, updated every week. (see issue #1193)
 	})
 
+    -- Colors
+	use({ "shaunsingh/nord.nvim", })
+	use({ "folke/tokyonight.nvim", })
+
+	use({
+		"nvim-treesitter/nvim-treesitter",
+		run = ":TSUpdate",
+	})
+	use("nvim-treesitter/playground")
 	use({
 		"VonHeikemen/lsp-zero.nvim",
 		requires = {
