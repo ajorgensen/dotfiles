@@ -179,11 +179,6 @@ _G.packer_plugins = {
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
-  ["nvim-web-devicons"] = {
-    loaded = true,
-    path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
-    url = "https://github.com/nvim-tree/nvim-web-devicons"
-  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/packer.nvim",
@@ -219,6 +214,11 @@ _G.packer_plugins = {
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/undotree",
     url = "https://github.com/mbbill/undotree"
   },
+  ["vim-dispatch"] = {
+    loaded = true,
+    path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/vim-dispatch",
+    url = "https://github.com/tpope/vim-dispatch"
+  },
   ["vim-eunuch"] = {
     loaded = true,
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/vim-eunuch",
@@ -239,6 +239,11 @@ _G.packer_plugins = {
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/vim-lsp-ultisnips",
     url = "https://github.com/thomasfaingnaert/vim-lsp-ultisnips"
   },
+  ["vim-projectionist"] = {
+    loaded = true,
+    path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/vim-projectionist",
+    url = "https://github.com/tpope/vim-projectionist"
+  },
   ["vim-rhubarb"] = {
     loaded = true,
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/vim-rhubarb",
@@ -253,6 +258,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/vim-test",
     url = "https://github.com/vim-test/vim-test"
+  },
+  vimux = {
+    loaded = true,
+    path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/vimux",
+    url = "https://github.com/preservim/vimux"
   }
 }
 
