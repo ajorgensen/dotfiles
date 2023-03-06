@@ -94,3 +94,4 @@ packages: | brew
 	$(call PACKAGE, wget)
 	$(call PACKAGE, yabai)
 	$(call PACKAGE, zsh)
+    $(call PACKAGE, just)
