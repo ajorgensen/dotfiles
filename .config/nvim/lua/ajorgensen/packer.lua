@@ -15,6 +15,11 @@ return require("packer").startup(function(use)
 
     use("NoahTheDuke/vim-just")
 
+    use {
+        "cbochs/grapple.nvim",
+        requires = { "nvim-lua/plenary.nvim" },
+    }
+
     use("ThePrimeagen/harpoon")
     use("mbbill/undotree")
 
@@ -34,6 +39,7 @@ return require("packer").startup(function(use)
     use('gpanders/editorconfig.nvim')
 
     use('rhysd/vim-grammarous')
+
 
     -- Colors
     use({ "shaunsingh/nord.nvim", })
