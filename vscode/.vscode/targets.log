@@ -1,0 +1,709 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 3.81
+# Copyright (C) 2006  Free Software Foundation, Inc.
+# This is free software; see the source for copying conditions.
+# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+# This program built for i386-apple-darwin11.3.0
+ 
+
+# Make data base, printed on Sun Jul 17 12:03:20 2022
+
+# Variables
+
+# environment
+JENV_SHELL = zsh
+# automatic
+?F = $(notdir $?)
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# environment
+PROVIDE_FULLSTACK_ACTION = true
+# environment
+VSCODE_LOG_NATIVE = false
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# makefile
+CURDIR := /Users/ajorgensen/code/dotfiles
+# makefile
+SHELL = /bin/sh
+# environment
+FZF_DEFAULT_COMMAND = ag --nocolor --ignore node_modules -g ""
+# environment
+PROMPT_EOL_MARK = 
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# environment
+_ = /usr/bin/make
+# environment
+SAVEHIST = 100000
+# makefile (from `Homebrew.make', line 1)
+MAKEFILE_LIST :=  Makefile Homebrew.make
+# makefile (from `Makefile', line 6)
+SYMLINKS = $(foreach file,$(SYMLINK_FILES),$(HOME)/$(file))
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# environment
+__CFBundleIdentifier = com.microsoft.VSCode
+# environment
+INFOPATH = /opt/homebrew/share/info:
+# environment
+ACK_COLOR_MATCH = red
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/78/gh0ngrg13n92vt0hxr6qmv5w0000gn/T/vscode-ipc-e0ef2efd-5d6d-468b-8737-8c72aabeaaa1.sock
+# makefile (from `Homebrew.make', line 2)
+PACKAGE = brew list --versions $(1) > /dev/null || brew install $(1)$(2)
+# environment
+VSCODE_CWD = /Users/ajorgensen/code/dotfiles
+# environment
+PATH = /Users/ajorgensen/.jenv/shims:/Users/ajorgensen/.jenv/bin:/Users/ajorgensen/.rbenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/MacGPG2/bin:/Library/Apple/usr/bin:/Users/ajorgensen/.local/share/miniplug/unixorn/fzf-zsh-plugin/bin:/Users/ajorgensen/.fzf/bin:/Users/ajorgensen/sbin:/Users/ajorgensen/bin:/Users/ajorgensen/go/bin
+# environment
+LSCOLORS = ExGxBxDxCxEgEdxbxgxcxd
+# environment
+GOLANG_EXECUTABLE = go
+# environment
+THREE_SCALE_USER_TOKEN = 207c527cfc2a6b8dcf4fa43ad7a976da
+# environment
+GOPATH = /Users/ajorgensen/go
+# environment
+LaunchInstanceID = 978FAFF7-9C8F-460A-B938-8F23A0CAA1C8
+# environment
+VSCODE_LOG_STACK = false
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# default
+.FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+# environment
+CDPATH = .:/Users/ajorgensen/code
+# environment
+UUID = ca61d0cc-f0d6-4304-a0c4-098c4c8ddd54
+# environment
+FZF_PREVIEW_WINDOW = :hidden
+# environment
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.p6HPYQMulS/Listeners
+# automatic
+%F = $(notdir $%)
+# environment
+FZF_CTRL_T_COMMAND = fd --hidden --follow --exclude '.git' --exclude 'node_modules'
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+PWD = /Users/ajorgensen/code/dotfiles
+# makefile (from `Makefile', line 5)
+SYMLINK_FILES = .vimrc .zshrc .zshenv .tmux.conf .gitconfig .ackrc .vim .zsh .config/fish .config/nvim bin
+# environment
+HOMEBREW_CELLAR = /opt/homebrew/Cellar
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# environment
+MANPATH = /opt/homebrew/share/man:::/opt/homebrew/share/man:::/Users/ajorgensen/.fzf/man
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /Users/ajorgensen
+# default
+MAKEFILEPATH = $(shell /usr/bin/xcode-select -print-path 2>/dev/null || echo /Developer)/Makefiles
+# environment
+VSCODE_CLI = 1
+# environment
+VSCODE_CODE_CACHE_PATH = /Users/ajorgensen/Library/Application Support/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
+# environment
+LOGNAME = ajorgensen
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+TELEMETRY_ID = e0fff23a-a987-489d-a6b3-30401fe443e6
+# makefile (from `Makefile', line 3)
+TOPLEVEL := /Users/ajorgensen/code/dotfiles
+# makefile (from `Homebrew.make', line 1)
+BREW := /opt/homebrew/bin/brew
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+XPC_FLAGS = 0x0
+# environment
+HISTFILE = /Users/ajorgensen/.history
+# default
+MAKE = $(MAKE_COMMAND)
+# environment
+LC_TERMINAL = iTerm2
+# environment
+SHLVL = 3
+# default
+MAKE_VERSION := 3.81
+# environment
+USER = ajorgensen
+# makefile
+.DEFAULT_GOAL := /opt/homebrew/bin/brew
+# default
+MAKECMDGOALS := all
+# environment
+TERM_SESSION_ID = w1t0p0:D418E7CA-D824-4831-83E1-714826FB6508
+# environment
+JENV_LOADED = 1
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# default
+MAKE_COMMAND := /Library/Developer/CommandLineTools/usr/bin/make
+# environment
+UTM_SOURCE = vscode
+# environment
+TERM_PROGRAM = iTerm.app
+# default
+.VARIABLES := 
+# environment
+TMPDIR = /var/folders/78/gh0ngrg13n92vt0hxr6qmv5w0000gn/T/
+# automatic
+*F = $(notdir $*)
+# environment
+VSCODE_IPC_HOOK = /Users/ajorgensen/Library/Application Support/Code/1.68.1-main.sock
+# makefile (from `Homebrew.make', line 3)
+CASK = brew list --cask $(1) > /dev/null 2>&1 || brew install --cask $(1)
+# makefile
+MAKEFLAGS = Rrqp
+# environment
+MFLAGS = -Rrqp
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+TERM_PROGRAM_VERSION = 3.4.16
+# environment
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.15786879.15786885.5C96ADB6-F484-40F0-A909-1AACC80B366D
+# environment
+LC_TERMINAL_VERSION = 3.4.16
+# environment
+HOMEBREW_PREFIX = /opt/homebrew
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+RECOMMENDER_API_URL = https://gw.api.openshift.io//api/v2
+# automatic
++F = $(notdir $+)
+# environment
+ITERM_SESSION_ID = w1t0p0:D418E7CA-D824-4831-83E1-714826FB6508
+# environment
+HOMEBREW_REPOSITORY = /opt/homebrew
+# environment
+COLORFGBG = 15;0
+# environment
+COLORTERM = truecolor
+# environment
+__CF_USER_TEXT_ENCODING = 0x1F5:0x0:0x0
+# environment
+COMMAND_MODE = unix2003
+# default
+MAKEFILES := 
+# environment
+RBENV_SHELL = zsh
+# automatic
+<F = $(notdir $<)
+# environment
+ITERM_PROFILE = Default
+# environment
+XDG_CONFIG_HOME = /Users/ajorgensen/.config
+# environment
+EDITOR = vim
+# environment
+LC_ALL = C
+# environment
+CONDA_CHANGEPS1 = no
+# environment
+VIRTUAL_ENV_DISABLE_PROMPT = 12
+# environment
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = fg=#8a8a8a
+# environment
+SECURITYSESSIONID = 186b3
+# automatic
+^F = $(notdir $^)
+# environment
+FZF_PREVIEW = ([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2>/dev/null | head -n 200
+# default
+SUFFIXES := 
+# environment
+HISTSIZE = 100000
+# environment
+FZF_ALT_C_COMMAND = fd --hidden --follow --exclude '.git' --exclude 'node_modules' --type d
+# environment
+MAKELEVEL := 0
+# environment
+define FZF_DEFAULT_OPTS
+--layout=reverse
+--info=inline
+--height=80%
+--multi
+--preview='([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2>/dev/null | head -n 200'
+--preview-window=':hidden'
+--color='hl:148,hl+:154,pointer:032,marker:010,bg+:237,gutter:008'
+--prompt='∼ '
+--pointer='▶'
+--marker='✓'
+--bind '?:toggle-preview'
+--bind 'ctrl-a:select-all'
+--bind 'ctrl-e:execute(vim {+} >/dev/tty)'
+--bind 'ctrl-v:execute(code {+})'
+--bind 'ctrl-y:execute-silent(echo {+} | pbcopy)'
+endef
+# environment
+LANG = C
+# environment
+TERM = xterm-256color
+# environment
+VSCODE_PID = 56135
+# environment
+WORDCHARS = *?[]~&;!$%^<>
+# variable set hash-table stats:
+# Load=116/1024=11%, Rehash=0, Collisions=9/161=6%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 16777231, inode 593838): 23 files, no impossibilities.
+# .config (device 16777231, inode 594052): 4 files, no impossibilities so far.
+
+# 27 files, no impossibilities in 2 directories.
+
+# Implicit Rules
+
+/Users/ajorgensen/%: %
+#  commands to execute (from `Makefile', line 9):
+	ln -svf $(TOPLEVEL)/$< $(@)
+	
+
+# 1 implicit rules, 0 (0.0%) terminal.
+
+# Files
+
+# Not a target:
+Homebrew.make:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-16 21:36:25
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+/opt/homebrew/bin/brew:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Homebrew.make', line 6):
+ 
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	
+
+# Not a target:
+.zshrc:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-12 20:05:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+all: symlink
+#  Command-line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+bin:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-12 20:05:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+/Users/ajorgensen/.tmux.conf: .tmux.conf
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `.tmux.conf'
+#  Last modified 2022-05-21 10:34:11
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 9):
+	ln -svf $(TOPLEVEL)/$< $(@)
+	
+
+# Not a target:
+.ackrc:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-05 21:07:05
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/Users/ajorgensen/.zsh: .zsh
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `.zsh'
+#  Last modified 2022-05-21 10:34:11
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 9):
+	ln -svf $(TOPLEVEL)/$< $(@)
+	
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-12 20:05:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+.vimrc:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-12 20:05:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+taps: | brew
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Homebrew.make', line 14):
+	brew tap homebrew/cask
+	brew tap homebrew/cask-fonts
+	
+
+# Not a target:
+.config/nvim:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-16 21:36:00
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+/Users/ajorgensen/.gitconfig: .gitconfig
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `.gitconfig'
+#  Last modified 2022-07-12 20:05:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 9):
+	ln -svf $(TOPLEVEL)/$< $(@)
+	
+
+/Users/ajorgensen/.zshenv: .zshenv
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `.zshenv'
+#  Last modified 2021-12-05 21:07:05
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 9):
+	ln -svf $(TOPLEVEL)/$< $(@)
+	
+
+/Users/ajorgensen/.config/fish: .config/fish
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `.config/fish'
+#  Last modified 2022-03-22 00:31:41
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 9):
+	ln -svf $(TOPLEVEL)/$< $(@)
+	
+
+packages: | brew
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Homebrew.make', line 35):
+	$(call PACKAGE, ag)
+	$(call PACKAGE, atool)
+	$(call PACKAGE, colordiff)
+	$(call PACKAGE, coreutils)
+	$(call PACKAGE, coreutils)
+	$(call PACKAGE, diff-so-fancy)
+	$(call PACKAGE, dust)
+	$(call PACKAGE, fd)
+	$(call PACKAGE, ffmpeg)
+	$(call PACKAGE, findutils)
+	$(call PACKAGE, fswatch)
+	$(call PACKAGE, fzf)
+	$(call PACKAGE, ghc)
+	$(call PACKAGE, git)
+	$(call PACKAGE, git-lfs)
+	$(call PACKAGE, gnupg)
+	$(call PACKAGE, golang)
+	$(call PACKAGE, graphviz)
+	$(call PACKAGE, grep)
+	$(call PACKAGE, htop)
+	$(call PACKAGE, hub)
+	$(call PACKAGE, imagemagick)
+	$(call PACKAGE, jenv)
+	$(call PACKAGE, jpeg)
+	$(call PACKAGE, jq)
+	$(call PACKAGE, lame)
+	$(call PACKAGE, lua)
+	$(call PACKAGE, multimarkdown)
+	$(call PACKAGE, neovim)
+	$(call PACKAGE, nvm)
+	$(call PACKAGE, offlineimap)
+	$(call PACKAGE, ossp-uuid)
+	$(call PACKAGE, par2)
+	$(call PACKAGE, pinentry-mac)
+	$(call PACKAGE, pngquant)
+	$(call PACKAGE, postgresql)
+	$(call PACKAGE, pstree)
+	$(call PACKAGE, python3)
+	$(call PACKAGE, r)
+	$(call PACKAGE, rbenv)
+	$(call PACKAGE, reattach-to-user-namespace)
+	$(call PACKAGE, rename)
+	$(call PACKAGE, rsync)
+	$(call PACKAGE, ruby)
+	$(call PACKAGE, ruby-install)
+	$(call PACKAGE, selecta)
+	$(call PACKAGE, shellcheck)
+	$(call PACKAGE, shfmt)
+	$(call PACKAGE, sqlite-utils)
+	$(call PACKAGE, sqlite3)
+	$(call PACKAGE, svn)
+	$(call PACKAGE, tig)
+	$(call PACKAGE, tmux)
+	$(call PACKAGE, tokei)
+	$(call PACKAGE, tree)
+	$(call PACKAGE, vim)
+	$(call PACKAGE, wget)
+	$(call PACKAGE, zsh)
+	
+
+/Users/ajorgensen/.vim: .vim
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `.vim'
+#  Last modified 2021-12-05 21:14:56
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 9):
+	ln -svf $(TOPLEVEL)/$< $(@)
+	
+
+/Users/ajorgensen/.zshrc: .zshrc
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `.zshrc'
+#  Last modified 2022-07-12 20:05:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 9):
+	ln -svf $(TOPLEVEL)/$< $(@)
+	
+
+/Users/ajorgensen/.gitignore:
+#  Implicit rule search has not been done.
+#  Last modified 2022-07-12 20:05:25
+#  File has been updated.
+#  Successfully updated.
+#  commands to execute (from `Makefile', line 12):
+	ln -svf $(TOPLEVEL)/gitignore $(HOME)/.gitignore
+	
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+symlink: /Users/ajorgensen/.vimrc /Users/ajorgensen/.zshrc /Users/ajorgensen/.zshenv /Users/ajorgensen/.tmux.conf /Users/ajorgensen/.gitconfig /Users/ajorgensen/.ackrc /Users/ajorgensen/.vim /Users/ajorgensen/.zsh /Users/ajorgensen/.config/fish /Users/ajorgensen/.config/nvim /Users/ajorgensen/bin /Users/ajorgensen/.gitignore
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+brew: | /opt/homebrew/bin/brew
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Homebrew.make', line 11):
+	brew update
+	
+
+# Not a target:
+.tmux.conf:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-21 10:34:11
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+/Users/ajorgensen/.ackrc: .ackrc
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `.ackrc'
+#  Last modified 2021-12-05 21:07:05
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 9):
+	ln -svf $(TOPLEVEL)/$< $(@)
+	
+
+/Users/ajorgensen/.vimrc: .vimrc
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `.vimrc'
+#  Last modified 2022-07-12 20:05:22
+ 
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 9):
+	ln -svf $(TOPLEVEL)/$< $(@)
+	
+
+/Users/ajorgensen/bin: bin
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `bin'
+#  Last modified 2022-07-12 20:05:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 9):
+	ln -svf $(TOPLEVEL)/$< $(@)
+	
+
+/Users/ajorgensen/.config/nvim: .config/nvim
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `.config/nvim'
+#  Last modified 2022-07-16 21:36:00
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 9):
+	ln -svf $(TOPLEVEL)/$< $(@)
+	
+
+# Not a target:
+.zsh:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-21 10:34:11
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+all-brew: brew taps packages casks
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.gitconfig:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-12 20:05:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+casks: | brew
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Homebrew.make', line 18):
+	$(call CASK, alfred)
+	$(call CASK, bettertouchtool)
+	$(call CASK, bitwarden)
+	$(call CASK, caffeine)
+	$(call CASK, discord)
+	$(call CASK, docker)
+	$(call CASK, font-source-code-pro)
+	$(call CASK, iterm2)
+	$(call CASK, obsidian)
+	$(call CASK, rstudio)
+	$(call CASK, slack)
+	$(call CASK, spotify)
+	$(call CASK, todoist)
+	$(call CASK, visual-studio-code)
+	$(call CASK, vlc)
+	
+
+# Not a target:
+.zshenv:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-05 21:07:05
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+.config/fish:
+#  Implicit rule search has been done.
+#  Last modified 2022-03-22 00:31:41
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+.vim:
+#  Implicit rule search has been done.
+#  Last modified 2021-12-05 21:14:56
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# files hash-table stats:
+# Load=35/1024=3%, Rehash=0, Collisions=0/103=0%
+# VPATH Search Paths
+
+# No `vpath' search paths.
+
+# No general (`VPATH' variable) search path.
+
+# # of strings in strcache: 2
+# # of strcache buffers: 1
+# strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
+# strcache free: total = 4073 / max = 4073 / min = 4073 / avg = 4073
+
+# Finished Make data base on Sun Jul 17 12:03:20 2022
+
+ 
