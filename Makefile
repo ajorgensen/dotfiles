@@ -1,5 +1,5 @@
 stow: 
-	@stow -t ${HOME}/ \
+	@stow -v 2 -t ${HOME}/ \
 		ack \
 		bin \
 		fish \
