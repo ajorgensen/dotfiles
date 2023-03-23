@@ -4,3 +4,6 @@
 [submodule ".config/nvim/start/packer.nvim"]
 	path = .config/nvim/start/packer.nvim
 	url = git@github.com:wbthomason/packer.nvim.git
+[submodule "tmux/.tmux/plugins/tpm"]
+	path = tmux/.tmux/plugins/tpm
+	url = git@github.com:tmux-plugins/tpm.git
