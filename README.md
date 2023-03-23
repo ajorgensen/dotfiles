@@ -14,6 +14,13 @@
 git clone git@github.com:ajorgensen/dotfiles.git ~/.dotfiles
 ```
 
+## Init submodules
+
+```
+git submodule init
+git submodule update
+```
+
 ## Install Packages
 
 ```
