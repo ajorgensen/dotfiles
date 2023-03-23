@@ -13,14 +13,11 @@ return require("packer").startup(function(use)
         requires = { { "nvim-lua/plenary.nvim" } },
     })
 
-    use("NoahTheDuke/vim-just")
-
     use {
         "cbochs/grapple.nvim",
         requires = { "nvim-lua/plenary.nvim" },
     }
 
-    use("ThePrimeagen/harpoon")
     use("mbbill/undotree")
 
     use("tpope/vim-eunuch")
@@ -30,21 +27,32 @@ return require("packer").startup(function(use)
     use("tpope/vim-dispatch")
     use("tpope/vim-projectionist")
 
-    use("jose-elias-alvarez/typescript.nvim")
-
     use('hoob3rt/lualine.nvim')
     use('ThePrimeagen/git-worktree.nvim')
     use('vim-test/vim-test')
     use('preservim/vimux')
     use('gpanders/editorconfig.nvim')
 
-    use('rhysd/vim-grammarous')
+    use("NoahTheDuke/vim-just")
 
+    -- Language Support
+    use({
+        "ray-x/go.nvim",
+        requires = {
+            "ray-x/guihua.lua",
+            "neovim/nvim-lspconfig",
+            "nvim-treesitter/nvim-treesitter",
+        }
+    })
+
+    use('rhysd/vim-grammarous')
+    use("jose-elias-alvarez/typescript.nvim")
 
     -- Colors
     use({ "shaunsingh/nord.nvim", })
     use({ "folke/tokyonight.nvim", })
 
+    -- LSP Support
     use({
         "nvim-treesitter/nvim-treesitter",
         run = ":TSUpdate",
