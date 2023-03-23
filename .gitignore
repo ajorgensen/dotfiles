@@ -1,2 +1,4 @@
 vim/plugged/*
 .config/nvim/plugged/*
+.tmux/plugins
+!.tmux/plugins/tpm
