@@ -1,4 +1,8 @@
-vim/plugged/*
-.config/nvim/plugged/*
-.tmux/plugins
-!.tmux/plugins/tpm
+vim/.vim/plugged/*
+nvim/.config/nvim/plugged/*
+tmux/.tmux/plugins
+!tmux/.tmux/plugins/tpm
+
+.DS_Store
+.netrwhist
+.git

@@ -1,16 +1,11 @@
-include Homebrew.make
-
-TOPLEVEL := $(shell git rev-parse --show-toplevel)
-
-SYMLINK_FILES = .vimrc .zshrc .zshenv .tmux.conf .gitconfig .ackrc .vim .zsh .config/fish .config/nvim bin .yabairc .skhdrc
-SYMLINKS = $(foreach file,$(SYMLINK_FILES),$(HOME)/$(file))
-
-$(HOME)/%: %
-	ln -svf $(TOPLEVEL)/$< $(@)
-
-$(HOME)/.gitignore:
-	ln -svf $(TOPLEVEL)/gitignore $(HOME)/.gitignore
-
-symlink: $(SYMLINKS) $(HOME)/.gitignore
-
-all: symlink
+stow: 
+	@stow -t ${HOME}/ \
+		ack \
+		bin \
+		fish \
+		git \
+		nvim \
+		tmux \
+		vim \
+		vscode \
+		zsh

@@ -1,0 +1,66 @@
+alias c="clear"
+alias sysup='brew update && brew upgrade; brew cleanup'
+alias tmpdir='pushd $(mktemp -d)'
+alias cdf=find_and_cd
+alias sz="source $HOME/.zshrc"
+alias ec="$EDITOR $HOME/.my_zshrc"
+function mkcd() { mkdir -p $1 && cd $1 }
+function cdf() { cd *$1*/ } # stolen from @topfunky
+
+# iOS
+alias clear-derived-data="rm -rf /Users/ajorgensen/Library/Developer/Xcode/DerivedData/*"
+
+# Ruby/Rails
+alias be="bundle exec"
+alias brs="be rspec"
+alias bspec="bundle exec rake spec"
+alias dbreset="bundle exec rake db:drop db:create db:migrate db:seed db:test:prepare"
+alias r="bundle exec rails"
+alias rc="bundle exec rails console"
+alias rs="bundle exec rails server"
+alias dbreset="bundle exec rake db:drop db:create db:migrate db:seed db:test:prepare"
+
+# Git
+alias fbranch='git co $(git branch --sort=-committerdate | fzf)'
+alias g='git'
+alias gaa="git add --all"
+alias gap="git add --patch"
+alias gco="git checkout"
+alias glog="git log --color"
+alias gp="git put"
+alias gpf="git put -f"
+alias gpull="git pull"
+alias gs="git status"
+alias cbr='git branch --sort=committerdate | fzf --header "Checkout Recent Branch" --preview "git diff {1} --color=always" --pointer="." | xargs git checkout'
+
+# tmux
+#alias tm='tmux new -A -s'
+
+# Vim
+alias v="vim"
+alias vi="vim"
+
+# Platform Specific
+if [[ $OSTYPE == darwin* ]]; then
+  alias flush='dscacheutil -flushcache'
+  # Apps
+  alias browse="open -a /Applications/Google\ Chrome.app"
+  alias slack="open -a /Applications/Slack.app"
+  # Browser Shortcuts
+  alias github="browse https://github.com"
+  alias sysup='brew update && brew upgrade; brew cleanup'
+fi
+
+if [[ $OSTYPE == linux* ]]; then
+  alias get="sudo apt-get install"
+fi
+
+# General
+alias rbgrep="grep --include='*.rb' $*"
+alias ls="ls -lrthG"
+alias lsa="ls -lrthGa"
+alias sz='source ~/.zshrc'
+alias ez='vi ~/.zshrc'
+alias restart="shutdown -r now"
+alias tmpdir='pushd $(mktemp -d)'
+alias unzip 'atool --extract --explain $1'
