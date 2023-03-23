@@ -11,7 +11,7 @@
 ## Clone this Repo
 
 ```
-git clone git@github.com:thnukid/dotfiles.git ~/.dotfiles
+git clone git@github.com:ajorgensen/dotfiles.git ~/.dotfiles
 ```
 
 ## Install Packages
@@ -23,5 +23,5 @@ brew bundle
 ### Symlink dotfiles
 
 ```
-stow bin kitty nvim tmux zsh
+make stow
 ```
