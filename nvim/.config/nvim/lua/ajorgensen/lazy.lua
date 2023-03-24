@@ -55,6 +55,8 @@ require("lazy").setup({
     -- Colors
     'shaunsingh/nord.nvim',
     'folke/tokyonight.nvim',
+    'ellisonleao/gruvbox.nvim',
+    'joshdick/onedark.vim',
 
     -- LSP Support
     {
