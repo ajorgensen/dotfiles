@@ -54,3 +54,8 @@ keymap("n", "<leader>k", "<cmd>lnext<CR>zz")
 keymap("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 keymap("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+keymap("n", "<C-h", "<cmd> TmuxNavigateLeft<CR>")
+keymap("n", "<C-l", "<cmd> TmuxNavigateRight<CR>")
+keymap("n", "<C-j", "<cmd> TmuxNavigateDown<CR>")
+keymap("n", "<C-k", "<cmd> TmuxNavigateUp<CR>")

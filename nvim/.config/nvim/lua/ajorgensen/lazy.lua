@@ -39,6 +39,11 @@ require("lazy").setup({
 
     'NoahTheDuke/vim-just',
 
+    {
+      'christoomey/vim-tmux-navigator',
+      lazy = false,
+    },
+
     -- Language Support
     {
         'ray-x/go.nvim',
