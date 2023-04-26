@@ -1,77 +1,71 @@
 #zmodload zsh/zprof
 
-fpath+=$HOME/.zsh/plugins/pure
-autoload -U promptinit; promptinit
-prompt pure
+# Set the GPG_TTY to be the same as the TTY, either via the env var
+# or via the tty command.
+if [ -n "$TTY" ]; then
+  export GPG_TTY=$(tty)
+else
+  export GPG_TTY="$TTY"
+fi
 
-# Initialize completion
-autoload -U compinit
-compinit -D
+# SSH_AUTH_SOCK set to GPG to enable using gpgagent as the ssh agent.
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
 
-# miniplug
-source "$HOME/.zsh/plugins/miniplug.zsh"
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#8a8a8a"
+autoload -Uz compinit && compinit
 
-miniplug plugin 'davidparsson/zsh-nvm-lazy'
-miniplug plugin 'zsh-users/zsh-autosuggestions'
-miniplug plugin 'zsh-users/zsh-completions'
-miniplug plugin 'zsh-users/zsh-syntax-highlighting'
-miniplug plugin 'unixorn/fzf-zsh-plugin'
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+# Download Zinit, if it's not there yet
+if [ ! -d "$ZINIT_HOME" ]; then
+   mkdir -p "$(dirname $ZINIT_HOME)"
+   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
 
-miniplug load
+source "${ZINIT_HOME}/zinit.zsh"
 
-# Add paths
-export PATH=$PATH:"$HOME/sbin":$HOME/bin
-export GOPATH="$HOME/go"
-export PATH=$PATH:"$GOPATH/bin"
-export XDG_CONFIG_HOME="$HOME/.config"
+zinit light ohmyzsh/ohmyzsh
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+zinit snippet OMZP::git
+zinit snippet OMZP::sudo
+zinit snippet OMZP::aws
+zinit snippet OMZP::kubectl
+zinit snippet OMZP::kubectx
+zinit snippet OMZP::rust
+zinit snippet OMZP::command-not-found
 
-# FZF
-export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-syntax-highlighting
 
-# Ruby
-eval "$(rbenv init - zsh)"
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
-# Colorize terminalA
-alias ls='ls -G'
-alias ll='ls -lG'
-export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
+# P10k customizations
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
-# Nicer History
-export HISTSIZE=100000
-export HISTFILE="$HOME/.history"
-export SAVEHIST=$HISTSIZE
-
-# Editor
-export EDITOR="vim"
-set -o emacs
-
-# Use C-x C-e to edit the current command line
-autoload -U edit-command-line
-zle -N edit-command-line
-bindkey '\C-x\C-e' edit-command-line
-
-# By default, zsh considers many characters part of a word (e.g., _ and -).
-# Narrow that down to allow easier skipping through words via M-f and M-b.
-export WORDCHARS='*?[]~&;!$%^<>'
-
-# Highlight search results in ack.
-export ACK_COLOR_MATCH='red'
-
-# Aliases
-source $HOME/.zsh/aliases
-
-# Funcs
-source $HOME/.zsh/funcs
-
-# Java
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+bindkey "^P" up-line-or-beginning-search
+bindkey "^N" down-line-or-beginning-search
 
 include () {
     [[ -f "$1" ]] && source "$1"
 }
 include "$HOME/.local.zshrc"
+include $HOME/.profile
+
+if [ Darwin = `uname` ]; then
+  include $HOME/.profile-macOS
+elif [ Linux = `uname` ]; then
+  include $HOME/.profile-linux
+fi
+
+source $HOME/.config/tmuxinator/tmuxinator.zsh
 
 #zprof
