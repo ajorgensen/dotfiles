@@ -12,4 +12,3 @@ zsh/.config/tmuxinator/*.yml
 .netrwhist
 .git
 Brewfile.lock.json
-
