@@ -44,16 +44,12 @@ keymap("v", "<leader>d", '"_d')
 keymap("i", "<C-c>", "<Esc>")
 
 keymap("n", "Q", "<nop>")
-keymap("n", "<leader>f", function()
-	vim.lsp.buf.format()
-end)
+keymap("n", "<leader>f", vim.lsp.buf.format)
 
 keymap("n", "<C-k>", "<cmd>cnext<CR>zz")
 keymap("n", "<C-j>", "<cmd>cprev<CR>zz")
 keymap("n", "<leader>k", "<cmd>lnext<CR>zz")
 keymap("n", "<leader>j", "<cmd>lprev<CR>zz")
-
-keymap("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 keymap("n", "<C-h", "<cmd> TmuxNavigateLeft<CR>")
 keymap("n", "<C-l", "<cmd> TmuxNavigateRight<CR>")
