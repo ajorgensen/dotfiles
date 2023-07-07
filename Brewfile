@@ -5,6 +5,7 @@ tap "homebrew/cask-fonts"
 # install
 brew "ag"
 brew "atool"
+brew "cocoapods"
 brew "colordiff"
 brew "coreutils"
 brew "coreutils"
