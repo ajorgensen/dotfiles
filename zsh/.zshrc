@@ -60,12 +60,13 @@ include () {
 include "$HOME/.local.zshrc"
 include $HOME/.profile
 
+# Aliases
+include $HOME/.zsh/aliases
+
 if [ Darwin = `uname` ]; then
   include $HOME/.profile-macOS
 elif [ Linux = `uname` ]; then
   include $HOME/.profile-linux
 fi
-
-source $HOME/.config/tmuxinator/tmuxinator.zsh
 
 #zprof
