@@ -38,6 +38,7 @@ require("lazy").setup({
     'gpanders/editorconfig.nvim',
 
     'NoahTheDuke/vim-just',
+    'github/copilot.vim',
 
     {
       'christoomey/vim-tmux-navigator',
