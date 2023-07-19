@@ -55,9 +55,9 @@ bindkey "^P" up-line-or-beginning-search
 bindkey "^N" down-line-or-beginning-search
 
 include () {
-    [[ -f "$1" ]] && source "$1"
+    [[ -f "$1" ]] && source $1
 }
-include "$HOME/.local.zshrc"
+include $HOME/.local.zshrc
 include $HOME/.profile
 
 # Aliases
