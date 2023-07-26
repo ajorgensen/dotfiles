@@ -24,9 +24,6 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 keymap("v", "J", ":m '>+1<CR>gv=gv")
 keymap("v", "K", ":m '<-2<CR>gv=gv")
 
--- NvimTree
-keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
-
 keymap("n", "Y", "yg$")
 keymap("n", "J", "mzJ`z")
 keymap("n", "<C-d>", "<C-d>zz")

@@ -43,6 +43,7 @@ require("lazy").setup({
     'tpope/vim-surround',
     'tpope/vim-dispatch',
     'tpope/vim-projectionist',
+    'jremmen/vim-ripgrep',
 
     'hoob3rt/lualine.nvim',
     'ThePrimeagen/git-worktree.nvim',
