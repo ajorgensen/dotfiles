@@ -3,3 +3,4 @@ alias sz="source $HOME/.zshrc"
 
 alias ls='ls -G'
 alias ll='ls -lG'
+alias lt='ls -lGt'
