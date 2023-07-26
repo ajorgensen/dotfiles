@@ -1,4 +1,4 @@
-vim.g["test#strategy"] = 'dispatch'
+vim.g["test#strategy"] = 'neovim'
 
 vim.keymap.set("n", "<leader>tn", ":TestNearest<CR>") -- Test nearest test
 vim.keymap.set("n", "<leader>tf", ":TestFile<CR>") -- Test file

@@ -52,3 +52,7 @@ keymap("n", "<C-h", "<cmd> TmuxNavigateLeft<CR>")
 keymap("n", "<C-l", "<cmd> TmuxNavigateRight<CR>")
 keymap("n", "<C-j", "<cmd> TmuxNavigateDown<CR>")
 keymap("n", "<C-k", "<cmd> TmuxNavigateUp<CR>")
+
+function ClearMarks()
+    vim.cmd(":delm! | delm A-Z0-9")
+end
