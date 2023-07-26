@@ -35,7 +35,6 @@ require("lazy").setup({
         end
     },
 
-
     'mbbill/undotree',
     'tpope/vim-eunuch',
     'tpope/vim-fugitive',
@@ -45,7 +44,6 @@ require("lazy").setup({
     'tpope/vim-projectionist',
     'jremmen/vim-ripgrep',
 
-    'hoob3rt/lualine.nvim',
     'ThePrimeagen/git-worktree.nvim',
     'vim-test/vim-test',
     'preservim/vimux',
@@ -54,6 +52,11 @@ require("lazy").setup({
     'NoahTheDuke/vim-just',
     "github/copilot.vim",
     "folke/zen-mode.nvim",
+
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' }
+    },
 
     {
       'christoomey/vim-tmux-navigator',
