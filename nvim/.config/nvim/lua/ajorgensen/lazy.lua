@@ -90,6 +90,8 @@ require("lazy").setup({
         end,
     },
 
+    'mfussenegger/nvim-dap',
+
 
     -- LSP Support
     {
@@ -102,6 +104,11 @@ require("lazy").setup({
     "mbbill/undotree",
     "tpope/vim-fugitive",
     "nvim-treesitter/nvim-treesitter-context",
+
+    {
+        "L3MON4D3/LuaSnip",
+        dependencies = { "rafamadriz/friendly-snippets" },
+    },
 
     {
         'VonHeikemen/lsp-zero.nvim',
