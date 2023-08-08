@@ -50,8 +50,22 @@ require("lazy").setup({
     'gpanders/editorconfig.nvim',
 
     'NoahTheDuke/vim-just',
-    "github/copilot.vim",
     "folke/zen-mode.nvim",
+
+    {
+        "jackMort/ChatGPT.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("chatgpt").setup()
+        end,
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope.nvim"
+        }
+    },
+    "github/copilot.vim",
+
 
     {
         'nvim-lualine/lualine.nvim',
