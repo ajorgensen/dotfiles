@@ -1,1 +1,3 @@
-require("ajorgensen")
+require('core.keymaps')
+require('core.packer')
+
