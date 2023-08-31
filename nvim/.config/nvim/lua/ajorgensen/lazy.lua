@@ -35,7 +35,6 @@ require("lazy").setup({
         end
     },
 
-    'mbbill/undotree',
     'tpope/vim-eunuch',
     'tpope/vim-fugitive',
     'tpope/vim-rhubarb',
@@ -43,14 +42,13 @@ require("lazy").setup({
     'tpope/vim-dispatch',
     'tpope/vim-projectionist',
     'jremmen/vim-ripgrep',
+    "github/copilot.vim",
 
-    'ThePrimeagen/git-worktree.nvim',
     'vim-test/vim-test',
     'preservim/vimux',
     'gpanders/editorconfig.nvim',
 
     'NoahTheDuke/vim-just',
-    "folke/zen-mode.nvim",
 
     {
         "jackMort/ChatGPT.nvim",
@@ -64,7 +62,6 @@ require("lazy").setup({
             "nvim-telescope/telescope.nvim"
         }
     },
-    "github/copilot.vim",
 
 
     {
@@ -73,8 +70,13 @@ require("lazy").setup({
     },
 
     {
-      'christoomey/vim-tmux-navigator',
-      lazy = false,
+        'nvim-tree/nvim-tree.lua',
+        dependencies = { 'nvim-tree/nvim-web-devicons' }
+    },
+
+    {
+        'christoomey/vim-tmux-navigator',
+        lazy = false,
     },
 
     -- Language Support
@@ -87,36 +89,15 @@ require("lazy").setup({
         }
     },
 
-    'rhysd/vim-grammarous',
     'jose-elias-alvarez/typescript.nvim',
-
-    -- Colors
-    'shaunsingh/nord.nvim',
-    'folke/tokyonight.nvim',
-    'ellisonleao/gruvbox.nvim',
-    'joshdick/onedark.vim',
-    {
-        'rose-pine/neovim',
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.cmd([[colorscheme rose-pine-moon]])
-        end,
-    },
-
-    'mfussenegger/nvim-dap',
-
 
     -- LSP Support
     {
         "nvim-treesitter/nvim-treesitter",
         run = ":TSUpdate"
     },
+
     "nvim-treesitter/playground",
-    "theprimeagen/harpoon",
-    "theprimeagen/refactoring.nvim",
-    "mbbill/undotree",
-    "tpope/vim-fugitive",
     "nvim-treesitter/nvim-treesitter-context",
 
     {
@@ -126,24 +107,34 @@ require("lazy").setup({
 
     {
         'VonHeikemen/lsp-zero.nvim',
-        branch = 'v1.x',
+        branch = 'v2.x',
         dependencies = {
             -- LSP Support
-            {'neovim/nvim-lspconfig'},
-            {'williamboman/mason.nvim'},
-            {'williamboman/mason-lspconfig.nvim'},
+            { 'neovim/nvim-lspconfig' },
+            { 'williamboman/mason.nvim' },
+            { 'williamboman/mason-lspconfig.nvim' },
 
             -- Autocompletion
-            {'hrsh7th/nvim-cmp'},
-            {'hrsh7th/cmp-buffer'},
-            {'hrsh7th/cmp-path'},
-            {'saadparwaiz1/cmp_luasnip'},
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'hrsh7th/cmp-nvim-lua'},
+            { 'hrsh7th/nvim-cmp' },
+            { 'hrsh7th/cmp-buffer' },
+            { 'hrsh7th/cmp-path' },
+            { 'saadparwaiz1/cmp_luasnip' },
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-nvim-lua' },
 
             -- Snippets
-            {'L3MON4D3/LuaSnip'},
-            {'rafamadriz/friendly-snippets'},
+            { 'L3MON4D3/LuaSnip' },
+            { 'rafamadriz/friendly-snippets' },
         }
     },
+
+    -- Colors
+    'ellisonleao/gruvbox.nvim',
+    'folke/tokyonight.nvim',
+    'catppuccin/nvim',
+    'projekt0n/github-nvim-theme',
+    'shaunsingh/nord.nvim',
+    'rose-pine/neovim',
+    'joshdick/onedark.vim',
+
 })
