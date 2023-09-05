@@ -41,8 +41,10 @@ require("lazy").setup({
     'tpope/vim-surround',
     'tpope/vim-dispatch',
     'tpope/vim-projectionist',
+    'tpope/vim-dadbod',
     'jremmen/vim-ripgrep',
-    "github/copilot.vim",
+    'github/copilot.vim',
+    'ThePrimeagen/harpoon',
 
     'vim-test/vim-test',
     'preservim/vimux',
@@ -69,10 +71,10 @@ require("lazy").setup({
         dependencies = { 'nvim-tree/nvim-web-devicons' }
     },
 
-    {
-        'nvim-tree/nvim-tree.lua',
-        dependencies = { 'nvim-tree/nvim-web-devicons' }
-    },
+    --{
+    --    'nvim-tree/nvim-tree.lua',
+    --    dependencies = { 'nvim-tree/nvim-web-devicons' }
+    --},
 
     {
         'christoomey/vim-tmux-navigator',
@@ -86,7 +88,13 @@ require("lazy").setup({
             'ray-x/guihua.lua',
             'neovim/nvim-lspconfig',
             'nvim-treesitter/nvim-treesitter',
-        }
+        },
+        config = function()
+            require("go").setup()
+        end,
+        event = { "CmdlineEnter" },
+        ft = { "go", 'gomod' },
+        build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
     },
 
     'jose-elias-alvarez/typescript.nvim',
