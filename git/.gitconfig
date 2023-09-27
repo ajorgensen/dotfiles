@@ -94,6 +94,7 @@
     pub = publish
     amend = commit --amend --reuse-message=HEAD
     put = push -u origin HEAD
+    rebase-onto = "!f() { git rebase --onto main $(git merge-base $1 $2) $1; }; f"
 
     gone = "!git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D $branch"
     down = "!BRANCH=$(git branch-name); f() { git checkout $(git default-branch) && git gone; }; f"
