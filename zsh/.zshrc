@@ -46,7 +46,7 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light chriskempson/base16-shell
 
 # colors
-base16_nord
+base16_ocean
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
