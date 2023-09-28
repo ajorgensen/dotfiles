@@ -43,6 +43,10 @@ zinit snippet OMZP::command-not-found
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-syntax-highlighting
+zinit light chriskempson/base16-shell
+
+# colors
+base16_nord
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8

@@ -154,6 +154,7 @@ require("lazy").setup({
     },
 
     -- Colors
+    'RRethy/nvim-base16',
     'ellisonleao/gruvbox.nvim',
     'folke/tokyonight.nvim',
     'catppuccin/nvim',
