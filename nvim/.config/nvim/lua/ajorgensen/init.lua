@@ -1,6 +1,6 @@
 require("ajorgensen.set")
 require("ajorgensen.remap")
-require("ajorgensen.lazy")
+require("ajorgensen.packer")
 require("ajorgensen.autocmd")
 
 local augroup = vim.api.nvim_create_augroup
@@ -25,7 +25,7 @@ autocmd('TextYankPost', {
 })
 
 
-autocmd({'BufWritePre'}, {
+autocmd({ 'BufWritePre' }, {
     group = myGroup,
     pattern = '*',
     command = [[%s/\s\+$//e]],

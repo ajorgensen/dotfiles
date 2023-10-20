@@ -15,7 +15,7 @@ require("lazy").setup({
     {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.0',
-        dependencies = { { 'nvim-lua/plenary.nvim' } },
+        dependencies = { 'nvim-lua/plenary.nvim' },
     },
 
     {
@@ -44,29 +44,8 @@ require("lazy").setup({
     'jremmen/vim-ripgrep',
     'github/copilot.vim',
     'ThePrimeagen/harpoon',
-
-    {
-        'kristijanhusak/vim-dadbod-ui',
-        dependencies = {
-            { 'tpope/vim-dadbod',                     lazy = true },
-            { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
-        },
-        cmd = {
-            'DBUI',
-            'DBUIToggle',
-            'DBUIAddConnection',
-            'DBUIFindBuffer',
-        },
-        init = function()
-            -- Your DBUI configuration
-            vim.g.db_ui_use_nerd_fonts = 1
-        end,
-    },
-
     'vim-test/vim-test',
-    'preservim/vimux',
     'gpanders/editorconfig.nvim',
-
     'NoahTheDuke/vim-just',
 
     {
@@ -87,11 +66,6 @@ require("lazy").setup({
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' }
     },
-
-    --{
-    --    'nvim-tree/nvim-tree.lua',
-    --    dependencies = { 'nvim-tree/nvim-web-devicons' }
-    --},
 
     {
         'christoomey/vim-tmux-navigator',
@@ -162,5 +136,4 @@ require("lazy").setup({
     'shaunsingh/nord.nvim',
     'rose-pine/neovim',
     'joshdick/onedark.vim',
-
 })
