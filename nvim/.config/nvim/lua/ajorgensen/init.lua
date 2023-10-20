@@ -1,6 +1,6 @@
+require("ajorgensen.packer")
 require("ajorgensen.set")
 require("ajorgensen.remap")
-require("ajorgensen.packer")
 require("ajorgensen.autocmd")
 
 local augroup = vim.api.nvim_create_augroup

@@ -4,3 +4,5 @@ alias sz="source $HOME/.zshrc"
 alias ls='ls -G'
 alias ll='ls -lG'
 alias lt='ls -lGt'
+alias pip=pip3
+alias python=python3
