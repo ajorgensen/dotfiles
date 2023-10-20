@@ -1,6 +1,17 @@
 require('telescope').setup({
     defaults = {
+        path_display = { "truncate" },
         file_ignore_patterns = { "^.git/", "^node_modules/", "^vendor/" },
+        layout_config = {
+            horizontal = {
+                width = 0.75
+            },
+            cursor = {
+                height = 0.9,
+                preview_cutoff = 100,
+                width = 0.8
+            },
+        },
     }
 })
 
