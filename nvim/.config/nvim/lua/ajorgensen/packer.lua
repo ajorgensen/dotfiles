@@ -33,6 +33,15 @@ return require('packer').startup(function(use)
         requires = { 'nvim-tree/nvim-web-devicons' }
     }
 
+    use {
+        'rcarriga/nvim-dap-ui',
+        requires = {
+            'mfussenegger/nvim-dap',
+            'theHamsta/nvim-dap-virtual-text',
+            'leoluz/nvim-dap-go',
+        }
+    }
+
     -- LSP
     use 'ray-x/go.nvim'
     use 'ray-x/guihua.lua'
