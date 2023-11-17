@@ -114,6 +114,11 @@ _G.packer_plugins = {
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/friendly-snippets",
     url = "https://github.com/rafamadriz/friendly-snippets"
   },
+  ["gen.nvim"] = {
+    loaded = true,
+    path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/gen.nvim",
+    url = "https://github.com/David-Kunz/gen.nvim"
+  },
   ["github-nvim-theme"] = {
     loaded = true,
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/github-nvim-theme",
@@ -239,6 +244,11 @@ _G.packer_plugins = {
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
+  ["telescope-command-palette.nvim"] = {
+    loaded = true,
+    path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/telescope-command-palette.nvim",
+    url = "https://github.com/LinArcX/telescope-command-palette.nvim"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/telescope.nvim",
@@ -254,15 +264,15 @@ _G.packer_plugins = {
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/trouble.nvim",
     url = "https://github.com/folke/trouble.nvim"
   },
-  ["typescript.nvim"] = {
-    loaded = true,
-    path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/typescript.nvim",
-    url = "https://github.com/jose-elias-alvarez/typescript.nvim"
-  },
   undotree = {
     loaded = true,
     path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/undotree",
     url = "https://github.com/mbbill/undotree"
+  },
+  ["vim-dadbod"] = {
+    loaded = true,
+    path = "/Users/ajorgensen/.local/share/nvim/site/pack/packer/start/vim-dadbod",
+    url = "https://github.com/tpope/vim-dadbod"
   },
   ["vim-dispatch"] = {
     loaded = true,
