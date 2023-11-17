@@ -11,6 +11,7 @@ return require('packer').startup(function(use)
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
+    use 'LinArcX/telescope-command-palette.nvim'
 
     use 'tpope/vim-eunuch'
     use 'tpope/vim-fugitive'
@@ -18,6 +19,7 @@ return require('packer').startup(function(use)
     use 'tpope/vim-surround'
     use 'tpope/vim-dispatch'
     use 'tpope/vim-projectionist'
+    use 'tpope/vim-dadbod'
 
     use "folke/trouble.nvim"
     use "theprimeagen/harpoon"
@@ -27,6 +29,7 @@ return require('packer').startup(function(use)
     use "github/copilot.vim"
     use 'jremmen/vim-ripgrep'
     use 'vim-test/vim-test'
+    use 'David-Kunz/gen.nvim'
 
     use {
         'nvim-lualine/lualine.nvim',
@@ -45,7 +48,6 @@ return require('packer').startup(function(use)
     -- LSP
     use 'ray-x/go.nvim'
     use 'ray-x/guihua.lua'
-    use 'jose-elias-alvarez/typescript.nvim'
 
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
     use {
