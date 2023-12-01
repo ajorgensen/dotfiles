@@ -1,0 +1,8 @@
+VIM="nvim"
+
+include () {
+    [[ -f "$1" ]] && source $1
+}
+include $HOME/.local.zshrc
+include $HOME/.profile
+include $HOME/.zsh/aliases
