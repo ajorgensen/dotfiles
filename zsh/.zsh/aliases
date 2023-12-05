@@ -6,3 +6,5 @@ alias ll='ls -lG'
 alias lt='ls -lGt'
 alias pip=pip3
 alias python=python3
+
+alias go-unused='staticcheck -checks U1000'
