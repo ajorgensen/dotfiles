@@ -1,8 +1,16 @@
-VIM="nvim"
+export SHELL="zsh"
+
+docker_rm_stopped() {
+  docker rm $(docker ps -a -q)
+}
+
+if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
+  gpg-connect-agent /bye >/dev/null 2>&1
+fi
+alias gpg-unlock="gpg-connect-agent updatestartuptty /bye"
 
 include () {
     [[ -f "$1" ]] && source $1
 }
 include $HOME/.local.zshrc
-include $HOME/.profile
 include $HOME/.zsh/aliases
