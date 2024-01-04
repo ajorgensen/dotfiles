@@ -34,8 +34,6 @@ return {
                 builtin.grep_string({ search = vim.fn.input("Grep > ") })
             end)
             vim.keymap.set('n', '<leader>sm', ":Telescope harpoon marks<CR>", { desc = "Harpoon [M]arks" })
-
-            require('telescope').load_extension('command_palette')
         end
     },
 }
