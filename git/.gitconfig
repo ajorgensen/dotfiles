@@ -35,12 +35,6 @@
 
 [diff]
     colorMoved = zebra
-    algorithm = patience
-    compactionHeuristic = true
-    tool = nvimdiff
-
-[difftool "nvimdiff"]
-    cmd = nvim -d $LOCAL $REMOTE -c '$wincmd w' -c 'wincmd J'
 
 [color]
 
@@ -49,30 +43,8 @@
     ui = auto
 
 [merge]
-    tool = nvimdiff4
+
     prompt = false
-
-[mergetool "nvimdiff4"]
-    cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
-
-[color "branch"]
-
-    current = yellow reverse
-    local = yellow
-    remote = green
-
-[color "diff"]
-
-    meta = yellow bold
-    frag = magenta bold # line info
-    old = red # deletions
-    new = green # additions
-
-[color "status"]
-
-    added = yellow
-    changed = green
-    untracked = cyan
 
 [commit]
 
@@ -96,6 +68,8 @@
     # Commands for worktrees
     wl = worktree list
     wa = worktree add
+
+    branch-by-date = branch --sort=-committerdate
 
     branch-name = "!git rev-parse --abbrev-ref HEAD"
 
