@@ -1,9 +1,7 @@
 alias sysup='brew -v update && brew -v upgrade; brew -v cleanup'
 alias sz="source $HOME/.zshrc"
 
-alias ls='ls -G'
-alias ll='ls -lG'
-alias lt='ls -lGt'
+alias ls='ls -lG'
 alias pip=pip3
 alias python=python3
 alias c="clear"
