@@ -64,6 +64,9 @@
     s = status -s
     d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
     co = !git checkout
+    save = commit -m "SAVE"
+    step-back = reset --soft HEAD^
+    put = push -u origin HEAD
 
     # Commands for worktrees
     wl = worktree list
@@ -80,7 +83,6 @@
     publish = push origin HEAD --force-with-lease
     pub = publish
     amend = commit --amend --reuse-message=HEAD
-    put = push -u origin HEAD
     rebase-onto = "!f() { git rebase --onto main $(git merge-base $1 $2) $1; }; f"
 
     gone = "!git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D $branch"
