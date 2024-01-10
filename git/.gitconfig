@@ -67,6 +67,7 @@
     save = commit -m "SAVE"
     step-back = reset --soft HEAD^
     put = push -u origin HEAD
+    new = checkout -b
 
     # Commands for worktrees
     wl = worktree list
