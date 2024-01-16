@@ -10,3 +10,5 @@ alias uuid='uuidgen | tr "[:upper:]" "[:lower:]"'
 alias go-unused='staticcheck -checks U1000'
 
 alias tnew='tmux new-session -A -s'
+
+alias gswitch="git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | fzf --height=20% --reverse --info=inline | xargs -I {} git switch {}"
