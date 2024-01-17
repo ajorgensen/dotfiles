@@ -3,8 +3,9 @@ vim/.vim/plugged/*
 nvim/.config/nvim/plugged/*
 nvim/.config/nvim/lazy-lock.json
 
-tmux/.tmux/plugins/*
-!tmux/.tmux/plugins/tpm
+tmux/.tmux/plugins
+tmux/.config/tmux/plugins
+!tmux/.config/tmux/plugins/tpm
 
 zsh/.config/tmuxinator/*.yml
 
