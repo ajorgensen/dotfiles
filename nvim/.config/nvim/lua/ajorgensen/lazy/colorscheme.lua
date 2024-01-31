@@ -1,16 +1,9 @@
 return {
-    { 
-        'catppuccin/nvim', 
-        name = "catppuccin", 
+    {
+        'navarasu/onedark.nvim',
         priority = 1000,
         config = function()
-            vim.cmd.colorscheme "catppuccin"
+            vim.cmd('colorscheme onedark')
         end,
-    },
-    'ellisonleao/gruvbox.nvim',
-    'folke/tokyonight.nvim',
-    'projekt0n/github-nvim-theme',
-    'shaunsingh/nord.nvim',
-    'rose-pine/neovim',
-    'joshdick/onedark.vim',
+    }
 }
