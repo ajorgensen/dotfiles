@@ -9,7 +9,9 @@ tmux/.config/tmux/plugins
 
 zsh/.config/tmuxinator/*.yml
 
-.DS_Store
 .netrwhist
 .git
+
+.DS_Store
+lazy-lock.json
 Brewfile.lock.json
