@@ -1,7 +1,7 @@
 # themes from https://github.com/alacritty/alacritty-theme
 
 import = [
-    "~/.config/alacritty/themes/catppuccin-frappe.toml"
+    "~/.config/alacritty/themes/tokyo-night-storm.toml"
 ]
 
 [env]
