@@ -1,21 +1,15 @@
 return {
+    'navarasu/onedark.nvim',
+    'ellisonleao/gruvbox.nvim',
+    'rose-pine/neovim',
+    'catppuccin/nvim',
     {
-        'navarasu/onedark.nvim',
-        priority = 1000
-    },
-    {
-        'ellisonleao/gruvbox.nvim',
-        priority = 1000
-    },
-    {
-        'rose-pine/neovim',
-        priority = 1000
-    },
-    {
-        'catppuccin/nvim',
+        'folke/tokyonight.nvim',
+        lazy = false,
         priority = 1000,
-        config = function()
-            vim.cmd('colorscheme catppuccin-frappe')
+        config = function() 
+            vim.cmd([[colorscheme tokyonight]])
         end,
     }
 }
+
