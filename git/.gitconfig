@@ -1,17 +1,13 @@
 [init]
-
     defaultBranch = main
 
 [help]
-
     autocorrect = 1
 
 [include]
-
     path = .gituser
 
 [core]
-
   # Use custom `.gitignore` and `.gitattributes`.
     excludesfile = ~/.gitignore
     attributesfile = ~/.gitattributes
@@ -37,41 +33,44 @@
     colorMoved = zebra
 
 [color]
-
     # Use colors in Git commands that are capable of colored output when
     # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
     ui = auto
 
 [merge]
-
     prompt = false
 
 [commit]
-
     gpgsign = true
     verbose = true
 
 [filter "lfs"]
-
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
     required = true
 
 [alias]
-
+    co = checkout
+    ci = commit
+    df = diff
     l = log --pretty=oneline -n 20 --graph --abbrev-commit
-    s = status -s
-    d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
-    co = !git checkout
+    sh = show
+    st = status -s
+    put = push -u origin HEAD
+
+    rb = rebase
+    rbi = rebase -i --keep-base
+
+    r = reset
+    rh = reset --hard
+    dfst = diff --stat
+
     save = commit -m "SAVE"
     step-back = reset --soft HEAD^
-    put = push -u origin HEAD
     new = checkout -b
 
-    # Commands for worktrees
-    wl = worktree list
-    wa = worktree add
+    d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
     branch-by-date = branch --sort=-committerdate
 
@@ -97,8 +96,6 @@
 
     change-stats = "!git diff origin...HEAD --numstat | awk '{ added += $1; removed += $2 } END { print \"+\" added \" -\" removed }'"
 
-    reb = "!r() { git rebase -i HEAD~$1; }; r"
-
     # Find branches containing commit
     fb = "!f() { git branch -a --contains $1; }; f"
 
@@ -111,18 +108,29 @@
     # Remove branches that have already been merged with main.
     # a.k.a. ‘delete merged’
     dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
-	rm-merged = !git branch --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" { print $1 }' | xargs -r git branch -D
+	rm-merged = "!git branch --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" { print $1 }' | xargs -r git branch -D"
 
     # List contributors with number of commits.
     contributors = shortlog --summary --numbered
 
     # Show the user email for the current repository.
     whoami = config user.email
-[apply]
 
+[apply]
   # Detect whitespace errors when applying a patch.
     whitespace = fix
 
 [fetch]
-
     prune = true
+
+[log]
+    date = local
+
+[tag]
+	sort = version:refname
+
+[branch]
+	sort = -committerdate
+
+[rerere]
+	enabled = true
