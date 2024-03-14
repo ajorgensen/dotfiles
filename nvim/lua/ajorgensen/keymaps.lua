@@ -3,9 +3,8 @@ local keymap = vim.keymap.set
 -- Silent keymap option
 local opts = { silent = true }
 
+-- general
 keymap("", "<Space>", "<Nop>", opts)
-vim.g.mapleader = " "
-
 keymap("n", "<leader>pv", vim.cmd.Ex)
 
 -- Better window navigation
@@ -50,10 +49,10 @@ keymap("n", "<C-j>", "<cmd>cprev<CR>zz")
 keymap("n", "<leader>k", "<cmd>lnext<CR>zz")
 keymap("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-keymap("n", "<C-h>", "<cmd> TmuxNavigateLeft<CR>")
-keymap("n", "<C-l>", "<cmd> TmuxNavigateRight<CR>")
-keymap("n", "<C-j>", "<cmd> TmuxNavigateDown<CR>")
-keymap("n", "<C-k>", "<cmd> TmuxNavigateUp<CR>")
+keymap("n", "<C-h>", "<cmd>TmuxNavigateLeft<CR>")
+keymap("n", "<C-l>", "<cmd>TmuxNavigateRight<CR>")
+keymap("n", "<C-j>", "<cmd>TmuxNavigateDown<CR>")
+keymap("n", "<C-k>", "<cmd>TmuxNavigateUp<CR>")
 
 function ClearMarks()
     vim.cmd(":delm! | delm A-Z0-9")
