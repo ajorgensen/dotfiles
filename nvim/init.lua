@@ -1,1 +1,1 @@
-require("ajorgensen")
+require("config")
