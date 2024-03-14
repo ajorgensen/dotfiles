@@ -14,6 +14,7 @@ return {
             vim.keymap.set("n", "<leader>nc", "<cmd>NvimTreeCollapse<CR>", { desc = "NvimTree Collapse" })
 
             require("nvim-tree").setup({ 
+                sync_root_with_cwd = true,
             })
         end,
     }
