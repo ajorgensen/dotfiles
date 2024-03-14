@@ -12,6 +12,7 @@ ln -sf "$PWD/nvim" "$XDG_CONFIG_HOME"
 
 ln -sf "$PWD/git/gitignore" "$HOME/.gitignore"
 ln -sf "$PWD/git/gitconfig" "$HOME/.gitconfig"
+ln -sf "$PWD/ack/ackrc" "$HOME/.ackrc"
 
 # ~~~~~ OSX related configuration ~~~~~
 if [ "$(uname -s)" == "Darwin" ]; then
