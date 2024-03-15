@@ -20,8 +20,7 @@ return {
                         path = "~/vaults/tardis",
                         overrides = {
                             notes_subdir = "$in",
-                        },
-                    }
+                        }, }
                 },
                 daily_notes = {
                     -- Optional, if you keep daily notes in a separate directory.
@@ -52,7 +51,6 @@ return {
                     return suffix
                 end,
 
-                
                 templates = {
                     subdir = "templates",
                     date_format = "%Y-%m-%d-%a",
