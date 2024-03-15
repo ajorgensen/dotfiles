@@ -1,58 +1,59 @@
--- Shorten function name
-local keymap = vim.keymap.set
 -- Silent keymap option
 local opts = { silent = true }
 
 -- general
-keymap("", "<Space>", "<Nop>", opts)
-keymap("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("", "<Space>", "<Nop>", opts)
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
+vim.keymap.set("n", "<C-h>", "<C-w>h", opts)
+vim.keymap.set("n", "<C-j>", "<C-w>j", opts)
+vim.keymap.set("n", "<C-k>", "<C-w>k", opts)
+vim.keymap.set("n", "<C-l>", "<C-w>l", opts)
 
 -- resize with arrows
-keymap("n", "<C-Up>", ":resize -2<CR>", opts)
-keymap("n", "<C-Down>", ":resize +2<CR>", opts)
-keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
-keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
+vim.keymap.set("n", "<C-Up>", ":resize -2<CR>", opts)
+vim.keymap.set("n", "<C-Down>", ":resize +2<CR>", opts)
+vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", opts)
+vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
 -- Move highlighted lines
-keymap("v", "J", ":m '>+1<CR>gv=gv")
-keymap("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
-keymap("n", "Y", "yg$")
-keymap("n", "J", "mzJ`z")
-keymap("n", "<C-d>", "<C-d>zz")
-keymap("n", "<C-u>", "<C-u>zz")
-keymap("n", "n", "nzzzv")
-keymap("n", "N", "Nzzzv")
+vim.keymap.set("n", "Y", "yg$")
+vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
 
-keymap("n", "<leader>e", "Ex")
+vim.keymap.set("n", "<leader>e", "Ex")
 
-keymap("n", "<leader>y", '"+y')
-keymap("v", "<leader>y", '"+y')
-keymap("n", "<leader>Y", '"+Y')
+vim.keymap.set("n", "<leader>y", '"+y')
+vim.keymap.set("v", "<leader>y", '"+y')
+vim.keymap.set("n", "<leader>Y", '"+Y')
 
-keymap("n", "<leader>d", '"_d')
-keymap("v", "<leader>d", '"_d')
+vim.keymap.set("n", "<leader>d", '"_d')
+vim.keymap.set("v", "<leader>d", '"_d')
 
-keymap("i", "<C-c>", "<Esc>")
+vim.keymap.set("i", "<C-c>", "<Esc>")
 
-keymap("n", "Q", "<nop>")
-keymap("n", "<leader>f", vim.lsp.buf.format)
+vim.keymap.set("n", "Q", "<nop>")
+vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
-keymap("n", "<C-k>", "<cmd>cnext<CR>zz")
-keymap("n", "<C-j>", "<cmd>cprev<CR>zz")
-keymap("n", "<leader>k", "<cmd>lnext<CR>zz")
-keymap("n", "<leader>j", "<cmd>lprev<CR>zz")
+vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-keymap("n", "<C-h>", "<cmd>TmuxNavigateLeft<CR>")
-keymap("n", "<C-l>", "<cmd>TmuxNavigateRight<CR>")
-keymap("n", "<C-j>", "<cmd>TmuxNavigateDown<CR>")
-keymap("n", "<C-k>", "<cmd>TmuxNavigateUp<CR>")
+vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<CR>")
+vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<CR>")
+vim.keymap.set("n", "<C-j>", "<cmd>TmuxNavigateDown<CR>")
+vim.keymap.set("n", "<C-k>", "<cmd>TmuxNavigateUp<CR>")
+
+-- tmux
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
 function ClearMarks()
     vim.cmd(":delm! | delm A-Z0-9")
