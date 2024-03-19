@@ -5,7 +5,6 @@ alias ls='ls -lG'
 alias pip=pip3
 alias python=python3
 alias c="clear"
-alias uuid='uuidgen | tr "[:upper:]" "[:lower:]"'
 
 alias go-unused='staticcheck -checks U1000'
 
