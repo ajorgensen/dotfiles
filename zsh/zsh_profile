@@ -19,3 +19,4 @@ include () {
 
 include $HOME/.local.zshrc
 include $HOME/.zsh/aliases
+include $HOME/.zsh/funcs
