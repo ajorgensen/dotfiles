@@ -52,3 +52,26 @@ autocmd('LspAttach', {
         vim.keymap.set("n", "<leader>vmt", function() vim.lsp.buf.format() end, opts)
     end,
 })
+
+autocmd('BufRead', {
+    pattern = "*.templ",
+    command = "set filetype=templ"
+
+})
+
+autocmd('BufNewFile', {
+    pattern = "*.templ",
+    command = "set filetype=templ"
+
+})
+
+-- Highlight when yanking (copying) text
+--  Try it with `yap` in normal mode
+autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
+

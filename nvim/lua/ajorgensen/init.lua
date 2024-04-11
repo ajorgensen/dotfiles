@@ -1,7 +1,5 @@
-require("ajorgensen.settings")
+require("ajorgensen.opts")
 require("ajorgensen.keymaps")
-
 require("ajorgensen.lazy_init")
-
 require("ajorgensen.autocmd")
 require("ajorgensen.colors")
