@@ -1,7 +1,7 @@
 # themes from https://github.com/alacritty/alacritty-theme
 
 import = [
-    "~/.config/alacritty/themes/nightfox.toml"
+    "~/.config/alacritty/themes/onedark.toml"
 ]
 
 [env]
