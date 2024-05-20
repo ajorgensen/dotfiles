@@ -1,11 +1,12 @@
 # themes from https://github.com/alacritty/alacritty-theme
 
 import = [
-    "~/.config/alacritty/themes/catppuccin-mocha.toml"
+    "~/.config/alacritty/themes/nightfox.toml"
 ]
 
 [env]
 TERM = "xterm-256color"
+ALACRITTY = "true"
 
 [font]
 size = 13
