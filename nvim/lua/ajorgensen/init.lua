@@ -1,4 +1,0 @@
-require("ajorgensen.opts")
-require("ajorgensen.keymaps")
-require("ajorgensen.lazy_init")
-require("ajorgensen.autocmd")
