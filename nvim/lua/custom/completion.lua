@@ -14,7 +14,6 @@ cmp.setup({
     { name = "cody" },
     { name = "path" },
     { name = "buffer" },
-    { name = "supermaven" },
     { name = "luasnip" },
   },
 
