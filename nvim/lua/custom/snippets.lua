@@ -2,8 +2,7 @@ local ls = require("luasnip")
 
 vim.snippet.expand = ls.lsp_expand
 
-require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "./snippets" } })
+require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "./lua/custom/snippets" } })
 
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.snippet.active = function(filter)
@@ -37,10 +36,6 @@ ls.config.set_config({
   updateevents = "TextChanged,TextChangedI",
   override_builtin = true,
 })
-
-for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("lua/custom/snippets/*.lua", true)) do
-  loadfile(ft_path)()
-end
 
 vim.keymap.set({ "i", "s" }, "<c-k>", function()
   return vim.snippet.active({ direction = 1 }) and vim.snippet.jump(1)
