@@ -2,8 +2,7 @@ local set = vim.keymap.set
 
 set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
-set("n", "<leader>lr", "<cmd>LspRestart<CR><cmd>lua vim.diagnostic.reset()<CR>",
-  { desc = "Restart LSP server" })
+set("n", "<leader>lr", "<cmd>LspRestart<CR><cmd>lua vim.diagnostic.reset()<CR>", { desc = "Restart LSP server" })
 
 set("n", "<leader>qq", "<cmd>qall<CR>", { desc = "Quit all" })
 set("n", "<leader>w", "<cmd>w<CR>", { desc = "Save file" })
