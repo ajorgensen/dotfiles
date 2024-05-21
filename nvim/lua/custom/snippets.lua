@@ -1,8 +1,7 @@
 local ls = require("luasnip")
+require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "./lua/custom/snippets" } })
 
 vim.snippet.expand = ls.lsp_expand
-
-require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "./lua/custom/snippets" } })
 
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.snippet.active = function(filter)
