@@ -12,8 +12,8 @@ local servers = {
   lua_ls = true,
   templ = true,
   cssls = true,
-
   tsserver = true,
+  graphql = true,
 }
 
 local servers_to_install = vim.tbl_filter(function(key)

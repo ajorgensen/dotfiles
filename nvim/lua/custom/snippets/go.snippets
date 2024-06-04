@@ -43,16 +43,16 @@ snippet test "func TestXYZ(t *testing.T) { ... }"
 
 snippet tabletest
   tests := map[string]struct {
-        input string
-        sep   string
-        want  []string
+        got $1
+        want $2
     }{
-        "simple":       {input: "a/b/c", sep: "/", want: []string{"a", "b", "c"}},
+        "simple":       {got: "", want: ""},
     }
 
     for name, tc := range tests {
         t.Run(name, func(t *testing.T) {
-            got := Split(tc.input, tc.sep)
+            got := $3
+
             diff := cmp.Diff(tc.want, got)
             if diff != "" {
                 t.Fatalf(diff)
