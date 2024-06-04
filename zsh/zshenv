@@ -1,1 +1,0 @@
-alias uuid='uuidgen | tr "[:upper:]" "[:lower:]"'
