@@ -1,7 +1,7 @@
 # themes from https://github.com/alacritty/alacritty-theme
 
 import = [
-    "~/.config/alacritty/themes/onedark.toml"
+    "~/.config/alacritty/themes/tokyo-night.toml"
 ]
 
 [env]
