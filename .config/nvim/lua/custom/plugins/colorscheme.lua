@@ -5,7 +5,7 @@ return {
     "rose-pine/neovim",
     name = "rose-pine",
     config = function()
-      require("custom.colorscheme")
+      require "custom.colorscheme"
     end,
   },
 
@@ -17,4 +17,5 @@ return {
   "kdheepak/monochrome.nvim",
   "EdenEast/nightfox.nvim",
   "folke/tokyonight.nvim",
+  "Mofiqul/dracula.nvim",
 }
