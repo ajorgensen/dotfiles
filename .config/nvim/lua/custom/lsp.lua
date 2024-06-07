@@ -1,50 +1,20 @@
-require("neodev").setup({})
+require("neodev").setup {}
 
-local capabilities = nil
-if pcall(require, "cmp_nvim_lsp") then
-  capabilities = require("cmp_nvim_lsp").default_capabilities()
-end
-
-local lspconfig = require("lspconfig")
-local servers = {
-  bashls = true,
-  gopls = true,
-  lua_ls = true,
-  templ = true,
-  cssls = true,
-  tsserver = true,
-  graphql = true,
+local ensure_installed = {
+  "lua_ls",
+  "gopls",
 }
-
-local servers_to_install = vim.tbl_filter(function(key)
-  local t = servers[key]
-  if type(t) == "table" then
-    return not t.manual_install
-  else
-    return t
-  end
-end, vim.tbl_keys(servers))
 
 require("mason").setup()
-local ensure_installed = {
-  "stylua",
-  "lua_ls",
+require("mason-lspconfig").setup {
+  ensure_installed = ensure_installed,
+  automatic_installation = true,
 }
-
-vim.list_extend(ensure_installed, servers_to_install)
-require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
-for name, config in pairs(servers) do
-  if config == true then
-    config = {}
-  end
-
-  config = vim.tbl_deep_extend("force", {}, {
-    capabilities = capabilities,
-  }, config)
-
-  lspconfig[name].setup(config)
-end
+require("mason-lspconfig").setup_handlers {
+  function(server_name)
+    require("lspconfig")[server_name].setup {}
+  end,
+}
 
 local disable_semantic_tokens = {
   lua = true,
@@ -62,7 +32,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
     vim.keymap.set("n", "gf", function()
       vim.lsp.buf.format()
-      vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" } }, apply = true })
+      vim.lsp.buf.code_action { context = { only = { "source.organizeImports" } }, apply = true }
     end, opts)
     vim.keymap.set("n", "K", function()
       vim.lsp.buf.hover()
@@ -85,18 +55,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- Autoformatting setup
-require("conform").setup({
+require("conform").setup {
   formatters_by_ft = {
     lua = { "stylua" },
   },
-})
+}
 
 vim.api.nvim_create_autocmd("BufWritePre", {
   callback = function(args)
-    require("conform").format({
+    require("conform").format {
       bufnr = args.buf,
       lsp_fallback = true,
       quiet = true,
-    })
+    }
   end,
 })
