@@ -1,7 +1,7 @@
 # themes from https://github.com/alacritty/alacritty-theme
 
 import = [
-    "~/.config/alacritty/themes/dracula.toml"
+    "~/.config/alacritty/themes/tokyonight_storm.toml"
 ]
 
 [env]
