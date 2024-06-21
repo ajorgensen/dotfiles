@@ -16,3 +16,7 @@ function set-keychain-environment-variable () {
     ( [ -n "$1" ] && [ -n "$secret" ] ) || return 1
     security add-generic-password -U -a ${USER} -D "environment variable" -s "${1}" -w "${secret}"
 }
+
+jwt-decode() {
+  jq -R 'split(".") |.[0:2] | map(gsub("-"; "+") | gsub("_"; "/") | gsub("%3D"; "=") | @base64d) | map(fromjson)'
+}
