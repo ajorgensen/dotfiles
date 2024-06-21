@@ -88,7 +88,10 @@
     branch-name = "!git rev-parse --abbrev-ref HEAD"
 
     default-branch = "!git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d/"
-    sync = "!git pull origin $(git default-branch) --rebase"
+
+    rsync = "!git pull origin $(git default-branch) --rebase"
+    msync = "!git pull origin $(git default-branch)"
+
     update = "!git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase"
     squash = "!git rebase -v -i origin $(git default-branch)"
     publish = push origin HEAD --force-with-lease
