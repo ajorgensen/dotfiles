@@ -1,31 +1,31 @@
-require("custom.snippets")
+require "custom.snippets"
 
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
-vim.opt.shortmess:append("c")
+vim.opt.shortmess:append "c"
 
-local lspkind = require("lspkind")
-lspkind.init({})
+local lspkind = require "lspkind"
+lspkind.init {}
 
-local cmp = require("cmp")
+local cmp = require "cmp"
 
-cmp.setup({
+cmp.setup {
   sources = {
     { name = "nvim_lsp" },
     { name = "cody" },
     { name = "path" },
     { name = "buffer" },
     { name = "luasnip" },
-    { name = "supermaven" },
+    { name = "copilot" },
   },
 
   mapping = {
-    ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-    ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+    ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+    ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
     ["<C-y>"] = cmp.mapping(
-      cmp.mapping.confirm({
+      cmp.mapping.confirm {
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
-      }),
+      },
       { "i", "c" }
     ),
   },
@@ -36,7 +36,7 @@ cmp.setup({
       vim.snippet.expand(args.body)
     end,
   },
-})
+}
 
 -- Setup vim-dadbod
 cmp.setup.filetype("sql", {
