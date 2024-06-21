@@ -18,4 +18,6 @@ return {
   "EdenEast/nightfox.nvim",
   "folke/tokyonight.nvim",
   "Mofiqul/dracula.nvim",
+  "ku1ik/vim-monokai",
+  "Mofiqul/vscode.nvim",
 }
