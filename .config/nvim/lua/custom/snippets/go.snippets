@@ -19,6 +19,9 @@ snippet ctx
 snippet pln "println"
 	fmt.Println($0)
 
+snippet printf
+	fmt.Printf("$1\n", $0)
+
 snippet ehandler "Endpoint handler"
 	func $1(w http.ResponseWriter, r *http.Request) {
 		$0
