@@ -4,6 +4,7 @@ alias vim="nvim"
 alias e="nvim"
 
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 
 docker_rm_stopped() {
