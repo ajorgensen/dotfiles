@@ -73,6 +73,7 @@ vim.keymap.set("n", "<leader>fg", function()
   extensions.live_grep_args.live_grep_args()
 end, {})
 
+vim.keymap.set("n", "<leader>fd", builtin.diagnostics)
 vim.keymap.set("n", "<leader>fds", builtin.lsp_document_symbols)
 vim.keymap.set("n", "<leader>fws", builtin.lsp_workspace_symbols)
 vim.keymap.set("n", "<leader>fr", builtin.lsp_references)

@@ -61,13 +61,23 @@
     process = git-lfs filter-process
     required = true
 
+[push]
+    autoSetupRemote = true
+
 [alias]
     co = checkout
     ci = commit
-    df = diff
+    st = status
+    br = branch
+    di = diff
+    fp = fetch --prune
+    rb = rebase
+
+    hist = log --graph --abbrev-commit --decorate --date=short \
+		--format=format:'%C(bold cyan)%h%C(reset) %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)%an%C(reset) %C(bold yellow)%d%C(reset)' \
+		--branches --remotes --tags
+
     l = log --pretty=oneline -n 20 --graph --abbrev-commit
-    sh = show
-    st = status -s
     put = push -u origin HEAD
 
     rb = rebase
@@ -148,3 +158,6 @@
 
 [rerere]
 	enabled = true
+[user]
+	name = Andrew Jorgensen
+	email = andrew@andrewjorgensen.com
