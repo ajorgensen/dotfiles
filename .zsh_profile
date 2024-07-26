@@ -3,7 +3,9 @@ export EDITOR="nvim"
 alias vim="nvim"
 alias e="nvim"
 
-export PATH="$HOME/.local/bin:$PATH"
+export XDG_CONFIG_HOME="$HOME/.config"
+
+export PATH="$HOME/sbin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 
@@ -19,22 +21,6 @@ alias gpg-unlock="gpg-connect-agent updatestartuptty /bye"
 include () {
     [[ -f "$1" ]] && source $1
 }
-
-if [ "$ALACRITTY" = "true" ] 
-then
-    theme() {
-        ln -sf $HOME/.config/alacritty/themes/$1.toml $HOME/.config/alacritty/colors.toml
-        touch $HOME/.config/alacritty/alacritty.toml
-    }
-
-    local ALACRITTY_THEME=$(defaults read -g AppleInterfaceStyle 2>/dev/null || echo "Light")
-    if [ "$ALACRITTY_THEME" = "Dark" ]
-    then
-        theme "github_dark"
-    else
-        theme "github_light"
-    fi
-fi
 
 include $HOME/.local.zshrc
 include $HOME/.zsh/aliases
