@@ -29,3 +29,4 @@ __debug_bin
 *.ignore
 
 Brewfile.lock.json
+kls_database.db

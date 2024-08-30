@@ -4,6 +4,11 @@ require("fzf-lua").setup {
     file_icons = false,
     color_icons = false,
   },
+  keymap = {
+    fzf = {
+      ["ctrl-q"] = "select-all+accept",
+    },
+  },
 }
 
 vim.keymap.set("n", "<leader>fR", require("fzf-lua").registers, { desc = "Fzf Registers" })
