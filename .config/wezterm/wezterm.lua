@@ -3,7 +3,7 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 -- Colors
-config.color_scheme = "OneDark (base16)"
+config.color_scheme = "GruvboxDark"
 
 -- Fonts
 config.font = wezterm.font({ family = "Hack Nerd Font Mono" })

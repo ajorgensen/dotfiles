@@ -1,9 +1,9 @@
 return {
   "David-Kunz/gen.nvim",
   {
-    "github/copilot.vim",
+    "supermaven-inc/supermaven-nvim",
     config = function()
-      vim.g.copilot_enabled = true
+      require("supermaven-nvim").setup {}
     end,
   },
 }

@@ -15,6 +15,7 @@ cmp.setup {
     { name = "path" },
     { name = "buffer" },
     { name = "luasnip" },
+    { name = "supermaven" },
   },
 
   mapping = {
