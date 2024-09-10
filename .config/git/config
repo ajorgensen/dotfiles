@@ -132,7 +132,7 @@
     # Remove branches that have already been merged with main.
     # a.k.a. ‘delete merged’
     dm = "!git branch --merged | grep -v '\\*' | grep -v $(git default-branch) | xargs -n 1 git branch -d"
-	rm-merged = "!git branch --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" { print $1 }' | xargs -r git branch -D"
+    rm-merged = "!git branch --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" { print $1 }' | xargs -r git branch -D"
 
     # List contributors with number of commits.
     contributors = shortlog --summary --numbered
