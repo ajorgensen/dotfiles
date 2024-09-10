@@ -1,3 +1,5 @@
+require("pomodoro")
+
 hs.loadSpoon("ReloadConfiguration")
 spoon.ReloadConfiguration:start()
 
@@ -30,4 +32,35 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "Right", function()
   f.w = max.w / 2
   f.h = max.h
   win:setFrame(f)
+end)
+
+hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "M", function()
+  local focusedWindow = hs.window.focusedWindow()
+  local allWindows = hs.window.allWindows()
+
+  for _, window in ipairs(allWindows) do
+    if window ~= focusedWindow then
+      window:minimize()
+    end
+  end
+end)
+
+-- Bind the window collapsing functionality to a hotkey (e.g., Cmd+Shift+C)
+hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "C", function()
+  local screen = hs.screen.mainScreen()
+  local screenFrame = screen:frame()
+
+  -- Calculate the new size (90% of screen size)
+  local newWidth = screenFrame.w * 0.9
+  local newHeight = screenFrame.h * 0.9
+
+  -- Calculate the new position (centered)
+  local newX = screenFrame.x + (screenFrame.w - newWidth) / 2
+  local newY = screenFrame.y + (screenFrame.h - newHeight) / 2
+
+  -- Get all windows and set their frames
+  local windows = hs.window.visibleWindows()
+  for _, window in ipairs(windows) do
+    window:setFrame(hs.geometry.rect(newX, newY, newWidth, newHeight))
+  end
 end)
