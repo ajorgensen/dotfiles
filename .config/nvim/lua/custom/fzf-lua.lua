@@ -46,3 +46,46 @@ vim.keymap.set(
   ":lua require'fzf-lua'.spell_suggest({ winopts = {relative='cursor',row=1.01, col=0, height=0.2, width=0.2} })<cr>",
   { desc = "Spelling Suggestions" }
 )
+
+vim.api.nvim_set_keymap(
+  "v",
+  "<leader>fs",
+  ":lua require'fzf-lua'.grep({search=GetVisualSelection()})<CR>",
+  { desc = "Search for selected text", noremap = true, silent = true }
+)
+
+-- Function to get the currently highlighted/selected text in visual mode
+function GetVisualSelection()
+  -- Get the current buffer handle
+  local bufnr = vim.api.nvim_get_current_buf()
+
+  -- Get the type of visual mode ('v' = visual character mode, 'V' = visual line mode, Ctrl-V = visual block mode)
+  local mode = vim.fn.visualmode()
+
+  -- Get the starting and ending rows/columns of the visual selection
+  -- The end row/col need to be corrected to handle inclusive/exclusive ranges properly
+
+  local start_pos = vim.fn.getpos "'<"
+  local end_pos = vim.fn.getpos "'>"
+
+  -- Positions are line-based, so subtract 1 to get zero-indexed positions for use in Lua API
+  local start_row = start_pos[2] - 1 -- Line number
+  local start_col = start_pos[3] - 1 -- Column number
+  local end_row = end_pos[2] - 1     -- Line number
+  local end_col = end_pos[3] - 1     -- Column number
+
+  -- If it's character-wise selection (visual 'v'), adjust for inclusive behavior
+  if mode == "v" then
+    end_col = end_col + 1
+  end
+
+  -- Call the nvim_buf_get_text function to get the selected text
+  local selected_text = vim.api.nvim_buf_get_text(bufnr, start_row, start_col, end_row, end_col, {})
+
+  -- Join the lines into a single string
+  local result = table.concat(selected_text, "\n")
+
+  print("Selected text: " .. result)
+
+  return result
+end
