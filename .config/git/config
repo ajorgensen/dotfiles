@@ -4,8 +4,12 @@
 [help]
     autocorrect = 1
 
-[include]
-    path = ~/.gituser
+[user]
+    name = Andrew Jorgensen
+    email = git@aj.codes
+
+[github]
+    user = ajorgensen
 
 [pull]
     rebase = true
@@ -158,6 +162,6 @@
 
 [rerere]
 	enabled = true
-[user]
-	name = Andrew Jorgensen
-	email = andrew@andrewjorgensen.com
+
+[include]
+    path = ~/.gitoverrides
