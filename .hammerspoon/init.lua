@@ -50,9 +50,9 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "C", function()
   local screen = hs.screen.mainScreen()
   local screenFrame = screen:frame()
 
-  -- Calculate the new size (90% of screen size)
-  local newWidth = screenFrame.w * 0.9
-  local newHeight = screenFrame.h * 0.9
+  -- Calculate the new size (95% of screen size)
+  local newWidth = screenFrame.w * 0.95
+  local newHeight = screenFrame.h * 0.95
 
   -- Calculate the new position (centered)
   local newX = screenFrame.x + (screenFrame.w - newWidth) / 2
