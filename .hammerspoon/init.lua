@@ -98,7 +98,7 @@ end)
 -- This Hammerspoon script arranges windows as follows:
 -- 1. Moves the currently focused window to the right half of the screen
 -- 2. Moves all other non-minimized windows to the left half of the screen
-hs.hotkey.bind({ "ctrl", "alt", "cmd" }, "J", function()
+hs.hotkey.bind({ "ctrl", "alt", "cmd" }, "H", function()
   local focusedWin = hs.window.focusedWindow()
   local allWindows = hs.window.visibleWindows()
   local screen = focusedWin:screen()
