@@ -27,7 +27,7 @@ vim.keymap.set("n", "<leader>fwd", require("fzf-lua").lsp_workspace_diagnostics,
 vim.keymap.set("n", "<leader>fdd", require("fzf-lua").lsp_document_diagnostics, { desc = "Document Diagnostics" })
 
 vim.keymap.set("n", "<leader>fds", require("fzf-lua").lsp_document_symbols, { desc = "Document Symbols" })
-vim.keymap.set("n", "<leader>fws", require("fzf-lua").lsp_workspace_symbols, { desc = "Workspace Symbols" })
+vim.keymap.set("n", "<leader>fws", require("fzf-lua").lsp_live_workspace_symbols, { desc = "Workspace Symbols" })
 
 vim.keymap.set("n", "<leader>jd", require("fzf-lua").lsp_definitions, { desc = "Jump to Definition" })
 vim.keymap.set("n", "<leader>ds", require("fzf-lua").lsp_document_symbols, { desc = "Document Symbols" })
