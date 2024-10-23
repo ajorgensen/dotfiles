@@ -16,6 +16,19 @@ require("mason-lspconfig").setup_handlers {
   end,
 }
 
+local lspconfig = require "lspconfig"
+lspconfig.gopls.setup {
+  cmd = { "gopls", "serve" },
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+    },
+  },
+}
+
 local disable_semantic_tokens = {
   lua = true,
 }

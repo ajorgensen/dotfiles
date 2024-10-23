@@ -10,7 +10,9 @@ local function showNotification(title, message)
         title = title,
         informativeText = message,
         soundName = hs.notify.defaultNotificationSound,
-        hasActionButton = false,
+        hasActionButton = true,
+        actionButtonTitle = "Done",
+        withdrawAfter = 0, -- 0 means it does not automatically close
       })
       :send()
 end

@@ -5,7 +5,7 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
     config = function()
-      require("lualine").setup({
+      require("lualine").setup {
         options = {
           icons_enabled = true,
           theme = "auto",
@@ -26,7 +26,8 @@ return {
         },
         sections = {
           lualine_a = { "mode" },
-          lualine_b = { "branch", "diff", "diagnostics" },
+          --lualine_b = { "branch", "diff", "diagnostics" },
+          lualine_b = { "branch", "diagnostics" },
           lualine_c = { { "filename", path = 1 } },
           lualine_x = { "encoding", "fileformat", "filetype" },
           lualine_y = { "progress" },
@@ -44,7 +45,7 @@ return {
         winbar = {},
         inactive_winbar = {},
         extensions = {},
-      })
+      }
     end,
   },
 }
