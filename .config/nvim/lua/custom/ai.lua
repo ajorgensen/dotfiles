@@ -1,9 +1,8 @@
 require("avante").setup {
-  provider = "openai",
+  provider = "claude",
   claude = {
     model = "claude-3-5-sonnet-20240620",
     temperature = 0.3,
-    max_tokens = 4096,
   },
   openai = {
     model = "gpt-4o",
