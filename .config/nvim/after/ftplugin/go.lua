@@ -6,11 +6,12 @@ end, { buffer = 0 })
 
 function GoBuildAsync()
   local cmd = "go build ./..."
+  local output = {}
   local function on_exit(job_id, exit_code, event_type)
     if exit_code ~= 0 then
       vim.fn.setqflist({}, " ", {
         title = "Go Build Errors",
-        lines = vim.api.nvim_buf_get_lines(vim.api.nvim_create_buf(false, true), 0, -1, false),
+        lines = output,
       })
       vim.cmd "copen"
     else
@@ -21,6 +22,16 @@ function GoBuildAsync()
     on_exit = on_exit,
     stdout_buffered = true,
     stderr_buffered = true,
+    on_stdout = function(_, data)
+      if data then
+        vim.list_extend(output, data)
+      end
+    end,
+    on_stderr = function(_, data)
+      if data then
+        vim.list_extend(output, data)
+      end
+    end,
   })
 end
 
