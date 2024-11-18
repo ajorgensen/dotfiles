@@ -4,7 +4,7 @@ return {
     build = ":TSUpdate",
     lazy = false,
     config = function()
-      require("custom.treesitter").setup()
+      require "custom.treesitter"
     end,
   },
   { "nvim-treesitter/nvim-treesitter-context" },
