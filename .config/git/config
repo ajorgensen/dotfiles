@@ -143,6 +143,7 @@
 
     # Show the user email for the current repository.
     whoami = config user.email
+	review = "!f() { \\\n    base_branch=${1:-origin/main}; \\\n    current_branch=$(git rev-parse --abbrev-ref HEAD); \\\n    echo \"🔍 Reviewing changes on branch: $current_branch\"; \\\n    echo \"📊 Comparing against: $base_branch\\n\"; \\\n    \\\n    echo \"=== 📝 Commit Summary ===\"; \\\n    git log --pretty=format:\"%C(yellow)%h%Creset -%C(bold green)%d%Creset %s %C(dim)(%cr) %C(bold blue)<%an>%Creset\" $base_branch..$current_branch; \\\n    \\\n    echo \"\\n\\n=== 📈 Stats ===\"; \\\n    git diff --stat $base_branch..$current_branch; \\\n    \\\n    echo \"\\n=== ⚠️  Potential Issues ===\"; \\\n    git diff --check $base_branch..$current_branch; \\\n    \\\n    echo \"\\n=== 📋 File Changes ===\"; \\\n    git diff --color $base_branch..$current_branch; \\\n}; f"
 
 [apply]
   # Detect whitespace errors when applying a patch.
