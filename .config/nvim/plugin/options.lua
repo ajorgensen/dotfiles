@@ -1,5 +1,8 @@
 local opt = vim.opt
 
+opt.tabstop = 4
+opt.shiftwidth = 4
+
 opt.inccommand = "split"
 
 -- Search settings
@@ -29,7 +32,7 @@ opt.showmode = false
 opt.breakindent = true
 
 -- Save undo history
-opt.undodir = os.getenv("HOME") .. "/.config/undodir"
+opt.undodir = os.getenv "HOME" .. "/.config/undodir"
 opt.undofile = true
 
 -- Decrease update time
