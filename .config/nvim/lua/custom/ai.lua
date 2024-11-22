@@ -1,12 +1,5 @@
 require("avante").setup {
   provider = "claude",
-  claude = {
-    model = "claude-3-5-sonnet-20240620",
-    temperature = 0.3,
-  },
-  openai = {
-    model = "gpt-4o",
-  },
   behaviour = {
     auto_suggestions = false, -- Experimental stage
     auto_set_highlight_group = true,
