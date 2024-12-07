@@ -1,9 +1,0 @@
-.gitignore
-.git
-Brewfile
-Brewfile.lock.json
-PACKAGES
-README.md
-TODO.md
-setup
-configs

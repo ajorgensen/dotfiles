@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 
 # Install Homebrew
-./resources/homebrew.sh
+./homebrew.sh
+
+# Dotfiles
+./dotfiles.sh
