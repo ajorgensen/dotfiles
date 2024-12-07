@@ -1,13 +1,25 @@
+export XDG_CONFIG_HOME="$HOME/.config"
+
 export SHELL="zsh"
 export EDITOR="nvim"
 alias vim="nvim"
 alias e="nvim"
 
-export XDG_CONFIG_HOME="$HOME/.config"
+addToPath() {
+    if [[ "$PATH" != *"$1"* ]]; then
+        export PATH=$PATH:$1
+    fi
+}
 
-export PATH="$HOME/sbin:$PATH"
-export PATH="$HOME/bin:$PATH"
-export PATH="$HOME/go/bin:$PATH"
+addToPathFront() {
+    if [[ "$PATH" != *"$1"* ]]; then
+        export PATH=$1:$PATH
+    fi
+}
+
+addToPathFront $HOME/go/bin
+addToPathFront $HOME/.local/bin
+addToPathFront $HOME/.local/sbin
 
 docker_rm_stopped() {
   docker rm $(docker ps -a -q)
