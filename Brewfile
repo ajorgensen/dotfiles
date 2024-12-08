@@ -1,6 +1,3 @@
-# Taps
-tap "homebrew/cask"
-
 # install
 brew "ag"
 brew "atool"
