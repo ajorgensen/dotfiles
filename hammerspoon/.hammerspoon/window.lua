@@ -1,38 +1,85 @@
+-- Tables to store window states and timestamps for left and right separately
+local windowStatesLeft = {}
+local windowStatesRight = {}
+
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "Left", function()
   local win = hs.window.focusedWindow()
+  local id = win:id()
   local f = win:frame()
   local screen = win:screen()
   local max = screen:frame()
 
-  f.x = max.x
+  local currentTime = hs.timer.secondsSinceEpoch()
+  local TIMEOUT = 10 -- seconds
+
+  -- Initialize or update window state
+  if not windowStatesLeft[id] then
+    windowStatesLeft[id] = { state = 1, timestamp = currentTime }
+  else
+    -- Check if we're within the timeout period
+    if (currentTime - windowStatesLeft[id].timestamp) <= TIMEOUT then
+      -- Within timeout, cycle the state
+      windowStatesLeft[id].state = windowStatesLeft[id].state % 2 + 1
+    else
+      -- Past timeout, reset to state 1
+      windowStatesLeft[id].state = 1
+    end
+    windowStatesLeft[id].timestamp = currentTime
+  end
+
+  -- State 1: Half screen
+  if windowStatesLeft[id].state == 1 then
+    f.w = max.w / 2
+    f.x = max.x
+    -- State 2: One third screen
+  else
+    f.w = max.w / 3
+    f.x = max.x
+  end
+
   f.y = max.y
-  f.w = max.w / 2
   f.h = max.h
   win:setFrame(f)
 end)
 
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "Right", function()
   local win = hs.window.focusedWindow()
+  local id = win:id()
   local f = win:frame()
   local screen = win:screen()
   local max = screen:frame()
 
-  f.x = max.x + (max.w / 2)
+  local currentTime = hs.timer.secondsSinceEpoch()
+  local TIMEOUT = 10 -- seconds
+
+  -- Initialize or update window state
+  if not windowStatesRight[id] then
+    windowStatesRight[id] = { state = 1, timestamp = currentTime }
+  else
+    -- Check if we're within the timeout period
+    if (currentTime - windowStatesRight[id].timestamp) <= TIMEOUT then
+      -- Within timeout, cycle the state
+      windowStatesRight[id].state = windowStatesRight[id].state % 2 + 1
+    else
+      -- Past timeout, reset to state 1
+      windowStatesRight[id].state = 1
+    end
+    windowStatesRight[id].timestamp = currentTime
+  end
+
+  -- State 1: Half screen
+  if windowStatesRight[id].state == 1 then
+    f.w = max.w / 2
+    f.x = max.x + (max.w / 2)
+    -- State 2: One third screen
+  else
+    f.w = max.w / 3
+    f.x = max.x + (max.w * 2 / 3)
+  end
+
   f.y = max.y
-  f.w = max.w / 2
   f.h = max.h
   win:setFrame(f)
-end)
-
-hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "M", function()
-  local focusedWindow = hs.window.focusedWindow()
-  local allWindows = hs.window.allWindows()
-
-  for _, window in ipairs(allWindows) do
-    if window ~= focusedWindow then
-      window:minimize()
-    end
-  end
 end)
 
 -- Bind the window collapsing functionality to a hotkey (e.g., Cmd+Shift+C)
