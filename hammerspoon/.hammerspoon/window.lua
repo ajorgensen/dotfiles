@@ -1,3 +1,6 @@
+-- TODO: Can we refactor this to be represented as an action chain and just
+-- pass in the functinos and abstract away the state tracking?
+
 -- Tables to store window states and timestamps for left and right separately
 local windowStatesLeft = {}
 local windowStatesRight = {}
