@@ -3,7 +3,7 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 -- Colors
-config.color_scheme = "tokyonight"
+config.color_scheme = "catppuccin-mocha"
 
 -- Fonts
 config.font = wezterm.font({ family = "SauceCodePro Nerd Font", weight = "Regular" })
