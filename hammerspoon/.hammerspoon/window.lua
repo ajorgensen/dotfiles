@@ -4,8 +4,24 @@
 -- Tables to store window states and timestamps for left and right separately
 local windowStatesLeft = {}
 local windowStatesRight = {}
+local exclude = { "app.tuple.app" }
+
+-- Helper function to check if a window should be excluded
+local function shouldExcludeWindow(win)
+  local bundleID = win:application():bundleID()
+  for _, excludeID in ipairs(exclude) do
+    if bundleID == excludeID then
+      return true
+    end
+  end
+  return false
+end
 
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "Left", function()
+  if shouldExcludeWindow(hs.window.focusedWindow()) then
+    return
+  end
+
   local win = hs.window.focusedWindow()
   local id = win:id()
   local f = win:frame()
@@ -46,6 +62,10 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "Left", function()
 end)
 
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "Right", function()
+  if shouldExcludeWindow(hs.window.focusedWindow()) then
+    return
+  end
+
   local win = hs.window.focusedWindow()
   local id = win:id()
   local f = win:frame()
@@ -102,7 +122,7 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "C", function()
   -- Get all windows on the same screen and set their frames
   local windows = hs.window.visibleWindows()
   for _, window in ipairs(windows) do
-    if window:screen() == screen then
+    if window:screen() == screen and not shouldExcludeWindow(window) then
       window:setFrame(hs.geometry.rect(newX, newY, newWidth, newHeight))
     end
   end
@@ -125,70 +145,8 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "S", function()
   -- Get all windows on the same screen and set their frames
   local windows = hs.window.visibleWindows()
   for _, window in ipairs(windows) do
-    if window:screen() == screen then
+    if window:screen() == screen and not shouldExcludeWindow(window) then
       window:setFrame(hs.geometry.rect(newX, newY, newWidth, newHeight))
-    end
-  end
-end)
-
--- This Hammerspoon script arranges windows as follows:
--- 1. Moves the currently focused window to the right half of the screen
--- 2. Moves all other non-minimized windows on the same screen to the left half
-hs.hotkey.bind({ "ctrl", "alt", "cmd" }, "L", function()
-  local focusedWin = hs.window.focusedWindow()
-  local screen = focusedWin:screen()
-  local max = screen:frame()
-
-  for _, win in ipairs(hs.window.visibleWindows()) do
-    if win:screen() == screen then
-      local f = win:frame()
-
-      if win == focusedWin then
-        -- Move focused window to right half
-        f.x = max.x + (max.w / 2)
-        f.y = max.y
-        f.w = max.w / 2
-        f.h = max.h
-      elseif not win:isMinimized() then
-        -- Move other non-minimized windows to left half
-        f.x = max.x
-        f.y = max.y
-        f.w = max.w / 2
-        f.h = max.h
-      end
-
-      win:setFrame(f)
-    end
-  end
-end)
-
--- This Hammerspoon script arranges windows as follows:
--- 1. Moves the currently focused window to the left half of the screen
--- 2. Moves all other non-minimized windows on the same screen to the right half
-hs.hotkey.bind({ "ctrl", "alt", "cmd" }, "H", function()
-  local focusedWin = hs.window.focusedWindow()
-  local screen = focusedWin:screen()
-  local max = screen:frame()
-
-  for _, win in ipairs(hs.window.visibleWindows()) do
-    if win:screen() == screen then
-      local f = win:frame()
-
-      if win == focusedWin then
-        -- Move focused window to left half
-        f.x = max.x
-        f.y = max.y
-        f.w = max.w / 2
-        f.h = max.h
-      elseif not win:isMinimized() then
-        -- Move other non-minimized windows to right half
-        f.x = max.x + (max.w / 2)
-        f.y = max.y
-        f.w = max.w / 2
-        f.h = max.h
-      end
-
-      win:setFrame(f)
     end
   end
 end)
