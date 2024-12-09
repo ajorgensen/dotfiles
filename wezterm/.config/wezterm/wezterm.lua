@@ -6,7 +6,7 @@ local config = wezterm.config_builder()
 config.color_scheme = "tokyonight"
 
 -- Fonts
-config.font = wezterm.font({ family = "Hack Nerd Font Mono" })
+config.font = wezterm.font({ family = "SauceCodePro Nerd Font", weight = "Regular" })
 config.font_size = 14
 
 -- Removes the title bar, leaving only the tab bar. Keeps
