@@ -28,3 +28,26 @@ if micMuter then
 end
 
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "M", toggleMicMute)
+
+hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "D", function()
+  print("\n*** All Visible Windows ***")
+  local allWindows = hs.window.allWindows()
+  for i, window in ipairs(allWindows) do
+    print(
+      string.format(
+        [[
+Window %d:
+  App: %s
+  Title: %s
+  Bundle ID: %s
+  ID: %s
+----------------------------------------]],
+        i,
+        window:application():name(),
+        window:title(),
+        window:application():bundleID(),
+        window:id()
+      )
+    )
+  end
+end)
