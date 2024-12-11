@@ -1,5 +1,6 @@
 require("pomodoro")
 require("window")
+require("switcher")
 
 hs.loadSpoon("ReloadConfiguration")
 spoon.ReloadConfiguration:start()
