@@ -11,30 +11,20 @@ end)
 
 -- Function to get all visible windows
 local function getAllVisibleWindows()
-  local windows = hs.window.allWindows()
+  local windows = hs.window.visibleWindows()
   local choices = {}
 
   for _, window in ipairs(windows) do
     local app = window:application()
-    -- Only include windows that are visible, have a title, and belong to a real application
-    if app and window:isVisible() and window:title() ~= "" then
-      local appName = app:name()
-      local choice = {
-        text = appName .. " - " .. window:title(),
-        subText = window:role() or "",
-        image = hs.image.imageFromAppBundle(app:bundleID()),
-        window = window,
-      }
-      -- Filter out known background processes and helper windows
-      local isBackgroundProcess = appName:match("Helper$")
-          or appName:match(" Helper$")
-          or appName:match("Agent$")
-          or window:role() == "AXUnknown"
+    local appName = app:name()
+    local choice = {
+      text = appName .. " - " .. window:title(),
+      subText = window:role() or "",
+      image = hs.image.imageFromAppBundle(app:bundleID()),
+      window = window,
+    }
 
-      if not isBackgroundProcess then
-        table.insert(choices, choice)
-      end
-    end
+    table.insert(choices, choice)
   end
 
   -- Sort choices alphabetically by app name
