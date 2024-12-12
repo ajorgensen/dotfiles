@@ -10,7 +10,7 @@ local switcher = hs.chooser.new(function(choice)
 end)
 
 -- Function to get all visible windows
-function getAllVisibleWindows()
+local function getAllVisibleWindows()
   local windows = hs.window.allWindows()
   local choices = {}
 
@@ -48,6 +48,7 @@ end
 -- Function to show the window switcher
 local function showWindowSwitcher()
   switcher:choices(getAllVisibleWindows())
+  switcher:query(nil) -- Clear the previous search text
   switcher:show()
 end
 
