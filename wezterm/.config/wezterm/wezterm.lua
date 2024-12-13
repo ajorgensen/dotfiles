@@ -1,6 +1,15 @@
 local wezterm = require("wezterm")
+local act = wezterm.action
 
 local config = wezterm.config_builder()
+
+config.keys = {
+  {
+    key = "K",
+    mods = "CTRL|SHIFT",
+    action = act.ClearScrollback("ScrollbackAndViewport"),
+  },
+}
 
 -- Colors
 config.color_scheme = "catppuccin-mocha"
