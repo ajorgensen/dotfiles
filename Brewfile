@@ -62,6 +62,7 @@ brew "tmuxinator"
 brew "tokei"
 brew "tree"
 brew "wget"
+brew "zoxide"
 brew "zsh"
 
 # Casks
