@@ -6,6 +6,7 @@ alias pip=pip3
 alias python=python3
 alias c="clear"
 alias pmake="make -j $(nproc)"
+alias cd="z"
 
 alias go-unused='staticcheck -checks U1000'
 
