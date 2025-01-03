@@ -105,8 +105,7 @@
 
     default-branch = "!git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d/"
 
-    rsync = "!git pull origin $(git default-branch) --rebase"
-    msync = "!git pull origin $(git default-branch)"
+    sync = "!git pull origin $(git default-branch) --rebase"
 
     update = "!git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase"
     squash = "!git rebase -v -i origin $(git default-branch)"
