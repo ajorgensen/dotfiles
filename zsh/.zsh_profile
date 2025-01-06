@@ -1,3 +1,5 @@
+#zmodload zsh/zprof
+
 export XDG_CONFIG_HOME="$HOME/.config"
 
 export SHELL="zsh"
@@ -35,3 +37,5 @@ fi
 alias gpg-unlock="gpg-connect-agent updatestartuptty /bye"
 
 zstyle ':completion:*:*:make:*' tag-order 'targets'
+
+#zprof
