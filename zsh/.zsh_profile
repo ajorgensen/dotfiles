@@ -7,6 +7,8 @@ export EDITOR="nvim"
 alias vim="nvim"
 alias e="nvim"
 
+set -o vi
+
 addToPath() {
     if [[ "$PATH" != *"$1"* ]]; then
         export PATH=$PATH:$1
