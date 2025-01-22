@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+input=$(cat)
+
+prompt="""
+I want you to act as a comit mesasge generator. I will provide you with the git diff continaing changes.
+
+Write short commit messages:
+- Explain the 'why' behind changes
+- Use bullet points for multiple changes
+- If there are no changes, or the input is blank - then return a blank string
+- Only respond with the commit mesage. Do not explain yourself or provide any reasoning beyond the commit message itself.
+
+Think carefully before you write your commit message.
+
+The output format should be:
+
+<type>[optional scope]: <description>
+[optional body]
+
+Here is the git diff:
+"""
+
+ollama run llama3.3 "$prompt $input"
