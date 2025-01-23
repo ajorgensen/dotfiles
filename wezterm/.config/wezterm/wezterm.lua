@@ -12,7 +12,7 @@ config.keys = {
 }
 
 -- Colors
-config.color_scheme = "catppuccin-mocha"
+config.color_scheme = "Monokai (base16)"
 
 -- Fonts
 config.font = wezterm.font({ family = "SauceCodePro Nerd Font", weight = "Regular" })
