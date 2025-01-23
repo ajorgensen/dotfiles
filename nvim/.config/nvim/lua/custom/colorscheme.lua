@@ -1,1 +1,1 @@
-vim.cmd.colorscheme "base16-monokai"
+vim.cmd.colorscheme "base16-onedark"
