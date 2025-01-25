@@ -12,8 +12,22 @@ config.keys = {
 }
 
 -- Colors
---config.color_scheme = "Monokai (base16)"
-config.color_scheme = "OneDark (base16)"
+local function get_appearance()
+  if wezterm.gui then
+    return wezterm.gui.get_appearance()
+  end
+  return "Dark"
+end
+
+local function colorscheme(appearance)
+  if appearance:find("Dark") then
+    return "OneDark (base16)"
+  else
+    return "Github (base16)"
+  end
+end
+
+config.color_scheme = colorscheme(get_appearance())
 
 -- Fonts
 config.font = wezterm.font({ family = "SauceCodePro Nerd Font", weight = "Regular" })

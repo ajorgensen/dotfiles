@@ -1,23 +1,17 @@
 return {
-  {
-    lazy = false,
-    priority = 1000,
-    "rose-pine/neovim",
-    name = "rose-pine",
-    config = function()
-      require "custom.colorscheme"
-    end,
-  },
-
-  { "catppuccin/nvim", name = "catppuccin" },
-  "navarasu/onedark.nvim",
-  "ellisonleao/gruvbox.nvim",
-  "catppuccin/nvim",
-  "projekt0n/github-nvim-theme",
-  "kdheepak/monochrome.nvim",
-  "EdenEast/nightfox.nvim",
-  "folke/tokyonight.nvim",
-  "Mofiqul/dracula.nvim",
-  "Mofiqul/vscode.nvim",
   "RRethy/base16-nvim",
+  {
+    "f-person/auto-dark-mode.nvim",
+    opts = {
+      update_interval = 1000,
+      set_dark_mode = function()
+        vim.api.nvim_set_option_value("background", "dark", {})
+        vim.cmd "colorscheme base16-onedark"
+      end,
+      set_light_mode = function()
+        vim.api.nvim_set_option_value("background", "light", {})
+        vim.cmd "colorscheme base16-github"
+      end,
+    },
+  },
 }
