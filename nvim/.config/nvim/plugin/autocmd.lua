@@ -1,6 +1,6 @@
 --vim.cmd [[autocmd BufRead,BufNewFile *.txt,*.md,*.tex,*.git/COMMIT_EDITMSG :setlocal spell]]
 --vim.cmd [[autocmd BufRead,BufNewFile *.md setlocal textwidth=120]]
-vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
+vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 
 local augroup = vim.api.nvim_create_augroup("ajorgensen", {})
 local autocmd = vim.api.nvim_create_autocmd
@@ -49,5 +49,11 @@ autocmd("TextYankPost", {
 })
 
 vim.api.nvim_create_user_command("Browse", function(opts)
-  vim.fn.system({ "open", opts.fargs[1] })
+  vim.fn.system { "open", opts.fargs[1] }
 end, { nargs = 1 })
+
+vim.api.nvim_create_user_command("Cppath", function()
+  local path = vim.fn.expand "%:p"
+  vim.fn.setreg("+", path)
+  vim.notify('Copied "' .. path .. '" to the clipboard!')
+end, {})
