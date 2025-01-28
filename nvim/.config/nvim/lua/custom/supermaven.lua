@@ -1,7 +1,2 @@
-require("supermaven-nvim").setup {
-  condition = function()
-    return true
-  end,
-}
-
+require("supermaven-nvim").setup {}
 vim.keymap.set("n", "<leader>sm", ":SupermavenToggle<CR>", { desc = "Supermaven Toggle" })
