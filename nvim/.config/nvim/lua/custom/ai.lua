@@ -1,5 +1,15 @@
 require("avante").setup {
   provider = "claude",
+
+  vendors = {
+    ollama = {
+      __inherited_from = "openai",
+      api_key_name = "",
+      endpoint = "http://127.0.0.1:11434/v1",
+      model = "deepseek-r1:14b",
+    },
+  },
+
   behaviour = {
     auto_suggestions = false, -- Experimental stage
     auto_set_highlight_group = true,
