@@ -9,6 +9,16 @@ require("fzf-lua").setup {
       ["ctrl-q"] = "select-all+accept",
     },
   },
+  files = {
+    find_opts = [[-type f -not -path '*/\.git/*']],
+    rg_opts = [[--color=never --hidden --files -g "!.git"]],
+    fd_opts = [[--color=never --hidden --type f --type l --exclude .git]],
+    hidden = true,
+  },
+  grep = {
+    hidden = true,
+    rg_opts = "--hidden",
+  },
 }
 
 vim.keymap.set("n", "<leader>fR", require("fzf-lua").registers, { desc = "Fzf Registers" })
