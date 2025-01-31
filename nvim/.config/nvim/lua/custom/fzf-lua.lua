@@ -43,6 +43,16 @@ vim.keymap.set("n", "<leader>jd", require("fzf-lua").lsp_definitions, { desc = "
 vim.keymap.set("n", "<leader>ds", require("fzf-lua").lsp_document_symbols, { desc = "Document Symbols" })
 vim.keymap.set("n", "<leader>lr", require("fzf-lua").lsp_references, { desc = "LSP References" })
 
+vim.keymap.set("n", "<leader>gc", function()
+  require("fzf-lua").fzf_exec("git diff --name-only $(git merge-base origin/main HEAD)", {
+    prompt = "Changed Files> ",
+    previewer = "builtin",
+    actions = {
+      ["default"] = require("fzf-lua.actions").file_edit,
+    },
+  })
+end, { desc = "FZF search changed files vs. main" })
+
 vim.keymap.set(
   "n",
   "<leader>ca",
