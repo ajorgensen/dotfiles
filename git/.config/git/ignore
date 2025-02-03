@@ -30,3 +30,4 @@ __debug_bin
 
 Brewfile.lock.json
 kls_database.db
+.aider*
