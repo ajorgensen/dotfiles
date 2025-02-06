@@ -1,0 +1,8 @@
+#!/bin/bash
+output_file="/dev/stdout"
+
+for file in "$@"; do
+  echo "=== $file ==="
+  cat "$file"
+  echo -e "\n\n"
+done
