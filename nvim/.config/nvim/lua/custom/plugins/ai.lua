@@ -10,15 +10,16 @@ return {
     "yetone/avante.nvim",
     event = "VeryLazy",
     lazy = false,
-    opts = {
-      -- add any opts here
-    },
-    -- if you want to download pre-built binary, then pass source=false. Make sure to follow instruction above.
-    -- Also note that downloading prebuilt binary is a lot faster comparing to compiling from source.
     build = ":AvanteBuild source=false",
-    config = function()
-      require "custom.ai"
-    end,
+    version = "*",
+    opts = {
+      provider = "gemini",
+      gemini = {
+        model = "gemini-2.0-flash-001",
+        temperature = 0.5,
+        max_tokens = 4096,
+      },
+    },
     dependencies = {
       "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
