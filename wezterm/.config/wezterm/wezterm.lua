@@ -21,7 +21,7 @@ end
 
 local function colorscheme(appearance)
   if appearance:find("Dark") then
-    return "OneDark (base16)"
+    return "Tokyo Night"
   else
     return "Github (base16)"
   end
