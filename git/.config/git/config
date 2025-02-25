@@ -101,7 +101,7 @@
 
     branch-by-date = branch --sort=-committerdate
 
-    branch-name = "!git rev-parse --abbrev-ref HEAD"
+    current-branch = "!git rev-parse --abbrev-ref HEAD"
 
     default-branch = "!git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d/"
 
@@ -114,12 +114,16 @@
     amend = commit --amend --reuse-message=HEAD
     rebase-onto = "!f() { git rebase --onto main $(git merge-base $1 $2) $1; }; f"
 
+    # Remove branches where the remote tracking branch has been deleted
     gone = "!git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D $branch"
-    down = "!BRANCH=$(git branch-name); f() { git checkout $(git default-branch) && git gone; }; f"
-    done = "!BRANCH=$(git branch-name); f() { git checkout $(git default-branch) && git branch -D $BRANCH; }; f"
+
+    # Switch to default branch and clean up deleted remote branches
+    down = "!BRANCH=$(git current-branch); f() { git checkout $(git default-branch) && git gone; }; f"
+
+    # Switch to default branch and delete the current branch
+    done = "!BRANCH=$(git current-branch); f() { git checkout $(git default-branch) && git branch -D $BRANCH; }; f"
 
     tags = tag -l
-    branches = branch --all
     remotes = remote --verbose
     aliases = config --get-regexp alias
 
