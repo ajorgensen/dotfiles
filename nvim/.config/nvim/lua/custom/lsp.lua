@@ -1,32 +1,80 @@
 require("neodev").setup {}
 
+require("mason").setup()
+local lspconfig = require "lspconfig"
+
 local ensure_installed = {
   "lua_ls",
   "gopls",
+  "ltex",
 }
 
-require("mason").setup()
 require("mason-lspconfig").setup {
   ensure_installed = ensure_installed,
   automatic_installation = true,
 }
-require("mason-lspconfig").setup_handlers {
-  function(server_name)
-    require("lspconfig")[server_name].setup {}
-  end,
-}
 
-local lspconfig = require "lspconfig"
-lspconfig.gopls.setup {
-  cmd = { "gopls", "serve" },
-  settings = {
-    gopls = {
-      analyses = {
-        unusedparams = true,
+-- Define server-specific configurations
+local server_configs = {
+  gopls = {
+    cmd = { "gopls", "serve" },
+    settings = {
+      gopls = {
+        analyses = {
+          unusedparams = true,
+        },
+        staticcheck = true,
       },
-      staticcheck = true,
     },
   },
+
+  ltex = {
+    settings = {
+      ltex = {
+        language = "en-US",
+        diagnosticSeverity = "information",
+        additionalRules = {
+          enablePickyRules = true,
+          motherTongue = "en-US",
+        },
+        disabledRules = {},
+        hiddenFalsePositives = {},
+        dictionary = {
+          ["en-US"] = {
+            -- Ignore
+            "Wheres",
+          },
+        },
+      },
+    },
+    filetypes = { "markdown", "text", "tex", "latex", "gitcommit" },
+  },
+
+  typos_lsp = {
+    init_options = {
+      diagnosticSeverity = "Hint",
+      config = {
+        dictionaries = {
+          ["*"] = {
+            words = {
+              -- Ignore
+              "Wheres",
+            },
+          },
+        },
+      },
+    },
+  },
+}
+
+require("mason-lspconfig").setup_handlers {
+  function(server_name)
+    if server_configs[server_name] then
+      lspconfig[server_name].setup(server_configs[server_name])
+    else
+      lspconfig[server_name].setup {}
+    end
+  end,
 }
 
 local disable_semantic_tokens = {
