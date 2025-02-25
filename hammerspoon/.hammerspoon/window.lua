@@ -150,3 +150,18 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "S", function()
     end
   end
 end)
+
+-- Function to hide all windows except the focused one
+hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "H", function()
+  local focusedWindow = hs.window.focusedWindow()
+  if not focusedWindow then
+    return -- No focused window, nothing to do
+  end
+
+  local windows = hs.window.allWindows()
+  for _, window in ipairs(windows) do
+    if window ~= focusedWindow then
+      window:minimize()
+    end
+  end
+end)
