@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 stow --target="$HOME" \
-  bin \
   ack \
+  bin \
+  fish \
   git \
+  hammerspoon \
   nvim \
   tmux \
   wezterm \
-  zsh \
-  hammerspoon
+  zsh
