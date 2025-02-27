@@ -7,8 +7,6 @@ export EDITOR="nvim"
 alias vim="nvim"
 alias e="nvim"
 
-set -o vi
-
 addToPath() {
     if [[ "$PATH" != *"$1"* ]]; then
         export PATH=$PATH:$1
@@ -36,6 +34,7 @@ if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
 fi
 alias gpg-unlock="gpg-connect-agent updatestartuptty /bye"
 
+zstyle ':completion:*:make:*:targets' call-command true
 zstyle ':completion:*:*:make:*' tag-order 'targets'
 
 #zprof

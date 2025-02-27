@@ -3,4 +3,5 @@ precmd() { vcs_info }
 zstyle ":vcs_info:git:*" formats '(%b)'
 
 setopt prompt_subst
-prompt='${PWD/#$HOME/~} ${vcs_info_msg_0_}> '
+autoload -U colors && colors
+prompt="%{$fg[green]%}${PWD/#$HOME/~}%{$reset_color%} %{$fg[yellow]%}${vcs_info_msg_0_} %{$reset_color%}> "
