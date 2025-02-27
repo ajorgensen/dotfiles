@@ -29,8 +29,6 @@ addToPathFront $HOME/go/bin
 addToPathFront $HOME/.local/bin
 addToPathFront $HOME/.local/sbin
 
-include $HOME/.zsh/aliases
-include $HOME/.zsh/funcs
 include $HOME/.local.zshrc
 
 if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
