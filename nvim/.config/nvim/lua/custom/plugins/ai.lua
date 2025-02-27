@@ -16,6 +16,7 @@ return {
       provider = "claude",
       claude = {
         model = "claude-3-7-sonnet-20250219",
+        disable_tools = true,
       },
       gemini = {
         model = "gemini-2.0-flash-001",
