@@ -20,6 +20,7 @@ local server_configs = {
     cmd = { "gopls", "serve" },
     settings = {
       gopls = {
+        usePlaceholders = true,
         analyses = {
           unusedparams = true,
         },
