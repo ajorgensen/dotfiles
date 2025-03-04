@@ -152,6 +152,10 @@ defaults write com.apple.finder CreateDesktop false
 # Show the ~/Library folder.
 chflags nohidden ~/Library
 
+# Appearance
+defaults write NSGlobalDomain AppleInterfaceStyle Dark
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+
 ## Finally
 
 # Kill affected applications.
