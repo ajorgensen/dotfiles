@@ -3,7 +3,6 @@
 autoload -U compinit; compinit
 source $HOME/.zsh/prompt
 
-bindkey -v
 bindkey '^R' history-incremental-search-backward
 
 export HISTSIZE=100000000
