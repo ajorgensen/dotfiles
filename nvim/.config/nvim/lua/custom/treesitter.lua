@@ -1,7 +1,7 @@
 local group = vim.api.nvim_create_augroup("custom-treesitter", { clear = true })
 
 require("nvim-treesitter.configs").setup {
-  ensure_installed = { "python", "cpp", "lua", "vim", "json" },
+  ensure_installed = { "python", "lua", "vim", "json", "go" },
   ignore_install = {},    -- List of parsers to ignore installing
   highlight = {
     enable = true,        -- false will disable the whole extension
