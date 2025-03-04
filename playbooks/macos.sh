@@ -41,6 +41,12 @@ defaults write NSGlobalDomain KeyRepeat -int 1
 # Set a fast initial key repeat. We prefer 4 (60ms). The default minimum is 15 (225ms). May require reboot.
 defaults write NSGlobalDomain InitialKeyRepeat -int 4
 
+# Disable "Natural" scrolling for trackpad. May require reboot.
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+# Disable "Natural" scrolling for mouse. May require reboot.
+defaults write NSGlobalDomain com.apple.mouse.scaling -float -1
+defaults write NSGlobalDomain AppleInterfaceStyle Dark
+
 ## NSGlobalDomain NS*
 
 # Disable typing automatic capitalization.
@@ -151,10 +157,6 @@ defaults write com.apple.finder CreateDesktop false
 
 # Show the ~/Library folder.
 chflags nohidden ~/Library
-
-# Appearance
-defaults write NSGlobalDomain AppleInterfaceStyle Dark
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 ## Finally
 
