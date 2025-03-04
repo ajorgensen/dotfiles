@@ -5,7 +5,6 @@ alias ls='ls -lG'
 alias pip=pip3
 alias python=python3
 alias c="clear"
-alias pmake="make -j $(nproc)"
 alias g="git"
 
 alias go-unused='staticcheck -checks U1000'

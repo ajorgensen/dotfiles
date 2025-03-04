@@ -37,4 +37,6 @@ alias gpg-unlock="gpg-connect-agent updatestartuptty /bye"
 zstyle ':completion:*:make:*:targets' call-command true
 zstyle ':completion:*:*:make:*' tag-order 'targets'
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 #zprof
