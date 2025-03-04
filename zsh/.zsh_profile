@@ -1,8 +1,9 @@
 #zmodload zsh/zprof
 
 export XDG_CONFIG_HOME="$HOME/.config"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-export SHELL="zsh"
+export SHELL="$HOMEBREW_BIN/zsh"
 export EDITOR="nvim"
 alias vim="nvim"
 alias e="nvim"
@@ -36,7 +37,5 @@ alias gpg-unlock="gpg-connect-agent updatestartuptty /bye"
 
 zstyle ':completion:*:make:*:targets' call-command true
 zstyle ':completion:*:*:make:*' tag-order 'targets'
-
-eval "$(/opt/homebrew/bin/brew shellenv)"
 
 #zprof
