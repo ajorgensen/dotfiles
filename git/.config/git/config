@@ -8,9 +8,6 @@
 [init]
     defaultBranch = main
 
-[column]
-    ui = auto
-
 [branch]
     sort = -committerdate
 
@@ -105,6 +102,8 @@
     ci = commit
     st = status
     br = branch
+
+    to-the-chopper = commit --amend --no-edit
 
     changed = !"git log --oneline  $(git default-branch)..HEAD"
     hist = log --graph --abbrev-commit --decorate --date=short \
