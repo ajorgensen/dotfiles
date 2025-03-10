@@ -13,13 +13,12 @@ return {
     build = ":AvanteBuild source=false",
     version = "*",
     opts = {
-      provider = "claude",
+      provider = "gemini",
       claude = {
         model = "claude-3-7-sonnet-20250219",
-        disable_tools = true,
       },
       gemini = {
-        model = "gemini-2.0-flash-001",
+        model = "gemini-2.0-pro-exp-02-05",
       },
     },
     dependencies = {
