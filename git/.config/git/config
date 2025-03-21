@@ -7,7 +7,6 @@
 
 [init]
     defaultBranch = main
-
 [branch]
     sort = -committerdate
 
@@ -115,6 +114,10 @@
     save = commit -m "SAVE"
     step-back = reset --soft HEAD^
 
+    change = "!git switch $(git branch-select)"
+    branches= "!git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short) %(committerdate:relative)'"
+    branch-select = "!git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short) %(committerdate:relative)' | fzf --height=20% --reverse --info=inline | awk '{print $1}'"
+
     current-branch = "!git rev-parse --abbrev-ref HEAD"
     default-branch = "!git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d/"
 
@@ -147,6 +150,5 @@
 
     # Show the user email for the current repository.
     whoami = config user.email
-    
 [include]
     path = ~/.gitoverrides
