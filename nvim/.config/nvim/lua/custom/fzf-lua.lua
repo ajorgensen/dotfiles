@@ -4,6 +4,11 @@ require("fzf-lua").setup {
     file_icons = false,
     color_icons = false,
   },
+  winopts = {
+    preview = {
+      hidden = true,
+    },
+  },
   keymap = {
     fzf = {
       ["ctrl-q"] = "select-all+accept",
