@@ -12,15 +12,9 @@ return {
     lazy = false,
     build = ":AvanteBuild source=false",
     version = "*",
-    opts = {
-      provider = "gemini",
-      claude = {
-        model = "claude-3-7-sonnet-20250219",
-      },
-      gemini = {
-        model = "gemini-2.0-pro-exp-02-05",
-      },
-    },
+    config = function()
+      require "custom.avante"
+    end,
     dependencies = {
       "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
