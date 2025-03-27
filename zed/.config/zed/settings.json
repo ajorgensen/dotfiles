@@ -1,0 +1,28 @@
+{
+  "language_models": {
+    "google": {
+      "available_models": [
+        {
+          "name": "gemini-2.5-pro-exp-03-25",
+          "display_name": "Gemini 2.5 Pro Exp 03-25",
+          "max_tokens": 1000000
+        }
+      ]
+    }
+  },
+  "assistant": {
+    "default_model": {
+      "provider": "google",
+      "model": "gemini-2.5-pro-exp-03-25"
+    },
+    "version": "2"
+  },
+  "ui_font_size": 16,
+  "buffer_font_size": 16,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "One Dark"
+  },
+  "vim_mode": true
+}

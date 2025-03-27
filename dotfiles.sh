@@ -9,4 +9,5 @@ stow --target="$HOME" \
   nvim \
   tmux \
   wezterm \
-  zsh
+  zsh \
+  zed
