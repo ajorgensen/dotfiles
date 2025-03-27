@@ -15,3 +15,6 @@ zsh/.config/tmuxinator/*.yml
 .DS_Store
 lazy-lock.json
 Brewfile.lock.json
+
+zed/.config/zed/conversations
+zed/.config/zed/prompts
