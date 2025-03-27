@@ -165,3 +165,82 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "H", function()
     end
   end
 end)
+
+-- Function to move current window to left half and all other windows to right half
+hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "A", function()
+  local focusedWindow = hs.window.focusedWindow()
+  if not focusedWindow then
+    return -- No focused window, nothing to do
+  end
+
+  local screen = focusedWindow:screen()
+  local max = screen:frame()
+
+  -- Set focused window to left half
+  local leftFrame = {
+    x = max.x,
+    y = max.y,
+    w = max.w / 2,
+    h = max.h
+  }
+
+  -- Set other windows to right half
+  local rightFrame = {
+    x = max.x + (max.w / 2),
+    y = max.y,
+    w = max.w / 2,
+    h = max.h
+  }
+
+  print("leftframe", leftFrame)
+  print("rightframe", rightFrame)
+
+  -- Apply frames to focused window first
+  focusedWindow:setFrame(leftFrame)
+
+  -- Then apply frames to other windows
+  local windows = hs.window.visibleWindows()
+  for _, window in ipairs(windows) do
+    if window ~= focusedWindow and window:screen() == screen and not shouldExcludeWindow(window) then
+      window:setFrame(rightFrame)
+    end
+  end
+end)
+
+-- Function to move current window to right half and all other windows to left half
+hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "F", function()
+  print("BAR")
+  local focusedWindow = hs.window.focusedWindow()
+  if not focusedWindow then
+    return -- No focused window, nothing to do
+  end
+
+  local screen = focusedWindow:screen()
+  local max = screen:frame()
+
+  -- Set focused window to right half
+  local rightFrame = {
+    x = max.x + (max.w / 2),
+    y = max.y,
+    w = max.w / 2,
+    h = max.h
+  }
+
+  -- Set other windows to left half
+  local leftFrame = {
+    x = max.x,
+    y = max.y,
+    w = max.w / 2,
+    h = max.h
+  }
+
+  -- Apply frames
+  focusedWindow:setFrame(rightFrame)
+
+  local windows = hs.window.visibleWindows()
+  for _, window in ipairs(windows) do
+    if window ~= focusedWindow and window:screen() == screen and not shouldExcludeWindow(window) then
+      window:setFrame(leftFrame)
+    end
+  end
+end)
