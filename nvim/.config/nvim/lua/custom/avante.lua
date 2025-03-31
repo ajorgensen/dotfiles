@@ -1,5 +1,9 @@
 require("avante").setup({
   provider = "gemini",
+  behavior = {
+    enable_cursor_planning_mode = true,
+    enable_claude_text_editor_tool_mode = true,
+  },
   gemini = {
     model = "gemini-2.0-flash",
   },
