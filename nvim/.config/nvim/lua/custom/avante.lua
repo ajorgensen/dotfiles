@@ -1,4 +1,4 @@
-require("avante").setup({
+require("avante").setup {
   provider = "gemini",
   behavior = {
     enable_cursor_planning_mode = true,
@@ -13,6 +13,9 @@ require("avante").setup({
   openai = {
     model = "o3-mini",
   },
+  behaviour = {
+    enable_cursor_planning_mode = true,
+  },
   vendors = {
     ["gemini-pro"] = {
       __inherited_from = "gemini",
@@ -23,4 +26,4 @@ require("avante").setup({
       model = "claude-3-7-sonnet-latest",
     },
   },
-})
+}
