@@ -2,6 +2,7 @@
 
 stow --target="$HOME" \
   ack \
+  aider \
   bin \
   fish \
   git \
