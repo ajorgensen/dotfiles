@@ -68,14 +68,8 @@ local server_configs = {
   },
 }
 
-require("mason-lspconfig").setup_handlers {
-  function(server_name)
-    if server_configs[server_name] then
-      lspconfig[server_name].setup(server_configs[server_name])
-    else
-      lspconfig[server_name].setup {}
-    end
-  end,
+require("mason-lspconfig").setup {
+  automatic_enable = true,
 }
 
 local disable_semantic_tokens = {
