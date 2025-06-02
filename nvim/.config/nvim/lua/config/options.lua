@@ -1,5 +1,7 @@
 local opt = vim.opt
 
+vim.g.mapleader = " "
+
 opt.tabstop = 4
 opt.shiftwidth = 4
 
