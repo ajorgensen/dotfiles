@@ -1,15 +1,18 @@
 return {
-  "sainnhe/gruvbox-material",
-  enabled = true,
-  priority = 1000,
-  config = function()
-    vim.g.gruvbox_material_transparent_background = true
-    vim.g.gruvbox_material_foreground = "mix"
-    vim.g.gruvbox_material_background = "hard"
-    vim.g.gruvbox_material_ui_contrast = "high"
-    vim.g.gruvbox_material_float_style = "bright"
-    vim.g.gruvbox_material_statusline_style = "material"
-    vim.g.gruvbox_material_cursor = "auto"
-    vim.cmd.colorscheme("gruvbox-material")
-  end,
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    config = function()
+      require('rose-pine').setup({
+        disable_background = true,
+        styles = {
+          italic = false,
+        },
+      })
+
+      vim.cmd.colorscheme("rose-pine-moon")
+      vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+      --vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+    end
+  },
 }
