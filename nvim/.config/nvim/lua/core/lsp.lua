@@ -1,6 +1,7 @@
 vim.lsp.enable({
     "lua-ls",
     "gopls",
+    "templ",
 })
 
 vim.diagnostic.config({
