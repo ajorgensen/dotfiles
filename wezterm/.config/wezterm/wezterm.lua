@@ -27,7 +27,7 @@ config.keys = {
 }
 
 -- Colors
-config.color_scheme = "Tokyo Night"
+config.color_scheme = 'rose-pine-moon'
 
 -- Fonts
 config.font = wezterm.font({ family = "SauceCodePro Nerd Font", weight = "Regular" })
