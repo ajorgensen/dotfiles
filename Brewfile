@@ -65,6 +65,7 @@ brew "tmux"
 brew "tmuxinator"
 brew "tokei"
 brew "tree"
+brew "watch"
 brew "wget"
 brew "zsh"
 
