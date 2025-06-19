@@ -127,6 +127,7 @@
 
     # Switch to default branch and delete the current branch
     done = "!BRANCH=$(git current-branch); f() { git checkout $(git default-branch) && git branch -D $BRANCH; }; f"
+    destroy = "!BRANCH=$(git current-branch); f() { git checkout $(git default-branch) && git branch -D $BRANCH && git push origin --delete $BRANCH; }; f"
 
     aliases = config --get-regexp alias
 
@@ -145,11 +146,13 @@
     # a.k.a. ‘delete merged’
     dm = "!git branch --merged | grep -v '\\*' | grep -v $(git default-branch) | xargs -n 1 git branch -d"
     rm-merged = "!git branch --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" { print $1 }' | xargs -r git branch -D"
+    gone = "!f() { git fetch --all --prune; git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D; }; f"
 
     # List contributors with number of commits.
     contributors = shortlog --summary --numbered
 
     # Show the user email for the current repository.
     whoami = config user.email
+
 [include]
     path = ~/.gitoverrides
