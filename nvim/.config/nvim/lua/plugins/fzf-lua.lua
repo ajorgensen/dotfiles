@@ -41,5 +41,32 @@ return {
         end, { desc = '[FZF] Grep with input' })
 
         vim.keymap.set('n', '<leader>vh', fzf.help_tags, { desc = '[FZF] Help tags' })
+
+        -- Add this after your existing keymaps (around line 44)
+
+        -- Git status: shows staged and unstaged files
+        vim.keymap.set('n', '<leader>gs', fzf.git_status, { desc = '[FZF] Git status (staged/unstaged)' })
+
+        -- Files changed between current branch and main
+        vim.keymap.set('n', '<leader>gD', function()
+            fzf.fzf_exec('git diff --name-only main...HEAD', {
+                prompt = 'Changed vs main > ',
+                actions = {
+                    ['default'] = function(selected)
+                        vim.cmd('edit ' .. selected[1])
+                    end,
+                    ['ctrl-v'] = function(selected)
+                        vim.cmd('vsplit ' .. selected[1])
+                    end,
+                    ['ctrl-s'] = function(selected)
+                        vim.cmd('split ' .. selected[1])
+                    end,
+                }
+            })
+        end, { desc = '[FZF] Files changed vs main branch' })
+
+        vim.keymap.set('n', '<leader>gc', function()
+            fzf.git_diff_tree({ range = 'main..HEAD' })
+        end, { desc = '[FZF] Git diff vs main branch (interactive)' })
     end
 }
