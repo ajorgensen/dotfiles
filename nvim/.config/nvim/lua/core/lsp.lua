@@ -51,7 +51,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         map("<leader>vca", vim.lsp.buf.code_action, "Show code actions")
         map("<leader>vrr", vim.lsp.buf.references, "List references")
         map("<leader>vrn", vim.lsp.buf.rename, "Rename symbol")
-        map("<C-h>", vim.lsp.buf.signature_help, "Show signature help")
+        map("<C-s>", vim.lsp.buf.signature_help, "Show signature help")
         map("<leader>vmt", vim.lsp.buf.format, "Format buffer")
     end
 })
@@ -306,18 +306,30 @@ local function lsp_status_short()
     return "󰒋 " .. table.concat(names, ",")
 end
 
+-- Cache git branch to avoid running shell command on every statusline update
+local git_branch_cache = ""
+local git_branch_last_update = 0
+
 local function git_branch()
-    local ok, handle = pcall(io.popen, "git branch --show-current 2>/dev/null")
-    if not ok or not handle then
-        return ""
+    local now = vim.loop.now()
+    -- Update cache every 5 seconds
+    if now - git_branch_last_update > 5000 then
+        local ok, handle = pcall(io.popen, "git branch --show-current 2>/dev/null")
+        if ok and handle then
+            local branch = handle:read("*a")
+            handle:close()
+            if branch and branch ~= "" then
+                branch = branch:gsub("\n", "")
+                git_branch_cache = "󰊢 " .. branch
+            else
+                git_branch_cache = ""
+            end
+        else
+            git_branch_cache = ""
+        end
+        git_branch_last_update = now
     end
-    local branch = handle:read("*a")
-    handle:close()
-    if branch and branch ~= "" then
-        branch = branch:gsub("\n", "")
-        return "󰊢 " .. branch
-    end
-    return ""
+    return git_branch_cache
 end
 -- Safe wrapper functions for statusline
 local function safe_git_branch()
