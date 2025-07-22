@@ -31,6 +31,3 @@ set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 set("n", "<leader>h", vim.lsp.buf.document_highlight, { desc = "Highlight variable" })
 set("n", "<leader>c", vim.lsp.buf.clear_references, { desc = "remove highlight" })
-
-local foo = 10
-print(foo)
