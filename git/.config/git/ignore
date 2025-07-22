@@ -32,3 +32,5 @@ kls_database.db
 .aider*
 !.aider.conf.yml
 .nvim.lock
+
+**/.claude/settings.local.json

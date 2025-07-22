@@ -4,17 +4,33 @@
 -- Tables to store window states and timestamps for left and right separately
 local windowStatesLeft = {}
 local windowStatesRight = {}
-local exclude = { "app.tuple.app" }
+
+local bundleConfig = {
+  ["app.tuple.app"] = {},
+  ["us.zoom.xos"] = { "Zoom Meeting" },
+}
 
 -- Helper function to check if a window should be excluded
 local function shouldExcludeWindow(win)
   local bundleID = win:application():bundleID()
-  for _, excludeID in ipairs(exclude) do
-    if bundleID == excludeID then
-      return true
+  local allowedTitles = bundleConfig[bundleID]
+
+  if not allowedTitles then
+    return false
+  end
+
+  if #allowedTitles == 0 then
+    return true
+  end
+
+  local title = win:title()
+  for _, allowedTitle in ipairs(allowedTitles) do
+    if title == allowedTitle then
+      return false
     end
   end
-  return false
+
+  return true
 end
 
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "Left", function()
@@ -242,5 +258,17 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "F", function()
     if window ~= focusedWindow and window:screen() == screen and not shouldExcludeWindow(window) then
       window:setFrame(leftFrame)
     end
+  end
+end)
+
+-- Debug function to inspect window properties (remove after testing)
+hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "D", function()
+  local win = hs.window.focusedWindow()
+  if win then
+    print("Title:", win:title())
+    print("Bundle ID:", win:application():bundleID())
+    print("Role:", win:role())
+    print("Subrole:", win:subrole())
+    print("Standard:", win:isStandard())
   end
 end)

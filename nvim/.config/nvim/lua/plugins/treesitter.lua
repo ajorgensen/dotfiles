@@ -6,8 +6,11 @@ return {
         event = { "BufReadPost", "BufNewFile" },
         dependencies = {
             "nvim-treesitter/nvim-treesitter-textobjects",
+            "nvim-treesitter/nvim-treesitter-context",
         },
         config = function()
+            require 'treesitter-context'.setup {}
+
             require("nvim-treesitter.configs").setup({
                 sync_install = false,
                 ignore_install = { "javascript" },
