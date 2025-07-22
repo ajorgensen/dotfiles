@@ -19,7 +19,7 @@ return {
         vim.keymap.set('n', '<leader>fg', fzf.live_grep, { desc = '[FZF] Live grep' })
 
         -- LSP keymaps need corresponding LSP setup, omitting for brevity --
-        vim.keymap.set('n', '<leader>lr', fzf.lsp_references, { desc = '[FZF] LSP References' })
+        vim.keymap.set('n', '<leader>lR', fzf.lsp_references, { desc = '[FZF] LSP References' })
         vim.keymap.set('n', '<leader>lds', fzf.lsp_document_symbols, { desc = '[FZF] LSP Document Symbols' })
         vim.keymap.set('n', '<leader>lws', fzf.lsp_live_workspace_symbols, { desc = '[FZF] LSP Workspace Symbols' })
 

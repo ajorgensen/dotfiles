@@ -34,7 +34,9 @@ opt.showmode = false
 opt.breakindent = true
 
 -- Save undo history
-opt.undodir = os.getenv "HOME" .. "/.config/undodir"
+local undodir = os.getenv "HOME" .. "/.config/undodir"
+vim.fn.mkdir(undodir, "p")
+opt.undodir = undodir
 opt.undofile = true
 
 -- Decrease update time
