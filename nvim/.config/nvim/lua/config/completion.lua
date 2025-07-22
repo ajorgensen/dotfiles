@@ -1,5 +1,3 @@
-require "custom.snippets"
-
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.shortmess:append "c"
 
@@ -33,7 +31,7 @@ cmp.setup {
   -- Enable luasnip to handle snippet expansion for nvim-cmp
   snippet = {
     expand = function(args)
-      vim.snippet.expand(args.body)
+      require("luasnip").lsp_expand(args.body)
     end,
   },
 }
