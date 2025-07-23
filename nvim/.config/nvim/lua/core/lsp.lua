@@ -1,5 +1,3 @@
-
-
 vim.diagnostic.config({
     virtual_text = true,
     underline = true,
@@ -57,10 +55,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 
--- Extras
-
-local function restart_lsp(bufnr)
-    bufnr = bufnr or vim.api.nvim_get_current_buf()
+vim.api.nvim_create_user_command('LspRestart', function()
+    local bufnr = vim.api.nvim_get_current_buf()
     local clients
     if vim.lsp.get_clients then
         clients = vim.lsp.get_clients({ bufnr = bufnr })
@@ -76,10 +72,6 @@ local function restart_lsp(bufnr)
     vim.defer_fn(function()
         vim.cmd('edit')
     end, 100)
-end
-
-vim.api.nvim_create_user_command('LspRestart', function()
-    restart_lsp()
 end, {})
 
 local function lsp_status()
