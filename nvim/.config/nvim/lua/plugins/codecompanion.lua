@@ -10,8 +10,7 @@ return {
     local available_models = {
       "google/gemini-2.0-flash-001",
       "google/gemini-2.5-pro-preview-03-25",
-      "anthropic/claude-3.7-sonnet",
-      "anthropic/claude-3.5-sonnet",
+      "anthropic/claude-4.0-sonnet",
       "openai/gpt-4o-mini",
     }
     local current_model = default_model
@@ -27,32 +26,7 @@ return {
       end)
     end
 
-    require("codecompanion").setup({
-      strategies = {
-        chat = {
-          adapter = "openrouter",
-        },
-        inline = {
-          adapter = "openrouter",
-        },
-      },
-      adapters = {
-        openrouter = function()
-          return require("codecompanion.adapters").extend("openai_compatible", {
-            env = {
-              url = "https://openrouter.ai/api",
-              api_key = "OPENROUTER_API_KEY",
-              chat_url = "/v1/chat/completions",
-            },
-            schema = {
-              model = {
-                default = current_model,
-              },
-            },
-          })
-        end,
-      },
-    })
+    require("codecompanion").setup({})
 
     vim.keymap.set({ "n", "v" }, "<leader>ck", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
     vim.keymap.set(
