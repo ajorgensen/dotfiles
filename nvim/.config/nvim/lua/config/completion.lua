@@ -1,2 +1,0 @@
--- Completion configuration is handled in lua/plugins/lsp.lua
--- This file is kept for any future completion-specific configurations
