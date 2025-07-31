@@ -256,47 +256,47 @@ local function setup_oil()
 end
 
 local function setup_treesitter()
-  local nts = require("nvim-treesitter").setup({
-    ensure_installed = {
-      "bash",
-      "c",
-      "dockerfile",
-      "fish",
-      "git_config",
-      "git_rebase",
-      "gitattributes",
-      "gitcommit",
-      "gitignore",
-      "go",
-      "gomod",
-      "gosum",
-      "html",
-      "javascript",
-      "json",
-      "lua",
-      "make",
-      "markdown",
-      "python",
-      "rust",
-      "sql",
-      "toml",
-      "tsx",
-      "typescript",
-      "typst",
-      "vim",
-      "yaml",
-      "zig",
-    },
-  })
+  local ts_parsers = {
+    "bash",
+    "c",
+    "dockerfile",
+    "fish",
+    "git_config",
+    "git_rebase",
+    "gitattributes",
+    "gitcommit",
+    "gitignore",
+    "go",
+    "gomod",
+    "gosum",
+    "html",
+    "javascript",
+    "json",
+    "lua",
+    "make",
+    "markdown",
+    "python",
+    "rust",
+    "sql",
+    "toml",
+    "tsx",
+    "typescript",
+    "typst",
+    "vim",
+    "yaml",
+    "zig",
+  }
+
+  local nts = require("nvim-treesitter")
+  nts.install(ts_parsers)
 
   autocmd("PackChanged", { -- update treesitter parsers/queries with plugin updates
     group = augroup,
     callback = function(args)
-      print("pack changed")
       local spec = args.data.spec
       if spec and spec.name == "nvim-treesitter" and args.data.kind == "update" then
         vim.schedule(function()
-          nts.update()
+          vim.cmd("TSUpdate")
         end)
       end
     end,
@@ -411,14 +411,11 @@ end
 
 vim.pack.add({
   "https://github.com/rose-pine/neovim",
-
-  "https://github.com/ibhagwan/fzf-lua",
-  "https://github.com/nvim-tree/nvim-web-devicons",
-
+  "https://github.com/ibhagwan/fzf-lua", "https://github.com/nvim-tree/nvim-web-devicons",
   "https://github.com/stevearc/oil.nvim",
   "https://github.com/stevearc/conform.nvim",
 
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
+  "https://github.com/nvim-treesitter/nvim-treesitter",
   "https://github.com/nvim-treesitter/nvim-treesitter-context",
 
   "https://github.com/neovim/nvim-lspconfig",
@@ -511,5 +508,5 @@ map("n", "<leader>tv", ":TestVisit<CR>")   -- Test visit
 
 setup_fzf()
 setup_oil()
-setup_treesitter()
 setup_lsp()
+setup_treesitter()
