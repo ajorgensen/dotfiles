@@ -14,9 +14,8 @@ end
 
 -- Set up 'mini.deps'
 require('mini.deps').setup({ path = { package = path_package } })
-local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+local now = MiniDeps.now
 local opt = vim.opt
-local map = vim.keymap.set
 
 -- Options
 now(function()
@@ -24,6 +23,8 @@ now(function()
   vim.g.maplocalleader = " "
   opt.tabstop = 4
   opt.shiftwidth = 4
+  opt.autoindent = true
+  opt.smartindent = true
   opt.inccommand = "split"
 
   -- Search settings
