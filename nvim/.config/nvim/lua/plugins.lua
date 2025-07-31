@@ -179,16 +179,14 @@ end)
 now(function()
   add({
     source = 'neovim/nvim-lspconfig',
-    depends = { 'williamboman/mason.nvim' },
+    depends = {
+      'mason-org/mason.nvim',
+      'mason-org/mason-lspconfig.nvim',
+    },
   })
 
-  local cfg = vim.lsp.enable
-  cfg("gopls")
-  cfg("ts_ls")
-  cfg("lua_ls")
-  cfg("html")
-  cfg("cssls")
-  cfg("bufls")
+  require("mason").setup()
+  require("mason-lspconfig").setup()
 
   autocmd("LspAttach", {
     group = augroup,
@@ -228,13 +226,6 @@ now(function()
       end
 
       local cmp = require('cmp')
-      local cmp_lsp = require('cmp_nvim_lsp')
-      local capabilities = vim.tbl_deep_extend(
-        "force",
-        {},
-        vim.lsp.protocol.make_client_capabilities(),
-        cmp_lsp.default_capabilities())
-
       local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
       cmp.setup({
