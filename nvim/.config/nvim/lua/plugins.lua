@@ -1,5 +1,6 @@
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 local map = vim.keymap.set
+local augroup = vim.api.nvim_create_augroup("ajorgensen.plugins", { clear = true })
 local autocmd = vim.api.nvim_create_autocmd
 
 now(function()
@@ -263,35 +264,6 @@ now(function()
       })
     end,
   })
-end)
-
-later(function()
-  add({
-    source = "hrsh7th/nvim-cmp",
-    depends = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
-      "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
-      "rafamadriz/friendly-snippets",
-    }
-  })
-
-  local cmp = require("cmp")
-  cmp.setup({
-    sources = cmp.config.sources(
-      {
-        { name = 'nvim_lsp' },
-        { name = 'supermaven' },
-        { name = 'luasnip' },
-      },
-      {
-        { name = 'buffer' },
-        { name = 'path' },
-      })
-  })
 
   require("luasnip").setup {
     callback = function()
@@ -320,7 +292,7 @@ later(function()
   }
 end)
 
-later(function()
+now(function()
   add({
     source = "nvim-treesitter/nvim-treesitter",
     -- Use 'master' while monitoring updates in 'main'
@@ -368,18 +340,20 @@ later(function()
       'lua',
       'vimdoc',
     },
-    highlight = { enable = true },
+    highlight = {
+      enable = true,
+      additional_vim_regex_highlighting = false,
+    },
+    indent = { enable = true },
+    auto_install = true,
   })
 
-  autocmd("FileType", { -- enable treesitter highlighting and indents
+  autocmd("FileType", {
     group = augroup,
     callback = function(args)
       local filetype = args.match
       local lang = vim.treesitter.language.get_lang(filetype)
       if vim.treesitter.language.add(lang) then
-        if vim.treesitter.query.get(filetype, "indents") then
-          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-        end
         vim.treesitter.start()
       end
     end,
