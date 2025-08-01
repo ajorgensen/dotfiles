@@ -11,10 +11,6 @@ now(function()
   vim.o.termguicolors = true
   vim.cmd('colorscheme rose-pine-moon')
 end)
---now(function()
---  require('mini.notify').setup()
---  vim.notify = require('mini.notify').make_notify()
---end)
 now(function()
   add({ source = 'j-hui/fidget.nvim' })
   require('fidget').setup({
@@ -151,6 +147,7 @@ later(function()
 end)
 
 later(function() add({ source = 'tpope/vim-fugitive' }) end)
+later(function() add({ source = 'tpope/vim-projectionist' }) end)
 later(function() add({ source = 'tpope/vim-dispatch' }) end)
 later(function() add({ source = 'tpope/vim-surround' }) end)
 later(function() add({ source = 'tpope/vim-rhubarb' }) end)
@@ -188,6 +185,25 @@ now(function()
 
   require("mason").setup()
   require("mason-lspconfig").setup()
+
+  vim.lsp.config('lua_ls', {
+    settings = {
+      Lua = {
+        runtime = {
+          version = 'LuaJIT',
+        },
+        diagnostics = {
+          globals = {
+            'vim',
+            "require",
+          },
+        },
+      },
+      telemetry = {
+        enable = false,
+      },
+    }
+  })
 end)
 
 later(function()
