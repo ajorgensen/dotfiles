@@ -188,6 +188,61 @@ now(function()
 
   require("mason").setup()
   require("mason-lspconfig").setup()
+end)
+
+later(function()
+  add({
+    source = "hrsh7th/nvim-cmp",
+    depends = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+      "rafamadriz/friendly-snippets",
+    }
+  })
+
+  local cmp = require("cmp")
+  cmp.setup({
+    sources = cmp.config.sources(
+      {
+        { name = 'nvim_lsp' },
+        { name = 'supermaven' },
+        { name = 'luasnip' },
+      },
+      {
+        { name = 'buffer' },
+        { name = 'path' },
+      })
+  })
+
+  require("luasnip").setup {
+    callback = function()
+      local ls = require("luasnip")
+
+      -- Load your custom snippets
+      require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "~/.config/nvim/snippets" } })
+
+      -- Load friendly-snippets
+      require("luasnip.loaders.from_vscode").lazy_load()
+
+      ls.filetype_extend("javascript", { "jsdoc" })
+
+      --- TODO: What is expand?
+      map({ "i" }, "<C-s>e", function() ls.expand() end, { silent = true })
+
+      map({ "i", "s" }, "<C-s>;", function() ls.jump(1) end, { silent = true })
+      map({ "i", "s" }, "<C-s>,", function() ls.jump(-1) end, { silent = true })
+
+      map({ "i", "s" }, "<C-s>c", function()
+        if ls.choice_active() then
+          ls.change_choice(1)
+        end
+      end, { silent = true })
+    end
+  }
 
   autocmd("LspAttach", {
     group = augroup,
@@ -264,32 +319,6 @@ now(function()
       })
     end,
   })
-
-  require("luasnip").setup {
-    callback = function()
-      local ls = require("luasnip")
-
-      -- Load your custom snippets
-      require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "~/.config/nvim/snippets" } })
-
-      -- Load friendly-snippets
-      require("luasnip.loaders.from_vscode").lazy_load()
-
-      ls.filetype_extend("javascript", { "jsdoc" })
-
-      --- TODO: What is expand?
-      map({ "i" }, "<C-s>e", function() ls.expand() end, { silent = true })
-
-      map({ "i", "s" }, "<C-s>;", function() ls.jump(1) end, { silent = true })
-      map({ "i", "s" }, "<C-s>,", function() ls.jump(-1) end, { silent = true })
-
-      map({ "i", "s" }, "<C-s>c", function()
-        if ls.choice_active() then
-          ls.change_choice(1)
-        end
-      end, { silent = true })
-    end
-  }
 end)
 
 now(function()
