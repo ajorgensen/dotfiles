@@ -112,6 +112,27 @@ vim.cmd(":hi statusline guibg=NONE")
 
 local augroup = vim.api.nvim_create_augroup("ajorgensen.cfg", { clear = true })
 local autocmd = vim.api.nvim_create_autocmd
+
+autocmd("LspAttach", {
+  group = augroup,
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+    vim.api.nvim_buf_set_option(args.buf, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
+    if client ~= nil and client.supports_method("textDocument/formatting") then
+      vim.api.nvim_clear_autocmds({ group = augroup, buffer = args.buf })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = args.buf,
+        callback = function()
+          vim.lsp.buf.format()
+        end,
+      })
+    end
+  end,
+})
+
 autocmd("FileType", {
   group = augroup,
   callback = function(args)
