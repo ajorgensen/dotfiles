@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+set -e
+
+# 1. Check if the current directory is a git repository
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "Error: Not inside a git repository." >&2
+  exit 1
+fi
+
+# 2. Get the URL of the 'origin' remote
+REMOTE_URL=$(git config --get remote.origin.url)
+if [ -z "$REMOTE_URL" ]; then
+  echo "Error: Could not find remote URL for 'origin'." >&2
+  exit 1
+fi
+
+# 3. Ensure it's a GitHub repository
+if [[ ! "$REMOTE_URL" == *"github.com"* ]]; then
+    echo "Error: The 'origin' remote does not point to a GitHub repository." >&2
+    echo "URL: $REMOTE_URL"
+    exit 1
+fi
+
+# 4. Transform the git URL into a browseable HTTPS URL
+#    - s#^git@github.com:#https://github.com/#  (for SSH URLs)
+#    - s#\.git$##                               (for all URLs)
+BROWSER_URL=$(echo "$REMOTE_URL" |
+  sed -e 's#^git@github.com:#https://github.com/#' -e 's#\.git$##')
+
+# 5. Determine the correct command to open a URL
+if command -v xdg-open &>/dev/null; then
+  OPEN_CMD="xdg-open" # Linux
+elif command -v open &>/dev/null; then
+  OPEN_CMD="open" # macOS
+else
+  echo "Could not find 'xdg-open' or 'open' command." >&2
+  echo "Please open this URL manually:" >&2
+  echo "$BROWSER_URL"
+  exit 1
+fi
+
+# 6. Open the URL in the default browser
+$OPEN_CMD "$BROWSER_URL"

@@ -34,6 +34,7 @@ local map = vim.keymap.set
 map('n', '<leader>o', ':update<CR> :source<CR>')
 map('n', '<leader>w', ':write<CR>')
 map('n', '<leader>q', ':quit<CR>')
+map('n', '<leader>x', ':xit<CR>')
 map('n', '-', ':Oil<CR>')
 map('n', '<leader>f', ':FzfLua files<CR>')
 map('n', '<leader>h', ':FzfLua helptags<CR>')
@@ -58,6 +59,7 @@ map("i", "<C-s>e", function() require("luasnip").expand_or_jump() end)
 
 vim.pack.add({
   { src = "https://github.com/vague2k/vague.nvim" },
+  { src = "https://github.com/rose-pine/neovim" },
   { src = "https://github.com/stevearc/oil.nvim" },
   { src = "https://github.com/mason-org/mason.nvim" },
   { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
@@ -105,8 +107,7 @@ vim.lsp.config("lua_ls", {
 })
 
 -- colors
-require "vague".setup({ transparent = true })
-vim.cmd("colorscheme vague")
+vim.cmd("colorscheme rose-pine-moon")
 vim.cmd(":hi statusline guibg=NONE")
 
 local augroup = vim.api.nvim_create_augroup("ajorgensen.cfg", { clear = true })
