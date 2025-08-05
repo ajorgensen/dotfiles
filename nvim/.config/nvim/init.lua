@@ -1,65 +1,167 @@
--- mini setup
-local path_package = vim.fn.stdpath('data') .. '/site/'
-local mini_path = path_package .. 'pack/deps/start/mini.nvim'
-if not vim.loop.fs_stat(mini_path) then
-  vim.cmd('echo "Installing `mini.nvim`" | redraw')
-  local clone_cmd = {
-    'git', 'clone', '--filter=blob:none',
-    'https://github.com/echasnovski/mini.nvim', mini_path
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+vim.g["test#strategy"] = 'neovim'
+vim.g["test#go#gotest#options"] = "-v"
+
+vim.o.winborder = "rounded"
+vim.o.tabstop = 2
+vim.o.cursorcolumn = false
+vim.o.ignorecase = true
+vim.o.shiftwidth = 2
+vim.o.smartindent = true
+vim.o.autoindent = true
+vim.o.wrap = false
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.swapfile = false
+vim.o.termguicolors = true
+local undodir = os.getenv "HOME" .. "/.config/undodir"
+vim.fn.mkdir(undodir, "p")
+vim.o.undodir = undodir
+vim.o.undofile = true
+vim.o.incsearch = true
+vim.o.signcolumn = "yes"
+vim.o.splitbelow = true
+vim.o.expandtab = true
+vim.o.splitright = true
+vim.o.mouse = "a"
+vim.o.scrolloff = 10
+vim.o.hlsearch = true
+vim.o.incsearch = true
+vim.o.colorcolumn = "80"
+
+local map = vim.keymap.set
+map('n', '<leader>o', ':update<CR> :source<CR>')
+map('n', '<leader>w', ':write<CR>')
+map('n', '<leader>q', ':quit<CR>')
+map('n', '-', ':Oil<CR>')
+map('n', '<leader>f', ':FzfLua files<CR>')
+map('n', '<leader>h', ':FzfLua helptags<CR>')
+map('n', '<leader>lf', vim.lsp.buf.format)
+map('n', 'gW', vim.lsp.buf.workspace_symbol)
+map('n', 'gd', vim.lsp.buf.definition)
+map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+map("n", "<leader>dh", vim.lsp.buf.document_highlight, { desc = "Highlight variable" })
+map("n", "<leader>dc", vim.lsp.buf.clear_references, { desc = "Clear highlight" })
+map("t", "<esc><esc>", "<c-\\><c-n>")
+
+map("n", "<leader>tn", ":TestNearest<CR>") -- Test nearest test
+map("n", "<leader>tf", ":TestFile<CR>")    -- Test file
+map("n", "<leader>ts", ":TestSuite<CR>")   -- Test suite
+map("n", "<leader>tl", ":TestLast<CR>")    -- Test last test run
+map("n", "<leader>tv", ":TestVisit<CR>")   -- Test visit
+
+map("i", "<C-s>e", function() require("luasnip").expand_or_jump() end)
+
+vim.pack.add({
+  { src = "https://github.com/vague2k/vague.nvim" },
+  { src = "https://github.com/stevearc/oil.nvim" },
+  { src = "https://github.com/mason-org/mason.nvim" },
+  { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+  { src = "https://github.com/ibhagwan/fzf-lua" },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+  { src = "https://github.com/neovim/nvim-lspconfig" },
+  { src = "https://github.com/vim-test/vim-test" },
+  { src = "https://github.com/airblade/vim-gitgutter" },
+  { src = "https://github.com/supermaven-inc/supermaven-nvim" },
+  { src = "https://github.com/L3MON4D3/LuaSnip" },
+  { src = "https://github.com/rafamadriz/friendly-snippets" },
+
+  -- tpope
+  { src = "https://github.com/tpope/vim-fugitive" },
+  { src = "https://github.com/tpope/vim-projectionist" },
+  { src = "https://github.com/tpope/vim-dispatch" },
+  { src = "https://github.com/tpope/vim-rhubarb" },
+  { src = "https://github.com/tpope/vim-eunuch" },
+})
+
+require 'mason'.setup()
+require 'mason-lspconfig'.setup()
+require 'oil'.setup()
+require 'fzf-lua'.setup()
+require 'supermaven-nvim'.setup({})
+require 'luasnip'.setup()
+require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "~/.config/nvim/snippets" } })
+require("luasnip.loaders.from_vscode").lazy_load()
+
+vim.lsp.enable({
+  "lua_ls",
+  "gopls",
+  "tsserver",
+  "jsonls",
+  "bufls",
+})
+vim.lsp.config("lua_ls", {
+  settings = {
+    Lua = {
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+      }
+    }
   }
-  vim.fn.system(clone_cmd)
-  vim.cmd('packadd mini.nvim | helptags ALL')
-  vim.cmd('echo "Installed `mini.nvim`" | redraw')
-end
+})
 
--- Set up 'mini.deps'
-require('mini.deps').setup({ path = { package = path_package } })
-local now = MiniDeps.now
-local opt = vim.opt
+-- colors
+require "vague".setup({ transparent = true })
+vim.cmd("colorscheme vague")
+vim.cmd(":hi statusline guibg=NONE")
 
--- Options
-now(function()
-  vim.g.mapleader = " "
-  vim.g.maplocalleader = " "
-  opt.tabstop = 4
-  opt.shiftwidth = 4
-  opt.autoindent = true
-  opt.smartindent = true
-  opt.inccommand = "split"
+local augroup = vim.api.nvim_create_augroup("ajorgensen.cfg", { clear = true })
+local autocmd = vim.api.nvim_create_autocmd
+autocmd("FileType", {
+  group = augroup,
+  callback = function(args)
+    local filetype = args.match
+    local lang = vim.treesitter.language.get_lang(filetype)
+    if vim.treesitter.language.add(lang) then
+      vim.treesitter.start()
+    end
+  end,
+})
 
-  -- Search settings
-  -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
-  opt.ignorecase = true
-  opt.smartcase = true
-  opt.number = true
-  opt.relativenumber = true
-  opt.splitbelow = true
-  opt.splitright = true
-  opt.signcolumn = "yes"
-  opt.expandtab = true
-  opt.mouse = "a"
-  opt.showmode = false
-  opt.breakindent = true
-  local undodir = os.getenv "HOME" .. "/.config/undodir"
-  vim.fn.mkdir(undodir, "p")
-  opt.undodir = undodir
-  opt.undofile = true
-  opt.updatetime = 250
+autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.txt,*.md,*.tex,*.git/COMMIT_EDITMSG",
+  group = augroup,
+  callback = function()
+    vim.opt_local.spell = true
+  end,
+})
 
-  -- Decrease mapped sequence wait time
-  -- Displays which-key popup sooner
-  opt.timeoutlen = 300
+autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.md",
+  group = augroup,
+  callback = function()
+    vim.opt_local.textwidth = 120
+  end,
+})
 
-  -- Minimal number of screen lines to keep above and below the cursor.
-  opt.scrolloff = 10
+-- Highlight when yanking (copying) text
+--  Try it with `yap` in normal mode
+autocmd("TextYankPost", {
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
 
-  -- Set highlight on search, but clear on pressing <Esc> in normal mode
-  opt.hlsearch = true
-  opt.incsearch = true
+autocmd("TermOpen", {
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+    vim.opt_local.scrolloff = 0
+  end,
+})
 
-  opt.colorcolumn = "80"
-end)
+vim.api.nvim_create_user_command("Browse", function(opts)
+  vim.fn.system { "open", opts.fargs[1] }
+end, { nargs = 1 })
 
-require('keymaps')
-require('autocmds')
-require('plugins')
+vim.api.nvim_create_user_command("Cppath", function()
+  local path = vim.fn.expand "%:p"
+  vim.fn.setreg("+", path)
+  vim.notify('Copied "' .. path .. '" to the clipboard!')
+end, {})
