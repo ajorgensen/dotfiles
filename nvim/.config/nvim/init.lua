@@ -55,8 +55,13 @@ now(function()
   map('n', '<leader>q', ':quit<CR>')
   map('n', '<leader>x', ':xit<CR>')
   map('n', '-', ':Oil<CR>')
+
   map('n', '<leader>f', ':FzfLua files<CR>')
+  map('n', '<leader>g', ':FzfLua live_grep<CR>')
   map('n', '<leader>h', ':FzfLua helptags<CR>')
+  map('n', '<leader>ds', ':FzfLua lsp_document_symbols<CR>')
+  map('n', '<leader>ws', ':FzfLua lsp_live_workspace_symbols<CR>')
+
   map('n', '<leader>lf', vim.lsp.buf.format)
   map('n', 'gW', vim.lsp.buf.workspace_symbol)
   map('n', 'gd', vim.lsp.buf.definition)
@@ -99,7 +104,6 @@ now(function()
   vim.cmd(":hi statusline guibg=NONE")
 end)
 
--- tpope
 later(function()
   -- tpope
   add({ source = "tpope/vim-fugitive" })
@@ -107,6 +111,9 @@ later(function()
   add({ source = "tpope/vim-dispatch" })
   add({ source = "tpope/vim-rhubarb" })
   add({ source = "tpope/vim-eunuch" })
+
+  add({ source = "folke/trouble.nvim" })
+  require("trouble").setup({})
 
   -- lsp/snippets
   add({ source = "mason-org/mason.nvim" })
