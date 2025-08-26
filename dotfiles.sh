@@ -8,7 +8,8 @@ stow --target="$HOME" \
   git \
   hammerspoon \
   nvim \
+  opencode \
   tmux \
   wezterm \
-  zsh \
-  zed
+  zed \
+  zsh
