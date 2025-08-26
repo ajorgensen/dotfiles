@@ -61,10 +61,12 @@ now(function()
   map('n', '<leader>h', ':FzfLua helptags<CR>')
   map('n', '<leader>ds', ':FzfLua lsp_document_symbols<CR>')
   map('n', '<leader>ws', ':FzfLua lsp_live_workspace_symbols<CR>')
+  map('n', '<leader>dag', ':lua vim.diagnostic.setqflist()<CR>')
 
   map('n', '<leader>lf', vim.lsp.buf.format)
   map('n', 'gW', vim.lsp.buf.workspace_symbol)
   map('n', 'gd', vim.lsp.buf.definition)
+  map('n', 'gt', vim.lsp.buf.type_definition)
   map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
   map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
   map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
@@ -122,6 +124,10 @@ later(function()
   add({ source = "neovim/nvim-lspconfig" })
   add({ source = "L3MON4D3/LuaSnip" })
   add({ source = "rafamadriz/friendly-snippets" })
+  add({
+    source = "saghen/blink.cmp",
+    checkout = "v1.6.0",
+  })
 
   add({ source = "vim-test/vim-test" })
   add({ source = "airblade/vim-gitgutter" })
@@ -165,6 +171,16 @@ later(function()
     }
   })
 
+  require('blink.cmp').setup({
+    sources = {
+      default = { 'lsp', 'path', 'snippets', 'buffer' },
+    },
+    fuzzy = {
+      prebuilt_binaries = {
+        force_version = 'v1.6.0',
+      }
+    },
+  })
 
   local augroup = vim.api.nvim_create_augroup("ajorgensen.cfg", { clear = true })
   local autocmd = vim.api.nvim_create_autocmd
@@ -173,7 +189,6 @@ later(function()
     group = augroup,
     callback = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
-
       vim.api.nvim_buf_set_option(args.buf, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
       if client ~= nil and client.supports_method("textDocument/formatting") then
