@@ -11,6 +11,23 @@ export EDITOR="nvim"
 alias vim="nvim"
 alias e="nvim"
 
+fzf-git-branch-widget() {
+  local selected_branch
+  selected_branch=$(
+    git for-each-ref --sort=-committerdate refs/heads/ \
+      --format='%(refname:short)' |
+    fzf --height=20% --reverse --info=inline --preview 'git log --oneline -n 10 {}' < /dev/tty
+  )
+
+  if [[ -n "$selected_branch" ]]; then
+    LBUFFER+="$selected_branch"
+  fi
+  
+  # Force zsh to redraw the prompt
+  zle reset-prompt
+  zle -R
+}
+
 addToPath() {
     if [[ "$PATH" != *"$1"* ]]; then
         export PATH=$PATH:$1
@@ -22,7 +39,6 @@ addToPathFront() {
         export PATH=$1:$PATH
     fi
 }
-
 include () {
     [[ -f "$1" ]] && source $1
 }
@@ -38,7 +54,12 @@ if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
 fi
 alias gpg-unlock="gpg-connect-agent updatestartuptty /bye"
 
+zle -N fzf-git-branch-widget
+bindkey ^x "fzf-git-branch-widget"
+
 zstyle ':completion:*:make:*:targets' call-command true
 zstyle ':completion:*:*:make:*' tag-order 'targets'
+
+
 
 #zprof

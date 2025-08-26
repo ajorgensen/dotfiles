@@ -67,6 +67,7 @@ brew "tokei"
 brew "tree"
 brew "watch"
 brew "wget"
+brew "zoxide"
 brew "zsh"
 
 # Casks
