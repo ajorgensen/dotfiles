@@ -34,3 +34,6 @@ kls_database.db
 .nvim.lock
 
 **/.claude/settings.local.json
+
+review.md
+.alternates.json
