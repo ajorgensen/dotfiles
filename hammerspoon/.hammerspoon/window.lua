@@ -33,6 +33,23 @@ local function shouldExcludeWindow(win)
   return true
 end
 
+local function applyPadding(frame, screenFrame)
+  local paddedWidth = screenFrame.w * 0.95
+  local paddedHeight = screenFrame.h * 0.95
+  local paddingX = (screenFrame.w - paddedWidth) / 2
+  local paddingY = (screenFrame.h - paddedHeight) / 2
+  
+  local widthRatio = frame.w / screenFrame.w
+  local xRatio = (frame.x - screenFrame.x) / screenFrame.w
+  
+  return {
+    x = screenFrame.x + paddingX + (xRatio * paddedWidth),
+    y = screenFrame.y + paddingY,
+    w = widthRatio * paddedWidth,
+    h = paddedHeight
+  }
+end
+
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "Left", function()
   if shouldExcludeWindow(hs.window.focusedWindow()) then
     return
@@ -66,7 +83,6 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "Left", function()
   if windowStatesLeft[id].state == 1 then
     f.w = max.w / 2
     f.x = max.x
-    -- State 2: One third screen
   else
     f.w = max.w / 3
     f.x = max.x
@@ -74,6 +90,8 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "Left", function()
 
   f.y = max.y
   f.h = max.h
+  
+  f = applyPadding(f, max)
   win:setFrame(f)
 end)
 
@@ -110,7 +128,6 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "Right", function()
   if windowStatesRight[id].state == 1 then
     f.w = max.w / 2
     f.x = max.x + (max.w / 2)
-    -- State 2: One third screen
   else
     f.w = max.w / 3
     f.x = max.x + (max.w * 2 / 3)
@@ -118,6 +135,8 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "Right", function()
 
   f.y = max.y
   f.h = max.h
+  
+  f = applyPadding(f, max)
   win:setFrame(f)
 end)
 
@@ -192,7 +211,6 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "A", function()
   local screen = focusedWindow:screen()
   local max = screen:frame()
 
-  -- Set focused window to left half
   local leftFrame = {
     x = max.x,
     y = max.y,
@@ -200,7 +218,6 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "A", function()
     h = max.h
   }
 
-  -- Set other windows to right half
   local rightFrame = {
     x = max.x + (max.w / 2),
     y = max.y,
@@ -208,13 +225,14 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "A", function()
     h = max.h
   }
 
+  leftFrame = applyPadding(leftFrame, max)
+  rightFrame = applyPadding(rightFrame, max)
+
   print("leftframe", leftFrame)
   print("rightframe", rightFrame)
 
-  -- Apply frames to focused window first
   focusedWindow:setFrame(leftFrame)
 
-  -- Then apply frames to other windows
   local windows = hs.window.visibleWindows()
   for _, window in ipairs(windows) do
     if window ~= focusedWindow and window:screen() == screen and not shouldExcludeWindow(window) then
@@ -234,7 +252,6 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "F", function()
   local screen = focusedWindow:screen()
   local max = screen:frame()
 
-  -- Set focused window to right half
   local rightFrame = {
     x = max.x + (max.w / 2),
     y = max.y,
@@ -242,7 +259,6 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "F", function()
     h = max.h
   }
 
-  -- Set other windows to left half
   local leftFrame = {
     x = max.x,
     y = max.y,
@@ -250,7 +266,9 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "F", function()
     h = max.h
   }
 
-  -- Apply frames
+  rightFrame = applyPadding(rightFrame, max)
+  leftFrame = applyPadding(leftFrame, max)
+
   focusedWindow:setFrame(rightFrame)
 
   local windows = hs.window.visibleWindows()

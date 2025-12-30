@@ -159,6 +159,8 @@
     dm = "!git branch --merged | grep -v '\\*' | grep -v $(git default-branch) | xargs -n 1 git branch -d"
     rm-merged = "!git branch --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" { print $1 }' | xargs -r git branch -D"
     gone = "!f() { git fetch --all --prune; git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D; }; f"
+    tidy = "!f() { git fetch --prune; DEFAULT=$(git default-branch); DEFAULT=${DEFAULT:-main}; echo \"Cleaning up branches merged into $DEFAULT...\"; git branch -vv | grep ': gone]' | awk '{print ($1 == \"*\" ? $2 : $1)}' | xargs -r git branch -D; git branch --merged \"$DEFAULT\" | grep -v \"^\\*\" | grep -v \"^  $DEFAULT$\" | xargs -r git branch -d; }; f"
+    scrub = "!git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)|%(committerdate:relative)|%(subject)' | column -t -s '|' | fzf --multi --header 'Select branches to DELETE (TAB to multi-select)' --preview 'git log --oneline --graph --max-count=10 {1}' | awk '{print $1}' | xargs -r git branch -D"
 
     # List contributors with number of commits.
     contributors = shortlog --summary --numbered
