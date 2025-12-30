@@ -1,5 +1,8 @@
-#zmodload zsh/zprof
+if [[ -n "$ZSH_DEBUGRC" ]]; then
+    zmodload zsh/zprof
+fi
 
+fpath=("$HOME/.zsh/completion" $fpath)
 autoload -U compinit; compinit
 source $HOME/.zsh/prompt
 
@@ -12,12 +15,10 @@ setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt HIST_FIND_NO_DUPS
 
-include () {
-    [[ -f "$1" ]] && source $1
-}
+[[ -f "$HOME/.zsh/aliases" ]] && source "$HOME/.zsh/aliases"
+[[ -f "$HOME/.zsh/funcs" ]] && source "$HOME/.zsh/funcs"
+[[ -f "$HOME/.zsh_profile" ]] && source "$HOME/.zsh_profile"
 
-include $HOME/.zsh/aliases
-include $HOME/.zsh/funcs
-include $HOME/.zsh_profile
-
-#zprof
+if [[ -n "$ZSH_DEBUGRC" ]]; then
+    zprof
+fi

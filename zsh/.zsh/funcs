@@ -24,3 +24,7 @@ jwt-decode() {
 docker_rm_stopped() {
   docker rm $(docker ps -a -q)
 }
+
+gencode() {
+  base64 < /dev/urandom | tr -dc 'A-Z0-9' | head -c "$1"
+}
