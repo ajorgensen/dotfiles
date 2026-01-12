@@ -1,60 +1,59 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
 		config = function()
-			require("nvim-treesitter.config").setup({
-				-- A list of parser names, or "all"
-				ensure_installed = {
-					"vimdoc",
-					"javascript",
-					"typescript",
-					"c",
-					"lua",
-					"rust",
-					"jsdoc",
-					"bash",
-					"go",
-					"templ",
-				},
+			-- Ensure parsers are installed
+			local ensure_installed = {
+				"vimdoc",
+				"javascript",
+				"typescript",
+				"c",
+				"lua",
+				"rust",
+				"jsdoc",
+				"bash",
+				"go",
+				"templ",
+			}
 
-				-- Install parsers synchronously (only applied to `ensure_installed`)
-				sync_install = false,
+			-- Install parsers
+			require("nvim-treesitter").install(ensure_installed)
 
-				-- Automatically install missing parsers when entering buffer
-				-- Recommendation: set to false if you don"t have `tree-sitter` CLI installed locally
-				auto_install = true,
+			-- Enable highlighting for all filetypes
+			vim.api.nvim_create_autocmd("FileType", {
+				callback = function(args)
+					local buf = args.buf
+					local ft = args.match
 
-				indent = {
-					enable = true,
-				},
+					-- Skip html
+					if ft == "html" then
+						return
+					end
 
-				highlight = {
-					-- `false` will disable the whole extension
-					enable = true,
-					disable = function(lang, buf)
-						if lang == "html" then
-							print("disabled")
-							return true
-						end
+					-- Skip large files
+					local max_filesize = 100 * 1024 -- 100 KB
+					local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+					if ok and stats and stats.size > max_filesize then
+						vim.notify(
+							"File larger than 100KB treesitter disabled for performance",
+							vim.log.levels.WARN,
+							{ title = "Treesitter" }
+						)
+						return
+					end
 
-						local max_filesize = 100 * 1024 -- 100 KB
-						local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-						if ok and stats and stats.size > max_filesize then
-							vim.notify(
-								"File larger than 100KB treesitter disabled for performance",
-								vim.log.levels.WARN,
-								{ title = "Treesitter" }
-							)
-							return true
-						end
-					end,
+					-- Enable treesitter highlighting
+					pcall(vim.treesitter.start, buf)
+				end,
+			})
 
-					-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-					-- Set this to `true` if you depend on "syntax" being enabled (like for indentation).
-					-- Using this option may slow down your editor, and you may see some duplicate highlights.
-					-- Instead of true it can also be a list of languages
-					additional_vim_regex_highlighting = { "markdown" },
-				},
+			-- Enable additional vim regex highlighting for markdown
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "markdown",
+				callback = function()
+					vim.bo.syntax = "on"
+				end,
 			})
 		end,
 	},
