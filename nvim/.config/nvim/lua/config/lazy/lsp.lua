@@ -107,6 +107,9 @@ return {
             })
         })
 
+        -- Register custom @-mention file path source (markdown only)
+        cmp.register_source("mention_path", require("cmp_mention_path").new())
+
         vim.diagnostic.config({
             -- update_in_insert = true,
             float = {
