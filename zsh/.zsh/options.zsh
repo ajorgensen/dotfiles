@@ -1,0 +1,8 @@
+export HISTSIZE=100000000
+export SAVEHIST=$HISTSIZE
+export HISTFILE=$HOME/.local/zsh_history
+
+setopt SHARE_HISTORY
+setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_FIND_NO_DUPS
