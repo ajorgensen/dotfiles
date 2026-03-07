@@ -37,3 +37,5 @@ kls_database.db
 
 review.md
 .alternates.json
+.worktrees
+.docs

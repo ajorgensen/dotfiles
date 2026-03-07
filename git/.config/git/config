@@ -167,6 +167,7 @@
 
     # Show the user email for the current repository.
     whoami = config user.email
+	whatadded = log --diff-filter=A
 
 [include]
     path = ~/.gitoverrides
