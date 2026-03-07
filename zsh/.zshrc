@@ -3,7 +3,6 @@ if [[ -n "$ZSH_DEBUGRC" ]]; then
 fi
 
 source $HOME/.zsh/env.zsh
-source $HOME/.zsh/secrets.zsh
 source $HOME/.zsh/options.zsh
 source $HOME/.zsh/tools.zsh
 source $HOME/.zsh/completion.zsh
