@@ -1,0 +1,5 @@
+# Config
+
+theme = TokyoNight Moon
+shell-integration-features = no-cursor,no-sudo,title
+font-feature = -calt
