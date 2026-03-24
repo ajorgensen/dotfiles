@@ -3,3 +3,4 @@
 theme = TokyoNight Moon
 shell-integration-features = no-cursor,no-sudo,title
 font-feature = -calt
+mouse-scroll-multiplier = precision:0.5,discrete:1

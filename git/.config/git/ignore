@@ -35,7 +35,6 @@ kls_database.db
 
 **/.claude/settings.local.json
 
-review.md
 .alternates.json
 .worktrees
 .docs

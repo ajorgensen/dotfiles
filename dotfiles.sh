@@ -6,9 +6,11 @@ stow --target="$HOME" \
   bin \
   fish \
   git \
+  ghostty \
   hammerspoon \
   nvim \
   opencode \
+  pi \
   tmux \
   wezterm \
   zed \

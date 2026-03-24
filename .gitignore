@@ -18,3 +18,7 @@ Brewfile.lock.json
 
 zed/.config/zed/conversations
 zed/.config/zed/prompts
+
+pi/.pi/agent/auth.json
+pi/.pi/agent/sessions
+pi/.pi/agent/settings.json
