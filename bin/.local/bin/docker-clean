@@ -1,33 +1,48 @@
-#!/bin/sh                                                                                                                                                                            
- 
+#!/usr/bin/env bash
+
+set -euo pipefail
+
 remove_dangling() {
-   echo "Removing dangling images ..."
-   docker rmi $(docker images -f dangling=true -q)
+    local image_ids=()
+    mapfile -t image_ids < <(docker images -f dangling=true -q)
+
+    if ((${#image_ids[@]} == 0)); then
+        echo "No dangling images to remove."
+        return 0
+    fi
+
+    echo "Removing dangling images ..."
+    docker rmi "${image_ids[@]}"
 }
- 
+
 remove_stopped_containers() {
+    local container_ids=()
+    mapfile -t container_ids < <(docker ps -qa)
+
+    if ((${#container_ids[@]} == 0)); then
+        echo "No stopped containers to remove."
+        return 0
+    fi
+
     echo "Removing stopped containers ..."
-    docker rm $(docker ps -qa)
+    docker rm "${container_ids[@]}"
 }
- 
-case $1 in
+
+case "${1:-}" in
     images)
         remove_dangling
         ;;
     containers)
-        read -p "Are you sure you want to remove all stopped containers?" -n 1 -r
-        echo  #                                                                                                                                                                      
-        if [[ $REPLY =~ ^[Yy]$ ]]
-        then
+        read -r -p "Are you sure you want to remove all stopped containers? [y/N] " reply
+        if [[ "$reply" =~ ^[Yy]$ ]]; then
             remove_stopped_containers
         fi
- 
         ;;
     *)
-        echo "                                                                                                                                                                       
-usage: docker-clean containers|images                                                                                                                                                
-    containers - removes all stopped containers it can.                                                                                                                              
-    images - removes dangling (un-needed) image layers - images you no longer need                                                                                                   
-"
+        cat <<'EOF'
+usage: docker-clean containers|images
+    containers - removes all stopped containers it can.
+    images - removes dangling (un-needed) image layers - images you no longer need
+EOF
         ;;
 esac

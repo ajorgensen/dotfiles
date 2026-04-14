@@ -1,10 +1,17 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
+SCRIPT_DIR="$(
+  cd "$(dirname "${BASH_SOURCE[0]}")" && pwd
+)"
+
+cd "$SCRIPT_DIR"
+
 stow --target="$HOME" \
   ack \
   aider \
   bin \
-  fish \
   git \
   ghostty \
   hammerspoon \

@@ -68,8 +68,6 @@
     # https://git-scm.com/docs/git-update-index#_untracked_cache
     untrackedCache = true
 
-    fsmonitor = true
-
     pager = delta
 
 [interactive]

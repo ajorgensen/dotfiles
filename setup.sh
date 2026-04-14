@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-# Install Homebrew
-./homebrew.sh
+set -euo pipefail
 
-# Dotfiles
-./dotfiles.sh
+SCRIPT_DIR="$(
+  cd "$(dirname "${BASH_SOURCE[0]}")" && pwd
+)"
+
+"$SCRIPT_DIR/homebrew.sh"
+"$SCRIPT_DIR/dotfiles.sh"
