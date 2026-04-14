@@ -1,9 +1,5 @@
--- TODO: Can we refactor this to be represented as an action chain and just
--- pass in the functinos and abstract away the state tracking?
-
--- Tables to store window states and timestamps for left and right separately
-local windowStatesLeft = {}
-local windowStatesRight = {}
+local windowActionStates = {}
+local WINDOW_ACTION_TIMEOUT = 10 -- seconds
 
 local bundleConfig = {
   ["app.tuple.app"] = {},
@@ -50,95 +46,83 @@ local function applyPadding(frame, screenFrame)
   }
 end
 
-hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "Left", function()
-  if shouldExcludeWindow(hs.window.focusedWindow()) then
-    return
-  end
-
-  local win = hs.window.focusedWindow()
-  local id = win:id()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
-
+local function nextActionIndex(stateStore, windowID, actionCount)
   local currentTime = hs.timer.secondsSinceEpoch()
-  local TIMEOUT = 10 -- seconds
+  local state = stateStore[windowID]
 
-  -- Initialize or update window state
-  if not windowStatesLeft[id] then
-    windowStatesLeft[id] = { state = 1, timestamp = currentTime }
+  if not state or (currentTime - state.timestamp) > WINDOW_ACTION_TIMEOUT then
+    state = { index = 1, timestamp = currentTime }
   else
-    -- Check if we're within the timeout period
-    if (currentTime - windowStatesLeft[id].timestamp) <= TIMEOUT then
-      -- Within timeout, cycle the state
-      windowStatesLeft[id].state = windowStatesLeft[id].state % 2 + 1
-    else
-      -- Past timeout, reset to state 1
-      windowStatesLeft[id].state = 1
+    state.index = state.index % actionCount + 1
+    state.timestamp = currentTime
+  end
+
+  stateStore[windowID] = state
+  return state.index
+end
+
+local function createWindowCycleHandler(actionKey, actions)
+  windowActionStates[actionKey] = windowActionStates[actionKey] or {}
+
+  return function()
+    local win = hs.window.focusedWindow()
+    if not win or shouldExcludeWindow(win) then
+      return
     end
-    windowStatesLeft[id].timestamp = currentTime
+
+    local screenFrame = win:screen():frame()
+    local actionIndex = nextActionIndex(windowActionStates[actionKey], win:id(), #actions)
+    local frame = actions[actionIndex](screenFrame)
+
+    win:setFrame(applyPadding(frame, screenFrame))
   end
+end
 
-  -- State 1: Half screen
-  if windowStatesLeft[id].state == 1 then
-    f.w = max.w / 2
-    f.x = max.x
-  else
-    f.w = max.w / 3
-    f.x = max.x
-  end
+hs.hotkey.bind(
+  { "cmd", "alt", "ctrl" },
+  "Left",
+  createWindowCycleHandler("left", {
+    function(screenFrame)
+      return {
+        x = screenFrame.x,
+        y = screenFrame.y,
+        w = screenFrame.w / 2,
+        h = screenFrame.h,
+      }
+    end,
+    function(screenFrame)
+      return {
+        x = screenFrame.x,
+        y = screenFrame.y,
+        w = screenFrame.w / 3,
+        h = screenFrame.h,
+      }
+    end,
+  })
+)
 
-  f.y = max.y
-  f.h = max.h
-  
-  f = applyPadding(f, max)
-  win:setFrame(f)
-end)
-
-hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "Right", function()
-  if shouldExcludeWindow(hs.window.focusedWindow()) then
-    return
-  end
-
-  local win = hs.window.focusedWindow()
-  local id = win:id()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
-
-  local currentTime = hs.timer.secondsSinceEpoch()
-  local TIMEOUT = 10 -- seconds
-
-  -- Initialize or update window state
-  if not windowStatesRight[id] then
-    windowStatesRight[id] = { state = 1, timestamp = currentTime }
-  else
-    -- Check if we're within the timeout period
-    if (currentTime - windowStatesRight[id].timestamp) <= TIMEOUT then
-      -- Within timeout, cycle the state
-      windowStatesRight[id].state = windowStatesRight[id].state % 2 + 1
-    else
-      -- Past timeout, reset to state 1
-      windowStatesRight[id].state = 1
-    end
-    windowStatesRight[id].timestamp = currentTime
-  end
-
-  -- State 1: Half screen
-  if windowStatesRight[id].state == 1 then
-    f.w = max.w / 2
-    f.x = max.x + (max.w / 2)
-  else
-    f.w = max.w / 3
-    f.x = max.x + (max.w * 2 / 3)
-  end
-
-  f.y = max.y
-  f.h = max.h
-  
-  f = applyPadding(f, max)
-  win:setFrame(f)
-end)
+hs.hotkey.bind(
+  { "cmd", "alt", "ctrl" },
+  "Right",
+  createWindowCycleHandler("right", {
+    function(screenFrame)
+      return {
+        x = screenFrame.x + (screenFrame.w / 2),
+        y = screenFrame.y,
+        w = screenFrame.w / 2,
+        h = screenFrame.h,
+      }
+    end,
+    function(screenFrame)
+      return {
+        x = screenFrame.x + (screenFrame.w * 2 / 3),
+        y = screenFrame.y,
+        w = screenFrame.w / 3,
+        h = screenFrame.h,
+      }
+    end,
+  })
+)
 
 -- Bind the window collapsing functionality to a hotkey (e.g., Cmd+Shift+C)
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "C", function()
@@ -228,9 +212,6 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "A", function()
   leftFrame = applyPadding(leftFrame, max)
   rightFrame = applyPadding(rightFrame, max)
 
-  print("leftframe", leftFrame)
-  print("rightframe", rightFrame)
-
   focusedWindow:setFrame(leftFrame)
 
   local windows = hs.window.visibleWindows()
@@ -243,7 +224,6 @@ end)
 
 -- Function to move current window to right half and all other windows to left half
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "F", function()
-  print("BAR")
   local focusedWindow = hs.window.focusedWindow()
   if not focusedWindow then
     return -- No focused window, nothing to do
@@ -276,17 +256,5 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "F", function()
     if window ~= focusedWindow and window:screen() == screen and not shouldExcludeWindow(window) then
       window:setFrame(leftFrame)
     end
-  end
-end)
-
--- Debug function to inspect window properties (remove after testing)
-hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "D", function()
-  local win = hs.window.focusedWindow()
-  if win then
-    print("Title:", win:title())
-    print("Bundle ID:", win:application():bundleID())
-    print("Role:", win:role())
-    print("Subrole:", win:subrole())
-    print("Standard:", win:isStandard())
   end
 end)

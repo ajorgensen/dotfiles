@@ -1,6 +1,10 @@
 require("pomodoro")
 require("window")
 require("switcher")
+require("github_reviews").start()
+
+-- Enable CLI integration (`hs -c ...`) for local validation/debugging.
+pcall(require, "hs.ipc")
 
 hs.loadSpoon("ReloadConfiguration")
 spoon.ReloadConfiguration:start()
@@ -31,9 +35,33 @@ end
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "M", toggleMicMute)
 
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "D", function()
+  local focusedWindow = hs.window.focusedWindow()
+
+  print("\n*** Focused Window ***")
+  if focusedWindow then
+    print(
+      string.format(
+        [[
+Title: %s
+Bundle ID: %s
+Role: %s
+Subrole: %s
+Standard: %s
+----------------------------------------]],
+        focusedWindow:title(),
+        focusedWindow:application():bundleID(),
+        focusedWindow:role(),
+        focusedWindow:subrole(),
+        tostring(focusedWindow:isStandard())
+      )
+    )
+  else
+    print("No focused window")
+  end
+
   print("\n*** All Visible Windows ***")
-  local allWindows = hs.window.allWindows()
-  for i, window in ipairs(allWindows) do
+  local visibleWindows = hs.window.visibleWindows()
+  for i, window in ipairs(visibleWindows) do
     print(
       string.format(
         [[
