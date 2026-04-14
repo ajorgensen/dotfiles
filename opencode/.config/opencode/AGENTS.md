@@ -1,5 +1,19 @@
 # Personal Conventions
 
+- Pull request titles where applicable should be of the form "[<scope>] <description>". If there is no clear scope or the change is broad then the scope can be omitted
+- Branch names should be `aj/<type>/<short description>`
+
+# Memory
+
+You have access to a `.docs` directory you can use to persist context that may help later turns or future agents. Prefer short, durable notes over verbose logs, and only record information that is likely to stay useful beyond the current reply. Here are some of the documents you may find there:
+
+- `MEMORY.md`: Stable project knowledge. Capture architecture notes, repo-specific workflows, important commands, known constraints, naming conventions, recurring gotchas, and decisions that future work should preserve.
+- `PROMPT.md`: The current engagement context. Capture the user's goal, constraints, acceptance criteria, open questions, and any important wording or intent that should not be lost across longer tasks.
+- `PLAN.md`: The working implementation plan. Capture the approach, milestones, files likely to change, validation strategy, tradeoffs, and decisions made while executing.
+- `TODO.md`: The actionable task list. Capture concrete next steps, task status, blockers, follow-ups, and handoff items so work can resume cleanly.
+
+Use these files to reduce repeated discovery, but keep them current: update or remove stale notes when they no longer reflect reality.
+
 ## Git Commits
 - Always use conventional commit style (e.g., `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`)
 - The subject line should be short (~50 chars) and state what changed
