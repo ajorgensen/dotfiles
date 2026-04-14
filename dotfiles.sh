@@ -10,7 +10,6 @@ cd "$SCRIPT_DIR"
 
 stow --target="$HOME" \
   ack \
-  aider \
   bin \
   git \
   ghostty \
@@ -20,5 +19,4 @@ stow --target="$HOME" \
   pi \
   tmux \
   wezterm \
-  zed \
   zsh
