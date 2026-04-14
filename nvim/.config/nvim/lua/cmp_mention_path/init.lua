@@ -5,6 +5,18 @@ local source = {}
 local cache = {}
 local pending = {}
 local cache_ttl_ns = 5 * 1e9
+local ignored_dirs = {
+  ".git",
+  ".next",
+  ".turbo",
+  ".venv",
+  "build",
+  "coverage",
+  "dist",
+  "node_modules",
+  "target",
+  "vendor",
+}
 
 local function project_root()
   local bufname = vim.api.nvim_buf_get_name(0)
@@ -59,9 +71,29 @@ function source:complete(_, callback)
   local items = {}
   pending[root] = { callback }
 
-  local cmd = vim.fn.executable("fd") == 1
-      and { "fd", "--type", "f", "--strip-cwd-prefix", "--hidden", "--exclude", ".git" }
-    or { "find", ".", "-type", "f", "-not", "-path", "*/.git/*" }
+  local cmd
+  if vim.fn.executable("fd") == 1 then
+    cmd = { "fd", "--type", "f", "--strip-cwd-prefix", "--hidden" }
+    for _, dir in ipairs(ignored_dirs) do
+      table.insert(cmd, "--exclude")
+      table.insert(cmd, dir)
+    end
+  else
+    cmd = { "find", "." }
+    for _, dir in ipairs(ignored_dirs) do
+      table.insert(cmd, "(")
+      table.insert(cmd, "-name")
+      table.insert(cmd, dir)
+      table.insert(cmd, "-type")
+      table.insert(cmd, "d")
+      table.insert(cmd, "-prune")
+      table.insert(cmd, ")")
+      table.insert(cmd, "-o")
+    end
+    table.insert(cmd, "-type")
+    table.insert(cmd, "f")
+    table.insert(cmd, "-print")
+  end
 
   vim.fn.jobstart(cmd, {
     cwd = root,
