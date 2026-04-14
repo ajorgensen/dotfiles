@@ -37,4 +37,8 @@ kls_database.db
 
 .alternates.json
 .worktrees
+.workflows
+.workflow-runs
+.agent
 .docs
+nvim.log

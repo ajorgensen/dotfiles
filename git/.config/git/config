@@ -18,7 +18,13 @@
     colorMoved = plain
     mnemonicPrefix = true
     renames = true
-    tool = vimdiff
+    tool = nvimdiff
+
+[difftool]
+  prompt = false
+
+[difftool "nvimdiff"]
+    cmd = nvim -d "$LOCAL" "$REMOTE"
 
 [push]
     default = simple
@@ -136,6 +142,7 @@
 
     sync = "!git pull origin $(git default-branch) --rebase"
     update = "!git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase"
+    rb = "!f() { git fetch && DEFAULT=$(git default-branch); DEFAULT=${DEFAULT:-main}; git rebase origin/$DEFAULT; }; f"
 
     # Switch to default branch and delete the current branch
     done = "!BRANCH=$(git current-branch); f() { git checkout $(git default-branch) && git branch -D $BRANCH; }; f"
@@ -163,7 +170,11 @@
     scrub = "!git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)|%(committerdate:relative)|%(subject)' | column -t -s '|' | fzf --multi --header 'Select branches to DELETE (TAB to multi-select)' --preview 'git log --oneline --graph --max-count=10 {1}' | awk '{print $1}' | xargs -r git branch -D"
 
     # List contributors with number of commits.
-    contributors = shortlog --summary --numbered
+    contributors = shortlog --summary --numbered --no-merges
+    bug-files = "!git log -i -E --grep=\"fix|bug|broken\" --name-only --format='' | sort | uniq -c | sort -nr | head -20"
+    commits-by-month = "!git log --format='%ad' --date=format:'%Y-%m' | sort | uniq -c"
+    risky-commits = "!git log --oneline --since=\"1 year ago\" | grep -iE 'revert|hotfix|emergency|rollback'"
+    top-files = "!git log --format=format: --name-only --since=\"1 year ago\" | sort | uniq -c | sort -nr | head -20"
 
     # Show the user email for the current repository.
     whoami = config user.email
