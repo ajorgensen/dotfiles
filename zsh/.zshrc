@@ -14,6 +14,10 @@ source $HOME/.zsh/functions.zsh
 # Machine-specific overrides
 [[ -f "$HOME/.local.zshrc" ]] && source $HOME/.local.zshrc
 
+if command -v zoxide >/dev/null 2>&1; then
+    eval "$(zoxide init zsh)"
+fi
+
 if [[ -n "$ZSH_DEBUGRC" ]]; then
     zprof
 fi
