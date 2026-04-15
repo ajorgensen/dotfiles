@@ -1,6 +1,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " " -- Set local leader key to space
 
+local reference_highlight = require("config.reference_highlight")
+
 vim.g["test#strategy"] = 'neovim' -- Use neovim terminal for test execution
 vim.g["test#go#gotest#options"] = "-v" -- Enable verbose output for Go tests
 
@@ -18,9 +20,10 @@ vim.keymap.set('n', '<leader>dag', ':lua vim.diagnostic.setqflist()<CR>')
 vim.keymap.set('n', 'gW', vim.lsp.buf.workspace_symbol)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
 vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition)
+vim.keymap.set("n", "grh", reference_highlight.highlight, { desc = "Highlight references" })
 vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float)
-vim.keymap.set("n", "<leader>dh", vim.lsp.buf.document_highlight, { desc = "Highlight variable" })
-vim.keymap.set("n", "<leader>dc", vim.lsp.buf.clear_references, { desc = "Clear highlight" })
+vim.keymap.set("n", "<leader>dh", reference_highlight.highlight, { desc = "Highlight references" })
+vim.keymap.set("n", "<leader>dc", reference_highlight.clear, { desc = "Clear highlight" })
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 

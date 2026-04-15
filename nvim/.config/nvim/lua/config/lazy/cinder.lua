@@ -8,13 +8,12 @@ return {
   end,
   config = function()
     require("cinder").setup({
-      model = "anthropic/claude-opus-4.6",
-      models = {
-        "openai/gpt-5.3-codex-spark",
-        "openai/gpt-5.4",
-        "openai/gpt-5.4-mini",
-        "anthropic/claude-opus-4.6",
-      },
+      provider = 'pi',
+      model = "openai/gpt-5.4",
+
+      profiles = {
+        quick = { model = "openai/gpt-5.4-mini" },
+      }
     })
   end,
 }
