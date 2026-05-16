@@ -1,0 +1,1 @@
+-- airblade/vim-gitgutter does not require setup.
