@@ -1,7 +1,21 @@
 # Personal Conventions
 
+- Make the change easy, then make the easy change
 - Pull request titles where applicable should be of the form "[<scope>] <description>". If there is no clear scope or the change is broad then the scope can be omitted
 - Branch names should be `aj/<type>/<short description>`
+
+# Global Coding Rules
+
+- Read relevant files before editing.
+- Prefer precise edits over broad rewrites unless requested.
+- Preserve existing style and patterns unless changing them is part of the task.
+- After code changes, run the smallest relevant validation available.
+- Summarize what changed and list touched files.
+- Do not install dependencies, delete files, or run destructive shell commands unless asked.
+- For searches, prefer rg/find over slower shell pipelines.
+- If requirements are unclear, ask a targeted question or state the assumption.
+- For multi-step work, keep changes incremental and verifiable.
+- Use subagents for recon, planning, and review when that will improve quality or reduce context load.
 
 # Memory
 
@@ -14,7 +28,12 @@ You have access to a `.docs` directory you can use to persist context that may h
 
 Use these files to reduce repeated discovery, but keep them current: update or remove stale notes when they no longer reflect reality.
 
+# Skills
+
+Global skills are installed in the sibling `skills/` directory next to this instruction file. When a task matches a skill, read that skill's `SKILL.md` before acting.
+
 ## Git Commits
+
 - Always use conventional commit style (e.g., `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`)
 - The subject line should be short (~50 chars) and state what changed
 - The commit body should explain **why** — what problem this solves, what motivated the change, or what decision led to this approach. Do not simply restate the diff.
@@ -22,6 +41,7 @@ Use these files to reduce repeated discovery, but keep them current: update or r
 - Bad example: `fix: update handler` (no context). Good example: `fix: prevent duplicate webhook deliveries` with a body explaining the root cause.
 
 ## Test Driven Development
+
 When adding new functionality or fixing bugs, prefer a TDD workflow where applicable:
 
 1. **Write a failing test first** — define the expected behavior before writing any implementation code.
@@ -32,6 +52,7 @@ When adding new functionality or fixing bugs, prefer a TDD workflow where applic
 This cycle (red → green → refactor) keeps changes small and focused, produces a test suite that documents intent, and surfaces design issues early.
 
 ## Stacked PRs
+
 - Treat stacked PRs as first-class: always check the current branch, base branch, and commit ancestry before creating or updating a PR.
 - When a PR is stacked on another PR, assume that parent merges can change what GitHub shows in the child diff.
 - If a parent PR was squash-merged and GitHub retargets a child PR to `main`, expect duplicate diff/review noise from parent changes.
