@@ -12,4 +12,30 @@ zstyle ':vcs_info:git:*' unstagedstr $vc_unstaged_status
 
 setopt prompt_subst
 autoload -U colors && colors
-prompt='%F{green}%~%F{yellow}${vcs_info_msg_0_} %F{reset}> '
+
+short_pwd() {
+    local dir="${PWD/#$HOME/~}"
+    local -a parts
+    parts=("${(@s:/:)dir}")
+
+    local out=""
+    local i part
+
+    for (( i = 1; i <= ${#parts}; i++ )); do
+        part="${parts[i]}"
+
+        if (( i == ${#parts} )) || [[ "$part" == "~" || "$part" == "" ]]; then
+            out+="$part"
+        elif [[ "$part" == .* ]]; then
+            out+="${part[1,2]}"
+        else
+            out+="${part[1,1]}"
+        fi
+
+        (( i < ${#parts} )) && out+="/"
+    done
+
+    print -r -- "$out"
+}
+
+prompt='%F{green}$(short_pwd)%F{yellow}${vcs_info_msg_0_} %F{reset}> '

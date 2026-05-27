@@ -1,182 +1,182 @@
 [user]
-    name = Andrew Jorgensen
-    email = git@aj.codes
+  name = Andrew Jorgensen
+  email = git@aj.codes
 
 [github]
-    user = ajorgensen
+  user = ajorgensen
 
 [init]
-    defaultBranch = main
+  defaultBranch = main
 [branch]
-    sort = -committerdate
+  sort = -committerdate
 
 [tag]
-    sort = version:refname
+  sort = version:refname
 
 [diff]
-    algorithm = histogram
-    colorMoved = plain
-    mnemonicPrefix = true
-    renames = true
-    tool = nvimdiff
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
+  renames = true
+  tool = nvimdiff
 
 [difftool]
   prompt = false
 
 [difftool "nvimdiff"]
-    cmd = nvim -d "$LOCAL" "$REMOTE"
+  cmd = nvim -d "$LOCAL" "$REMOTE"
 
 [push]
-    default = simple
-    autoSetupRemote = true
-    followTags = true
+  default = simple
+  autoSetupRemote = true
+  followTags = true
 
 [fetch]
-    prune = true
-    pruneTags = true
-    all = true
+  prune = true
+  pruneTags = true
+  all = true
 
 [help]
-    autocorrect = prompt
+  autocorrect = prompt
 
 [commit]
-    gpgsign = true
-    verbose = true
+  gpgsign = true
+  verbose = true
 
 [rerere]
-    enabled = true
-    autoupdate = true
+  enabled = true
+  autoupdate = true
 
 [core]
     # Use custom `.gitignore`
-    excludesfile = ~/.config/git/ignore
+  excludesfile = ~/.config/git/ignore
 
     # Treat spaces before tabs and all kinds of trailing whitespace as an error.
     # [default] trailing-space: looks for spaces at the end of a line
     # [default] space-before-tab: looks for spaces before tabs at the beginning of a line
-    whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+  whitespace = space-before-tab,-indent-with-non-tab,trailing-space
 
     # Make `git rebase` safer on macOS.
     # More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
-    trustctime = false
+  trustctime = false
 
     # Prevent showing files whose names contain non-ASCII symbols as unversioned.
     # http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html
-    precomposeunicode = false
+  precomposeunicode = false
 
     # Speed up commands involving untracked files such as `git status`.
     # https://git-scm.com/docs/git-update-index#_untracked_cache
-    untrackedCache = true
+  untrackedCache = true
 
-    pager = delta
+  pager = delta
 
 [interactive]
-    diffFilter = delta --color-only
+  diffFilter = delta --color-only
 
 [delta]
   navigate = true  # use n and N to move between diff sections
   dark = true      # or light = true, or omit for auto-detection
 
 [rebase]
-    autoSquash = true
-    autostash = true
-    updateRefs = true
+  autoSquash = true
+  autostash = true
+  updateRefs = true
 
 [merge]
-    conflictstyle = zdiff3
+  conflictstyle = zdiff3
 
 [pull]
-    rebase = true
-    ff = only
+  rebase = true
+  ff = only
 
 [apply]
   # Detect whitespace errors when applying a patch.
-    whitespace = fix
+  whitespace = fix
 
 [color]
     # Use colors in Git commands that are capable of colored output when
     # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
-    ui = auto
+  ui = auto
 
- [color "diff"]
-    whitespace = red reverse
+[color "diff"]
+  whitespace = red reverse
 
 [filter "lfs"]
-    clean = git-lfs clean -- %f
-    smudge = git-lfs smudge -- %f
-    process = git-lfs filter-process
-    required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
 
- [log]
-    date = iso
+[log]
+  date = iso
 
 [alias]
-    co = checkout
-    ci = commit
-    st = status
-    br = branch
+  co = checkout
+  ci = commit
+  st = status
+  br = branch
 
-    to-the-chopper = commit --amend --no-edit
+  to-the-chopper = commit --amend --no-edit
 
-    changed = !"git log --oneline  $(git default-branch)..HEAD"
-    hist = log --graph --abbrev-commit --decorate --date=short \
-		--format=format:'%C(bold cyan)%h%C(reset) %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)%an%C(reset) %C(bold yellow)%d%C(reset)' \
-		--branches --remotes --tags
-    l = log --pretty=oneline -n 20 --graph --abbrev-commit
-    put = push -u origin HEAD
+  changed = !"git log --oneline  $(git default-branch)..HEAD"
+  hist = log --graph --abbrev-commit --decorate --date=short \
+    --format=format:'%C(bold cyan)%h%C(reset) %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)%an%C(reset) %C(bold yellow)%d%C(reset)' \
+    --branches --remotes --tags
+  l = log --pretty=oneline -n 20 --graph --abbrev-commit
+  put = push -u origin HEAD
 
-    save = commit -m "SAVE"
-    step-back = reset --soft HEAD^
+  save = commit -m "SAVE"
+  step-back = reset --soft HEAD^
 
-    change = "!git switch $(git branch-select)"
-    branches= "!git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short) %(committerdate:relative)'"
-    branch-select = "!git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short) %(committerdate:relative)' | fzf --height=20% --reverse --info=inline | awk '{print $1}'"
-    branch-name = current-branch
+  change = "!git switch $(git branch-select)"
+  branches= "!git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short) %(committerdate:relative)'"
+  branch-select = "!git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short) %(committerdate:relative)' | fzf --height=20% --reverse --info=inline | awk '{print $1}'"
+  branch-name = current-branch
 
-    freshb = "!f() { git fetch && git checkout -b $1 origin/main; }; f"
+  freshb = "!f() { git fetch && git checkout -b $1 origin/main; }; f"
 
-    current-branch = "!git rev-parse --abbrev-ref HEAD"
-    default-branch = "!git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d/"
+  current-branch = "!git rev-parse --abbrev-ref HEAD"
+  default-branch = "!git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d/"
 
-    sync = "!git pull origin $(git default-branch) --rebase"
-    update = "!git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase"
-    rb = "!f() { git fetch && DEFAULT=$(git default-branch); DEFAULT=${DEFAULT:-main}; git rebase origin/$DEFAULT; }; f"
+  sync = "!git pull origin $(git default-branch) --rebase"
+  update = "!git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase"
+  rb = "!f() { git fetch && DEFAULT=$(git default-branch); DEFAULT=${DEFAULT:-main}; git rebase origin/$DEFAULT; }; f"
 
     # Switch to default branch and delete the current branch
-    done = "!BRANCH=$(git current-branch); f() { git checkout $(git default-branch) && git branch -D $BRANCH; }; f"
-    destroy = "!BRANCH=$(git current-branch); f() { git checkout $(git default-branch) && git branch -D $BRANCH && git push origin --delete $BRANCH; }; f"
+  done = "!f() {\n  target=\"${1:-.}\"\n\n  wt=\"$(git -C \"$target\" rev-parse --show-toplevel)\" || exit 1\n  branch=\"$(git -C \"$wt\" branch --show-current)\"\n\n  if [ -z \"$branch\" ]; then\n    echo \"Refusing: worktree is in detached HEAD state\"\n    exit 1\n  fi\n\n  default=\"$(git -C \"$wt\" default-branch 2>/dev/null || git -C \"$wt\" symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed \"s#^origin/##\")\"\n  default=\"${default:-main}\"\n\n  if [ \"$branch\" = \"$default\" ]; then\n    echo \"Refusing to delete default branch: $branch\"\n    exit 1\n  fi\n\n  gitdir=\"$(git -C \"$wt\" rev-parse --path-format=absolute --git-dir 2>/dev/null || git -C \"$wt\" rev-parse --git-dir)\"\n  common=\"$(git -C \"$wt\" rev-parse --path-format=absolute --git-common-dir 2>/dev/null || git -C \"$wt\" rev-parse --git-common-dir)\"\n\n  if [ \"$gitdir\" != \"$common\" ]; then\n    echo \"Removing worktree: $wt\"\n    echo \"Deleting branch: $branch\"\n    cd / || exit 1\n    git --git-dir=\"$common\" worktree remove --force \"$wt\" &&\n      git --git-dir=\"$common\" branch -D \"$branch\" &&\n      git --git-dir=\"$common\" worktree prune\n  else\n    echo \"Switching to $default\"\n    echo \"Deleting branch: $branch\"\n    git -C \"$wt\" switch \"$default\" &&\n      git -C \"$wt\" branch -D \"$branch\"\n  fi\n}; f"
+  destroy = "!BRANCH=$(git current-branch); f() { git checkout $(git default-branch) && git branch -D $BRANCH && git push origin --delete $BRANCH; }; f"
 
-    aliases = config --get-regexp alias
+  aliases = config --get-regexp alias
 
-    change-stats = "!git diff origin...HEAD --numstat | awk '{ added += $1; removed += $2 } END { print \"+\" added \" -\" removed }'"
+  change-stats = "!git diff origin...HEAD --numstat | awk '{ added += $1; removed += $2 } END { print \"+\" added \" -\" removed }'"
 
     # Find branches containing commit
-    fb = "!f() { git branch -a --contains $1; }; f"
+  fb = "!f() { git branch -a --contains $1; }; f"
 
     # Find tags containing commit
-    ft = "!f() { git describe --always --contains $1; }; f"
+  ft = "!f() { git describe --always --contains $1; }; f"
 
     # Find commits by commit message
-    fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
+  fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
 
     # Remove branches that have already been merged with main.
     # a.k.a. ‘delete merged’
-    dm = "!git branch --merged | grep -v '\\*' | grep -v $(git default-branch) | xargs -n 1 git branch -d"
-    rm-merged = "!git branch --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" { print $1 }' | xargs -r git branch -D"
-    gone = "!f() { git fetch --all --prune; git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D; }; f"
-    tidy = "!f() { git fetch --prune; DEFAULT=$(git default-branch); DEFAULT=${DEFAULT:-main}; echo \"Cleaning up branches merged into $DEFAULT...\"; git branch -vv | grep ': gone]' | awk '{print ($1 == \"*\" ? $2 : $1)}' | xargs -r git branch -D; git branch --merged \"$DEFAULT\" | grep -v \"^\\*\" | grep -v \"^  $DEFAULT$\" | xargs -r git branch -d; }; f"
-    scrub = "!git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)|%(committerdate:relative)|%(subject)' | column -t -s '|' | fzf --multi --header 'Select branches to DELETE (TAB to multi-select)' --preview 'git log --oneline --graph --max-count=10 {1}' | awk '{print $1}' | xargs -r git branch -D"
+  dm = "!git branch --merged | grep -v '\\*' | grep -v $(git default-branch) | xargs -n 1 git branch -d"
+  rm-merged = "!git branch --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" { print $1 }' | xargs -r git branch -D"
+  gone = "!f() { git fetch --all --prune; git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D; }; f"
+  tidy = "!f() { git fetch --prune; DEFAULT=$(git default-branch); DEFAULT=${DEFAULT:-main}; echo \"Cleaning up branches merged into $DEFAULT...\"; git branch -vv | grep ': gone]' | awk '{print ($1 == \"*\" ? $2 : $1)}' | xargs -r git branch -D; git branch --merged \"$DEFAULT\" | grep -v \"^\\*\" | grep -v \"^  $DEFAULT$\" | xargs -r git branch -d; }; f"
+  scrub = "!git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)|%(committerdate:relative)|%(subject)' | column -t -s '|' | fzf --multi --header 'Select branches to DELETE (TAB to multi-select)' --preview 'git log --oneline --graph --max-count=10 {1}' | awk '{print $1}' | xargs -r git branch -D"
 
     # List contributors with number of commits.
-    contributors = shortlog --summary --numbered --no-merges
-    bug-files = "!git log -i -E --grep=\"fix|bug|broken\" --name-only --format='' | sort | uniq -c | sort -nr | head -20"
-    commits-by-month = "!git log --format='%ad' --date=format:'%Y-%m' | sort | uniq -c"
-    risky-commits = "!git log --oneline --since=\"1 year ago\" | grep -iE 'revert|hotfix|emergency|rollback'"
-    top-files = "!git log --format=format: --name-only --since=\"1 year ago\" | sort | uniq -c | sort -nr | head -20"
+  contributors = shortlog --summary --numbered --no-merges
+  bug-files = "!git log -i -E --grep=\"fix|bug|broken\" --name-only --format='' | sort | uniq -c | sort -nr | head -20"
+  commits-by-month = "!git log --format='%ad' --date=format:'%Y-%m' | sort | uniq -c"
+  risky-commits = "!git log --oneline --since=\"1 year ago\" | grep -iE 'revert|hotfix|emergency|rollback'"
+  top-files = "!git log --format=format: --name-only --since=\"1 year ago\" | sort | uniq -c | sort -nr | head -20"
 
     # Show the user email for the current repository.
-    whoami = config user.email
-	whatadded = log --diff-filter=A
+  whoami = config user.email
+  whatadded = log --diff-filter=A
 
 [include]
-    path = ~/.gitoverrides
+  path = ~/.gitoverrides

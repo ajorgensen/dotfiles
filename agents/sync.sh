@@ -40,6 +40,7 @@ validate_sources() {
   require_dir "$PI_DIR/agents"
   require_dir "$PI_DIR/extensions"
   require_dir "$PI_DIR/prompts"
+  require_dir "$PI_DIR/themes"
 }
 
 materialize_dir() {
@@ -72,6 +73,15 @@ sync_file() {
   target_dir="$(dirname "$target_file")"
   materialize_dir "$target_dir"
   rsync -a "$source_file" "$target_file"
+}
+
+sync_optional_file() {
+  local source_file="$1"
+  local target_file="$2"
+
+  if [ -f "$source_file" ]; then
+    sync_file "$source_file" "$target_file"
+  fi
 }
 
 sync_dir() {
@@ -112,6 +122,9 @@ sync_opencode() {
 
   sync_instructions "$HOME/.config/opencode" "AGENTS.md"
   sync_skills "$HOME/.config/opencode"
+  sync_optional_file "$OPENCODE_DIR/.gitignore" "$HOME/.config/opencode/.gitignore"
+  sync_optional_file "$OPENCODE_DIR/package.json" "$HOME/.config/opencode/package.json"
+  sync_optional_file "$OPENCODE_DIR/package-lock.json" "$HOME/.config/opencode/package-lock.json"
   sync_file "$OPENCODE_DIR/opencode.json" "$HOME/.config/opencode/opencode.json"
   sync_dir "$OPENCODE_DIR/plugin" "$HOME/.config/opencode/plugin"
 }
@@ -125,6 +138,7 @@ sync_pi() {
   sync_dir "$PI_DIR/agents" "$HOME/.pi/agent/agents"
   sync_dir "$PI_DIR/extensions" "$HOME/.pi/agent/extensions"
   sync_dir "$PI_DIR/prompts" "$HOME/.pi/agent/prompts"
+  sync_dir "$PI_DIR/themes" "$HOME/.pi/agent/themes"
 }
 
 validate_sources

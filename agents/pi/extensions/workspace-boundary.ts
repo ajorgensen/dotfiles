@@ -40,6 +40,20 @@ function isWithin(root: string, target: string): boolean {
   return target === root || target.startsWith(`${root}${sep}`);
 }
 
+function parentPaths(path: string, maxDepth = 2): string[] {
+  const parents: string[] = [];
+  let current = path;
+
+  for (let depth = 0; depth < maxDepth; depth++) {
+    const parent = dirname(current);
+    if (parent === current) break;
+    parents.push(parent);
+    current = parent;
+  }
+
+  return parents;
+}
+
 function tokenizeCommand(command: string): string[] {
   const tokens: string[] = [];
   const regex = /"([^"]*)"|'([^']*)'|(\S+)/g;
@@ -110,6 +124,15 @@ export default function (pi: ExtensionAPI) {
       return false;
     }
 
+    const grantOptions = new Map<string, string>();
+    grantOptions.set("Allow this path for session", canonicalTarget);
+
+    for (const parent of parentPaths(canonicalTarget)) {
+      if (isWithin(workspaceRoot, parent)) break;
+      const label = grantOptions.size === 1 ? "Allow parent folder for session" : "Allow grandparent folder for session";
+      grantOptions.set(`${label}: ${parent}`, parent);
+    }
+
     const choice = await ctx.ui.select(
       [
         "Outside-workspace access requested.",
@@ -120,11 +143,12 @@ export default function (pi: ExtensionAPI) {
         "",
         "Choose an action:",
       ].join("\n"),
-      ["Allow once", "Allow this path for session", "Deny"],
+      ["Allow once", ...grantOptions.keys(), "Deny"],
     );
 
-    if (choice === "Allow this path for session") {
-      approvedPaths.add(canonicalTarget);
+    const grantPath = grantOptions.get(choice);
+    if (grantPath) {
+      approvedPaths.add(grantPath);
       return true;
     }
 

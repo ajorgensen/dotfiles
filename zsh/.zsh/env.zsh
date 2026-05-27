@@ -1,6 +1,3 @@
-[[ -n "${AJ_ZSH_ENV_LOADED:-}" ]] && return
-export AJ_ZSH_ENV_LOADED=1
-
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export SHELL="${SHELL:-$(command -v zsh)}"
 export EDITOR="${EDITOR:-nvim}"
