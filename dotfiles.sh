@@ -15,8 +15,8 @@ stow --target="$HOME" \
   ghostty \
   hammerspoon \
   nvim \
-  opencode \
-  pi \
   tmux \
   wezterm \
   zsh
+
+"$SCRIPT_DIR/agents/sync.sh"
