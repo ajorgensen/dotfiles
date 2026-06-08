@@ -34,11 +34,24 @@ Global skills are installed in the sibling `skills/` directory next to this inst
 
 ## Git Commits
 
-- Always use conventional commit style (e.g., `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`)
+- Use scoped commit subjects: `<scope>: <description>`.
+
+```text
+<scope>: <description>
+
+[optional body]
+
+[optional trailer(s)]
+```
+
+- The scope should name the subsystem, area, module, tool, or package touched by the change.
+- If a commit touches multiple areas, use the best shared parent scope, list scopes separated by commas, or use a broad scope such as `treewide`.
+- Reverts, merges, and other special commits may use their natural Git-generated format when that is clearer.
 - The subject line should be short (~50 chars) and state what changed
 - The commit body should explain **why** — what problem this solves, what motivated the change, or what decision led to this approach. Do not simply restate the diff.
+- Use trailers for metadata such as issue IDs when helpful.
 - For trivial changes (typos, formatting), a single-line subject is acceptable. For anything non-trivial, include a body.
-- Bad example: `fix: update handler` (no context). Good example: `fix: prevent duplicate webhook deliveries` with a body explaining the root cause.
+- Bad example: `handler: update handler` (no context). Good example: `webhooks: prevent duplicate deliveries` with a body explaining the root cause.
 
 ## Test Driven Development
 
