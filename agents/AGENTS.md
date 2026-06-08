@@ -1,7 +1,7 @@
 # Personal Conventions
 
 - Make the change easy, then make the easy change
-- Pull request titles where applicable should be of the form "[<scope>] <description>". If there is no clear scope or the change is broad then the scope can be omitted
+- Pull request titles where applicable should be of the form "[<scope>] <description>". Prefer a scope that describes the logical change or subsystem. If there is no clear scope, or the change is broad, the scope can be omitted
 - Branch names should be `aj/<type>/<short description>`
 
 # Global Coding Rules
@@ -44,8 +44,9 @@ Global skills are installed in the sibling `skills/` directory next to this inst
 [optional trailer(s)]
 ```
 
-- The scope should name the subsystem, area, module, tool, or package touched by the change.
-- If a commit touches multiple areas, use the best shared parent scope, list scopes separated by commas, or use a broad scope such as `treewide`.
+- The scope should name the logical change, subsystem, area, module, tool, or package touched by the change.
+- If a commit touches multiple areas, prefer the scope that best describes the logical change, not just the list of touched files. For example, use `theme: switch ghostty and nvim to dracula` when the shared purpose is theming.
+- If there is no clear shared logical scope, use the best shared parent scope, list scopes separated by commas, or use a broad scope such as `treewide`.
 - Reverts, merges, and other special commits may use their natural Git-generated format when that is clearer.
 - The subject line should be short (~50 chars) and state what changed
 - The commit body should explain **why** — what problem this solves, what motivated the change, or what decision led to this approach. Do not simply restate the diff.
