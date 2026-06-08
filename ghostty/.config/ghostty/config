@@ -1,6 +1,7 @@
 # Config
 
-theme = TokyoNight Moon
+#theme = TokyoNight Moon
+theme = dracula
 shell-integration-features = no-cursor,no-sudo,title
 font-feature = -calt
 mouse-scroll-multiplier = precision:0.5,discrete:1

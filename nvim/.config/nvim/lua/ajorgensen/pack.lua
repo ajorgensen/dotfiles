@@ -1,6 +1,7 @@
 local plugins = {
   -- Colors
   { src = "https://github.com/folke/tokyonight.nvim" },
+  { src = "https://github.com/mofiqul/dracula.nvim" },
 
   -- Oil
   { src = "https://github.com/nvim-mini/mini.icons" },
