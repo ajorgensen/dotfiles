@@ -11,11 +11,23 @@
 - Preserve existing style and patterns unless changing them is part of the task.
 - After code changes, run the smallest relevant validation available.
 - Summarize what changed and list touched files.
-- Do not install dependencies, delete files, or run destructive shell commands unless asked.
+- Do not install dependencies or run destructive shell commands (e.g. `rm -rf` outside the repo, dropping data) unless asked. Deleting code or files *within the repo* as part of the task is normal, expected work — see "Deleting Code".
 - For searches, prefer rg/find over slower shell pipelines.
 - If requirements are unclear, ask a targeted question or state the assumption.
 - For multi-step work, keep changes incremental and verifiable.
 - Use subagents for recon, planning, and review when that will improve quality or reduce context load.
+
+# Deleting Code
+
+Deleted code is debugged code. Do not be afraid to delete code when it makes the codebase more maintainable, understandable, or correct — removal is often the highest-value change you can make.
+
+- Treat deletion as a first-class outcome of a task, not a risk to avoid. If the best fix is removing code, remove it; do not leave it in place just to be safe.
+- When a change makes code unreachable or obsolete, delete it in the same change: dead branches, unused functions and parameters, stale feature flags, orphaned tests, config for things that no longer exist.
+- Delete, don't disable. Do not comment code out, rename it to `_old`/`_unused`, or guard it behind a permanently-false condition. Version control is the archive; the working tree should only contain live code.
+- Prefer deleting a bad abstraction over extending it. If an indirection layer, helper, or option exists "just in case" and has no real callers or second use, inline or remove it.
+- Before deleting, do the cheap verification: search for references (`rg`), check tests, and confirm the code isn't reached via reflection, dynamic dispatch, serialization, or external callers (public APIs, scripts, CI). State what you checked.
+- Deletion still follows the normal rules: keep it incremental, run the smallest relevant validation, and call out removals explicitly in your summary so they're easy to review.
+- If you find dead or redundant code adjacent to your task but removing it would balloon the diff, note it as a follow-up instead of silently leaving it forever.
 
 # Memory
 
