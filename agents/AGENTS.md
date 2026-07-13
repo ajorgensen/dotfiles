@@ -3,6 +3,8 @@
 - Make the change easy, then make the easy change
 - Pull request titles where applicable should be of the form "[<scope>] <description>". Prefer a scope that describes the logical change or subsystem. If there is no clear scope, or the change is broad, the scope can be omitted
 - Branch names should be `aj/<type>/<short description>`
+- Do not commit or push code without explicit sign off and permission
+- Do not force push unless I give you permission to
 
 # Global Coding Rules
 

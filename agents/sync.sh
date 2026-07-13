@@ -3,10 +3,11 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(
-  cd "$(dirname "${BASH_SOURCE[0]}")" && pwd
+  cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd
 )"
 
 AGENTS_FILE="$SCRIPT_DIR/AGENTS.md"
+COMMANDS_DIR="$SCRIPT_DIR/commands"
 SKILLS_DIR="$SCRIPT_DIR/skills"
 OPENCODE_DIR="$SCRIPT_DIR/opencode"
 PI_DIR="$SCRIPT_DIR/pi"
@@ -31,6 +32,7 @@ require_dir() {
 
 validate_sources() {
   require_file "$AGENTS_FILE"
+  require_dir "$COMMANDS_DIR"
   require_dir "$SKILLS_DIR"
 
   require_file "$OPENCODE_DIR/opencode.json"
@@ -106,14 +108,28 @@ sync_skills() {
   sync_dir "$SKILLS_DIR" "$target_dir/skills"
 }
 
+sync_commands_as_skills() {
+  local target_dir="$1"
+  local command_file
+  local command_name
+
+  for command_file in "$COMMANDS_DIR"/*.md; do
+    [ -f "$command_file" ] || continue
+    command_name="$(basename "$command_file" .md)"
+    sync_file "$command_file" "$target_dir/skills/$command_name/SKILL.md"
+  done
+}
+
 sync_codex() {
   sync_instructions "$HOME/.codex" "AGENTS.md"
   sync_skills "$HOME/.codex"
+  sync_commands_as_skills "$HOME/.codex"
 }
 
 sync_claude() {
   sync_instructions "$HOME/.claude" "CLAUDE.md"
   sync_skills "$HOME/.claude"
+  sync_commands_as_skills "$HOME/.claude"
 }
 
 sync_opencode() {
@@ -122,6 +138,7 @@ sync_opencode() {
 
   sync_instructions "$HOME/.config/opencode" "AGENTS.md"
   sync_skills "$HOME/.config/opencode"
+  sync_dir "$COMMANDS_DIR" "$HOME/.config/opencode/commands"
   sync_optional_file "$OPENCODE_DIR/.gitignore" "$HOME/.config/opencode/.gitignore"
   sync_optional_file "$OPENCODE_DIR/package.json" "$HOME/.config/opencode/package.json"
   sync_optional_file "$OPENCODE_DIR/package-lock.json" "$HOME/.config/opencode/package-lock.json"
@@ -137,6 +154,7 @@ sync_pi() {
   sync_file "$PI_DIR/settings.json" "$HOME/.pi/agent/settings.json"
   sync_dir "$PI_DIR/agents" "$HOME/.pi/agent/agents"
   sync_dir "$PI_DIR/extensions" "$HOME/.pi/agent/extensions"
+  sync_dir "$COMMANDS_DIR" "$HOME/.pi/agent/prompts"
   sync_dir "$PI_DIR/prompts" "$HOME/.pi/agent/prompts"
   sync_dir "$PI_DIR/themes" "$HOME/.pi/agent/themes"
 }

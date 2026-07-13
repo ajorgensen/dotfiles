@@ -30,14 +30,14 @@ local function shouldExcludeWindow(win)
 end
 
 local function applyPadding(frame, screenFrame)
-  local paddedWidth = screenFrame.w * 0.95
-  local paddedHeight = screenFrame.h * 0.95
+  local paddedWidth = screenFrame.w * 0.98
+  local paddedHeight = screenFrame.h * 0.98
   local paddingX = (screenFrame.w - paddedWidth) / 2
   local paddingY = (screenFrame.h - paddedHeight) / 2
-  
+
   local widthRatio = frame.w / screenFrame.w
   local xRatio = (frame.x - screenFrame.x) / screenFrame.w
-  
+
   return {
     x = screenFrame.x + paddingX + (xRatio * paddedWidth),
     y = screenFrame.y + paddingY,
@@ -131,8 +131,8 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "C", function()
   local screenFrame = screen:frame()
 
   -- Calculate the new size (95% of screen size)
-  local newWidth = screenFrame.w * 0.95
-  local newHeight = screenFrame.h * 0.95
+  local newWidth = screenFrame.w * 0.97
+  local newHeight = screenFrame.h * 0.97
 
   -- Calculate the new position (centered)
   local newX = screenFrame.x + (screenFrame.w - newWidth) / 2
@@ -155,7 +155,7 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "S", function()
 
   -- Calculate the new size (55% width, 95% height of screen size)
   local newWidth = screenFrame.w * 0.55
-  local newHeight = screenFrame.h * 0.95
+  local newHeight = screenFrame.h * 0.97
 
   -- Calculate the new position (centered)
   local newX = screenFrame.x + (screenFrame.w - newWidth) / 2

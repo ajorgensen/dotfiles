@@ -21,6 +21,7 @@ local plugins = {
 
   -- Git
   { src = "https://github.com/airblade/vim-gitgutter" },
+  { src = "https://github.com/sindrets/diffview.nvim" },
 
   -- Tests
   { src = "https://github.com/vim-test/vim-test" },
@@ -64,6 +65,7 @@ require "ajorgensen.plugins.oil"
 require "ajorgensen.plugins.fzf"
 require "ajorgensen.plugins.treesitter"
 require "ajorgensen.plugins.git-gutter"
+require "ajorgensen.plugins.diffview"
 require "ajorgensen.plugins.vim-test"
 require "ajorgensen.plugins.tpope"
 require "ajorgensen.plugins.undotree"

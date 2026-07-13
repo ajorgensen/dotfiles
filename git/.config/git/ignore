@@ -40,5 +40,8 @@ kls_database.db
 .workflows
 .workflow-runs
 .agent
+.pi-subagents/
 .docs
 nvim.log
+
+**/.claude/.cc-writes/

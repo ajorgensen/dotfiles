@@ -1,7 +1,8 @@
 {
   "lastChangelogVersion": "0.78.0",
   "defaultProvider": "openai",
-  "defaultThinkingLevel": "xhigh",
+  "defaultModel": "gpt-5.6-sol",
+  "defaultThinkingLevel": "high",
   "theme": "tokiyo-dark",
   "hideThinkingBlock": false,
   "packages": [

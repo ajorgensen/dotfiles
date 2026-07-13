@@ -9,6 +9,10 @@ alias e="nvim"
 alias sz="source $HOME/.zshrc"
 alias sysup='brew -v update && brew -v upgrade; brew -v cleanup'
 
+# AI agents
+alias dcodex='codex --dangerously-bypass-approvals-and-sandbox'
+alias dclaude='claude --dangerously-skip-permissions'
+
 # Tmux
 alias tnew='tmux new-session -A -s'
 
