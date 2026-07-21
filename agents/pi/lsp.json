@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "servers": [
+    {
+      "id": "typescript",
+      "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.mts", "**/*.cts", "**/*.mjs", "**/*.cjs"],
+      "bin": "typescript-language-server",
+      "args": ["--stdio"],
+      "cwd": "{root}",
+      "languageIdByExtension": {
+        ".ts": "typescript",
+        ".tsx": "typescriptreact",
+        ".js": "javascript",
+        ".jsx": "javascriptreact",
+        ".mts": "typescript",
+        ".cts": "typescript",
+        ".mjs": "javascript",
+        ".cjs": "javascript"
+      }
+    },
+    {
+      "id": "pyright",
+      "include": ["**/*.py", "**/*.pyi"],
+      "bin": "pyright-langserver",
+      "args": ["--stdio"],
+      "cwd": "{root}",
+      "languageIdByExtension": { ".py": "python", ".pyi": "python" }
+    },
+    {
+      "id": "rust-analyzer",
+      "include": ["**/*.rs"],
+      "bin": "rust-analyzer",
+      "cwd": "{root}",
+      "languageIdByExtension": { ".rs": "rust" }
+    },
+    {
+      "id": "gopls",
+      "include": ["**/*.go"],
+      "bin": "gopls",
+      "cwd": "{root}",
+      "languageIdByExtension": { ".go": "go" }
+    },
+    {
+      "id": "clangd",
+      "include": ["**/*.c", "**/*.cc", "**/*.cpp", "**/*.cxx", "**/*.h", "**/*.hh", "**/*.hpp", "**/*.hxx"],
+      "bin": "clangd",
+      "args": ["--background-index"],
+      "cwd": "{root}",
+      "languageIdByExtension": {
+        ".c": "c",
+        ".cc": "cpp",
+        ".cpp": "cpp",
+        ".cxx": "cpp",
+        ".h": "c",
+        ".hh": "cpp",
+        ".hpp": "cpp",
+        ".hxx": "cpp"
+      }
+    },
+    {
+      "id": "json-language-server",
+      "include": ["**/*.json", "**/*.jsonc"],
+      "bin": "vscode-json-language-server",
+      "args": ["--stdio"],
+      "cwd": "{root}",
+      "languageIdByExtension": { ".json": "json", ".jsonc": "jsonc" }
+    },
+    {
+      "id": "yaml-language-server",
+      "include": ["**/*.yaml", "**/*.yml"],
+      "bin": "yaml-language-server",
+      "args": ["--stdio"],
+      "cwd": "{root}",
+      "languageIdByExtension": { ".yaml": "yaml", ".yml": "yaml" }
+    },
+    {
+      "id": "lua-language-server",
+      "include": ["**/*.lua"],
+      "bin": "lua-language-server",
+      "cwd": "{root}",
+      "languageIdByExtension": { ".lua": "lua" }
+    }
+  ]
+}

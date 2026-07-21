@@ -1,8 +1,11 @@
+local async = require "diffview.async"
 local diffview = require "diffview"
+local diffview_lib = require "diffview.lib"
+local diffview_utils = require "diffview.utils"
+local RevType = require("diffview.vcs.rev").RevType
+local vcs_utils = require "diffview.vcs.utils"
 
-diffview.setup {
-  enhanced_diff_hl = true,
-}
+local await = async.await
 
 local function git(cwd, args)
   local command = { "git", "-C", cwd }
@@ -14,6 +17,75 @@ local function notify_git_error(result, fallback)
   local message = vim.trim(result.stderr or "")
   vim.notify(message ~= "" and message or fallback, vim.log.levels.ERROR)
 end
+
+local discard_uncommitted_entry = async.void(function()
+  local view = diffview_lib.get_current_view()
+  if not view then
+    return
+  end
+
+  -- Keep Diffview's normal index/worktree restore behavior outside reviews.
+  if view.left.type == RevType.STAGE then
+    diffview.emit "restore_entry"
+    return
+  end
+
+  if view.right.type ~= RevType.LOCAL then
+    vim.notify("The right side of the diff is not local", vim.log.levels.ERROR)
+    return
+  end
+
+  local file = view:infer_cur_file()
+  if not file then
+    return
+  end
+
+  local bufnr = diffview_utils.find_file_buffer(file.absolute_path)
+  if bufnr and vim.bo[bufnr].modified then
+    vim.notify("The file has unsaved changes", vim.log.levels.ERROR)
+    return
+  end
+
+  local result = git(view.adapter.ctx.toplevel, {
+    "--literal-pathspecs",
+    "status",
+    "--porcelain=v1",
+    "-z",
+    "--untracked-files=all",
+    "--",
+    file.path,
+  })
+  if result.code ~= 0 then
+    notify_git_error(result, "Failed to inspect uncommitted changes")
+    return
+  end
+
+  local status = (result.stdout or ""):sub(1, 2)
+  if status == "" then
+    vim.notify(("No uncommitted changes for %s"):format(file.path))
+    return
+  end
+
+  local kind = "working"
+  if status ~= "??" and status:sub(1, 1) ~= " " then
+    kind = "staged"
+  end
+
+  await(vcs_utils.restore_file(view.adapter, file.path, kind))
+  view:update_files()
+end)
+
+diffview.setup {
+  enhanced_diff_hl = true,
+  keymaps = {
+    file_panel = {
+      { "n", "X", discard_uncommitted_entry, { desc = "Discard uncommitted changes" } },
+    },
+    view = {
+      { "n", "X", discard_uncommitted_entry, { desc = "Discard uncommitted changes" } },
+    },
+  },
+}
 
 local function current_repo_root()
   local buffer_path = vim.api.nvim_buf_get_name(0)
@@ -56,7 +128,13 @@ local function open_review(revision, imply_local)
     return
   end
 
-  local args = { revision, "-C" .. repo_root }
+  -- With no revision, diffview shows the working tree and staged changes,
+  -- like plain :DiffviewOpen, but still with the review exclusions applied.
+  local args = { "-C" .. repo_root }
+
+  if revision then
+    table.insert(args, 1, revision)
+  end
 
   if imply_local then
     table.insert(args, "--imply-local")
@@ -95,6 +173,6 @@ vim.api.nvim_create_user_command("ReviewLast", function()
   open_review("HEAD^!", false)
 end, { desc = "Review the last commit" })
 
-vim.api.nvim_create_user_command("ReviewComments", function()
-  vim.api.nvim_cmd({ cmd = "Ggrep", args = { "-w", "REVIEW:" } }, {})
-end, { desc = "Find inline review comments" })
+vim.api.nvim_create_user_command("ReviewChanges", function()
+  open_review(nil, false)
+end, { desc = "Review uncommitted changes" })

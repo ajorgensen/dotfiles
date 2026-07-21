@@ -31,6 +31,16 @@ Deleted code is debugged code. Do not be afraid to delete code when it makes the
 - Deletion still follows the normal rules: keep it incremental, run the smallest relevant validation, and call out removals explicitly in your summary so they're easy to review.
 - If you find dead or redundant code adjacent to your task but removing it would balloon the diff, note it as a follow-up instead of silently leaving it forever.
 
+# Preserve User Changes
+
+If something you previously wrote looks changed, reverted, or deleted, leave it alone — the user did that on purpose.
+
+- At the start of every turn, re-read affected files and inspect the current diff before editing.
+- Treat changes made since your last turn as user-owned and intentional.
+- Never restore code that is absent from the current working tree merely because you wrote it earlier.
+- When a user modification breaks a test, update the test or dependent code to match the user's new behavior. If intent is ambiguous, ask before changing it.
+- Do not use `git restore`, `git checkout`, `git reset`, or stash-based recovery on user-modified files without explicit permission.
+
 # Memory
 
 You have access to a `.docs` directory you can use to persist context that may help later turns or future agents. Prefer short, durable notes over verbose logs, and only record information that is likely to stay useful beyond the current reply. Here are some of the documents you may find there:
