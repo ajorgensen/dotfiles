@@ -13,6 +13,7 @@ local plugins = {
 
   -- Treesitter
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
 
   -- LSP
   { src = "https://github.com/neovim/nvim-lspconfig" },
@@ -64,6 +65,7 @@ require "ajorgensen.plugins.lsp.mason"
 require "ajorgensen.plugins.oil"
 require "ajorgensen.plugins.fzf"
 require "ajorgensen.plugins.treesitter"
+require "ajorgensen.plugins.treesitter-context"
 require "ajorgensen.plugins.git-gutter"
 require "ajorgensen.plugins.diffview"
 require "ajorgensen.plugins.vim-test"

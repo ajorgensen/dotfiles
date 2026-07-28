@@ -16,7 +16,9 @@ local ignored_dirs = {
   "vendor",
 }
 local cache = {}
+local max_matches = 200
 local mention_path_active = false
+local saved_completeopt = nil
 
 local function project_root()
   local bufname = vim.api.nvim_buf_get_name(0)
@@ -70,45 +72,92 @@ local function list_files(root, callback)
   })
 end
 
-local function complete_mention_path()
-  if vim.fn.mode() ~= "i" then
+local function activate()
+  if mention_path_active then
     return
   end
+  mention_path_active = true
+  saved_completeopt = vim.opt_local.completeopt:get()
+  -- menuone: show the menu even for a single match; noinsert/noselect: don't
+  -- auto-insert while typing; fuzzy: keep Vim's own inter-keystroke filtering
+  -- fuzzy instead of strict-prefix, so the menu doesn't vanish on a "typo".
+  vim.opt_local.completeopt = { "menuone", "noinsert", "noselect", "fuzzy" }
+end
 
+local function deactivate()
+  if not mention_path_active then
+    return
+  end
+  mention_path_active = false
+  if saved_completeopt then
+    vim.opt_local.completeopt = saved_completeopt
+    saved_completeopt = nil
+  end
+end
+
+-- Find the @-token before the cursor. Returns the byte index of "@" and the
+-- query typed after it, or nil when the cursor is no longer on a mention.
+local function current_mention()
   local line = vim.api.nvim_get_current_line()
   local col = vim.api.nvim_win_get_cursor(0)[2]
   local before = line:sub(1, col)
   local at_pos = before:find "@[^%s]*$"
   if not at_pos then
-    mention_path_active = false
+    return nil
+  end
+  return at_pos, before:sub(at_pos + 1)
+end
+
+local function fuzzy_matches(files, query)
+  if query == "" then
+    return files
+  end
+  local ok, matched = pcall(vim.fn.matchfuzzy, files, query)
+  if ok then
+    return matched
+  end
+  return files
+end
+
+local function complete_mention_path()
+  if vim.fn.mode() ~= "i" then
     return
   end
 
-  mention_path_active = true
+  local at_pos = current_mention()
+  if not at_pos then
+    deactivate()
+    return
+  end
+
+  activate()
 
   list_files(project_root(), function(files)
-    -- Re-evaluate the line in case the user kept typing while files loaded.
-    local cur_line = vim.api.nvim_get_current_line()
-    local cur_col = vim.api.nvim_win_get_cursor(0)[2]
-    local cur_before = cur_line:sub(1, cur_col)
-    local start = cur_before:find "@[^%s]*$"
-    if not start then
-      mention_path_active = false
+    if not mention_path_active or vim.fn.mode() ~= "i" then
       return
     end
-    local query = cur_before:sub(start + 1):lower()
-    local matches = {}
-    for _, path in ipairs(files) do
-      if query == "" or path:lower():find(query, 1, true) then
-        table.insert(matches, { word = path, abbr = path, kind = "F", icase = 1 })
+    -- Re-evaluate the line in case the user kept typing while files loaded.
+    local start, query = current_mention()
+    if not start then
+      deactivate()
+      return
+    end
+    local items = {}
+    for i, path in ipairs(fuzzy_matches(files, query)) do
+      if i > max_matches then
+        break
       end
+      table.insert(items, { word = path, abbr = path, kind = "F", icase = 1 })
     end
     -- complete() expects 1-based column, not counting the leading @.
-    vim.fn.complete(start + 1, matches)
+    vim.fn.complete(start + 1, items)
   end)
 end
 
-vim.api.nvim_create_autocmd("TextChangedI", {
+-- TextChangedP fires while the popup menu is visible, TextChangedI when it
+-- isn't (e.g. after Vim closed it because nothing matched). Handling both
+-- means the menu comes back as soon as you fix the query.
+vim.api.nvim_create_autocmd({ "TextChangedI", "TextChangedP" }, {
   buffer = 0,
   callback = function()
     if mention_path_active then
@@ -117,11 +166,21 @@ vim.api.nvim_create_autocmd("TextChangedI", {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "CompleteDone", "InsertLeave" }, {
+-- Only stop completing when an item was actually accepted; CompleteDone also
+-- fires every time the menu is merely redrawn or closes with no matches.
+vim.api.nvim_create_autocmd("CompleteDone", {
   buffer = 0,
   callback = function()
-    mention_path_active = false
+    local item = vim.v.completed_item
+    if item and item.word and item.word ~= "" then
+      deactivate()
+    end
   end,
+})
+
+vim.api.nvim_create_autocmd("InsertLeave", {
+  buffer = 0,
+  callback = deactivate,
 })
 
 vim.keymap.set("i", "<C-x>@", complete_mention_path, {

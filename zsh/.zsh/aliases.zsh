@@ -15,6 +15,20 @@ alias dclaude='claude --dangerously-skip-permissions'
 
 # Tmux
 alias tnew='tmux new-session -A -s'
+tpick() {
+  local session
+  session=$(tmux list-sessions -F '#S' 2>/dev/null | fzf --height=20% --reverse --info=inline) || return
+  if [[ -n "$TMUX" ]]; then
+    tmux switch-client -t "$session"
+  else
+    tmux attach -t "$session"
+  fi
+}
+tkill() {
+  tmux list-sessions -F '#S' 2>/dev/null |
+    fzf --multi --height=20% --reverse --info=inline |
+    while read -r session; do tmux kill-session -t "$session"; done
+}
 
 # Git
 alias gswitch="git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | fzf --height=20% --reverse --info=inline | xargs -I {} git switch {}"
