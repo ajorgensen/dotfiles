@@ -1,5 +1,8 @@
 # Personal Conventions
 
+- Use ASD-STE100 Simplified Technical English as a writing guide, not as a strict conformance requirement.
+- Apply it most strongly to explanations, instructions, summaries, and documentation: use clear, direct, consistent language and short sentences where practical.
+- Prefer technical accuracy and natural phrasing when they conflict with ASD-STE100. Preserve exact identifiers, commands, API terms, error messages, quotations, and established project terminology.
 - Make the change easy, then make the easy change
 - Pull request titles where applicable should be of the form "[<scope>] <description>". Prefer a scope that describes the logical change or subsystem. If there is no clear scope, or the change is broad, the scope can be omitted
 - Branch names should be `aj/<type>/<short description>`
@@ -18,6 +21,17 @@
 - If requirements are unclear, ask a targeted question or state the assumption.
 - For multi-step work, keep changes incremental and verifiable.
 - Use subagents for recon, planning, and review when that will improve quality or reduce context load.
+- Launch subagents with fresh context by default. Use forked parent-session context only when the user explicitly requests it.
+
+# Preferred Code Style
+
+Prefer flat, guard-clause-driven, fail-fast procedural code ("line of sight" style: the happy path hugs the left margin).
+
+- Check invariants and preconditions first and fail fast, so the rest of the function can assume a valid state. Do not bury validity checks inside nested branches.
+- Keep the happy path at minimal indentation. Prefer early returns over `else` ladders and accumulating nesting.
+- Handle errors as values and return them immediately at each step; do not collect them or build try/catch pyramids.
+- Structure construction as validate-then-construct: run all guards first, then build the result once at the end. Avoid partially constructing a value and patching it up along the way.
+- Prefer a simple flat function over polymorphism or extra abstraction when the branch count is small and readable.
 
 # Deleting Code
 
@@ -31,6 +45,15 @@ Deleted code is debugged code. Do not be afraid to delete code when it makes the
 - Deletion still follows the normal rules: keep it incremental, run the smallest relevant validation, and call out removals explicitly in your summary so they're easy to review.
 - If you find dead or redundant code adjacent to your task but removing it would balloon the diff, note it as a follow-up instead of silently leaving it forever.
 
+# Code Comments
+
+Comments are for the next reader of the code, not for the person reviewing your change. Do not write comments that justify your implementation choices to me — "this is low-volume so plain reads are fine", "a single Save commits atomically", "this is simpler than X". That reasoning belongs in the conversation, the commit body, or the PR description, where it has an audience and a shelf life.
+
+- Before writing a comment, ask: does this state a constraint or non-obvious fact the code cannot express, or is it defending a decision? Defenses go in the commit/PR; delete them from the code.
+- Signs a comment is a justification, not documentation: it compares to an approach not taken, argues about performance or volume without a measurement, explains why the code is "safe" or "fine", or would only make sense to someone who watched the change happen.
+- Narrating procedural steps ("read the current state", "build the mutations", "commit everything") is acceptable only sparingly in long procedural functions; keep them to a few words, and never let a step label grow into a rationale.
+- Good comments capture: invariants, ordering requirements, protocol/format quirks, why an obvious-looking alternative is actually wrong, and links to external context. If none of those apply, write no comment.
+
 # Preserve User Changes
 
 If something you previously wrote looks changed, reverted, or deleted, leave it alone — the user did that on purpose.
@@ -43,14 +66,29 @@ If something you previously wrote looks changed, reverted, or deleted, leave it 
 
 # Memory
 
-You have access to a `.docs` directory you can use to persist context that may help later turns or future agents. Prefer short, durable notes over verbose logs, and only record information that is likely to stay useful beyond the current reply. Here are some of the documents you may find there:
+Persistent notes live in `.docs/` at the repository root. Create the directory and files when they don't exist — an empty repo is not a reason to skip this.
 
-- `MEMORY.md`: Stable project knowledge. Capture architecture notes, repo-specific workflows, important commands, known constraints, naming conventions, recurring gotchas, and decisions that future work should preserve.
-- `PROMPT.md`: The current engagement context. Capture the user's goal, constraints, acceptance criteria, open questions, and any important wording or intent that should not be lost across longer tasks.
-- `PLAN.md`: The working implementation plan. Capture the approach, milestones, files likely to change, validation strategy, tradeoffs, and decisions made while executing.
-- `TODO.md`: The actionable task list. Capture concrete next steps, task status, blockers, follow-ups, and handoff items so work can resume cleanly.
+The files:
 
-Use these files to reduce repeated discovery, but keep them current: update or remove stale notes when they no longer reflect reality.
+- `MEMORY.md`: Stable project knowledge. Architecture notes, repo-specific workflows, important commands, known constraints, naming conventions, recurring gotchas, and decisions that future work should preserve.
+- `PROMPT.md`: The current engagement context. The user's goal, constraints, acceptance criteria, open questions, and any important wording or intent that should not be lost across longer tasks.
+- `PLAN.md`: The working implementation plan. Approach, milestones, files likely to change, validation strategy, tradeoffs, and decisions made while executing.
+- `TODO.md`: The actionable task list. Concrete next steps, task status, blockers, follow-ups, and handoff items so work can resume cleanly.
+
+Reading — do this by default, not opportunistically:
+
+- At the start of a coding task, before exploring the repo yourself, check for `.docs/` and read `MEMORY.md` and `TODO.md` if present.
+- When resuming or continuing multi-step work, also read `PLAN.md` and `PROMPT.md`.
+
+Writing — these events are triggers, act on them when they happen:
+
+- You discovered something by trial and error (a build/test/run command, a gotcha, a non-obvious constraint or convention) → add it to `MEMORY.md`.
+- You made or revised a multi-step plan → keep `PLAN.md` current as you execute.
+- The user stated goals or constraints that must survive a long task → capture them in `PROMPT.md`.
+- You are ending a turn with unfinished steps, blockers, or follow-ups → update `TODO.md`.
+- At the end of any multi-step task, spend one step on upkeep: record new durable facts and delete notes that no longer reflect reality.
+
+Keep entries short — a few accurate lines beat a verbose log. When in doubt about whether something is worth recording, record it; stale-note cleanup is cheaper than rediscovery.
 
 # Skills
 
