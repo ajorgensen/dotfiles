@@ -14,6 +14,7 @@ stow --target="$HOME" \
   git \
   ghostty \
   hammerspoon \
+  herdr \
   nvim \
   tmux \
   wezterm \
