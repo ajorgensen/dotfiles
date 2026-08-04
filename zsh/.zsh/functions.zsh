@@ -328,3 +328,19 @@ function git-prune-remote() {
     | fzf -m --header="TAB to select branches to delete on origin" \
     | xargs -r -n1 git push origin --delete
 }
+
+# Create a worktrunk worktree with the aj/ branch prefix, based on a fresh
+# origin/main. Usage: wtc stripev2/fix-webhooks [extra wt args]
+function wtc() {
+  git fetch origin --quiet 2>/dev/null
+  wt switch --create "aj/$1" --base origin/main "${@:2}"
+}
+
+# Multi-select worktree cleanup: TAB to mark, enter to remove all.
+function wtd() {
+  wt list --format json 2>/dev/null \
+    | jq -r '.[] | select(.is_main | not) | .branch' \
+    | fzf -m --header="TAB to select worktrees to remove" \
+        --preview 'git log --oneline --color=always -10 {}' \
+    | xargs -r wt remove
+}
