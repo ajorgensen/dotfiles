@@ -41,6 +41,7 @@ kls_database.db
 .workflow-runs
 .agent
 .pi-subagents/
+.pi/subagents
 .docs
 nvim.log
 

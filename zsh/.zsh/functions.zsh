@@ -336,11 +336,7 @@ function wtc() {
   wt switch --create "aj/$1" --base origin/main "${@:2}"
 }
 
-# Multi-select worktree cleanup: TAB to mark, enter to remove all.
+# Remove the current worktree. Pass wt remove options as needed.
 function wtd() {
-  wt list --format json 2>/dev/null \
-    | jq -r '.[] | select(.is_main | not) | .branch' \
-    | fzf -m --header="TAB to select worktrees to remove" \
-        --preview 'git log --oneline --color=always -10 {}' \
-    | xargs -r wt remove
+  wt remove "$@"
 }

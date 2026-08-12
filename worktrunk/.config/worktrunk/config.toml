@@ -1,0 +1,5 @@
+# wtc adds the aj/ branch prefix, but worktree paths do not need it.
+worktree-path = "{{ repo_path }}/.worktrees/{{ branch | replace(\"aj/\", \"\") }}"
+
+[list]
+json-schema = 2

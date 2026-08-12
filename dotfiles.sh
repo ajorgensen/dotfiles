@@ -18,6 +18,8 @@ stow --target="$HOME" \
   nvim \
   tmux \
   wezterm \
+  worktrunk \
   zsh
 
+go install ./cmd/epoch
 "$SCRIPT_DIR/agents/sync.sh"

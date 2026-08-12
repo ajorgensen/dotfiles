@@ -6,7 +6,6 @@
   "theme": "tokiyo-dark",
   "hideThinkingBlock": false,
   "packages": [
-    "npm:pi-subagents",
     "npm:pi-lsp"
   ],
   "modelRoulette": {
