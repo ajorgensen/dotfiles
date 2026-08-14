@@ -27,6 +27,11 @@ I wanted to share some of my preferences here so we can be more aligned as we wo
 - Structure construction as validate-then-construct: run all guards first, then build the result once at the end. Avoid partially constructing a value and patching it up along the way.
 - Prefer a simple flat function over polymorphism or extra abstraction when the branch count is small and readable.
 
+## Tests: no mirror assertions
+- Do not write assertions that restate literal constants from the code under test (query params, headers, hardcoded strings). These are change detectors: they fail on every edit and catch no bugs, because the test and the code share the same assumption.
+- Assert on behavior instead: what the function returns, how the response is parsed, what side effects occur. For an HTTP client, prefer asserting that the response fields that depend on a param are correctly populated, not that the param string was sent.
+- If a wire-format detail truly matters (an external API contract), one assertion at the right level is fine — but say why in a comment.
+
 ## Questions are read-only
 - A question is a request for an answer, not for changes. If the message opens with "how hard would it be", "what are your thoughts", "why does", "should we", "is it possible", "can X do Y", or otherwise ask rather than instructs, answer it, do not edit any files.
 - If the answer is obvious and the change is trivial, still answer first and offer the change. Ask before making it.
