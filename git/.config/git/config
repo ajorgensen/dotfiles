@@ -180,6 +180,7 @@
     # Show the user email for the current repository.
   whoami = config user.email
   whatadded = log --diff-filter=A
+	my-changes = "!f() { if [ \"$#\" -eq 0 ]; then echo \"usage: git my-changes <time, e.g. last week>\" >&2; return 2; fi; email=$(git config user.email); if [ -z \"$email\" ]; then echo \"git user.email is not configured\" >&2; return 2; fi; git log --all --author=\"<$email>\" --since=\"$*\" --oneline --decorate; }; f"
 
 [include]
   path = ~/.gitoverrides
