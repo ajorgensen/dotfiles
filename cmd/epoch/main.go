@@ -105,7 +105,8 @@ func parseArgs(args []string) (config, bool, error) {
 	}
 
 	if len(input) == 0 {
-		return config{}, false, fmt.Errorf("missing date or timestamp")
+		options.input = "now"
+		return options, false, nil
 	}
 
 	options.input = strings.TrimSpace(strings.Join(input, " "))
@@ -122,13 +123,15 @@ func setUnit(options *config, unit string) error {
 }
 
 func printUsage(output io.Writer) {
-	fmt.Fprintln(output, `Usage: epoch [OPTIONS] INPUT
+	fmt.Fprintln(output, `Usage: epoch [OPTIONS] [INPUT]
 
-Convert a date or Unix timestamp in either direction.
+Convert a date or Unix timestamp in either direction. With no input, convert
+the current time.
 
 Numeric input is treated as a timestamp. Common seconds, milliseconds,
 microseconds, and nanoseconds values are detected automatically. Date input
-produces seconds by default. Naive dates use the local timezone. Include an
+produces seconds by default. The values today, yesterday, and tomorrow resolve
+to midnight. Naive and relative dates use the local timezone. Include an
 explicit offset for dates during daylight-saving transitions.
 
 Options:
@@ -140,6 +143,8 @@ Options:
   -h, --help          Show this help
 
 Examples:
+  epoch
+  epoch yesterday
   epoch 1704067200
   epoch 1704067200000
   epoch '2024-01-01 00:00:00'
@@ -226,6 +231,22 @@ func parseDate(rawValue string, useUTC bool, local *time.Location, now func() ti
 		return now(), nil
 	}
 
+	location := local
+	if useUTC {
+		location = time.UTC
+	}
+
+	relativeDays := map[string]int{
+		"yesterday": -1,
+		"today":     0,
+		"tomorrow":  1,
+	}
+	if days, ok := relativeDays[strings.ToLower(rawValue)]; ok {
+		current := now().In(location)
+		midnight := time.Date(current.Year(), current.Month(), current.Day(), 0, 0, 0, 0, location)
+		return midnight.AddDate(0, 0, days), nil
+	}
+
 	normalized := rawValue
 	if strings.HasSuffix(normalized, "z") {
 		normalized = normalized[:len(normalized)-1] + "Z"
@@ -247,10 +268,6 @@ func parseDate(rawValue string, useUTC bool, local *time.Location, now func() ti
 		}
 	}
 
-	location := local
-	if useUTC {
-		location = time.UTC
-	}
 	naiveLayouts := []string{
 		"2006-01-02T15:04:05",
 		"2006-01-02T15:04",

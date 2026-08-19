@@ -110,6 +110,37 @@ func TestConversions(t *testing.T) {
 	}
 }
 
+func TestRelativeDates(t *testing.T) {
+	location := time.FixedZone("test", -5*60*60)
+	now := func() time.Time {
+		return time.Date(2024, 6, 15, 14, 30, 45, 123_000_000, location)
+	}
+
+	tests := []struct {
+		name     string
+		args     []string
+		expected string
+	}{
+		{name: "no input uses current time", expected: "1718479845.123"},
+		{name: "today", args: []string{"today"}, expected: "1718427600"},
+		{name: "yesterday", args: []string{"yesterday"}, expected: "1718341200"},
+		{name: "tomorrow", args: []string{"tomorrow"}, expected: "1718514000"},
+		{name: "UTC today", args: []string{"--utc", "today"}, expected: "1718409600"},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			stdout, stderr, status := runCLIAt(test.args, location, now)
+			if status != 0 {
+				t.Fatalf("execute() status = %d, stderr = %q", status, stderr)
+			}
+			if strings.TrimSpace(stdout) != test.expected {
+				t.Errorf("execute() output = %q, want %q", strings.TrimSpace(stdout), test.expected)
+			}
+		})
+	}
+}
+
 func TestNaiveDateUsesLocalTimezone(t *testing.T) {
 	location, err := time.LoadLocation("America/New_York")
 	if err != nil {
@@ -159,7 +190,6 @@ func TestErrors(t *testing.T) {
 		args       []string
 		errorMatch string
 	}{
-		{name: "missing input", errorMatch: "missing date or timestamp"},
 		{name: "unknown option", args: []string{"--nope", "1"}, errorMatch: "unknown option"},
 		{
 			name:       "conflicting units",
@@ -203,14 +233,14 @@ func TestHelp(t *testing.T) {
 }
 
 func runCLI(args []string, local *time.Location) (string, string, int) {
+	return runCLIAt(args, local, func() time.Time {
+		return time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)
+	})
+}
+
+func runCLIAt(args []string, local *time.Location, now func() time.Time) (string, string, int) {
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
-	status := execute(
-		args,
-		&stdout,
-		&stderr,
-		local,
-		func() time.Time { return time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC) },
-	)
+	status := execute(args, &stdout, &stderr, local, now)
 	return stdout.String(), stderr.String(), status
 }
