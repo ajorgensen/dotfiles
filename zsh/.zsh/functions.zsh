@@ -10,6 +10,27 @@ function set-keychain-environment-variable() {
     security add-generic-password -U -a ${USER} -D "environment variable" -s "${1}" -w "${secret}"
 }
 
+# AI agents
+function ask() {
+    if (( $# == 0 )); then
+        print -u2 'Usage: [MODEL=<model>] [THINKING=<level>] [INTERACTIVE=1] ask "prompt"'
+        return 1
+    fi
+
+    local -a options=()
+    if [[ "${INTERACTIVE:-}" != "1" ]]; then
+        options+=(--print)
+    fi
+    if [[ -n "${MODEL:-}" ]]; then
+        options+=(--model "$MODEL")
+    fi
+    if [[ -n "${THINKING:-}" ]]; then
+        options+=(--thinking "$THINKING")
+    fi
+
+    pi "${options[@]}" -- "$@"
+}
+
 # Utilities
 function jwt-decode() {
     jq -R 'split(".") |.[0:2] | map(gsub("-"; "+") | gsub("_"; "/") | gsub("%3D"; "=") | @base64d) | map(fromjson)'
