@@ -52,7 +52,7 @@ func execute(args []string, stdout, stderr io.Writer, local *time.Location, now 
 		return 2
 	}
 
-	fmt.Fprintln(stdout, output)
+	fmt.Fprint(stdout, output)
 	return 0
 }
 

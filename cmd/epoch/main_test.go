@@ -103,8 +103,8 @@ func TestConversions(t *testing.T) {
 			if status != 0 {
 				t.Fatalf("execute() status = %d, stderr = %q", status, stderr)
 			}
-			if strings.TrimSpace(stdout) != test.expected {
-				t.Errorf("execute() output = %q, want %q", strings.TrimSpace(stdout), test.expected)
+			if stdout != test.expected {
+				t.Errorf("execute() output = %q, want %q", stdout, test.expected)
 			}
 		})
 	}
@@ -151,8 +151,8 @@ func TestNaiveDateUsesLocalTimezone(t *testing.T) {
 	if status != 0 {
 		t.Fatalf("execute() status = %d, stderr = %q", status, stderr)
 	}
-	if strings.TrimSpace(stdout) != "1704085200" {
-		t.Errorf("execute() output = %q, want %q", strings.TrimSpace(stdout), "1704085200")
+	if stdout != "1704085200" {
+		t.Errorf("execute() output = %q, want %q", stdout, "1704085200")
 	}
 }
 
@@ -166,8 +166,8 @@ func TestMicrosecondsTimestampUsesLocalTimezone(t *testing.T) {
 	if status != 0 {
 		t.Fatalf("execute() status = %d, stderr = %q", status, stderr)
 	}
-	if strings.TrimSpace(stdout) != "2026-08-10T09:35:20.155451-04:00" {
-		t.Errorf("execute() output = %q, want local microseconds conversion", strings.TrimSpace(stdout))
+	if stdout != "2026-08-10T09:35:20.155451-04:00" {
+		t.Errorf("execute() output = %q, want local microseconds conversion", stdout)
 	}
 }
 
@@ -177,8 +177,8 @@ func TestUTCControlsTimestampOutput(t *testing.T) {
 	if status != 0 {
 		t.Fatalf("execute() status = %d, stderr = %q", status, stderr)
 	}
-	if strings.TrimSpace(stdout) != "2024-01-01T00:00:00Z" {
-		t.Errorf("execute() output = %q, want UTC output", strings.TrimSpace(stdout))
+	if stdout != "2024-01-01T00:00:00Z" {
+		t.Errorf("execute() output = %q, want UTC output", stdout)
 	}
 }
 
