@@ -1,6 +1,7 @@
 # General
 alias c="clear"
 alias g="git"
+alias wm="workmux"
 alias ls='ls -lG'
 alias pip=pip3
 alias python=python3
