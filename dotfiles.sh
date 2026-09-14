@@ -18,6 +18,7 @@ stow --target="$HOME" \
   nvim \
   tmux \
   wezterm \
+  workmux \
   worktrunk \
   zsh
 

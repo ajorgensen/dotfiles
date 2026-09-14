@@ -2,5 +2,6 @@
 
 theme = dracula
 shell-integration-features = no-cursor,no-sudo,title
+font-family = JetBrainsMono Nerd Font Mono
 font-feature = -calt
 mouse-scroll-multiplier = precision:0.5,discrete:1
