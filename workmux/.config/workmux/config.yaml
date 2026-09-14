@@ -1,0 +1,10 @@
+mode: session
+
+nerdfont: true
+agent: pi
+worktree_dir: .worktrees
+
+panes:
+  - command: <agent>
+    focus: true
+  - split: horizontal
