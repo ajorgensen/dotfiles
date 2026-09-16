@@ -15,6 +15,10 @@ local plugins = {
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
 
+  -- Markdown
+  { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
+  { src = "https://github.com/folke/zen-mode.nvim" },
+
   -- LSP
   { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/mason-org/mason.nvim" },
@@ -66,6 +70,8 @@ require "ajorgensen.plugins.oil"
 require "ajorgensen.plugins.fzf"
 require "ajorgensen.plugins.treesitter"
 require "ajorgensen.plugins.treesitter-context"
+require "ajorgensen.plugins.render-markdown"
+require "ajorgensen.plugins.zen-mode"
 require "ajorgensen.plugins.git-gutter"
 require "ajorgensen.plugins.diffview"
 require "ajorgensen.plugins.vim-test"

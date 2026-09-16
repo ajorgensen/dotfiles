@@ -46,3 +46,4 @@ kls_database.db
 nvim.log
 
 **/.claude/.cc-writes/
+.agentbot

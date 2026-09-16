@@ -4,6 +4,9 @@ nerdfont: true
 agent: pi
 worktree_dir: .worktrees
 
+sidebar:
+  layout: tiles
+
 panes:
   - command: <agent>
     focus: true
