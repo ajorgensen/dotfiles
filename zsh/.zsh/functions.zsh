@@ -356,24 +356,39 @@ function tmux-session() {
     fi
 }
 
+# Start or select a folder's tmux session. Usage: tcd [folder]
 function tcd() {
-    local session_name="${PWD:t}"
+    if (( $# > 1 )); then
+        print -u2 "Usage: tcd [folder]"
+        return 1
+    fi
+
+    local folder="${1-$PWD}"
+    if [[ ! -d "$folder" ]]; then
+        print -u2 "tcd: folder does not exist: $folder"
+        return 1
+    fi
+
+    if ! command -v tmux >/dev/null 2>&1; then
+        print -u2 "tcd: tmux is not installed"
+        return 1
+    fi
+
+    folder="${folder:A}"
+    local session_name="${folder:t}"
     session_name="${session_name//[^[:alnum:]_-]/_}"
     [[ -n "$session_name" ]] || session_name="main"
+    local target_session="=${session_name}"
 
-    if command -v tm >/dev/null 2>&1; then
-        tm "$session_name"
+    if [[ -z "$TMUX" ]]; then
+        tmux new-session -As "$session_name" -c "$folder"
         return
     fi
 
-    if [[ -z "$TMUX" ]]; then
-        tmux new-session -As "$session_name"
-    else
-        if ! tmux has-session -t "$session_name" 2>/dev/null; then
-            TMUX= tmux new-session -ds "$session_name"
-        fi
-        tmux switch-client -t "$session_name"
+    if ! tmux has-session -t "$target_session" 2>/dev/null; then
+        TMUX= tmux new-session -ds "$session_name" -c "$folder" || return
     fi
+    tmux switch-client -t "$target_session"
 }
 
 function git-prune-remote() {
