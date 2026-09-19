@@ -27,6 +27,16 @@ I wanted to share some of my preferences here so we can be more aligned as we wo
 - Structure construction as validate-then-construct: run all guards first, then build the result once at the end. Avoid partially constructing a value and patching it up along the way.
 - Prefer a simple flat function over polymorphism or extra abstraction when the branch count is small and readable.
 
+## Language and Scenario Guidance
+
+Read the relevant guides before working on a matching task. Load only the guides that apply.
+
+Paths below are relative to the directory containing this instruction file (`AGENTS.md`, or `CLAUDE.md` for Claude), not the project's working directory. Shared installations keep `guidance/` in `~/.codex/`, `~/.claude/`, `~/.config/opencode/`, or `~/.pi/agent/`, respectively.
+
+- Go: when writing, changing, or reviewing Go code, read [guidance/languages/go.md](guidance/languages/go.md).
+
+To add a language or scenario guide, follow [guidance/README.md](guidance/README.md).
+
 ## Markdown Formatting
 - Use summary lists instead of wide tables with paragraph-length cells. Prose-heavy comparisons are easier to read as bullets or short sections.
 - Keep tables for compact numerical data and short, structured comparisons.

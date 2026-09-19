@@ -7,6 +7,7 @@ SCRIPT_DIR="$(
 )"
 
 AGENTS_FILE="$SCRIPT_DIR/AGENTS.md"
+GUIDANCE_DIR="$SCRIPT_DIR/guidance"
 COMMANDS_DIR="$SCRIPT_DIR/commands"
 SKILLS_DIR="$SCRIPT_DIR/skills"
 OPENCODE_DIR="$SCRIPT_DIR/opencode"
@@ -32,6 +33,7 @@ require_dir() {
 
 validate_sources() {
   require_file "$AGENTS_FILE"
+  require_dir "$GUIDANCE_DIR"
   require_dir "$COMMANDS_DIR"
   require_dir "$SKILLS_DIR"
 
@@ -101,6 +103,7 @@ sync_instructions() {
   local target_file="$2"
 
   sync_file "$AGENTS_FILE" "$target_dir/$target_file"
+  sync_dir "$GUIDANCE_DIR" "$target_dir/guidance"
 }
 
 sync_skills() {
