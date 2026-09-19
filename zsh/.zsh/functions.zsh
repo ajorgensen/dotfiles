@@ -31,42 +31,6 @@ function ask() {
     pi "${options[@]}" -- "$@"
 }
 
-# Share Neovim's review exclusions. Use `command hunk ...` to show all files.
-function hunk() {
-    case "$1" in
-        diff|show|log) ;;
-        *) command hunk "$@"; return ;;
-    esac
-
-    local arg excludes
-    local -a args=("$@")
-    local has_pathspecs=0
-    for arg in "$@"; do
-        case "$arg" in
-            --) has_pathspecs=1; break ;;
-            --files|--files=*) command hunk "$@"; return ;;
-        esac
-    done
-
-    excludes="$(git config --local --get-all diffview.review-exclude 2>/dev/null)" || {
-        command hunk "$@"
-        return
-    }
-    if [[ -z "$excludes" ]]; then
-        command hunk "$@"
-        return
-    fi
-
-    if (( ! has_pathspecs )); then
-        args+=(--)
-    fi
-    while IFS= read -r arg; do
-        [[ -n "$arg" ]] && args+=(":!$arg")
-    done <<< "$excludes"
-
-    command hunk "${args[@]}"
-}
-
 # Utilities
 function jwt-decode() {
     jq -R 'split(".") |.[0:2] | map(gsub("-"; "+") | gsub("_"; "/") | gsub("%3D"; "=") | @base64d) | map(fromjson)'
