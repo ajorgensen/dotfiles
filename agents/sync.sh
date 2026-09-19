@@ -42,9 +42,7 @@ validate_sources() {
 
   require_file "$PI_DIR/settings.json"
   require_file "$PI_DIR/lsp.json"
-  require_dir "$PI_DIR/agents"
   require_dir "$PI_DIR/extensions"
-  require_dir "$PI_DIR/prompts"
   require_dir "$PI_DIR/themes"
 }
 
@@ -157,10 +155,8 @@ sync_pi() {
   sync_skills "$HOME/.pi/agent"
   sync_file "$PI_DIR/settings.json" "$HOME/.pi/agent/settings.json"
   sync_file "$PI_DIR/lsp.json" "$HOME/.pi/agent/lsp.json"
-  sync_dir "$PI_DIR/agents" "$HOME/.pi/agent/agents"
   sync_dir "$PI_DIR/extensions" "$HOME/.pi/agent/extensions"
   sync_dir "$COMMANDS_DIR" "$HOME/.pi/agent/prompts"
-  sync_dir "$PI_DIR/prompts" "$HOME/.pi/agent/prompts"
   sync_dir "$PI_DIR/themes" "$HOME/.pi/agent/themes"
 }
 
