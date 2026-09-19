@@ -91,8 +91,9 @@ The files:
 
 - `MEMORY.md`: Stable project knowledge. Architecture notes, repo-specific workflows, important commands, known constraints, naming conventions, recurring gotchas, and decisions that future work should preserve.
 - `PROMPT.md`: The current engagement context. The user's goal, constraints, acceptance criteria, open questions, and any important wording or intent that should not be lost across longer tasks.
-- `PLAN.md`: The working implementation plan. Approach, milestones, files likely to change, validation strategy, tradeoffs, and decisions made while executing.
+- `PLAN.md`: The working implementation plan. Approach, milestones, files likely to change, validation strategy, tradeoffs, and decisions made while executing. For loop-driven work (the `loop` skill) it holds the gate command, the slice list, and a `Learned` section.
 - `TODO.md`: The actionable task list. Concrete next steps, task status, blockers, follow-ups, and handoff items so work can resume cleanly.
+- `REVIEW.md`: The findings ledger for the current review loop. Written by the code-review skill, worked down by workers, verified in later rounds. Delete it when the loop for a change is done.
 
 Reading — do this by default, not opportunistically:
 

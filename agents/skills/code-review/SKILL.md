@@ -1,14 +1,17 @@
 ---
 name: code-review
-description: "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \"review since X\"."
+description: "Review the changes since a fixed point (commit, branch, tag, or merge-base) along three axes: Standards (does the code follow this repo's documented coding standards?), Spec (does the code match what the originating issue/spec asked for?), and Simplicity (is anything in the diff more general than the spec needs today?). Runs the reviews in parallel sub-agents, reports them side by side, and writes a findings ledger to .docs/REVIEW.md. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \"review since X\"."
 ---
 
-Two-axis review of the diff between `HEAD` and a fixed point the user supplies:
+Three-axis review of the diff between `HEAD` and a fixed point the user supplies:
 
 - **Standards**: does the code conform to this repo's documented coding standards?
 - **Spec**: does the code faithfully implement the originating issue / spec?
+- **Simplicity**: is anything in the diff more general than the spec needs today?
 
-Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings.
+The axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings into a ledger.
+
+If `.docs/REVIEW.md` already exists for this fixed point (a review loop, rounds 2+), skip the process below and use **Verification mode** at the bottom of this skill instead.
 
 ## Process
 
@@ -24,10 +27,11 @@ Before going further, confirm the fixed point resolves (`git rev-parse <fixed-po
 
 Look for the originating spec, in this order:
 
-1. Issue references in the commit messages (`#123`, `Closes #45`, GitLab `!67`, etc.), fetched via the workflow in `docs/agents/issue-tracker.md`.
-2. A path the user passed as an argument.
-3. A spec file under `docs/`, `specs/`, or `.scratch/` matching the branch name or feature.
-4. If nothing is found, ask the user where the spec is. If they say there isn't one, the **Spec** sub-agent will skip and report "no spec available".
+1. `.docs/PROMPT.md`, when it exists. Its **Invariants** and **Non-goals** sections are spec too: an invariant breach is a spec finding, and anything that serves a non-goal is scope creep.
+2. Issue references in the commit messages (`#123`, `Closes #45`, GitLab `!67`, etc.), fetched via the workflow in `docs/agents/issue-tracker.md`.
+3. A path the user passed as an argument.
+4. A spec file under `docs/`, `specs/`, or `.scratch/` matching the branch name or feature.
+5. If nothing is found, ask the user where the spec is. If they say there isn't one, the **Spec** sub-agent will skip and report "no spec available".
 
 ### 3. Identify the standards sources
 
@@ -53,7 +57,7 @@ Each smell reads *what it is* → *how to fix*; match it against the diff:
 - **Middle Man**: a class or function that mostly just delegates onward. → cut it, call the real target direct.
 - **Refused Bequest**: a subclass or implementer that ignores or overrides most of what it inherits. → drop the inheritance, use composition.
 
-### 4. Spawn both sub-agents in parallel
+### 4. Spawn the sub-agents in parallel
 
 **Standards sub-agent prompt** should include:
 
@@ -67,19 +71,63 @@ Each smell reads *what it is* → *how to fix*; match it against the diff:
 - The path or fetched contents of the spec.
 - The brief: "Report: (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. Under 400 words."
 
-If the spec is missing, skip the Spec sub-agent and note this in the final report.
+**Simplicity sub-agent prompt** should include:
 
-### 5. Aggregate
+- The diff command and commit list.
+- The path or fetched contents of the spec (if found).
+- The brief: "For each abstraction the diff introduces — interface, type parameter, config option, hook, layer of indirection, function parameter, feature flag — answer: does the spec require it *today*? The default answer is no. Report every construct where the answer is no, quoting the hunk and naming the simpler form (concrete type, inlined call, deleted parameter). Ignore pre-existing abstractions the diff merely touches. Under 400 words."
 
-Present the two reports under `## Standards` and `## Spec` headings, verbatim or lightly cleaned. Do **not** merge or rerank findings, because the two axes are deliberately separate (see _Why two axes_).
+The Standards axis' Speculative Generality smell overlaps this axis; that's intentional. Simplicity is the dedicated deep pass, the smell is a safety net.
 
-End with a one-line summary: total findings per axis, and the worst issue _within each axis_ (if any). Don't pick a single winner across axes: that's the reranking the separation exists to prevent.
+If the spec is missing, skip the Spec sub-agent, run Simplicity without a spec (judge need by callers in the diff), and note this in the final report.
 
-## Why two axes
+### 5. Aggregate into the ledger
 
-A change can pass one axis and fail the other:
+Present the three reports under `## Standards`, `## Spec`, and `## Simplicity` headings, verbatim or lightly cleaned. Do **not** merge or rerank findings, because the axes are deliberately separate (see _Why separate axes_).
+
+Then write `.docs/REVIEW.md` (create `.docs/` if needed):
+
+```markdown
+# Review ledger
+
+Fixed point: <sha>
+Round: 1
+
+## Blocking
+
+- [ ] ST-1 (standards): <one line> — <file:line>
+- [ ] SP-1 (spec): <one line> — <file:line>
+- [ ] SI-1 (simplicity): <one line> — <file:line>
+
+## Advisory
+
+- [ ] ST-2 (standards): <one line> — <file:line>
+```
+
+Severity rules:
+
+- **BLOCKING**: documented-standard breaches; spec requirements that are missing, partial, or wrong; scope creep; simplicity findings where the construct was introduced in this diff and has no current caller or need (an interface with one implementation created here, a dead parameter, a hook nothing calls).
+- **ADVISORY**: baseline smells and other judgement calls; simplicity findings where a simpler form exists but the construct is at least used.
+
+End with a one-line summary per axis and the machine-readable last line: `OPEN BLOCKING: <n>`. Don't pick a single winner across axes: that's the reranking the separation exists to prevent.
+
+## Why separate axes
+
+A change can pass one axis and fail another:
 
 - Code that follows every standard but implements the wrong thing → **Standards pass, Spec fail.**
 - Code that does exactly what the issue asked but breaks the project's conventions → **Spec pass, Standards fail.**
+- Code that is correct and conventional but built for requirements nobody has yet → **Standards and Spec pass, Simplicity fail.**
 
-Reporting them separately stops one axis from masking the other.
+Reporting them separately stops one axis from masking another.
+
+## Verification mode (rounds 2+)
+
+Use this mode when `.docs/REVIEW.md` already exists for the same fixed point. Do **not** run a fresh open-ended review: fresh reviewers surface a different set of issues every round, so open-ended re-review never converges.
+
+Spawn one fresh sub-agent with the ledger and the diff of the hunks changed since the last round (`git diff` against the previous round's HEAD if known, otherwise the full diff plus the ledger). It answers exactly two questions:
+
+1. For each finding checked off since the last round: does the fix actually address it? Un-check anything that does not, with a one-line reason appended.
+2. In the changed hunks only: did a fix introduce a new defect? Findings from this question are the only additions allowed to the ledger, and each must name the fix that caused it.
+
+Update the `Round:` counter and end with `OPEN BLOCKING: <n>`. No new open-ended findings, no re-litigating findings already closed.
