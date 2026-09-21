@@ -32,6 +32,31 @@ function ask() {
 }
 
 # Utilities
+# Convert one or more images beside their originals. Usage: heic2jpg photo.heic [...]
+function heic2jpg() {
+    if (( $# == 0 )); then
+        print -u2 'Usage: heic2jpg photo.heic [...]'
+        return 1
+    fi
+
+    local input output
+    for input in "$@"; do
+        if [[ ! -f "$input" || "${input:e:l}" != heic ]]; then
+            print -u2 "heic2jpg: not a HEIC file: $input"
+            return 1
+        fi
+
+        input="${input:a}"
+        output="${input:r}.jpg"
+        if [[ -e "$output" || -L "$output" ]]; then
+            print -u2 "heic2jpg: refusing to overwrite: $output"
+            return 1
+        fi
+
+        sips -s format jpeg "$input" --out "$output" || return
+    done
+}
+
 function jwt-decode() {
     jq -R 'split(".") |.[0:2] | map(gsub("-"; "+") | gsub("_"; "/") | gsub("%3D"; "=") | @base64d) | map(fromjson)'
 }

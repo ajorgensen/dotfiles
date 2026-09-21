@@ -11,21 +11,23 @@ I wanted to share some of my preferences here so we can be more aligned as we wo
 - Don't be scared to propose bold ideas if they are meaningfully beneficial to our work
 - Be careful with destructive actions that are not explicitly requested by the user
 - Tests are good! Endless smoke tests, "regression tests" for featur deletions, etc, much less good. Tests should be focused, not slop.
-- Use ASD-STE100 Simplified Technical English as a writing guide, not as a strict conformance requirement.
-- Apply ASD-STE100 most strongly to explanations, instructions, summaries, and documentation: use clear, direct, consistent language and short sentences where practical.
-- Prefer technical accuracy and natural phrasing when they conflict with ASD-STE100. Preserve exact identifiers, commands, API terms, error messages, quotations, and established project terminology.
+- Use ASD-STE100 Simplified Technical English as a guide, not a strict requirement, especially for explanations, instructions, summaries, and documentation. Use clear, direct language and short sentences where practical. Prioritize technical accuracy and natural phrasing; preserve exact identifiers, commands, API terms, error messages, quotations, and established project terminology.
 - Keep comments up to date! When making changes, it's important to keep things in sync.
 - Preserve existing style and patterns unless changing them is part of the task.
 - For searches, prefer rg/find over slower shell pipelines.
 - If requirements are unclear, ask a targeted question or state the assumption.
 - For multi-step work, keep changes incremental and verifiable.
 - Launch subagents with fresh context by default. Use forked parent-session context only when the user explicitly requests it.
-- Prefer flat, guard-clause-driven, fail-fast procedural code ("line of sight" style: the happy path hugs the left margin).
-- Check invariants and preconditions first and fail fast, so the rest of the function can assume a valid state. Do not bury validity checks inside nested branches.
-- Keep the happy path at minimal indentation. Prefer early returns over `else` ladders and accumulating nesting.
-- Handle errors as values and return them immediately at each step; do not collect them or build try/catch pyramids.
+- Prefer flat, guard-clause-driven code. Validate invariants and preconditions and handle errors early; keep the happy path at minimal indentation.
+- Where idiomatic, handle errors as values and return them immediately at each step. Avoid deeply nested error handling.
 - Structure construction as validate-then-construct: run all guards first, then build the result once at the end. Avoid partially constructing a value and patching it up along the way.
 - Prefer a simple flat function over polymorphism or extra abstraction when the branch count is small and readable.
+
+## Design and Implementation Approach
+- Work outside in. Start with the caller’s use case or outermost interface, then work toward the core.
+- Write the code you wish you could call. Use that caller code to shape the API, then implement what it needs.
+- Define the types and data structures for each layer before adding behavior. If the behavior is difficult to express, revisit the data model before adding complexity.
+- Keep this incremental. Build only the types and interfaces needed for the current use case, not a complete architecture up front.
 
 ## Language and Scenario Guidance
 
@@ -42,13 +44,12 @@ To add a language or scenario guide, follow [guidance/README.md](guidance/README
 - Keep tables for compact numerical data and short, structured comparisons.
 
 ## Tests: no mirror assertions
-- Do not write assertions that restate literal constants from the code under test (query params, headers, hardcoded strings). These are change detectors: they fail on every edit and catch no bugs, because the test and the code share the same assumption.
-- Assert on behavior instead: what the function returns, how the response is parsed, what side effects occur. For an HTTP client, prefer asserting that the response fields that depend on a param are correctly populated, not that the param string was sent.
-- If a wire-format detail truly matters (an external API contract), one assertion at the right level is fine — but say why in a comment.
+- Avoid assertions that merely duplicate implementation details. Assert behavior and external contracts: what the function returns, how the response is parsed, and what side effects occur.
+- Literal expectations are useful when they independently express a contract. For an HTTP client, test response handling and request details required by the external API. Explain non-obvious wire-format requirements in a comment.
 
 ## Questions are read-only
-- A question is a request for an answer, not for changes. If the message opens with "how hard would it be", "what are your thoughts", "why does", "should we", "is it possible", "can X do Y", or otherwise ask rather than instructs, answer it, do not edit any files.
-- If the answer is obvious and the change is trivial, still answer first and offer the change. Ask before making it.
+- Requests for advice, explanation, or assessment are read-only. Answer without editing files, even if the suggested change is trivial; offer the change and get permission first.
+- Requests to act, such as "Can you fix this bug?", authorize changes even when phrased as questions. Use the user's intent, not the sentence structure; ask if it is unclear.
 
 ## Match ceremony to the task
 - Do not spawn sub-agents or multi-agent panel for work a single agent finishes in one pass. Delegation is for the breadth or adversarial review, not for ordinary tasks.
@@ -95,7 +96,7 @@ If something you previously wrote looks changed, reverted, or deleted, leave it 
 
 ## Memory
 
-Persistent notes live in `.docs/` at the repository root. Create the directory and files when they don't exist — an empty repo is not a reason to skip this.
+Persistent notes live in `.docs/` at the repository root. Create notes only when there is useful state to preserve. Do not create or update them for read-only questions.
 
 The files:
 
