@@ -16,6 +16,7 @@ I wanted to share some of my preferences here so we can be more aligned as we wo
 - Preserve existing style and patterns unless changing them is part of the task.
 - For searches, prefer rg/find over slower shell pipelines.
 - If requirements are unclear, ask a targeted question or state the assumption.
+- Do not give time budgets or effort estimates, especially in "human weeks." Describe the work, dependencies, and risks without assigning durations.
 - For multi-step work, keep changes incremental and verifiable.
 - Launch subagents with fresh context by default. Use forked parent-session context only when the user explicitly requests it.
 - Prefer flat, guard-clause-driven code. Validate invariants and preconditions and handle errors early; keep the happy path at minimal indentation.
@@ -24,6 +25,7 @@ I wanted to share some of my preferences here so we can be more aligned as we wo
 - Prefer a simple flat function over polymorphism or extra abstraction when the branch count is small and readable.
 
 ## Design and Implementation Approach
+- Prefer vertical slices for features. Each slice should deliver independently shippable value end to end, across only the layers it needs. Avoid large horizontal slices (for example, all storage, then all APIs, then all UI) that deliver no value until they all ship.
 - Work outside in. Start with the caller’s use case or outermost interface, then work toward the core.
 - Write the code you wish you could call. Use that caller code to shape the API, then implement what it needs.
 - Define the types and data structures for each layer before adding behavior. If the behavior is difficult to express, revisit the data model before adding complexity.
@@ -40,6 +42,7 @@ Paths below are relative to the directory containing this instruction file (`AGE
 To add a language or scenario guide, follow [guidance/README.md](guidance/README.md).
 
 ## Markdown Formatting
+- Do not use markdown tables. Prefer lists
 - Use summary lists instead of wide tables with paragraph-length cells. Prose-heavy comparisons are easier to read as bullets or short sections.
 - Keep tables for compact numerical data and short, structured comparisons.
 
@@ -59,6 +62,7 @@ To add a language or scenario guide, follow [guidance/README.md](guidance/README
 - Pull request titles where applicable should be of the form "[<scope>] <description>". Prefer a scope that describes the logical change or subsystem. If there is no clear scope, or the change is broad, the scope can be omitted
 - Titles should be simple and easy to understand. 
 - Branch names should be prefixed with 'aj/'
+- `gh stack` is available to manage stacked PRs on GitHub. Keep all branches in a stack in the same worktree, switching branches there as needed. Stacked PRs must not span worktrees.
 - Do not commit or push code without explicit sign off and permission
 - Do not force push unless I give you permission to
 - When replying on my behalf, make it clear that it is a model responding with `[MODEL SLUG]: <comment>`
