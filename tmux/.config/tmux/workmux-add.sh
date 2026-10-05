@@ -9,7 +9,7 @@ case "$branch" in
   *) branch="aj/$branch" ;;
 esac
 
-if workmux add -- "$branch"; then
+if workmux add --name "${branch#aj/}" -- "$branch"; then
   exit 0
 fi
 

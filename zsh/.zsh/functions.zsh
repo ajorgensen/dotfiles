@@ -12,14 +12,15 @@ function set-keychain-environment-variable() {
 
 # AI agents
 function ask() {
+    setopt localoptions pipefail
     if (( $# == 0 )); then
-        print -u2 'Usage: [MODEL=<model>] [THINKING=<level>] [INTERACTIVE=1] ask "prompt"'
+        print -u2 'Usage: [SESSION=<id>] [MODEL=<model>] [THINKING=<level>] [INTERACTIVE=1] ask "prompt"'
         return 1
     fi
 
     local -a options=()
-    if [[ "${INTERACTIVE:-}" != "1" ]]; then
-        options+=(--print)
+    if [[ -n "${SESSION:-}" ]]; then
+        options+=(--session "$SESSION")
     fi
     if [[ -n "${MODEL:-}" ]]; then
         options+=(--model "$MODEL")
@@ -28,7 +29,26 @@ function ask() {
         options+=(--thinking "$THINKING")
     fi
 
-    pi "${options[@]}" -- "$@"
+    if [[ "${INTERACTIVE:-}" == "1" ]]; then
+        pi "${options[@]}" -- "$@"
+        return $?
+    fi
+
+    # Keep stdout answer-only; the session ID is available even if the request fails.
+    pi --print --mode json "${options[@]}" -- "$@" | jq --unbuffered -r '
+        if .type == "session" then
+            "SESSION=\(.id)\n" | stderr | empty
+        elif .type == "agent_end" then
+            .messages[-1] | select(.role == "assistant") |
+            if .stopReason == "error" or .stopReason == "aborted" then
+                error(.errorMessage // "Request \(.stopReason)")
+            else
+                .content[] | select(.type == "text") | .text
+            end
+        else
+            empty
+        end
+    '
 }
 
 # Utilities
@@ -87,6 +107,13 @@ function np() {
 
     rm -f "$file"
     return $exit_status
+}
+
+# Watch changes since this branch diverged from origin/main.
+function hunk-base() {
+    local base
+    base="$(git merge-base HEAD origin/main)" || return
+    hunk diff --watch "$base" "$@"
 }
 
 function gwcd() {

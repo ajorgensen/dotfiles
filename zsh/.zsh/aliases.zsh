@@ -13,6 +13,7 @@ alias sysup='brew -v update && brew -v upgrade; brew -v cleanup'
 # AI agents
 alias dcodex='codex --dangerously-bypass-approvals-and-sandbox'
 alias dclaude='claude --dangerously-skip-permissions'
+alias pupdate='pi update && pi update --extensions'
 
 # Tmux
 alias tnew='tmux new-session -A -s'

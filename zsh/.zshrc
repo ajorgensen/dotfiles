@@ -11,6 +11,9 @@ source "$HOME/.zsh/keybindings.zsh"
 source "$HOME/.zsh/aliases.zsh"
 source "$HOME/.zsh/functions.zsh"
 
+# Direnv
+eval "$(direnv hook zsh)"
+
 # Machine-specific overrides
 [[ -f "$HOME/.local.zshrc" ]] && source "$HOME/.local.zshrc"
 

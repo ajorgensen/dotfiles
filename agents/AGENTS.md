@@ -41,6 +41,11 @@ Paths below are relative to the directory containing this instruction file (`AGE
 
 To add a language or scenario guide, follow [guidance/README.md](guidance/README.md).
 
+## Skill Descriptions
+- Treat the `SKILL.md` frontmatter `description` as a loading trigger, not a summary of what the skill does. Focus on when to pull the skill into context.
+- Use wording such as "Use when..." and include likely user phrases, task contexts, file types, or domains that distinguish the skill from others.
+- Keep descriptions concise and specific. Put workflow steps and implementation details in the skill body, not the description.
+
 ## Markdown Formatting
 - Do not use markdown tables. Prefer lists
 - Use summary lists instead of wide tables with paragraph-length cells. Prose-heavy comparisons are easier to read as bullets or short sections.

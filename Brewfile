@@ -1,6 +1,7 @@
 # install
 brew "asheshgoplani/tap/agent-deck"
 brew "coreutils"
+brew "direnv"
 brew "dust"
 brew "fd"
 brew "ffmpeg"

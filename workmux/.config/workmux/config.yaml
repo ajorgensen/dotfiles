@@ -1,4 +1,5 @@
 mode: session
+base_branch: origin/main
 
 nerdfont: true
 agent: pi
