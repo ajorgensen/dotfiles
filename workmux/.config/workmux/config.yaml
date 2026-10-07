@@ -2,7 +2,7 @@ mode: session
 base_branch: origin/main
 
 nerdfont: true
-agent: pi
+agent: maki
 worktree_dir: .worktrees
 
 sidebar:
