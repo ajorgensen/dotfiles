@@ -1,78 +1,67 @@
 ---
 name: loop
-description: "Orchestrate a change end to end the way AJ works: understand the problem, make the simple change, review and refactor with what was learned, repeat until done. Composes the plan, slice, code-review, and refactor skills in fresh-context subagents and commits each clean iteration. Use when the user supplies a spec or plan and wants it taken to a state that is ready for human review."
+description: "Take a change from intent to human review: understand, implement, validate, review, and fix with ceremony proportional to the task. Use when the user supplies a spec or plan and wants it implemented end to end."
 disable-model-invocation: true
 ---
 
-This session is the orchestrator. It holds the intent, spawns a fresh-context subagent for each step, reads their short returns, and decides what happens next. It does not read diffs, run test suites, or edit code. Every token spent here on work is a token lost from judgement, so keep this context as clean as possible.
+# Loop
 
-State lives in `.docs/`: `PROMPT.md` (intent), `PLAN.md` (slices, gates, learned), `REVIEW.md` (findings ledger), `TODO.md` (follow-ups). Subagents read and write those files. This session reads only the small parts it needs: the open questions, the slice list, and the `OPEN BLOCKING: <n>` line.
+Deliver the simplest correct change. This session owns intent, implementation decisions, and acceptance. It may read code and diffs, edit files, and run gates. Delegation is a tool, not a required phase.
 
-## Subagents
+## Choose the smallest useful workflow
 
-Every step runs in a fresh-context subagent. Give it exactly:
+- **Small, clear change:** work directly. Inspect the relevant files, state the approach briefly, implement, run the focused gate, and inspect the diff for correctness and simplicity. No planning agent, review panel, separate refactor agent, or gate agent. Do not invoke the heavier companion skills merely to satisfy phase names.
+- **Multi-step or uncertain change:** keep a short plan and deliver thin vertical slices. Delegate only work that benefits from specialization, independent review, or genuinely useful parallelism.
+- Choose based on uncertainty and affected contracts, not just file count. A one-line security change can need independent review; a mechanical multi-file edit may not.
+- Follow any mandatory project review or validation requirements. They do not justify unrelated extra phases.
 
-- the skill to load and follow
-- the `.docs/` files to read first (always `PROMPT.md` and `PLAN.md`)
-- the fixed point (a SHA or tag) when the step needs a diff
-- one line of task
-- "Return in the format the skill specifies. Under ten lines."
+Example: enabling grouped CI statuses needs the existing task keys, the vendor's naming/selection semantics, a narrow YAML edit, and lint. It does not need a branch-protection audit, four long planning documents, or repeated reviews unless those are part of the request.
 
-Tune the subagent to the step when the tool allows it. As a default: `plan` and `code-review` run with high thinking; `slice` and `refactor` run with medium, raised to high when `PLAN.md`'s `Learned` section or the ledger shows the area is tricky; fix and gate checks run with low. Pick the model the same way; the review axes benefit from the strongest model more than the gate check does.
+## Understand just enough
 
-One writer at a time. Review subagents are read-only. Never run two writers in parallel.
+Read applicable instructions and existing `.docs/` state. Inspect the caller and affected contracts. Research only uncertainties that can change the implementation or its acceptance.
 
-If the agent you are running in has no subagent tool, run each step yourself, but re-read the `.docs/` files at the start of each step and do not carry findings between steps in your head. State goes through the files.
+- Reuse findings already recorded; do not repeat searches or validation without a concrete reason.
+- A clear request to implement is approval to act. Do not require a separate plan-approval turn for an obvious, bounded change.
+- For meaningful design choices, present a short recommendation and ask the targeted question before implementing. A request for planning only remains planning only.
+- Separate the requested change from external rollout or administration. Mention relevant risks, but do not turn follow-ups into blockers unless they prevent safe implementation.
+- When the user revises a requirement, update that decision and continue. Do not restart discovery or spawn a replacement planner for a local adjustment.
+
+For resumable work, `.docs/PROMPT.md` holds intent and unresolved decisions; `.docs/PLAN.md` holds slices, gates, and useful learned facts. Keep entries short and update them in place. Create other notes only when they contain distinct useful state; do not duplicate the plan across four files or validate document headings with ad hoc scripts. Follow applicable repository memory requirements.
+
+Record a fixed base SHA and the initial dirty state. Do not overwrite tags or assume pre-existing changes belong to this task. Without intermediate commits, a HEAD SHA does not isolate individual slices: record slice boundaries explicitly and review only task-owned changes.
+
+## Implement, validate, review
+
+For each slice:
+
+1. Implement the smallest end-to-end change. Use the `slice` skill when its fuller process is useful, not for a trivial edit.
+2. Run the focused gate. Keep its command, result, and the revision or working-tree state it covers.
+3. Inspect the diff for correctness, scope, and simplicity. Use an independent reviewer for meaningful risk or breadth; use `code-review` when its multi-axis review earns the overhead. Reviewers are read-only except for explicitly assigned review notes.
+4. Fix blocking findings and verify them. Simplify as part of this pass; use a separate `refactor` step only when there is a concrete opportunity worth investigating.
+5. Re-run only gates affected by subsequent edits. Do not launch another agent just to repeat a gate that already passed on the unchanged final state.
+
+At most two fix rounds per blocking issue. Stop sooner if the finding count does not shrink or the same gate fails again after a fix. Summarize the blocker and recommended next action rather than cycling through fresh agents.
+
+## Delegation, when it earns its cost
+
+Use fresh context by default and one writer per worktree. State exclusive file ownership before parallel work. Never delegate ordinary shell checks solely to keep this session's context clean.
+
+Give each child a bounded brief: objective; cwd and relevant files; edit boundary; existing evidence and decisions; acceptance criteria and focused gate; stop conditions; expected short return. Load a companion skill only when it fits the assignment. Children should read relevant state, not every document unconditionally.
+
+- Bundle implementation and its validation in one worker assignment.
+- Give reviewers distinct questions; do not commission overlapping discovery.
+- Match model and thinking to uncertainty. High thinking is not the default for mechanical planning or lint checks.
+- Require a return under ten lines: result, changed files, validation, blockers, and artifact path if needed. Do not request extra reports that duplicate `.docs/` or tool receipts.
+- For async work, yield and use native completion notifications. Do not poll or wait merely because a child is active.
+- If a child is expanding scope or repeating completed research, steer it to the concrete deliverable rather than launching another child.
+
+## Finish
+
+For a single slice, its final diff review and passing gates are the finish gate. Do not repeat them as a whole-change review, refactor, and gate sequence. For multiple slices, inspect integration and cross-slice behavior; run additional review or gates only for gaps not already covered.
+
+Update useful state and follow-ups once. Remove only this task's completed review ledger. Report what changed, validation, and remaining risks or decisions. Leave changes uncommitted unless the user explicitly authorized commits; never push or open a PR without permission.
 
 ## Stop and ask
 
-Any subagent that returns `BLOCKED: <question>` has written the question to `## Open questions` in `PROMPT.md`. Relay the question and the recommended answer to the user and wait. Do not answer it yourself and do not move to another slice while it is open. This rule applies to every step, not only planning.
-
-## Phases
-
-### 1. Understand
-
-If `.docs/PLAN.md` does not exist or has no unchecked slices for this spec, run the `plan` skill.
-
-Then stop. Present the plan and the open questions to the user and wait for approval. This gate makes sure the problem and its invariants are understood before any code changes. Skip it only when the user said to run unattended, and even then stop if `PROMPT.md` has open questions.
-
-After approval: `git tag -f review-base`.
-
-### 2. Iterate
-
-Repeat for each unchecked slice:
-
-1. Record `iter-base=$(git rev-parse HEAD)`.
-2. **Slice.** Run the `slice` skill. On `BLOCKED`, stop and ask.
-3. **Review.** Run the `code-review` skill against `iter-base`. Read only the `OPEN BLOCKING: <n>` line.
-4. **Fix.** While `n > 0`, at most two rounds: run a fresh subagent with the task "Read `.docs/REVIEW.md`. Fix every unchecked finding under `## Blocking`. Check each one off with a one-line note. Gates green. Do not touch advisory findings." Then run `code-review` again against `iter-base`; it detects the existing ledger and uses verification mode. If `n` does not shrink between rounds, or two rounds end with `n > 0`, stop and escalate: summarize the open findings for the user.
-5. **Refactor.** Run the `refactor` skill against `iter-base`. `NO CHANGE` is fine. `REVERTED` is fine; note the reason and move on.
-6. **Gates.** Run a small subagent: "Run the gate command in `.docs/PLAN.md`. Return `PASS`, or `FAIL` and the first failing message only." On `FAIL`, one fix round as in step 4, then re-check. On a second `FAIL`, stop and escalate.
-7. **Commit.** Commit with the repo's convention (`<scope>: <description>`, body says why). The slice's return gives you the what; `PROMPT.md`'s goal gives you the why. Delete `.docs/REVIEW.md`.
-
-Watch the plan between iterations. If the number of unchecked slices grows on two consecutive iterations, stop and ask: the work is bigger than the spec, or the plan is drifting toward scope creep.
-
-### 3. Finish
-
-When no unchecked slices remain:
-
-1. Run `code-review` against `review-base` for the whole change. Fix `## Blocking` findings as in phase 2 step 4.
-2. Run `refactor` against `review-base` for the whole change. Cross-slice duplication and naming show up here, not per slice.
-3. Gate check. Commit if there are changes. Delete `.docs/REVIEW.md`.
-4. Update `.docs/TODO.md` with follow-ups and `.docs/MEMORY.md` with durable facts from `## Learned` in `PLAN.md`.
-
-The change is ready for human review when the gates are green, the whole-change review ends with `OPEN BLOCKING: 0`, and every slice is checked off.
-
-Stop with a summary for the user: the goal, the commits made, anything advisory left on purpose, and the open follow-ups. Do not open a pull request.
-
-## Escalate, do not loop
-
-Stop and hand the decision to the user when any of these happen:
-
-- a subagent returns `BLOCKED`
-- open blocking findings do not shrink between fix rounds
-- two fix rounds end with blocking findings open
-- gates fail twice in one iteration
-- the plan grows on two consecutive iterations
-
-Summarize what is open and what you recommend. Do not keep looping past these limits.
+Stop for an unresolved decision that affects safe implementation, a child returning `BLOCKED:`, non-shrinking blocking findings, repeated gate failure, or a plan that keeps growing. Record resumable blockers when useful, relay the question and recommendation, and wait. Do not manufacture blockers from optional follow-ups or already settled decisions.

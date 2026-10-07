@@ -8,7 +8,7 @@ Make the simple change. One slice, the simplest thing that works, gates green, t
 
 ## Before you edit
 
-1. Read `.docs/PROMPT.md`, `.docs/PLAN.md`, and `.docs/MEMORY.md` if present.
+1. Read `.docs/PROMPT.md`, `.docs/PLAN.md`, and project memory (the brain project note, and `.docs/MEMORY.md` if present).
 2. Take the first unchecked slice in `PLAN.md`. If the user named a slice, take that one.
 3. Check the slice against `PROMPT.md`. If you hit an ambiguity or a design decision that the goal, invariants, and answered questions do not settle, do not guess. Add the question with your recommended answer under `## Open questions` in `PROMPT.md`, make no code changes, and return `BLOCKED: <question>`.
 

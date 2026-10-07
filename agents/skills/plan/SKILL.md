@@ -5,7 +5,7 @@ description: "Understand a problem before any code changes. Reads the spec, expl
 
 Understand the problem and write it down. Do not implement anything.
 
-Start by reading `.docs/MEMORY.md` if it exists. Then read the spec the user supplied and explore the code it touches. Use a fresh-context subagent for noisy exploration (large searches, log reads) when one is available, so the raw output stays out of this session.
+Start by reading project memory (the brain project note, and `.docs/MEMORY.md` if it exists). Then read the spec the user supplied and explore the code it touches. Use a fresh-context subagent for noisy exploration (large searches, log reads) when one is available, so the raw output stays out of this session.
 
 ## Write `.docs/PROMPT.md`
 
@@ -45,7 +45,7 @@ Rules for slices:
 - Prefer three to seven slices. If you need more, the spec is probably several changes; say so.
 - The seams listed per slice are the pre-agreed seams the `tdd` skill requires. Choose them at public boundaries.
 
-Discover the gate commands from the repo (Makefile, package scripts, CI config, `MEMORY.md`). If you cannot find them, list that as an open question.
+Discover the gate commands from the repo (Makefile, package scripts, CI config, project memory). If you cannot find them, list that as an open question.
 
 ## Finish
 
