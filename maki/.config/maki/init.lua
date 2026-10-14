@@ -19,12 +19,10 @@ maki.setup({
   },
   provider = {
     allowed_models = {
-      "anthropic/claude-*-5*",
-      "anthropic/claude-fable*",
-      "openrouter/anthropic/claude-*-5*",
-      "openrouter/anthropic/claude-fable*",
-      "openai/gpt-6*",
-      "openrouter/google/*",
+      "*anthropic/claude-*-5*",
+      "*anthropic/claude-fable*",
+      "*openai/gpt-6*",
+      "*google/*",
     },
     excluded_models = {
       "*/*-preview*",
