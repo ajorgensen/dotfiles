@@ -18,13 +18,20 @@ maki.setup({
     max_output_lines = 3000,
   },
   provider = {
-    default_model = "anthropic/claude-opus-5-5",
     allowed_models = {
-      "anthropic/claude-*-5-*",
+      "anthropic/claude-*-5*",
       "anthropic/claude-fable*",
+      "openrouter/anthropic/claude-*-5*",
+      "openrouter/anthropic/claude-fable*",
       "openai/gpt-6*",
+      "openrouter/google/*",
     },
-    excluded_models = { "*/*-preview" },
+    excluded_models = {
+      "*/*-preview*",
+      "*/*:batch",
+      "*/*:free",
+      "*/*-image*",
+    },
   },
 
   storage = {

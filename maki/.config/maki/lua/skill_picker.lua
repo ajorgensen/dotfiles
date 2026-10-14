@@ -6,8 +6,16 @@
 local ListPicker = require("maki.list_picker")
 
 local SKILL_FILE = "SKILL.md"
+local SKILL_TRIGGER = "$"
 local PROJECT_SKILL_DIRS = { ".maki/skills", ".claude/skills", ".opencode/skills", ".agents/skills" }
 local GLOBAL_SKILL_DIRS = { ".claude/skills", ".config/opencode/skills", ".agents/skills" }
+local BUILTIN_SKILLS = {
+  {
+    name = "maki-plugin-dev",
+    description = "Write or modify maki plugins or init.lua config in Lua: custom tools, slash commands, keymaps, UI.",
+    scope = "global",
+  },
+}
 
 local function parse_frontmatter(content)
   local fm_text, body = content:match("^%-%-%-\r?\n(.-)\r?\n%-%-%-\r?\n?(.*)$")
@@ -42,8 +50,8 @@ local function scan(dir, scope, skills)
   end
 end
 
-local function project_ancestors()
-  local cwd = maki.uv.cwd()
+local function project_ancestors(start_dir)
+  local cwd = start_dir or maki.uv.cwd()
   if not cwd then
     return {}
   end
@@ -60,8 +68,11 @@ local function project_ancestors()
   return dirs
 end
 
-local function discover()
+local function discover(start_dir)
   local skills = {}
+  for _, s in ipairs(BUILTIN_SKILLS) do
+    skills[s.name] = s
+  end
   local config = maki.env.config_dir()
   if config then
     scan(maki.fs.joinpath(config, "skills"), "global", skills)
@@ -72,7 +83,7 @@ local function discover()
       scan(maki.fs.joinpath(home, rel), "global", skills)
     end
   end
-  for _, ancestor in ipairs(project_ancestors()) do
+  for _, ancestor in ipairs(project_ancestors(start_dir)) do
     for _, rel in ipairs(PROJECT_SKILL_DIRS) do
       scan(maki.fs.joinpath(ancestor, rel), "project", skills)
     end
@@ -158,3 +169,28 @@ maki.api.register_command({
     end
   end,
 })
+
+maki.api.set_slot("completion.sources", function(prev, list)
+  list[#list + 1] = {
+    name = "skills",
+    trigger = SKILL_TRIGGER,
+    complete = function(query, ctx)
+      local items = sorted_items(discover(ctx and ctx.cwd))
+      local names = {}
+      for i, item in ipairs(items) do
+        names[i] = item.label
+      end
+      local matches = maki.text.fuzzy_list(query, names)
+      local out = {}
+      for _, m in ipairs(matches) do
+        out[#out + 1] = {
+          label = SKILL_TRIGGER .. m.text,
+          text = "Use the `" .. m.text .. "` skill:",
+          score = m.score,
+        }
+      end
+      return out
+    end,
+  }
+  return prev(list)
+end)

@@ -74,6 +74,24 @@ maki.api.create_autocmd("SessionTitleChanged", {
   end,
 })
 
+maki.api.create_autocmd("SessionFocusChanged", {
+  callback = function()
+    local s = maki.session.read()
+    if not s then
+      return
+    end
+    set_title(title_for(s.title))
+    local status = WORKMUX_STATUS[s.status]
+    if not status then
+      return
+    end
+    if status == "done" and last_status == nil then
+      return
+    end
+    set_status(status)
+  end,
+})
+
 maki.api.create_autocmd("SessionEnd", {
   callback = function(ev)
     if ev.data.reason ~= "shutdown" then
