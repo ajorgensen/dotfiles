@@ -129,7 +129,7 @@
   step-back = reset --soft HEAD^
 
   change = "!git switch $(git branch-select)"
-  branches= "!git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short) %(committerdate:relative)'"
+  branches = "!f() { git for-each-ref --sort=-committerdate refs/heads/ --format='%(committerdate:relative)|%(refname:short)|%(contents:subject)' | awk -F'|' -v q=\"${1:-}\" 'tolower($2) ~ tolower(q)' | column -t -s '|'; }; f"
   branch-select = "!git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short) %(committerdate:relative)' | fzf --height=20% --reverse --info=inline | awk '{print $1}'"
   branch-name = current-branch
 
@@ -142,11 +142,8 @@
   update = "!git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase"
   rb = "!f() { git fetch && DEFAULT=$(git default-branch); DEFAULT=${DEFAULT:-main}; git rebase origin/$DEFAULT; }; f"
 
-    # Delete the current branch (switch to default first, or detach in a linked worktree)
-  done = "!f() {\n  target=\"${1:-.}\"\n\n  wt=\"$(git -C \"$target\" rev-parse --show-toplevel)\" || exit 1\n  branch=\"$(git -C \"$wt\" branch --show-current)\"\n\n  if [ -z \"$branch\" ]; then\n    echo \"Refusing: worktree is in detached HEAD state\"\n    exit 1\n  fi\n\n  default=\"$(git -C \"$wt\" default-branch 2>/dev/null || git -C \"$wt\" symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed \"s#^origin/##\")\"\n  default=\"${default:-main}\"\n\n  if [ \"$branch\" = \"$default\" ]; then\n    echo \"Refusing to delete default branch: $branch\"\n    exit 1\n  fi\n\n  gitdir=\"$(git -C \"$wt\" rev-parse --path-format=absolute --git-dir 2>/dev/null || git -C \"$wt\" rev-parse --git-dir)\"\n  common=\"$(git -C \"$wt\" rev-parse --path-format=absolute --git-common-dir 2>/dev/null || git -C \"$wt\" rev-parse --git-common-dir)\"\n\n  if [ \"$gitdir\" != \"$common\" ]; then\n    echo \"Detaching HEAD in worktree: $wt\"\n    echo \"Deleting branch: $branch\"\n    git -C \"$wt\" switch --detach &&\n      git -C \"$wt\" branch -D \"$branch\"\n  else\n    echo \"Switching to $default\"\n    echo \"Deleting branch: $branch\"\n    git -C \"$wt\" switch \"$default\" &&\n      git -C \"$wt\" branch -D \"$branch\"\n  fi\n}; f"
-
-    # Remove the current (or given) linked worktree and prune
-  wt-done = "!f() {\n  target=\"${1:-.}\"\n\n  wt=\"$(git -C \"$target\" rev-parse --show-toplevel)\" || exit 1\n  gitdir=\"$(git -C \"$wt\" rev-parse --path-format=absolute --git-dir 2>/dev/null || git -C \"$wt\" rev-parse --git-dir)\"\n  common=\"$(git -C \"$wt\" rev-parse --path-format=absolute --git-common-dir 2>/dev/null || git -C \"$wt\" rev-parse --git-common-dir)\"\n\n  if [ \"$gitdir\" = \"$common\" ]; then\n    echo \"Refusing: not a linked worktree: $wt\"\n    exit 1\n  fi\n\n  echo \"Removing worktree: $wt\"\n  cd / || exit 1\n  git --git-dir=\"$common\" worktree remove --force \"$wt\" &&\n    git --git-dir=\"$common\" worktree prune\n}; f"
+    # Finish the current worktree or branch (workmux-aware)
+  done = "!f() {\n  wt=\"$(git rev-parse --show-toplevel)\" || exit 1\n  gitdir=\"$(git -C \"$wt\" rev-parse --path-format=absolute --git-dir 2>/dev/null || git -C \"$wt\" rev-parse --git-dir)\"\n  common=\"$(git -C \"$wt\" rev-parse --path-format=absolute --git-common-dir 2>/dev/null || git -C \"$wt\" rev-parse --git-common-dir)\"\n\n  if [ \"$gitdir\" != \"$common\" ]; then\n    if command -v workmux >/dev/null 2>&1; then\n      workmux rm \"$@\"\n    else\n      branch=\"$(git -C \"$wt\" branch --show-current)\"\n      echo \"Removing worktree: $wt\"\n      cd / || exit 1\n      git --git-dir=\"$common\" worktree remove \"$@\" \"$wt\" &&\n        git --git-dir=\"$common\" worktree prune &&\n        if [ -n \"$branch\" ]; then git --git-dir=\"$common\" branch -D \"$branch\"; fi\n    fi\n    return\n  fi\n\n  branch=\"$(git -C \"$wt\" branch --show-current)\"\n  if [ -z \"$branch\" ]; then\n    echo \"Refusing: worktree is in detached HEAD state\"\n    exit 1\n  fi\n\n  default=\"$(git -C \"$wt\" default-branch 2>/dev/null || git -C \"$wt\" symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed \"s#^origin/##\")\"\n  default=\"${default:-main}\"\n\n  if [ \"$branch\" = \"$default\" ]; then\n    echo \"Refusing to delete default branch: $branch\"\n    exit 1\n  fi\n\n  echo \"Switching to $default and deleting branch: $branch\"\n  git -C \"$wt\" switch \"$default\" &&\n    git -C \"$wt\" branch -D \"$branch\"\n}; f"
   destroy = "!BRANCH=$(git current-branch); f() { git checkout $(git default-branch) && git branch -D $BRANCH && git push origin --delete $BRANCH; }; f"
 
   aliases = config --get-regexp alias
@@ -162,13 +159,11 @@
     # Find commits by commit message
   fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
 
-    # Remove branches that have already been merged with main.
-    # a.k.a. ‘delete merged’
-  dm = "!git branch --merged | grep -v '\\*' | grep -v $(git default-branch) | xargs -n 1 git branch -d"
-  rm-merged = "!git branch --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" { print $1 }' | xargs -r git branch -D"
-  gone = "!f() { git fetch --all --prune; git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D; }; f"
-  tidy = "!f() { git fetch --prune; DEFAULT=$(git default-branch); DEFAULT=${DEFAULT:-main}; echo \"Cleaning up branches merged into $DEFAULT...\"; git branch -vv | grep ': gone]' | awk '{print ($1 == \"*\" ? $2 : $1)}' | xargs -r git branch -D; git branch --merged \"$DEFAULT\" | grep -v \"^\\*\" | grep -v \"^  $DEFAULT$\" | xargs -r git branch -d; }; f"
-  scrub = "!git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)|%(committerdate:relative)|%(subject)' | column -t -s '|' | fzf --multi --header 'Select branches to DELETE (TAB to multi-select)' --preview 'git log --oneline --graph --max-count=10 {1}' | awk '{print $1}' | xargs -r git branch -D"
+    # Interactive cleanup of local branches and worktrees
+  scrub = "!f() {\n  default=\"$(git default-branch 2>/dev/null || echo main)\"\n  default=\"${default:-main}\"\n  base=\"origin/$default\"\n  git rev-parse --verify \"$base\" >/dev/null 2>&1 || base=\"$default\"\n  merged=\"$(git for-each-ref --merged=\"$base\" refs/heads/ --format=\"%(refname:short)\" | paste -sd \",\" -)\"\n\n  selected=\"$(git for-each-ref --sort=-committerdate refs/heads/ --format=\"%(refname:short)|%(committerdate:relative)|%(upstream:track)|%(worktreepath)|%(contents:subject)\" |\n    awk -F\"|\" -v merged=\"$merged\" -v def=\"$default\" '\n      BEGIN { n = split(merged, m, \",\"); for (i = 1; i <= n; i++) if (m[i] != \"\") is_merged[m[i]] = 1 }\n      {\n        br = $1; age = $2; track = $3; wt = $4; subj = $5\n        if (br == def) next\n        state = (is_merged[br] ? \"[merged]\" : (track == \"[gone]\" ? \"[gone]\" : \"[unmerged]\"))\n        wt_col = \"-\"\n        if (wt != \"\") {\n          wt_name = wt\n          sub(/^.*\\/(\\.worktrees|worktrees\\/[^\\/]+)\\//, \"\", wt_name)\n          if (wt_name == wt) sub(/^.*\\//, \"\", wt_name)\n          wt_col = \"[wt:\" wt_name \"]\"\n        }\n        printf \"%s|%s|%s|%s|%s\\n\", br, age, state, wt_col, subj\n      }' |\n    column -t -s \"|\" |\n    fzf --multi --query \"${1:-}\" \\\n      --header \"Select branches/worktrees to DELETE (TAB to multi-select)\" \\\n      --preview 'wt=$(git for-each-ref --format=\"%(worktreepath)\" \"refs/heads/{1}\"); if [ -n \"$wt\" ] && [ -d \"$wt\" ]; then echo \"=== Worktree: $wt ===\"; git -C \"$wt\" status -sb; echo \"\"; fi; git log --color=always --oneline --graph --max-count=15 {1}')\"\n\n  [ -z \"$selected\" ] && return 0\n\n  echo \"$selected\" | awk '{print $1}' | while read -r br; do\n    [ -z \"$br\" ] && continue\n    wt=\"$(git for-each-ref --format=\"%(worktreepath)\" \"refs/heads/$br\")\"\n    if [ -n \"$wt\" ]; then\n      if command -v workmux >/dev/null 2>&1; then\n        echo \"Removing worktree & branch via workmux: $br ($wt)\"\n        workmux rm -f \"$br\" || workmux rm -f \"$(basename \"$wt\")\"\n      else\n        echo \"Removing worktree $wt and branch $br\"\n        git worktree remove --force \"$wt\" && git branch -D \"$br\"\n      fi\n    else\n      git branch -D \"$br\"\n    fi\n  done\n}; f"
+
+    # Interactive cleanup of remote branches on origin
+  scrub-remote = "!f() {\n  default=\"$(git default-branch 2>/dev/null || echo main)\"\n  default=\"${default:-main}\"\n  git for-each-ref --sort=-committerdate refs/remotes/origin/ --format=\"%(refname:lstrip=3)|%(committerdate:relative)|%(authorname)|%(contents:subject)\" |\n    awk -F\"|\" -v def=\"$default\" '$1 != \"HEAD\" && $1 != def && $1 != \"\"' |\n    column -t -s \"|\" |\n    fzf --multi --query \"${1:-aj/}\" \\\n      --header \"Select REMOTE origin branches to DELETE (TAB to multi-select)\" \\\n      --preview 'git log --color=always --oneline --graph --max-count=15 origin/{1}' |\n    awk '{print $1}' |\n    xargs -r git push origin --delete\n}; f"
 
     # List contributors with number of commits.
   contributors = shortlog --summary --numbered --no-merges
@@ -184,3 +179,5 @@
 
 [include]
   path = ~/.gitoverrides
+[checkout]
+	workers = 8

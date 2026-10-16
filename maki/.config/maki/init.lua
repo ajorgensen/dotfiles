@@ -40,5 +40,4 @@ maki.setup({
     index = { max_file_size_mb = 4 },
   },
   always_yolo = true,
-  always_thinking = "adaptive",
 })

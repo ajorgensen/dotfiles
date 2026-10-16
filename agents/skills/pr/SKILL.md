@@ -1,361 +1,97 @@
 ---
-name: my-pull-request
-description: Drafts or opens concise pull requests that explain intent, architectural change, rollout, and meaningful risk. Use when the user asks to create, draft, open, or write a pull request or PR.
-allowed-tools: Bash(git *), Bash(gh pr *), Bash(gh stack *)
-metadata:
-  short-description: Draft concise pull requests
+name: self-contained-pr
+description: Creates self-contained pull requests with useful visuals and increasing levels of detail for reviewers who cannot see the code. Use when the user asks for a PR that can be understood and reviewed without the diff, or invokes self-contained-pr.
 ---
+
+# Self-contained pull requests
 
 ## Purpose
 
-Generate a pull request description that helps a human reviewer decide where
-to spend attention.
-
-The pull request description is not a summary of the diff.
-
-The reviewer can inspect the code, file list, and individual changes. Do not
-repeat information that is easy to get from the diff.
-
-Instead, provide information that is difficult or impossible to infer from
-the code.
-
-Prioritize:
-
-- Why the change exists.
-- What behavior changes.
-- Important assumptions.
-- Important design decisions.
-- Risks and failure modes.
-- Areas that need reviewer judgment.
-- Evidence that supports the change.
-- Important uncertainty.
-
-Optimize for signal-to-noise ratio.
-
-The goal is to provide the minimum amount of information that materially
-improves the review.
-
-## Core Principle
-
-Write for reviewer attention.
-
-Assume that reviewer attention is limited.
-
-Help the reviewer answer:
-
-1. Why does this change exist?
-2. What behavior changes?
-3. What is important or unusual?
-4. Where should I spend my attention?
-5. What could go wrong?
-6. What evidence supports this change?
-7. What remains uncertain?
-
-Do not explain every implementation detail.
-
-Do not summarize every file.
-
-Do not describe code that the reviewer can understand by reading the diff.
-
-## Source of Truth
-
-Before writing the description, inspect all available evidence.
-
-This can include:
-
-- The pull request title.
-- The linked issue or task.
-- The diff.
-- Relevant surrounding code.
-- Tests.
-- CI results.
-- Existing comments.
-- Design documents.
-- Other available context.
-
-Separate your conclusions into three categories.
-
-### Observed
-
-A fact directly supported by the available evidence.
-
-Example:
-
-> The change adds tests for a PaymentIntent that has multiple InvoicePayments.
-
-### Inferred
-
-A reasonable conclusion based on the available evidence.
-
-Example:
-
-> The implementation appears to assume that InvoicePayments are available
-> within the prefetch window.
-
-Do not present inferred information as fact.
-
-### Unknown
-
-Information that is important but not established by the available evidence.
-
-Example:
-
-> It is not clear whether the prefetch window can exclude an InvoicePayment
-> that belongs to a balance transaction in the current batch.
-
-Do not hide important uncertainty.
-
-Do not invent intent, requirements, test results, or guarantees.
-
-## Writing Style
-
-Prefer ASD-STE100 Simplified Technical English principles where practical.
-
-### Use simple and direct language
-
-Use short sentences.
-
-Prefer one main idea per sentence.
-
-Prefer active voice.
-
-Use concrete verbs.
-
-Prefer common technical terms.
-
-Use the same term consistently.
-
-Prefer:
-
-> This change adds a lookup from the PaymentIntent to its InvoicePayments.
-
-Avoid:
-
-> This change introduces functionality that facilitates the retrieval of
-> associated InvoicePayment entities.
-
-Prefer:
-
-> Review the retry behavior.
-
-Avoid:
-
-> Special attention should be paid to the manner in which retries are handled.
-
-### Avoid vague language
-
-Do not use vague or promotional words unless you define them with evidence.
-
-Avoid:
-
-- robust
-- comprehensive
-- seamless
-- simple
-- improved
-- optimized
-- efficient
-- flexible
-- clean
-- properly
-- correctly
-- reliable
-
-Prefer:
-
-> Removes one API request for each cache hit.
-
-Over:
-
-> Improves performance.
-
-Prefer:
-
-> The test covers three invoices linked to one PaymentIntent.
-
-Over:
-
-> Adds comprehensive tests.
-
-### Use consistent terminology
-
-Use the names that appear in the code and domain model.
-
-Do not switch between synonyms.
-
-For example, if the system uses `InvoicePayment`, do not alternate between:
-
-- invoice payment
-- payment record
-- invoice transaction
-- payment object
-
-Use `InvoicePayment` consistently.
-
-## Information Priority
-
-Prioritize information in this order:
-
-1. Why the change exists.
-2. Where reviewer judgment is most valuable.
-3. Non-obvious assumptions and design decisions.
-4. Behavioral changes.
-5. Risks and blast radius.
-6. Concrete verification evidence.
-7. Implementation details that are not obvious from the diff.
-
-Do not include lower-priority information when it adds noise.
-
-## Review Focus
-
-The `Review focus` section has high value.
-
-Use it when the change contains a decision, assumption, or risk that requires
-human judgment.
-
-State exactly what the reviewer should examine.
-
-Good:
-
-> ## Review focus
->
-> Review the cache-miss behavior. A miss can mean that the charge has no
-> invoice relationship, or that the relationship was outside the prefetch
-> window.
-
-Good:
-
-> ## Review focus
->
-> The main design decision is to resolve relationships through InvoicePayments
-> instead of querying invoices for every charge. Review whether this boundary
-> is correct.
-
-Do not write:
-
-> Please review the code.
-
-Do not create this section when there is no meaningful review focus.
-
-## Design Notes
-
-Use `Design notes` only when the diff does not explain an important decision.
-
-Include:
-
-- Constraints.
-- Tradeoffs.
-- Rejected alternatives.
-- Important assumptions.
-- Reasons for architectural boundaries.
-
-Good:
-
-> The sync process does not retain state between runs. The implementation
-> cannot depend on keeping all InvoicePayments in memory.
-
-Do not repeat the implementation.
-
-## Risk or Impact
-
-Describe specific risks or affected behavior.
-
-Good:
-
-> Incorrect invoice detection can classify an AR transaction as revenue.
-
-Good:
-
-> This changes behavior only for PaymentIntents associated with more than one
-> invoice.
-
-Good:
-
-> Low risk. This change renames an internal type and does not change runtime
-> behavior.
-
-Avoid unsupported statements such as:
-
-> Minimal risk.
-
-Explain why the risk is low.
-
-## Verification
-
-Report concrete evidence.
-
-Include relevant information such as:
-
-- Tests that ran.
-- Important scenarios covered.
-- CI results.
-- Manual verification.
-- Known gaps.
-
-Good:
-
-> - `go test ./...` passes.
-> - The tests cover one PaymentIntent linked to multiple InvoicePayments.
-> - Existing single-invoice behavior remains covered.
-
-If verification is incomplete, say so.
-
-Good:
-
-> The tests cover the multi-invoice path. No test was found for a cache miss
-> caused by an incomplete prefetch window.
-
-Never claim that testing is comprehensive unless the evidence supports that
-claim.
-
-## Uncertainty
-
-Surface important uncertainty.
-
-Do not convert uncertainty into confident prose.
-
-Good:
-
-> ## Open questions
->
-> It is not clear whether the prefetch window can exclude an InvoicePayment
-> that belongs to a balance transaction in the current batch.
-
-Good:
-
-> The implementation assumes that all relevant invoice relationships can be
-> found through InvoicePayments. Confirm this assumption against the API
-> behavior.
-
-Do not manufacture uncertainty for simple changes.
-
-## Adaptive Structure
-
-Do not use a fixed template that forces every section to appear.
-
-Include only sections that contain useful information.
-
-The preferred order is:
-
-1. Why
-2. What changed
-3. Review focus
-4. Design notes
-5. Risk or impact
-6. Verification
-7. Open questions
-
-A simple change might contain only:
-
-```markdown
-## Why
-
-...
-
-## What changed
-
-...
-
-## Verification
-
-...
+Write a review brief for someone who cannot see the actual code.
+The author must inspect the code; the reader must not need it to understand
+and assess the purpose, behavior, design, and risks of the change.
+This enables design and behavioral review. It does not replace implementation review.
+
+## Quick start
+
+Create a ready-for-review GitHub PR by default, rather than only returning text.
+For an existing PR, update its title and body without changing its draft status.
+Use draft status only when explicitly requested.
+If the user asks only for a description or preview, return text without publishing.
+Do not commit or push without explicit permission.
+Use `[<scope>] <description>` for the title when a meaningful scope exists.
+See [EXAMPLES.md](EXAMPLES.md) for the intended structure and depth.
+Read [VISUALS.md](VISUALS.md) when preparing a visual.
+
+## Workflow
+
+### 1. Gather evidence
+
+- Establish the requested change range and target branch. For an existing PR,
+  use its actual base and head. Ask if the intended scope cannot be determined.
+- Read the task or issue, commits, full diff, relevant surrounding code, and tests.
+  Inspect available design notes and CI results when they help explain the change.
+- Understand both the old and new behavior. A diff alone may not explain either.
+- Separate observed facts, inferred intent or assumptions, and important unknowns.
+  Do not invent requirements, rejected alternatives, guarantees, or test results.
+
+### 2. Build the reader's mental model
+
+Answer these questions before writing:
+
+1. What problem exists today, and what are its consequences?
+2. What happens differently after this change? Who or what is affected?
+3. What stays the same? Which boundaries and guarantees matter?
+4. How does the change work, and why does that mechanism produce the new behavior?
+5. Why this approach? Which constraints and tradeoffs affect the decision?
+6. What could go wrong? Consider relevant failure paths and operational effects.
+7. What evidence supports the claims? What still needs reviewer judgment?
+
+Use a concrete before-and-after scenario when it clarifies behavior.
+For an internal refactor or documentation change, explain its purpose and scope
+without manufacturing a runtime behavior change.
+
+### 3. Write the brief
+
+Organize the body in increasing levels of detail. A reader should be able to
+stop after the opening and still understand the change and its main caveat.
+Use only the layers that help this change:
+
+1. **Summary:** One to three short sentences about the problem, outcome, and
+   scope. Keep major risks and important review questions visible near the top.
+2. **Visual overview:** A compact diagram or image when it explains the change
+   better than prose. Prefer GitHub-native Mermaid. Omit decorative visuals.
+3. **Behavior:** Short before-and-after bullets, affected callers, unchanged
+   behavior, and relevant edge cases. Do not narrate every arrow in the diagram.
+4. **Details:** Important mechanisms, constraints, tradeoffs, and failure paths.
+   Explain why the mechanism produces the behavior, not which files were edited.
+   Put design, migration, rollout, and rollback detail under descriptive headings
+   lower down. Use optional `<details>` blocks for lengthy supporting material.
+5. **Verification:** Connect evidence to behavioral claims. Separate tests found
+   from tests actually run. Report supported outcomes and meaningful gaps.
+
+Use short paragraphs, bullets, concrete verbs, and consistent domain terms.
+Define unfamiliar terms at first use. Avoid promotional or unsupported claims.
+Do not hide material risks, unresolved decisions, or verification failures in
+collapsed sections. Mention alternatives only when supported and useful.
+Paths and identifiers may locate evidence, but cannot replace an explanation.
+Do not dump code, enumerate every file, or force every layer into a small change.
+Do not hide important uncertainty or manufacture it for routine changes.
+
+### 4. Run the blind-reader check
+
+Reread the title and body as if the code and earlier conversation were unavailable.
+Could the reader explain the problem, predict the new behavior, describe the
+mechanism, identify its limits, and challenge a meaningful design decision?
+
+Does the opening stand on its own? Can readers find deeper detail without
+reading a wall of text? Does each visual explain something useful and match
+the evidence? Keep the summary understandable even if images fail to load.
+
+Add missing context or evidence. Remove details that do not help that assessment.
+Check every factual claim, including diagram labels and arrows, against the
+evidence. State important unresolved questions instead of guessing.
+
+Create or update the PR with the checked title and body, then return its URL.
+For an explicit description-only or preview request, return the proposed title
+and body without publishing.
