@@ -47,3 +47,4 @@ nvim.log
 
 **/.claude/.cc-writes/
 .agentbot
+.tack/

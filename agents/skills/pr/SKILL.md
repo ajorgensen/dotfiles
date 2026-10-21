@@ -1,97 +1,95 @@
 ---
-name: self-contained-pr
-description: Creates self-contained pull requests with useful visuals and increasing levels of detail for reviewers who cannot see the code. Use when the user asks for a PR that can be understood and reviewed without the diff, or invokes self-contained-pr.
+name: pr
+description: Use when asked to write or improve a pull request title or description, prepare a PR from a branch diff, or create or update a GitHub PR. Also applies to merge request descriptions; not to reviewing code or merging PRs.
 ---
 
-# Self-contained pull requests
+# Pull Requests
 
-## Purpose
+Set the reviewer up to understand what changed, why it matters, how it works,
+and how to verify it. Keep the description short, concrete, and self-contained.
 
-Write a review brief for someone who cannot see the actual code.
-The author must inspect the code; the reader must not need it to understand
-and assess the purpose, behavior, design, and risks of the change.
-This enables design and behavioral review. It does not replace implementation review.
+Based on [Writing A Great Pull Request Description](https://www.hackerone.com/blog/writing-great-pull-request-description)
+by Gonzalo Bañuelos, published by HackerOne.
 
-## Quick start
+## Gather context
 
-Create a ready-for-review GitHub PR by default, rather than only returning text.
-For an existing PR, update its title and body without changing its draft status.
-Use draft status only when explicitly requested.
-If the user asks only for a description or preview, return text without publishing.
-Do not commit or push without explicit permission.
-Use `[<scope>] <description>` for the title when a meaningful scope exists.
-See [EXAMPLES.md](EXAMPLES.md) for the intended structure and depth.
-Read [VISUALS.md](VISUALS.md) when preparing a visual.
+1. Read repository instructions and any applicable PR template. Preserve required
+   template sections; use the structure below when no template applies.
+2. Establish the request: draft text, create a PR, or update a specific PR.
+   Writing a description does not authorize publishing it.
+3. Inspect the branch, working tree, commits, and full diff against the intended
+   base. For an existing PR, use `gh pr view` to confirm its repository, number,
+   base/head branches, title, body, and URL. Do not assume the base is `main`.
+   For a stacked PR, compare with its parent branch, not the entire stack.
+4. Read relevant code, tests, issue/spec context, and recorded validation results.
+   Separate committed branch changes from uncommitted work; do not describe local
+   work as part of a published PR unless it is actually in its head branch.
+5. Ask a focused question when the base, target, motivation, or scope is unclear.
+   Do not invent business goals, issue links, design rationale, or test results.
 
-## Workflow
+## Write the title and body
 
-### 1. Gather evidence
+Use a simple title: `[<scope>] <description>`. Name the logical subsystem or
+change, not a list of files. Omit the scope if no useful one exists.
 
-- Establish the requested change range and target branch. For an existing PR,
-  use its actual base and head. Ask if the intended scope cannot be determined.
-- Read the task or issue, commits, full diff, relevant surrounding code, and tests.
-  Inspect available design notes and CI results when they help explain the change.
-- Understand both the old and new behavior. A diff alone may not explain either.
-- Separate observed facts, inferred intent or assumptions, and important unknowns.
-  Do not invent requirements, rejected alternatives, guarantees, or test results.
+Use these headings as a starting point, not a reason to add filler:
 
-### 2. Build the reader's mental model
+- **What?** Explain the net behavior change in a few sentences. Give enough
+  context to understand it without opening an issue. Link the issue afterward;
+  never substitute “See ticket” or “See title” for the explanation.
+- **Why?** Explain the problem and the engineering or business goal. Say why
+  the change is needed, rather than repeating what it does.
+- **How?** Highlight significant design decisions, dependencies, and tradeoffs
+  that help a reviewer assess the approach. Explain reasoning, not a file-by-file
+  inventory or a narration of the diff.
+- **Testing?** State what was actually checked and the observed results. Include
+  commands or reproduction steps when useful. Distinguish checks already run
+  from suggested reviewer steps. Identify untested cases, reasons, and risks.
+  If no checks ran, say so; test code in the diff is not proof of a passing run.
+- **Screenshots** (optional): Show before/after visuals for UI changes when
+  available. CLI output or infrastructure plans can also demonstrate the effect.
+  Use a `<details>` block for long supporting output. Do not fabricate evidence
+  or upload private material without permission.
+- **Anything Else?** (optional): Call out relevant risks, deployment/migration
+  needs, technical debt, limitations, or follow-ups. Omit speculative redesigns
+  and unrelated possibilities that distract from this change.
 
-Answer these questions before writing:
+Use complete sentences, active voice, and plain language. Scale detail to the
+change. Remove empty optional sections, repetition, cryptic fragments, and detail
+already clear from the diff. If explaining the scope requires a long essay,
+suggest splitting the PR; do not split branches or change code on your own.
 
-1. What problem exists today, and what are its consequences?
-2. What happens differently after this change? Who or what is affected?
-3. What stays the same? Which boundaries and guarantees matter?
-4. How does the change work, and why does that mechanism produce the new behavior?
-5. Why this approach? Which constraints and tradeoffs affect the decision?
-6. What could go wrong? Consider relevant failure paths and operational effects.
-7. What evidence supports the claims? What still needs reviewer judgment?
+## Example
 
-Use a concrete before-and-after scenario when it clarifies behavior.
-For an internal refactor or documentation change, explain its purpose and scope
-without manufacturing a runtime behavior change.
+Title: `[webhooks] prevent duplicate deliveries after retries`
 
-### 3. Write the brief
+```markdown
+## What?
+Retries now reuse the original delivery ID instead of creating a new one.
 
-Organize the body in increasing levels of detail. A reader should be able to
-stop after the opening and still understand the change and its main caveat.
-Use only the layers that help this change:
+## Why?
+A timeout can occur after the receiver accepts a webhook. A stable ID lets
+receivers recognize the retry and avoid processing the same event twice.
 
-1. **Summary:** One to three short sentences about the problem, outcome, and
-   scope. Keep major risks and important review questions visible near the top.
-2. **Visual overview:** A compact diagram or image when it explains the change
-   better than prose. Prefer GitHub-native Mermaid. Omit decorative visuals.
-3. **Behavior:** Short before-and-after bullets, affected callers, unchanged
-   behavior, and relevant edge cases. Do not narrate every arrow in the diagram.
-4. **Details:** Important mechanisms, constraints, tradeoffs, and failure paths.
-   Explain why the mechanism produces the behavior, not which files were edited.
-   Put design, migration, rollout, and rollback detail under descriptive headings
-   lower down. Use optional `<details>` blocks for lengthy supporting material.
-5. **Verification:** Connect evidence to behavioral claims. Separate tests found
-   from tests actually run. Report supported outcomes and meaningful gaps.
+## How?
+Persist the delivery ID before the first attempt and reuse it on retries.
 
-Use short paragraphs, bullets, concrete verbs, and consistent domain terms.
-Define unfamiliar terms at first use. Avoid promotional or unsupported claims.
-Do not hide material risks, unresolved decisions, or verification failures in
-collapsed sections. Mention alternatives only when supported and useful.
-Paths and identifiers may locate evidence, but cannot replace an explanation.
-Do not dump code, enumerate every file, or force every layer into a small change.
-Do not hide important uncertainty or manufacture it for routine changes.
+## Testing?
+Not run. Suggested check: simulate a timeout after acceptance and confirm
+that the retry carries the original delivery ID.
+```
 
-### 4. Run the blind-reader check
+## Publish only when requested
 
-Reread the title and body as if the code and earlier conversation were unavailable.
-Could the reader explain the problem, predict the new behavior, describe the
-mechanism, identify its limits, and challenge a meaningful design decision?
-
-Does the opening stand on its own? Can readers find deeper detail without
-reading a wall of text? Does each visual explain something useful and match
-the evidence? Keep the summary understandable even if images fail to load.
-
-Add missing context or evidence. Remove details that do not help that assessment.
-Check every factual claim, including diagram labels and arrows, against the
-evidence. State important unresolved questions instead of guessing.
-
-Create or update the PR with the checked title and body, then return its URL.
-For an explicit description-only or preview request, return the proposed title
-and body without publishing.
+- For a draft-only request, return the title and Markdown body. Do not mutate Git
+  or GitHub state. Editing an existing PR preserves unrelated user-written content.
+- Before publishing, confirm the target and ensure the description matches the
+  remote head. If commits are not pushed, stop and ask; creating a PR is not
+  permission to commit, push, force-push, or merge. Do not silently switch targets.
+- When posting on the user's behalf, identify the model as required by their
+  instructions, using the actual model slug rather than inventing one.
+- Write the body to a temporary file and use `gh pr create --base <base> --head
+  <head> --title <title> --body-file <file>` or `gh pr edit <number> --title
+  <title> --body-file <file>`. Pass explicit targets and quote arguments safely.
+- Read the PR back to verify the title/body and report its URL. On failure,
+  report the error; do not claim success or retry against another target.

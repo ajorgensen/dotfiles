@@ -1,2 +1,0 @@
-# pi writes runtime state into settings.json; dotfiles.sh merges it instead.
-^/\.pi/agent/settings\.json$

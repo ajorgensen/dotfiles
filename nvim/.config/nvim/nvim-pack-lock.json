@@ -56,6 +56,10 @@
       "rev": "4663eb3ecd538bd5062628fb6d95bbe6bdca78f6",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
+    "tack.nvim": {
+      "rev": "d7448d3029f1cc9e7ae767af43893a54e5f64a87",
+      "src": "https://github.com/wbunting/tack.nvim"
+    },
     "tokyonight.nvim": {
       "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
       "src": "https://github.com/folke/tokyonight.nvim"

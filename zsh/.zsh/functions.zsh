@@ -1,4 +1,27 @@
 # Keychain helpers
+# Save or update a value without putting it in shell history or process arguments.
+function env-set() {
+    if (( $# != 1 )) || [[ ! $1 =~ '^[a-zA-Z_][a-zA-Z0-9_]*$' ]]; then
+        print -u2 'Usage: env-set VARIABLE_NAME'
+        return 1
+    fi
+
+    # A final -w makes security prompt for the password without echoing it.
+    security add-generic-password -U -a "$USER" -D "environment variable" -s "$1" -w
+}
+
+# Export a saved value into the current shell. Failed lookups leave it unchanged.
+function env-get() {
+    if (( $# != 1 )) || [[ ! $1 =~ '^[a-zA-Z_][a-zA-Z0-9_]*$' ]]; then
+        print -u2 'Usage: env-get VARIABLE_NAME'
+        return 1
+    fi
+
+    # Use a positional parameter so a local variable cannot shadow the target.
+    argv[2]="$(keychain-environment-variable "$1")" || return
+    export "$1=$2"
+}
+
 function keychain-environment-variable() {
     security find-generic-password -w -a ${USER} -D "environment variable" -s "${1}"
 }
