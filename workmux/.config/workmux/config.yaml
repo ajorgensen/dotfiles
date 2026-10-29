@@ -1,9 +1,19 @@
 mode: session
 base_branch: origin/main
 
+dashboard:
+  width: full
+  agent_columns: [number, worktree, git, pr, time, status, project]
+  worktree_columns: [number, worktree, git, pr, age, agent, project]
+
 nerdfont: true
 worktree_dir: ~/worktrees/{project}
+agent: pi
 
 sidebar:
   layout: tiles
 
+panes:
+  - command: <agent> 
+    focus: true
+  - split: horizontal

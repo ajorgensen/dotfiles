@@ -61,5 +61,7 @@ done
 # Local preferences and runtime state take precedence over shared defaults.
 merge_json "$SCRIPT_DIR/pi/settings.json" "$HOME/.pi/agent/settings.json"
 merge_json "$SCRIPT_DIR/pi/lsp.json" "$HOME/.pi/agent/lsp.json"
+merge_json "$SCRIPT_DIR/pi/keybindings.json" "$HOME/.pi/agent/keybindings.json"
 copy "$SCRIPT_DIR/pi/extensions" "$HOME/.pi/agent/extensions"
+copy "$SCRIPT_DIR/pi/agents" "$HOME/.pi/agent/agents"
 copy "$SCRIPT_DIR/pi/themes" "$HOME/.pi/agent/themes"

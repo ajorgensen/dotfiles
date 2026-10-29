@@ -10,7 +10,6 @@
   "packages": [
     "npm:pi-lsp",
     "npm:@weshipwork/pi-herdr",
-    "npm:pi-subagents",
     "npm:@eko24ive/pi-ask"
   ],
   "modelRoulette": {
