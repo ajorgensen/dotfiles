@@ -3,6 +3,7 @@ require("window")
 require("switcher")
 require("caffeine")
 require("github_reviews").start()
+require("ai_usage").start()
 
 -- Enable CLI integration (`hs -c ...`) for local validation/debugging.
 pcall(require, "hs.ipc")
