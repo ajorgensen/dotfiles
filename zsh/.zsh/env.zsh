@@ -26,6 +26,7 @@ addToPathFront "$HOME/go/bin"
 addToPathFront "$HOME/.local/bin"
 addToPathFront "$HOME/.local/sbin"
 addToPathFront "$HOME/bin"
+addToPathFront "$HOME/scripts"
 addToPath "$HOME/sbin"
 addToPath "$HOME/.cargo/bin"
 

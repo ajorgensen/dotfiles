@@ -10,7 +10,7 @@ cd "$SCRIPT_DIR"
 
 stow --target="$HOME" \
   ack \
-  bin \
+  scripts \
   git \
   ghostty \
   hammerspoon \
