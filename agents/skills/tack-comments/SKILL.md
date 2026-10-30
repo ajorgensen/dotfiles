@@ -1,6 +1,6 @@
 ---
 name: tack-comments
-description: Pick up code-review comments left in Neovim via tack.nvim. Reads the .tack/review.json sidecar, implements each open comment against the referenced file/line, and marks comments resolved. Use when the user says "do my hunk comments", "apply the review comments", "check the review sidecar", or after they review a diff in Neovim.
+description: Pick up code-review comments left in Neovim via tack.nvim. Reads the .tack/review.json sidecar, implements each open comment against the referenced file/line, and marks comments resolved. Use when the user says "do my Tack comments", "apply the review comments", "check the review sidecar", or after they review a diff in Neovim.
 ---
 
 # tack.nvim comments

@@ -56,6 +56,10 @@ copy "$SCRIPT_DIR/AGENTS.md" "$HOME/.config/maki/AGENTS.md"
 for agent_dir in "$HOME/.codex" "$HOME/.claude" "$HOME/.pi/agent" "$HOME/.config/maki"; do
   copy "$SCRIPT_DIR/guidance" "$agent_dir/guidance"
   copy "$SCRIPT_DIR/skills" "$agent_dir/skills"
+  # Private skills live outside this public repo.
+  if [ -d "$HOME/.agents/skills" ]; then
+    copy "$HOME/.agents/skills" "$agent_dir/skills"
+  fi
 done
 
 # Local preferences and runtime state take precedence over shared defaults.

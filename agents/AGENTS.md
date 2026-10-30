@@ -70,7 +70,6 @@ To add a language or scenario guide, follow [guidance/README.md](guidance/README
 - `gh stack` is available to manage stacked PRs on GitHub. Keep all branches in a stack in the same worktree, switching branches there as needed. Stacked PRs must not span worktrees.
 - Do not commit or push code without explicit sign off and permission
 - Do not force push unless I give you permission to
-- When replying on my behalf, make it clear that it is a model responding with `[MODEL SLUG]: <comment>`
 
 ## Git Commits
 

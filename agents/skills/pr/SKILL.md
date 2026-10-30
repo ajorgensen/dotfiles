@@ -1,95 +1,96 @@
 ---
 name: pr
-description: Use when asked to write or improve a pull request title or description, prepare a PR from a branch diff, or create or update a GitHub PR. Also applies to merge request descriptions; not to reviewing code or merging PRs.
+description: Use when asked to draft, write, or improve a pull request title or description, prepare PR text from a branch diff, or write a merge request description.
 ---
 
-# Pull Requests
+# Pull request descriptions
 
-Set the reviewer up to understand what changed, why it matters, how it works,
-and how to verify it. Keep the description short, concrete, and self-contained.
+Give reviewers the context they cannot get from the diff: what changes, why it
+matters, important decisions, risks, and evidence that it works.
 
-Based on [Writing A Great Pull Request Description](https://www.hackerone.com/blog/writing-great-pull-request-description)
-by Gonzalo Bañuelos, published by HackerOne.
+Draft text only. Do not publish PRs, edit files, run tests, commit, or push.
+Use read-only Git and GitHub inspection when needed.
 
 ## Gather context
 
 1. Read repository instructions and any applicable PR template. Preserve required
-   template sections; use the structure below when no template applies.
-2. Establish the request: draft text, create a PR, or update a specific PR.
-   Writing a description does not authorize publishing it.
-3. Inspect the branch, working tree, commits, and full diff against the intended
-   base. For an existing PR, use `gh pr view` to confirm its repository, number,
-   base/head branches, title, body, and URL. Do not assume the base is `main`.
-   For a stacked PR, compare with its parent branch, not the entire stack.
-4. Read relevant code, tests, issue/spec context, and recorded validation results.
-   Separate committed branch changes from uncommitted work; do not describe local
-   work as part of a published PR unless it is actually in its head branch.
-5. Ask a focused question when the base, target, motivation, or scope is unclear.
-   Do not invent business goals, issue links, design rationale, or test results.
+   sections; use the template below when the repository has none.
+2. Establish the intended change and base. For a branch, inspect commits and the
+   full diff against that base. Do not assume the base is `main`. For a stacked
+   PR, compare with its parent branch, not the entire stack.
+3. For an existing PR, confirm its repository, number, base/head branches, title,
+   and body with read-only `gh` commands. Describe its actual remote head, not
+   unrelated local changes. Distinguish committed and uncommitted work when
+   drafting from a working tree.
+4. Read relevant code, tests, issue/spec context, and recorded verification
+   results. When revising supplied text, use the provided context and inspect
+   the repository only if needed.
+5. Ask a focused question if the target, scope, or motivation is unclear. Do not
+   invent rationale, alternatives considered, issue links, or test results.
 
-## Write the title and body
+## Draft the title and body
 
-Use a simple title: `[<scope>] <description>`. Name the logical subsystem or
-change, not a list of files. Omit the scope if no useful one exists.
+Use a short, active title: `[<scope>] <description>`. Name the logical subsystem
+or behavior, not a list of files. Omit the scope if none is useful.
 
-Use these headings as a starting point, not a reason to add filler:
-
-- **What?** Explain the net behavior change in a few sentences. Give enough
-  context to understand it without opening an issue. Link the issue afterward;
-  never substitute “See ticket” or “See title” for the explanation.
-- **Why?** Explain the problem and the engineering or business goal. Say why
-  the change is needed, rather than repeating what it does.
-- **How?** Highlight significant design decisions, dependencies, and tradeoffs
-  that help a reviewer assess the approach. Explain reasoning, not a file-by-file
-  inventory or a narration of the diff.
-- **Testing?** State what was actually checked and the observed results. Include
-  commands or reproduction steps when useful. Distinguish checks already run
-  from suggested reviewer steps. Identify untested cases, reasons, and risks.
-  If no checks ran, say so; test code in the diff is not proof of a passing run.
-- **Screenshots** (optional): Show before/after visuals for UI changes when
-  available. CLI output or infrastructure plans can also demonstrate the effect.
-  Use a `<details>` block for long supporting output. Do not fabricate evidence
-  or upload private material without permission.
-- **Anything Else?** (optional): Call out relevant risks, deployment/migration
-  needs, technical debt, limitations, or follow-ups. Omit speculative redesigns
-  and unrelated possibilities that distract from this change.
-
-Use complete sentences, active voice, and plain language. Scale detail to the
-change. Remove empty optional sections, repetition, cryptic fragments, and detail
-already clear from the diff. If explaining the scope requires a long essay,
-suggest splitting the PR; do not split branches or change code on your own.
-
-## Example
-
-Title: `[webhooks] prevent duplicate deliveries after retries`
+Write for someone who has not followed the ticket. Lead with the behavior change,
+then explain the problem before implementation details. Use this structure:
 
 ```markdown
-## What?
-Retries now reuse the original delivery ID instead of creating a new one.
+## Summary
+<!-- What changes for users or the system? State the primary change first.
+     Name affected areas if the change spans multiple components. -->
 
-## Why?
-A timeout can occur after the receiver accepts a webhook. A stable ID lets
-receivers recognize the retry and avoid processing the same event twice.
+## Risks and limitations
+<!-- Optional: flag blockers, breaking changes, known limitations, or
+     deployment/migration requirements. Delete this section if unnecessary. -->
 
-## How?
-Persist the delivery ID before the first attempt and reuse it on retries.
+## Why
+<!-- What problem does this solve? Include enough context to stand alone.
+     Link the issue for supporting detail, not as a substitute for explanation. -->
 
-## Testing?
-Not run. Suggested check: simulate a timeout after acceptance and confirm
-that the retry carries the original delivery ID.
+## Approach
+<!-- Explain decisions the diff cannot: why this approach, important
+     alternatives or tradeoffs, and departures from existing patterns.
+     Omit details that are obvious from the code. -->
+
+## Verification
+<!-- Optional: describe completed manual checks and observed behavior, with
+     relevant steps/environment. Omit routine CI results and validation-gap
+     disclaimers. Delete this section if there is no useful manual evidence. -->
 ```
 
-## Publish only when requested
+Replace prompts with facts and remove comments. Combine or omit sections when
+allowed by the repository template and they add no distinct context. Do not
+repeat the summary merely to fill “Why” or “Approach.” Avoid “N/A” and
+file-by-file narration.
 
-- For a draft-only request, return the title and Markdown body. Do not mutate Git
-  or GitHub state. Editing an existing PR preserves unrelated user-written content.
-- Before publishing, confirm the target and ensure the description matches the
-  remote head. If commits are not pushed, stop and ask; creating a PR is not
-  permission to commit, push, force-push, or merge. Do not silently switch targets.
-- When posting on the user's behalf, identify the model as required by their
-  instructions, using the actual model slug rather than inventing one.
-- Write the body to a temporary file and use `gh pr create --base <base> --head
-  <head> --title <title> --body-file <file>` or `gh pr edit <number> --title
-  <title> --body-file <file>`. Pass explicit targets and quote arguments safely.
-- Read the PR back to verify the title/body and report its URL. On failure,
-  report the error; do not claim success or retry against another target.
+For bugs, include reproduction steps plus actual and expected behavior when they
+help explain the defect. Put them in an existing section, not a mandatory new one.
+Distinguish reproduction instructions from checks actually performed.
+
+Scale detail to the change, not a word quota. Use short paragraphs and bullets
+for distinct changes or checks.
+Explain significant dependency choices and migration sequencing/reversibility
+when relevant. Put consequential caveats near the top, not in a closing footnote.
+
+Do not include test counts, automated test results, or routine lint, formatting,
+typecheck, and build summaries. CI already reports these; do not duplicate them.
+Verification is for completed manual checks, not an execution log.
+Do not add a “Validation gap” section or equivalent disclaimers such as “not
+exercised end to end,” “tests not run,” or “no production changes were made.”
+Omit incidental tooling failures and unrelated warnings. Keep concrete product
+limitations and deployment requirements in the relevant explanation, not a
+validation disclaimer. Report only manual checks actually performed.
+Include screenshots only when supplied or available; never fabricate evidence.
+
+## Examples
+
+Read [EXAMPLES.md](EXAMPLES.md) for weak-to-strong contrasts, bug reproduction
+steps, and a complete description. Examples illustrate structure, not facts to
+reuse; include only details supported by the current change.
+
+Return the proposed title and Markdown body in chat. Publishing is a separate action.
+
+Sources: [Willow's guidance](https://willowvoice.com/blog/how-to-write-good-pull-request-description)
+and [Oleg Petrov's Juro Tech guide](https://medium.com/juro-tech/writing-effective-pull-request-descriptions-a-developers-guide-56847bbd3870).

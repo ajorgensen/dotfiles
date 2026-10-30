@@ -23,7 +23,7 @@ stow --target="$HOME" \
   zsh
 
 # Link individual files; keep private extensions and runtime state outside the repo.
-stow --no-folding --target="$HOME" hunk maki
+stow --no-folding --target="$HOME" maki
 
 go install ./cmd/epoch
 "$SCRIPT_DIR/agents/sync.sh"

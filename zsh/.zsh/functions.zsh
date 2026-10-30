@@ -132,13 +132,6 @@ function np() {
     return $exit_status
 }
 
-# Watch changes since this branch diverged from origin/main.
-function hunk-base() {
-    local base
-    base="$(git merge-base HEAD origin/main)" || return
-    hunk diff --watch "$base" "$@"
-}
-
 function gwcd() {
     local query="${1:-}"
     local worktrees selected worktree_path label created_at
