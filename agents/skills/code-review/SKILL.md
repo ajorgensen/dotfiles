@@ -24,9 +24,64 @@ Capture the diff command once: `git diff <fixed-point>...HEAD` (three-dot, so th
 Before going further, confirm the fixed point resolves (`git rev-parse <fixed-point>`) and the diff is non-empty. A bad ref or empty diff should fail here, not inside two parallel sub-agents.
 
 ### 2. Identify the spec source
- The full diff command and commit list.
-- The list of standards-source files you found in step 3, **plus the smell baseline from step 3** pasted in full (the sub-agent has no other access to it).
-- The brief: "Report, per file/hunk where relevant, (a) every place the diff violates a documented standard: cite the standard (file + the rule); and (b) any baseline smell you spot: name it and quote the hunk. Distinguish hard violations from judgement calls: documented-standard breaches can be hard, but baseline smells are always judgement calls, and a documented repo standard overrides the baseline. Skip anything tooling enforces. Under 400 words."
+
+Look for the originating spec, in this order:
+
+1. `.docs/PROMPT.md`, when it exists. Its **Invariants** and **Non-goals** sections are spec too: an invariant breach is a spec finding, and anything that serves a non-goal is scope creep.
+2. Issue references in the commit messages (`#123`, `Closes #45`, GitLab `!67`, etc.), fetched via the workflow in `docs/agents/issue-tracker.md`.
+3. A path the user passed as an argument.
+4. A spec file under `docs/`, `specs/`, or `.scratch/` matching the branch name or feature.
+5. If nothing is found, ask the user where the spec is. If they say there isn't one, the **Spec** sub-agent will skip and report "no spec available".
+
+### 3. Identify the standards sources
+
+Anything in the repo that documents how code should be written, such as `CODING_STANDARDS.md` or `CONTRIBUTING.md`.
+
+On top of whatever the repo documents, the Standards axis always carries the **smell baseline** below: a fixed set of Fowler code smells (_Refactoring_, ch.3) that applies even when a repo documents nothing. Two rules bind it:
+
+- **The repo overrides.** A documented repo standard always wins; where it endorses something the baseline would flag, suppress the smell.
+- **Always a judgement call.** Each smell is a labelled heuristic ("possible Feature Envy"), never a hard violation. Like any standard here, skip anything tooling already enforces.
+
+Each smell reads *what it is* → *how to fix*; match it against the diff:
+
+- **Mysterious Name**: a function, variable, or type whose name doesn't reveal what it does or holds. → rename it; if no honest name comes, the design's murky.
+- **Duplicated Code**: the same logic shape appears in more than one hunk or file in the change. → extract the shared shape, call it from both.
+- **Feature Envy**: a method that reaches into another object's data more than its own. → move the method onto the data it envies.
+- **Data Clumps**: the same few fields or params keep travelling together (a type wanting to be born). → bundle them into one type, pass that.
+- **Primitive Obsession**: a primitive or string standing in for a domain concept that deserves its own type. → give the concept its own small type.
+- **Repeated Switches**: the same `switch`/`if`-cascade on the same type recurs across the change. → replace with polymorphism, or one map both sites share.
+- **Shotgun Surgery**: one logical change forces scattered edits across many files in the diff. → gather what changes together into one module.
+- **Divergent Change**: one file or module is edited for several unrelated reasons. → split so each module changes for one reason.
+- **Speculative Generality**: abstraction, parameters, or hooks added for needs the spec doesn't have. → delete it; inline back until a real need shows.
+- **Message Chains**: long `a.b().c().d()` navigation the caller shouldn't depend on. → hide the walk behind one method on the first object.
+- **Middle Man**: a class or function that mostly just delegates onward. → cut it, call the real target direct.
+- **Refused Bequest**: a subclass or implementer that ignores or overrides most of what it inherits. → drop the inheritance, use composition.
+
+The Standards axis also carries the **test baseline** below for every test the diff adds or changes. Each test must earn its place: it must catch a real regression, and a reader must see what it checks. The same two rules apply: the repo overrides, and each item is a judgement call.
+
+Value: does the test protect real behavior?
+
+- **Mirror Assertion**: the test restates the implementation (expected values computed the same way, calls to mocks asserted step by step) instead of checking an external contract. → assert what the caller observes: return values, parsed output, side effects.
+- **Can't Fail**: the test still passes if you break the code under test (it only checks that something is non-nil, asserts on its own mocks, or swallows the error). → assert a specific outcome that a plausible bug would change.
+- **Smoke Test**: the test only checks that code runs without error, or duplicates coverage that another test already gives. → delete it, or replace it with an assertion on behavior.
+- **Deletion Guard**: a "regression test" that only proves removed code stays removed. → delete it; the diff is the record.
+- **Missed Edge**: new behavior with a branch, error path, or boundary that no test touches, when that path is the likely failure. → add one focused test for that path, not a sweep of every input.
+
+Clarity: can a reader tell what broke when the test fails?
+
+- **Vague Name**: the test name doesn't say the scenario and the expected outcome (`TestHandler`, `test_works`). → name it after the behavior: `rejects_expired_token`.
+- **Tangled Test**: one test checks several unrelated behaviors, so a failure doesn't point to one cause. → split it, one behavior per test.
+- **Logic in Test**: loops, conditionals, or helper calculations that decide the expected value. → use literal expected values; table-driven cases are fine.
+- **Buried Setup**: the inputs that matter hide in a large fixture or a shared helper far from the assertion. → keep the inputs that drive the outcome visible in the test; hide only the noise.
+- **Unexplained Literal**: a magic value whose reason isn't obvious (a wire-format detail, an odd boundary). → add a short comment that says why that value is the contract.
+
+### 4. Spawn the sub-agents in parallel
+
+**Standards sub-agent prompt** should include:
+
+- The full diff command and commit list.
+- The list of standards-source files you found in step 3, **plus the smell baseline and the test baseline from step 3** pasted in full (the sub-agent has no other access to them).
+- The brief: "Report, per file/hunk where relevant, (a) every place the diff violates a documented standard: cite the standard (file + the rule); (b) any baseline smell you spot: name it and quote the hunk; and (c) any test-baseline issue in the tests the diff adds or changes: name it, quote the test, and say what bug the test would miss or what a failure would fail to tell the reader. Distinguish hard violations from judgement calls: documented-standard breaches can be hard, but baseline smells and test-baseline issues are always judgement calls, and a documented repo standard overrides the baselines. Skip anything tooling enforces. Under 500 words."
 
 **Spec sub-agent prompt** should include:
 
@@ -70,7 +125,7 @@ Round: 1
 Severity rules:
 
 - **BLOCKING**: documented-standard breaches; spec requirements that are missing, partial, or wrong; scope creep; simplicity findings where the construct was introduced in this diff and has no current caller or need (an interface with one implementation created here, a dead parameter, a hook nothing calls).
-- **ADVISORY**: baseline smells and other judgement calls; simplicity findings where a simpler form exists but the construct is at least used.
+- **ADVISORY**: baseline smells, test-baseline issues, and other judgement calls; simplicity findings where a simpler form exists but the construct is at least used.
 
 End with a one-line summary per axis and the machine-readable last line: `OPEN BLOCKING: <n>`. Don't pick a single winner across axes: that's the reranking the separation exists to prevent.
 
