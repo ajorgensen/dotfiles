@@ -85,16 +85,33 @@ local function window(label, used, reset)
 	return { label = label, used = used, reset = finite(reset) and reset > 0 and reset or nil }
 end
 
+local function claudeLabel(limit)
+	local scope = type(limit.scope) == "table" and limit.scope or {}
+	for _, part in ipairs({ scope.model, scope.surface }) do
+		local name = type(part) == "table" and part.display_name or part
+		if nonEmpty(name) then
+			return name
+		end
+	end
+	if limit.kind == "session" then
+		return "5h"
+	end
+	if limit.group == "weekly" then
+		return "Weekly"
+	end
+	return nonEmpty(limit.kind) and limit.kind or "Limit"
+end
+
+-- `limits` lists every active window, including scoped ones (such as a per-model
+-- weekly cap) that have no named top-level field.
 local function claudeWindows(payload)
+	if type(payload.limits) ~= "table" then
+		return {}
+	end
 	local windows = {}
-	for _, spec in ipairs({
-		{ "five_hour", "5h" },
-		{ "seven_day", "Weekly" },
-		{ "seven_day_opus", "Opus weekly" },
-		{ "seven_day_sonnet", "Sonnet weekly" },
-	}) do
-		local raw = payload[spec[1]]
-		local item = type(raw) == "table" and window(spec[2], raw.utilization, isoEpoch(raw.resets_at))
+	for _, limit in ipairs(payload.limits) do
+		local item = type(limit) == "table"
+			and window(claudeLabel(limit), limit.percent, isoEpoch(limit.resets_at))
 		if item then
 			table.insert(windows, item)
 		end
