@@ -35,7 +35,7 @@ I wanted to share some of my preferences here so we can be more aligned as we wo
 
 Read the relevant guides before working on a matching task. Load only the guides that apply.
 
-Paths below are relative to the directory containing this instruction file (`AGENTS.md`, or `CLAUDE.md` for Claude), not the project's working directory. Shared installations keep `guidance/` in `~/.codex/`, `~/.claude/`, `~/.config/maki/`, or `~/.pi/agent/`, respectively.
+Paths below are relative to the directory containing this instruction file (`AGENTS.md`, or `CLAUDE.md` for Claude), not the project's working directory. Shared installations keep `guidance/` in `~/.codex/`, `~/.claude/`, `~/.config/maki/`, `~/.pi/agent/`, or `~/.gemini/config/`, respectively.
 
 - Go: when writing, changing, or reviewing Go code, read [guidance/languages/go.md](guidance/languages/go.md).
 

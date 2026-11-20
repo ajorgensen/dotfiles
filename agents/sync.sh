@@ -52,8 +52,9 @@ copy "$SCRIPT_DIR/AGENTS.md" "$HOME/.codex/AGENTS.md"
 copy "$SCRIPT_DIR/AGENTS.md" "$HOME/.claude/CLAUDE.md"
 copy "$SCRIPT_DIR/AGENTS.md" "$HOME/.pi/agent/AGENTS.md"
 copy "$SCRIPT_DIR/AGENTS.md" "$HOME/.config/maki/AGENTS.md"
+copy "$SCRIPT_DIR/AGENTS.md" "$HOME/.gemini/config/AGENTS.md"
 
-for agent_dir in "$HOME/.codex" "$HOME/.claude" "$HOME/.pi/agent" "$HOME/.config/maki"; do
+for agent_dir in "$HOME/.codex" "$HOME/.claude" "$HOME/.pi/agent" "$HOME/.config/maki" "$HOME/.gemini/config"; do
   copy "$SCRIPT_DIR/guidance" "$agent_dir/guidance"
   copy "$SCRIPT_DIR/skills" "$agent_dir/skills"
   # Private skills live outside this public repo.
